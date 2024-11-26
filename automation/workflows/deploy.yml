@@ -1,0 +1,35 @@
+name: Deploy Specific Module
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Deployment Environment'
+        required: true
+        type: choice
+        options:
+          - qa
+      chart:
+        description: 'Chart to be deployed'
+        required: true
+        type: choice
+        options:
+          - grid
+      releaseName:
+        description: 'Release Name of the chart'
+        required: true
+        default: 'qa-global'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    environment: ${{ github.event.inputs.environment }}
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: execute deploy
+        uses: ./.github/actions/deploy
+        with:
+          image: "com.unifyapps.${{ github.event.inputs.directory }}"
