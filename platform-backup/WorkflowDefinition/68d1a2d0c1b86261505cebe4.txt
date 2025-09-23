@@ -4,49 +4,189 @@
 	],
 	"createdTime":1758569168892,
 	"deleted":false,
+	"deploymentState":{
+		"deployedAt":1758569188397,
+		"deployedBy":1,
+		"deployedDefinitionId":"68d1a2e4c1b86261505cec76",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":1
+	},
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_XGZzU",
+			"fromNodeId":"n_INFNE",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_NpHE5",
+			"toNodeId":"n_QsVSA",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_QsVSA",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_ipG0u",
+			"type":"scope"
+		},
+		{
+			"fromNodeId":"n_ipG0u",
+			"name":"scope-loopback",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_QsVSA",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_QsVSA",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_xR4yn",
 			"type":"next"
 		}
 	],
 	"id":"68d1a2d0c1b86261505cebe4",
 	"lastModifiedBy":1,
 	"lcName":"scopewithratelimitpolicypasswithmultipleconditions_11758566665802",
-	"modifiedTime":1758569168892,
+	"modifiedTime":1758569202239,
 	"name":"ScopeWithRateLimitPolicyPassWithMultipleConditions_11758566665802",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":585,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_XGZzU-1",
-			"id":"_XGZzU",
-			"index":0,
+			"id":"n_INFNE",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"output_String"
+					],
+					"properties":{
+						"output_String":{
+							"type":"string",
+							"title":"output_String"
+						}
+					}
+				},
+				"setup":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"input_String",
+						"input_String2"
+					],
+					"properties":{
+						"input_String":{
+							"type":"string",
+							"title":"input_String"
+						},
+						"input_String2":{
+							"type":"string",
+							"title":"input_String2"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"scope",
+				"resourceVersion":112,
+				"resourceName":"scope_trigger_scope",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_XGZzU-1",
-			"id":"_NpHE5",
-			"index":0,
+			"id":"n_QsVSA",
+			"index":2,
+			"inputs":{
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"property":"{{ n_INFNE.outputs.input_String }}",
+							"filter":{
+								"operator":"EQUAL",
+								"value":"Unifyapps"
+							}
+						}
+					],
+					"operator":"AND"
+				}
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Scope",
+			"title":"Trigger Scope",
+			"type":"SCOPE"
+		},
+		{
+			"context":{
+				"appName":"test_http",
+				"resourceVersion":711,
+				"connectionId":"66b0ee649c311126267a17b7",
+				"resourceName":"test_http_post_api",
+				"type":"APPLICATION",
+				"scopeNodeId":"n_QsVSA"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"n_QsVSA@_XGZzU-1@s",
+			"id":"n_ipG0u",
+			"index":3,
+			"inputs":{
+				"field1":"workflow continues",
+				"field2":false
+			},
+			"skip":false,
+			"subTitle":"Test HTTP API",
+			"title":"Test HTTP Post API",
 			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":588,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_XGZzU-1",
+			"id":"n_xR4yn",
+			"index":4,
+			"inputs":{
+				"result":{
+					"output_String":"{{ n_INFNE.outputs.input_String }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +200,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":2
 }
