@@ -6,46 +6,130 @@
 	"deleted":false,
 	"edges":[
 		{
-			"fromNodeId":"_eeER8",
+			"fromNodeId":"n_cP8P6",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_cFnsz",
+			"toNodeId":"n_1Ne9s",
 			"type":"next"
 		}
 	],
 	"id":"68d2ba05ca2d0530c3e8989a",
 	"lastModifiedBy":1,
 	"lcName":"testing_same",
-	"modifiedTime":1758640645188,
+	"modifiedTime":1758640768559,
 	"name":"testing_same",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":781,
+				"resourceName":"callables_from_api"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_eeER8-1",
-			"id":"_eeER8",
-			"index":0,
+			"id":"n_cP8P6",
+			"index":1,
+			"inputs":{
+				"request":{
+					"headers":{
+						"type":"object",
+						"additionalProperties":false,
+						"required":[],
+						"properties":{
+							"name_8":{
+								"type":"string",
+								"title":"Name_8"
+							}
+						}
+					},
+					"pathParams":{
+						"type":"object",
+						"additionalProperties":false,
+						"required":[],
+						"properties":{
+							"name_8":{
+								"type":"string",
+								"title":"Name_8"
+							}
+						}
+					},
+					"queryParams":{
+						"type":"object",
+						"additionalProperties":false,
+						"required":[],
+						"properties":{
+							"name_8":{
+								"type":"string",
+								"title":"Name_8"
+							}
+						}
+					},
+					"contentType":"application/json",
+					"body":{
+						"type":"object",
+						"properties":{
+							"name_8":{
+								"type":"string",
+								"title":"Name_8"
+							}
+						},
+						"additionalProperties":false,
+						"required":[
+							"name_8"
+						]
+					}
+				},
+				"endpointType":"REST",
+				"response":[
+					{
+						"name":"res",
+						"status":200,
+						"contentType":"application/json",
+						"textBody":{
+							"type":"string"
+						}
+					}
+				],
+				"streamingResponse":false
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via API",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":783,
+				"resourceName":"callables_return_response_to_api",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_eeER8-1",
-			"id":"_cFnsz",
-			"index":0,
+			"id":"n_1Ne9s",
+			"index":2,
+			"inputs":{
+				"streamingCompleted":true,
+				"responseName":"200_res",
+				"status":200
+			},
 			"skip":false,
-			"title":"Select an app and action",
-			"type":"ACTION"
+			"subTitle":"Callable",
+			"title":"Respond to API request",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -59,5 +143,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":2
 }
