@@ -7,46 +7,107 @@
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_HClM3",
+			"fromNodeId":"n_NH90Y",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_cMVjL",
+			"toNodeId":"n_CE52D",
 			"type":"next"
 		}
 	],
 	"id":"68d1a3573c50c768f38a5a10",
 	"lastModifiedBy":1,
 	"lcName":"condition box|number input - not in 11758566662241",
-	"modifiedTime":1758569303557,
+	"modifiedTime":1758569327529,
 	"name":"Condition Box|Number Input - Not in 11758566662241",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":585,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_HClM3-1",
-			"id":"_HClM3",
-			"index":0,
+			"id":"n_NH90Y",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"output_Number"
+					],
+					"properties":{
+						"output_Number":{
+							"type":"number",
+							"title":"output_Number"
+						}
+					}
+				},
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"property":"{{ n_NH90Y.outputs.input_Number }}",
+							"filter":{
+								"operator":"NOT_IN",
+								"value":"3"
+							}
+						}
+					],
+					"operator":"AND"
+				},
+				"setup":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"input_Number"
+					],
+					"properties":{
+						"input_Number":{
+							"type":"number",
+							"title":"input_Number"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":588,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_HClM3-1",
-			"id":"_cMVjL",
-			"index":0,
+			"id":"n_CE52D",
+			"index":2,
+			"inputs":{
+				"result":{
+					"output_Number":"{{ n_NH90Y.outputs.input_Number }}"
+				}
+			},
 			"skip":false,
-			"title":"Select an app and action",
-			"type":"ACTION"
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +121,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":2
 }
