@@ -1,0 +1,85 @@
+{
+	"appsUsed":[
+		"postgres"
+	],
+	"createdTime":1747993434668,
+	"deleted":false,
+	"edges":[
+		{
+			"fromNodeId":"nYnLj",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"IDERl",
+			"type":"next"
+		}
+	],
+	"id":"6830435aaa1eef7cf504cb5c",
+	"lastModifiedBy":1,
+	"lcName":"execute postgresql",
+	"modifiedTime":1747993483128,
+	"name":"execute postgresql",
+	"nodes":[
+		{
+			"context":{
+				"appName":"webhooks",
+				"resourceVersion":3,
+				"resourceName":"webhooks_default"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"Iwr8r-1",
+			"id":"nYnLj",
+			"index":0,
+			"inputs":{
+				"request":{
+					"contentType":"application/json"
+				}
+			},
+			"skip":false,
+			"subTitle":"Webhook",
+			"title":"New event",
+			"trigger":{
+				"type":"WEBHOOK"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"postgres",
+				"resourceVersion":5,
+				"connectionId":"676a8a81ae075b140970dc31",
+				"resourceName":"postgres_execute_sql",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"Iwr8r-1",
+			"id":"IDERl",
+			"index":0,
+			"inputs":{
+				"objectSourceResourceName":"postgres_execute_sql_metadata",
+				"sql":"select * from public.table13 ;"
+			},
+			"skip":false,
+			"subTitle":"PostgreSQL",
+			"title":"Execute a SQL statement",
+			"type":"ACTION"
+		}
+	],
+	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true
+	},
+	"standard":false,
+	"tags":[
+		
+	],
+	"version":1
+}
