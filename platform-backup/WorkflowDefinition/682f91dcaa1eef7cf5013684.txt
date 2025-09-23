@@ -1,0 +1,123 @@
+{
+	"appsUsed":[
+		"slack"
+	],
+	"createdTime":1747947996590,
+	"deleted":true,
+	"description":"description",
+	"edges":[
+		{
+			"fromNodeId":"zw5zh",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"f7MYC",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"f7MYC",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"VyWdU",
+			"type":"next"
+		}
+	],
+	"id":"682f91dcaa1eef7cf5013684",
+	"lastModifiedBy":1,
+	"lcName":"parent callable workflow 11747946399267",
+	"modifiedTime":1747948013987,
+	"name":"parent callable Workflow 11747946399267",
+	"nodes":[
+		{
+			"context":{
+				"appName":"webhooks",
+				"resourceVersion":3,
+				"resourceName":"webhooks_default"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"stu4u-1",
+			"id":"zw5zh",
+			"index":0,
+			"inputs":{
+				"request":{
+					"contentType":"application/json"
+				}
+			},
+			"skip":false,
+			"subTitle":"Webhook",
+			"title":"New event",
+			"trigger":{
+				"type":"WEBHOOK"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":3,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"stu4u-1",
+			"id":"f7MYC",
+			"index":0,
+			"inputs":{
+				"automationId":"682f91d3aa1eef7cf501367a",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"version":"-1",
+				"parameters":{
+					"Input_String":"input entered from parent workflow"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"slack",
+				"resourceVersion":5,
+				"connectionId":"662f8ddb91d8ba4394d0cce6",
+				"resourceName":"slack_post_message_in_channel",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"stu4u-1",
+			"id":"VyWdU",
+			"index":0,
+			"inputs":{
+				"link_names":true,
+				"messageType":"text",
+				"channel":"slack-msg-automation",
+				"text":"{{ f7MYC.outputs.Output_String }}",
+				"mrkdwn":true
+			},
+			"skip":false,
+			"subTitle":"Slack",
+			"title":"Post message",
+			"type":"ACTION"
+		}
+	],
+	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true
+	},
+	"standard":false,
+	"tags":[
+		
+	],
+	"version":2
+}
