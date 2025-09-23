@@ -58,6 +58,20 @@
 		},
 		{
 			"fromNodeId":"n_oXXp0",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_MCgK6",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_MCgK6",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_P3Zcl",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_P3Zcl",
 			"name":"loopback",
 			"priority":0,
 			"skip":false,
@@ -68,14 +82,14 @@
 			"fromNodeId":"n_sCPGb",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"n_1XToG",
+			"toNodeId":"n_wbukD",
 			"type":"next"
 		}
 	],
 	"id":"68d1a2308e71c946046ab78e",
 	"lastModifiedBy":1,
 	"lcName":"nodesoutsidescopeinsideloop_11758566665802",
-	"modifiedTime":1758569045694,
+	"modifiedTime":1758569057803,
 	"name":"NodesOutsideScopeInsideLoop_11758566665802",
 	"nodes":[
 		{
@@ -245,7 +259,7 @@
 							"property":"{{ n_sCPGb.outputs.index }}",
 							"filter":{
 								"operator":"LT",
-								"value":"10"
+								"value":"5"
 							}
 						}
 					],
@@ -336,6 +350,57 @@
 		},
 		{
 			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":561,
+				"resourceName":"variable_by_unifyapps_update_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"n_sCPGb@_h4ZfL-1@l",
+			"id":"n_MCgK6",
+			"index":8,
+			"inputs":{
+				"variables":[
+					{
+						"source":"{{ n_82KhG.outputs.input_string }}",
+						"value":"Checking Scope"
+					}
+				]
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Update variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"comments_by_unifyapps",
+				"resourceVersion":558,
+				"resourceName":"comments_by_unifyapps_add_comment",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"n_sCPGb@_h4ZfL-1@l",
+			"id":"n_P3Zcl",
+			"index":9,
+			"inputs":{
+				"assetId":"7",
+				"synchronous":false,
+				"assetClass":"Demo1",
+				"userId":948,
+				"content":"Text"
+			},
+			"skip":false,
+			"subTitle":"Comments by UnifyApps",
+			"title":"Add Comment",
+			"type":"ACTION"
+		},
+		{
+			"context":{
 				"appName":"callables",
 				"resourceVersion":587,
 				"resourceName":"callables_return_to_automation",
@@ -345,8 +410,8 @@
 			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_h4ZfL-1",
-			"id":"n_1XToG",
-			"index":8,
+			"id":"n_wbukD",
+			"index":10,
 			"inputs":{
 				"result":{
 					"output":"{{ n_qa0BS.outputs.input_String }}"
@@ -375,5 +440,5 @@
 	"tags":[
 		
 	],
-	"version":1
+	"version":3
 }
