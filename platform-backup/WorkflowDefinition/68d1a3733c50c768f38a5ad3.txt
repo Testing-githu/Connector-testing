@@ -7,46 +7,358 @@
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_fg05j",
+			"fromNodeId":"n_BGckK",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_AHdHQ",
+			"toNodeId":"n_neuvN",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_neuvN",
+			"name":"success",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_fF6nP",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_neuvN",
+			"name":"error",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_ULRVf",
+			"type":"error"
+		},
+		{
+			"fromNodeId":"n_fF6nP",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_jthgL",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_ULRVf",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_jthgL",
 			"type":"next"
 		}
 	],
 	"id":"68d1a3733c50c768f38a5ad3",
 	"lastModifiedBy":1,
 	"lcName":"setsessioncode_positive_117585666499680",
-	"modifiedTime":1758569331369,
+	"modifiedTime":1758569365942,
 	"name":"setsessioncode_positive_117585666499680",
 	"nodes":[
 		{
+			"context":{
+				"appName":"webhooks",
+				"resourceVersion":111,
+				"resourceName":"webhooks_default"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_fg05j-1",
-			"id":"_fg05j",
-			"index":0,
+			"id":"n_BGckK",
+			"index":1,
+			"inputs":{
+				"request":{
+					"contentType":"application/json",
+					"body":{
+						"type":"object",
+						"properties":{
+							"input":{
+								"type":"string",
+								"title":"input"
+							}
+						},
+						"additionalProperties":false,
+						"required":[
+							"input"
+						]
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Webhook",
+			"title":"New event",
 			"trigger":{
-				"type":"EVENT"
+				"type":"WEBHOOK"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":565,
+				"resourceName":"variable_by_unifyapps_create_variables",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
+			"fallbackMode":"MANUAL",
+			"groupId":"_fg05j-1",
+			"id":"n_neuvN",
+			"index":2,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{},
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"inputField":{
+							"type":"string",
+							"title":"inputField"
+						}
+					},
+					"required":[
+						"inputField"
+					]
+				}
+			},
+			"inputs":{
+				"inputField":"UnifyApps"
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"global":false
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS"
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"MANUAL",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				}
+			},
+			"outputSchema":{
+				"dynamic":false,
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"inputField":{
+							"type":"string",
+							"title":"inputField"
+						}
+					},
+					"required":[
+						"inputField"
+					]
+				}
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Create variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":561,
+				"resourceName":"variable_by_unifyapps_set_session_variable",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"n_neuvN@_fg05j-1@success",
+			"id":"n_fF6nP",
+			"index":3,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{},
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"Title":{
+							"type":"string",
+							"title":"Title"
+						},
+						"user":{
+							"type":"object",
+							"properties":{
+								"Name":{
+									"type":"string",
+									"title":"Name"
+								},
+								"Email":{
+									"type":"string",
+									"title":"Email"
+								}
+							},
+							"title":"user",
+							"additionalProperties":false
+						},
+						"Status":{
+							"type":"string",
+							"title":"Status"
+						}
+					}
+				}
+			},
+			"inputs":{
+				"Status":"active",
+				"Title":"UnifyApps",
+				"user":{
+					"Name":"Jane Doe",
+					"Email":"jane.doe@example.com"
+				}
+			},
+			"outputSchema":{
+				"dynamic":false,
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"Title":{
+							"type":"string",
+							"title":"Title"
+						},
+						"user":{
+							"type":"object",
+							"properties":{
+								"Name":{
+									"type":"string",
+									"title":"Name"
+								},
+								"Email":{
+									"type":"string",
+									"title":"Email"
+								}
+							},
+							"title":"user",
+							"additionalProperties":false
+						},
+						"Status":{
+							"type":"string",
+							"title":"Status"
+						}
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Set Session Variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":563,
+				"resourceName":"variable_by_unifyapps_get_session_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"n_neuvN@_fg05j-1@error",
+			"id":"n_ULRVf",
+			"index":4,
+			"inputs":{
+				"variableSchema":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[],
+					"properties":{
+						"Title":{
+							"type":"string",
+							"title":"Title"
+						},
+						"Name":{
+							"type":"string",
+							"title":"Name"
+						},
+						"Email":{
+							"type":"string",
+							"title":"Email"
+						},
+						"Status":{
+							"type":"string",
+							"title":"Status"
+						}
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Get Session Variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":562,
+				"resourceName":"variable_by_unifyapps_update_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_fg05j-1",
-			"id":"_AHdHQ",
-			"index":0,
+			"id":"n_jthgL",
+			"index":5,
+			"inputs":{
+				"variables":[
+					{
+						"source":"{{ n_neuvN.outputs.inputField }}",
+						"value":"Test UnifyApps"
+					}
+				]
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Variable by UnifyApps",
+			"title":"Update variables",
 			"type":"ACTION"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +372,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
