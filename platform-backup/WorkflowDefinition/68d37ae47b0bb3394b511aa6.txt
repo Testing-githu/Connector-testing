@@ -1,16 +1,30 @@
 {
 	"appsUsed":[
-		
+		"storage_by_unifyapps"
 	],
 	"createdTime":1758690020079,
 	"deleted":false,
+	"description":"",
 	"edges":[
-		
+		{
+			"fromNodeId":"kr21G",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"wiEKm",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"wiEKm",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"A1zzg",
+			"type":"next"
+		}
 	],
 	"id":"68d37ae47b0bb3394b511aa6",
 	"lastModifiedBy":1,
 	"lcName":"backend_automationowpaopwhki",
-	"modifiedTime":1758690020079,
+	"modifiedTime":1758690021040,
 	"name":"Backend_AutomationoWPaOPwhKi",
 	"nodes":[
 		{
@@ -109,18 +123,74 @@
 				"type":"CALLABLE"
 			},
 			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":6338,
+				"resourceName":"storage_by_unifyapps_update_record_by_id",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"kr21G-1",
+			"id":"wiEKm",
+			"index":0,
+			"inputs":{
+				"recordId":"{{ kr21G.outputs.pathParams.id }}",
+				"object_type":"Backend_AutomationVARDlRftqFVYbhfOrEJr",
+				"record":{
+					"name":"{{ kr21G.outputs.body.name }}",
+					"location":"{{ kr21G.outputs.body.location }}",
+					"married":"{{ kr21G.outputs.body.married }}",
+					"age":"{{ kr21G.outputs.body.age }}",
+					"height":"{{ kr21G.outputs.body.height }}",
+					"multiSelect":{
+						"source":"{{ kr21G.outputs.body.multiSelect }}",
+						"items":"{{ kr21G.outputs.body.multiSelect }}",
+						"ua:type":"mappedArray"
+					}
+				},
+				"upsert":false
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Update an existing record",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":804,
+				"resourceName":"callables_return_response_to_api",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"kr21G-1",
+			"id":"A1zzg",
+			"index":0,
+			"inputs":{
+				"responseName":"200",
+				"body":{
+					"data":"{{ wiEKm.outputs.properties }}"
+				},
+				"status":200
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Respond to API request",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
-		"enableVariableLogging":true,
-		"route":{
-			"default":false,
-			"tierName":"global"
-		}
+		"enableVariableLogging":true
 	},
 	"standard":false,
-	"version":0
+	"version":1
 }
