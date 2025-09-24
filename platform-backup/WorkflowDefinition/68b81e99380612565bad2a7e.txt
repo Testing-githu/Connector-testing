@@ -5,12 +5,12 @@
 	"createdTime":1756900829117,
 	"deleted":false,
 	"deploymentState":{
-		"deployedAt":1758650450404,
-		"deployedBy":-1,
-		"deployedDefinitionId":"68d2e0521bf7400a256cebd1",
+		"deployedAt":1758700879478,
+		"deployedBy":1,
+		"deployedDefinitionId":"68d3a54fd2a7c4429e39cdb9",
 		"status":"DEPLOYED",
-		"version":31,
-		"workflowVersion":31
+		"version":32,
+		"workflowVersion":32
 	},
 	"edges":[
 		{
@@ -68,9 +68,9 @@
 		]
 	},
 	"id":"68b81e99380612565bad2a7e",
-	"lastModifiedBy":1,
+	"lastModifiedBy":-1,
 	"lcName":"populate coordinates",
-	"modifiedTime":1758700878884,
+	"modifiedTime":1758731953754,
 	"name":"Populate CoOrdinates",
 	"nodes":[
 		{
@@ -240,9 +240,10 @@
 					}
 				},
 				"configurationMode":"DEFAULT",
-				"code":"def find_chunks_positions_in_pdf(pdf_url,pageOffset):\n    import fitz\n    import re\n    import requests\n    from io import BytesIO\n    import uuid\n\n    def normalize(text):\n        return re.sub(r'[^a-zA-Z0-9]', '', text).lower()\n\n    def normalize_ligatures(text):\n        ligatures = {\n            'ﬂ': 'fl', 'ﬁ': 'fi', 'ﬀ': 'ff',\n            'ﬃ': 'ffi', 'ﬄ': 'ffl', 'ﬅ': 'ft', 'ﬆ': 'st'\n        }\n        for lig, replacement in ligatures.items():\n            text = text.replace(lig, replacement)\n        return text\n\n\n    response = requests.get(pdf_path, verify=False)\n    response.raise_for_status()\n    pdf_file = BytesIO(response.content)\n    doc = fitz.open(stream=pdf_file, filetype=\"pdf\")\n    normalized_full_text = ''\n    position_map = []\n    chunk_info_list = []\n\n    for page_num, page in enumerate(doc):\n        text_blocks = page.get_text(\"dict\")[\"blocks\"]\n        line_counter = 0\n        for block in text_blocks:\n            for line in block.get(\"lines\", []):\n                line_text = ''.join([span.get(\"text\", \"\") for span in line.get(\"spans\", [])]).strip()\n                line_counter += 1\n                for span in line.get(\"spans\", []):\n                    raw_text = span.get(\"text\", \"\")\n                    if not raw_text.strip():\n                        continue\n                    norm_text = normalize(normalize_ligatures(raw_text))\n                    if not norm_text:\n                        continue\n                    chunk_index = len(chunk_info_list)\n                    chunk_info_list.append({\n                        \"bbox\": span[\"bbox\"],\n                        \"page\": page_num + 1 + pageOffset,\n                        \"raw_text\": raw_text,\n                        \"norm_text\": norm_text,\n                        \"line_number\": line_counter,\n                        \"line_text\": line_text,\n                        \"span_text\": raw_text,\n                    })\n                    for i in range(len(norm_text)):\n                        position_map.append((chunk_index, i))\n                    normalized_full_text += norm_text\n                    \n    return {\"normalized_full_text\" : normalized_full_text, \"position_map\":position_map, \"chunk_info_list\":chunk_info_list}\n\nresult = find_chunks_positions_in_pdf(pdf_path,pageOffset)\n\n",
+				"code":"def find_chunks_positions_in_pdf(pdf_url,pageOffset):\n    import fitz\n    import re\n    import requests\n    from io import BytesIO\n    import uuid\n\n    def normalize(text):\n        return re.sub(r'[^a-zA-Z0-9]', '', text).lower()\n\n    def normalize_ligatures(text):\n        ligatures = {\n            'ﬂ': 'fl', 'ﬁ': 'fi', 'ﬀ': 'ff',\n            'ﬃ': 'ffi', 'ﬄ': 'ffl', 'ﬅ': 'ft', 'ﬆ': 'st'\n        }\n        for lig, replacement in ligatures.items():\n            text = text.replace(lig, replacement)\n        return text\n\n\n    response = requests.get(pdf_url, verify=False)\n    response.raise_for_status()\n    pdf_file = BytesIO(response.content)\n    doc = fitz.open(stream=pdf_file, filetype=\"pdf\")\n    normalized_full_text = ''\n    position_map = []\n    chunk_info_list = []\n\n    for page_num, page in enumerate(doc):\n        text_blocks = page.get_text(\"dict\")[\"blocks\"]\n        line_counter = 0\n        for block in text_blocks:\n            for line in block.get(\"lines\", []):\n                line_text = ''.join([span.get(\"text\", \"\") for span in line.get(\"spans\", [])]).strip()\n                line_counter += 1\n                for span in line.get(\"spans\", []):\n                    raw_text = span.get(\"text\", \"\")\n                    if not raw_text.strip():\n                        continue\n                    norm_text = normalize(normalize_ligatures(raw_text))\n                    if not norm_text:\n                        continue\n                    chunk_index = len(chunk_info_list)\n                    chunk_info_list.append({\n                        \"bbox\": span[\"bbox\"],\n                        \"page\": page_num + 1 + pageOffset,\n                        \"raw_text\": raw_text,\n                        \"norm_text\": norm_text,\n                        \"line_number\": line_counter,\n                        \"line_text\": line_text,\n                        \"span_text\": raw_text,\n                    })\n                    for i in range(len(norm_text)):\n                        position_map.append((chunk_index, i))\n                    normalized_full_text += norm_text\n                    \n    return {\"normalized_full_text\" : normalized_full_text, \"position_map\":position_map, \"chunk_info_list\":chunk_info_list}\n\nresult = find_chunks_positions_in_pdf(pdf_path,pageOffset)\n\n",
 				"isAsync":false,
 				"python_version":"3.12",
+				"captureStdOutput":false,
 				"parameters":{
 					"pageOffset":"{{ n_B9q5O.outputs.pageOffset }}",
 					"pdf_path":"{{ n_B9q5O.outputs.url }}"
@@ -660,9 +661,9 @@
 		
 	],
 	"settings":{
-		"enableNodeLevelLogging":false,
-		"enableRunLogging":false,
-		"enableVariableLogging":false,
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
 		"route":{
 			"default":false,
 			"tierName":"global"
@@ -672,5 +673,5 @@
 	"tags":[
 		"AI Agent"
 	],
-	"version":32
+	"version":33
 }
