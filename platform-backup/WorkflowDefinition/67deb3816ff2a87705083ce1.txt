@@ -5,12 +5,12 @@
 	"createdTime":1752048196112,
 	"deleted":false,
 	"deploymentState":{
-		"deployedAt":1758650361151,
-		"deployedBy":-1,
-		"deployedDefinitionId":"68d2dff91bf7400a256ce95c",
+		"deployedAt":1758700974143,
+		"deployedBy":1,
+		"deployedDefinitionId":"68d3a5aed2a7c4429e39d1c6",
 		"status":"DEPLOYED",
-		"version":64,
-		"workflowVersion":84
+		"version":65,
+		"workflowVersion":85
 	},
 	"edges":[
 		{
@@ -279,9 +279,9 @@
 		]
 	},
 	"id":"67deb3816ff2a87705083ce1",
-	"lastModifiedBy":1,
+	"lastModifiedBy":-1,
 	"lcName":"[mcp server] call tool",
-	"modifiedTime":1758700973901,
+	"modifiedTime":1758731869895,
 	"name":"[MCP Server] Call Tool",
 	"nodes":[
 		{
@@ -399,11 +399,13 @@
 				"object_type":"e_mcp_server_tool",
 				"includeRoleMappings":false,
 				"includeCurrentUserPermissions":false,
+				"translationsOption":"DEFAULT",
 				"page":{
 					"paginateBy":"OFFSET",
 					"limit":20
 				},
 				"numberOfRecordsToFetch":"SINGLE",
+				"readThroughSessionVariables":false,
 				"includeTotalCount":false
 			},
 			"skip":false,
@@ -698,6 +700,13 @@
 							"filter":{
 								"operator":"EXISTS"
 							}
+						},
+						{
+							"property":"properties_sessionId",
+							"filter":{
+								"operator":"EQUAL",
+								"value":"{{ _577aK.outputs.mcpSessionId }}"
+							}
 						}
 					],
 					"operator":"AND"
@@ -705,6 +714,7 @@
 				"object_type":"mcp_state",
 				"includeRoleMappings":false,
 				"includeCurrentUserPermissions":false,
+				"translationsOption":"DEFAULT",
 				"page":{
 					"paginateBy":"OFFSET",
 					"limit":20
@@ -924,9 +934,22 @@
 			"id":"n_PWqJR",
 			"index":13,
 			"inputs":{
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"property":"properties_sessionId",
+							"filter":{
+								"operator":"EQUAL",
+								"value":"{{ _577aK.outputs.mcpSessionId }}"
+							}
+						}
+					],
+					"operator":"AND"
+				},
 				"object_type":"mcp_state",
 				"includeRoleMappings":false,
 				"includeCurrentUserPermissions":false,
+				"translationsOption":"DEFAULT",
 				"page":{
 					"paginateBy":"OFFSET",
 					"limit":20
@@ -1093,7 +1116,20 @@
 			"index":16,
 			"inputs":{
 				"numberOfRecordsToUpdate":"SINGLE",
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"property":"properties_sessionId",
+							"filter":{
+								"operator":"EQUAL",
+								"value":"{{ _577aK.outputs.mcpSessionId }}"
+							}
+						}
+					],
+					"operator":"AND"
+				},
 				"object_type":"mcp_state",
+				"skipIfBlank":false,
 				"updateFields":[
 					{
 						"fieldName":"properties.requestId",
@@ -1104,7 +1140,8 @@
 				"page":{
 					"offset":0,
 					"limit":20
-				}
+				},
+				"unsetIfNull":false
 			},
 			"skip":false,
 			"subTitle":"Storage by UnifyApps",
@@ -2038,9 +2075,9 @@
 		
 	],
 	"settings":{
-		"enableNodeLevelLogging":false,
-		"enableRunLogging":false,
-		"enableVariableLogging":false,
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
 		"route":{
 			"default":false,
 			"tierName":"global"
@@ -2050,5 +2087,5 @@
 	"tags":[
 		"MCP Server"
 	],
-	"version":85
+	"version":86
 }
