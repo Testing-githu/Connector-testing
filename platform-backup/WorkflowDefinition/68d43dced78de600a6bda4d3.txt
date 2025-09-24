@@ -1,13 +1,28 @@
 {
 	"appsUsed":[
-		
+		"slack"
 	],
 	"createdTime":1758739918323,
 	"deleted":false,
+	"deploymentState":{
+		"deployedAt":1758739944220,
+		"deployedBy":1,
+		"deployedDefinitionId":"68d43de8ac0e78279c6f7af9",
+		"status":"DEPLOYED",
+		"version":2,
+		"workflowVersion":2
+	},
 	"description":"description",
 	"edges":[
 		{
 			"fromNodeId":"n_ZxEWR",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_dTvop",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_dTvop",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_NYKQv",
@@ -17,7 +32,7 @@
 	"id":"68d43dced78de600a6bda4d3",
 	"lastModifiedBy":1,
 	"lcName":"close_drawer_117587393645240",
-	"modifiedTime":1758739930319,
+	"modifiedTime":1758739953588,
 	"name":"Close_Drawer_117587393645240",
 	"nodes":[
 		{
@@ -50,12 +65,17 @@
 					"type":"object",
 					"additionalProperties":false,
 					"required":[
-						"input_String"
+						"input_String",
+						"name"
 					],
 					"properties":{
 						"input_String":{
 							"type":"string",
 							"title":"input_String"
+						},
+						"name":{
+							"type":"string",
+							"title":"name"
 						}
 					}
 				}
@@ -70,6 +90,32 @@
 		},
 		{
 			"context":{
+				"appName":"slack",
+				"resourceVersion":6583,
+				"connectionId":"662f8ddb91d8ba4394d0cce6",
+				"resourceName":"slack_post_message_in_channel",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_h2Ked-1",
+			"id":"n_dTvop",
+			"index":2,
+			"inputs":{
+				"link_names":true,
+				"messageType":"text",
+				"channel":"C07AKEPN1U3",
+				"text":"add new node",
+				"mrkdwn":true
+			},
+			"skip":false,
+			"subTitle":"Slack",
+			"title":"Post message",
+			"type":"ACTION"
+		},
+		{
+			"context":{
 				"appName":"callables",
 				"resourceVersion":948,
 				"resourceName":"callables_return_to_automation",
@@ -80,7 +126,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_h2Ked-1",
 			"id":"n_NYKQv",
-			"index":2,
+			"index":3,
 			"inputs":{
 				"result":{
 					"output_String":"{{ n_ZxEWR.outputs.input_String }}"
@@ -109,5 +155,5 @@
 	"tags":[
 		
 	],
-	"version":1
+	"version":3
 }
