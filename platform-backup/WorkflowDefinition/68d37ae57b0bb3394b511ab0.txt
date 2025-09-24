@@ -1,16 +1,30 @@
 {
 	"appsUsed":[
-		
+		"storage_by_unifyapps"
 	],
 	"createdTime":1758690021894,
 	"deleted":false,
+	"description":"",
 	"edges":[
-		
+		{
+			"fromNodeId":"hTA3e",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"dCLXu",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"dCLXu",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"2SlSa",
+			"type":"next"
+		}
 	],
 	"id":"68d37ae57b0bb3394b511ab0",
 	"lastModifiedBy":1,
 	"lcName":"backend_automationophzlwtbff",
-	"modifiedTime":1758690021894,
+	"modifiedTime":1758690022882,
 	"name":"Backend_AutomationophZLwTbFf",
 	"nodes":[
 		{
@@ -109,18 +123,74 @@
 				"type":"CALLABLE"
 			},
 			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":6338,
+				"resourceName":"storage_by_unifyapps_update_record_by_id",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"hTA3e-1",
+			"id":"dCLXu",
+			"index":0,
+			"inputs":{
+				"recordId":"{{ hTA3e.outputs.pathParams.id }}",
+				"object_type":"Backend_AutomationVARDlRftqFVYbhfOrEJr",
+				"record":{
+					"name":"{{ hTA3e.outputs.body.name }}",
+					"location":"{{ hTA3e.outputs.body.location }}",
+					"married":"{{ hTA3e.outputs.body.married }}",
+					"age":"{{ hTA3e.outputs.body.age }}",
+					"height":"{{ hTA3e.outputs.body.height }}",
+					"multiSelect":{
+						"source":"{{ hTA3e.outputs.body.multiSelect }}",
+						"items":"{{ hTA3e.outputs.body.multiSelect }}",
+						"ua:type":"mappedArray"
+					}
+				},
+				"upsert":true
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Update an existing record",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":804,
+				"resourceName":"callables_return_response_to_api",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"hTA3e-1",
+			"id":"2SlSa",
+			"index":0,
+			"inputs":{
+				"responseName":"200",
+				"body":{
+					"data":"{{ dCLXu.outputs.properties }}"
+				},
+				"status":200
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Respond to API request",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
-		"enableVariableLogging":true,
-		"route":{
-			"default":false,
-			"tierName":"global"
-		}
+		"enableVariableLogging":true
 	},
 	"standard":false,
-	"version":0
+	"version":1
 }
