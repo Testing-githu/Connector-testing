@@ -1,51 +1,168 @@
 {
 	"appsUsed":[
-		
+		"storage_by_unifyapps"
 	],
 	"createdTime":1758693716992,
 	"deleted":false,
 	"edges":[
 		{
-			"fromNodeId":"_PGzpW",
+			"fromNodeId":"n_N0TFB",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_7wnI8",
+			"toNodeId":"n_5FKJ5",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_5FKJ5",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Zv8EL",
 			"type":"next"
 		}
 	],
 	"id":"68d389540ea4640c7f5e0bbb",
 	"lastModifiedBy":1,
 	"lcName":"cghgh",
-	"modifiedTime":1758693716992,
+	"modifiedTime":1758693955181,
 	"name":"cghgh",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":806,
+				"resourceName":"callables_from_api"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_PGzpW-1",
-			"id":"_PGzpW",
-			"index":0,
+			"id":"n_N0TFB",
+			"index":1,
+			"inputs":{
+				"request":{
+					"contentType":"application/json",
+					"body":{
+						"type":"object",
+						"properties":{
+							"name":{
+								"type":"string",
+								"title":"name"
+							},
+							"Location":{
+								"type":"string",
+								"title":"Location"
+							},
+							"Married":{
+								"type":"boolean",
+								"title":"Married"
+							},
+							"Age":{
+								"type":"integer",
+								"title":"Age"
+							},
+							"Height":{
+								"type":"number",
+								"title":"Height"
+							},
+							"multiSelect":{
+								"type":"array",
+								"items":{
+									"type":"string"
+								},
+								"title":"multiSelect"
+							}
+						},
+						"additionalProperties":false,
+						"required":[]
+					}
+				},
+				"endpointType":"REST",
+				"response":[
+					{
+						"name":"201",
+						"status":201,
+						"contentType":"application/json",
+						"textBody":{
+							"type":"string"
+						}
+					}
+				],
+				"streamingResponse":false
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via API",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.record.multiSelect.items"
+				]
+			},
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":6344,
+				"resourceName":"storage_by_unifyapps_create_record",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_PGzpW-1",
-			"id":"_7wnI8",
-			"index":0,
+			"id":"n_5FKJ5",
+			"index":2,
+			"inputs":{
+				"writeThroughSessionVariables":false,
+				"object_type":"Backend_AutomationQvzEEsXYDabcKjWqehOM",
+				"skipIfBlank":false,
+				"record":{
+					"name":"{{ n_N0TFB.outputs.body.name }}",
+					"location":"{{ n_N0TFB.outputs.body.Location }}",
+					"married":"{{ n_N0TFB.outputs.body.Married }}",
+					"age":"{{ n_N0TFB.outputs.body.Age }}",
+					"height":"{{ n_N0TFB.outputs.body.Height }}",
+					"multiSelect":{
+						"source":"{{ n_N0TFB.outputs.body.multiSelect }}",
+						"ua:type":"mappedArray",
+						"items":"{{ n_N0TFB.outputs.body.multiSelect[0] }}"
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Storage by UnifyApps",
+			"title":"Create record",
 			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":808,
+				"resourceName":"callables_return_response_to_api",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_PGzpW-1",
+			"id":"n_Zv8EL",
+			"index":3,
+			"inputs":{
+				"streamingCompleted":true
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to API request",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -59,5 +176,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
