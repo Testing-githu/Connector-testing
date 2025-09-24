@@ -1,16 +1,30 @@
 {
 	"appsUsed":[
-		
+		"storage_by_unifyapps"
 	],
 	"createdTime":1758687370247,
 	"deleted":false,
+	"description":"",
 	"edges":[
-		
+		{
+			"fromNodeId":"jt8qF",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"Ilubx",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"Ilubx",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"OfOV5",
+			"type":"next"
+		}
 	],
 	"id":"68d3708a7b0bb3394b50e04b",
 	"lastModifiedBy":1,
 	"lcName":"backend_automationxbdokhibma",
-	"modifiedTime":1758687370247,
+	"modifiedTime":1758687371286,
 	"name":"Backend_AutomationXbDOKhIbmA",
 	"nodes":[
 		{
@@ -55,18 +69,73 @@
 				"type":"CALLABLE"
 			},
 			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":6339,
+				"resourceName":"storage_by_unifyapps_delete_records",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"jt8qF-1",
+			"id":"Ilubx",
+			"index":0,
+			"inputs":{
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"filter":{
+								"operator":"EXISTS"
+							},
+							"property":"properties.name"
+						}
+					],
+					"operator":"AND"
+				},
+				"object_type":"Backend_AutomationlzNibjKAJXMxNqZqqSMJ",
+				"numberOfRecordsToDelete":"MULTIPLE",
+				"page":{
+					"offset":0,
+					"limit":20
+				}
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Delete records",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":804,
+				"resourceName":"callables_return_response_to_api",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"jt8qF-1",
+			"id":"OfOV5",
+			"index":0,
+			"inputs":{
+				"responseName":"204",
+				"status":204
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Respond to API request",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
-		"enableVariableLogging":true,
-		"route":{
-			"default":false,
-			"tierName":"global"
-		}
+		"enableVariableLogging":true
 	},
 	"standard":false,
-	"version":0
+	"version":1
 }
