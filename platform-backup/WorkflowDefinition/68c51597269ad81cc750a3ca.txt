@@ -1,0 +1,312 @@
+{
+	"appsUsed":[
+		"storage_by_unifyapps"
+	],
+	"createdTime":1758007273444,
+	"deleted":false,
+	"deploymentState":{
+		"deployedAt":1758650471799,
+		"deployedBy":-1,
+		"deployedDefinitionId":"68d2e0671bf7400a256cec6b",
+		"status":"DEPLOYED",
+		"version":10,
+		"workflowVersion":24
+	},
+	"edges":[
+		{
+			"fromNodeId":"n_A1AfB",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_GXLOo",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_GXLOo",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_1gNR2",
+			"type":"next"
+		}
+	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
+	"id":"68c51597269ad81cc750a3ca",
+	"lastModifiedBy":-1,
+	"lcName":"[ai agent] capture trace",
+	"modifiedTime":1758731972244,
+	"name":"[AI AGENT] Capture Trace",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":447,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_VMx3Y-1",
+			"id":"n_A1AfB",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[],
+					"properties":{
+						"result":{
+							"type":"boolean",
+							"title":"Result"
+						}
+					}
+				},
+				"setup":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[],
+					"properties":{
+						"caseId":{
+							"type":"string",
+							"title":"caseId"
+						},
+						"aiAgentId":{
+							"type":"string",
+							"title":"aiAgentId"
+						},
+						"modelId":{
+							"type":"string",
+							"title":"modelId"
+						},
+						"inputToken":{
+							"type":"integer",
+							"title":"inputToken"
+						},
+						"outputToken":{
+							"type":"integer",
+							"title":"outputToken"
+						},
+						"cost":{
+							"type":"number",
+							"title":"cost"
+						},
+						"executionInstanceId":{
+							"type":"string",
+							"title":"executionInstanceId"
+						},
+						"parent":{
+							"type":"string",
+							"title":"parent"
+						},
+						"provider":{
+							"type":"string",
+							"title":"provider"
+						},
+						"messageId":{
+							"type":"string",
+							"title":"messageId"
+						},
+						"llmTimeTaken":{
+							"type":"integer",
+							"title":"llmTimeTaken"
+						},
+						"input":{
+							"type":"object",
+							"properties":{},
+							"additionalProperties":false,
+							"title":"input"
+						},
+						"currentType":{
+							"type":"string",
+							"title":"currentType"
+						},
+						"finishReason":{
+							"type":"string",
+							"title":"finishReason"
+						},
+						"inputTokenCost":{
+							"type":"number",
+							"title":"inputTokenCost"
+						},
+						"outputTokenCost":{
+							"type":"number",
+							"title":"outputTokenCost"
+						},
+						"rootExecutionId":{
+							"type":"string",
+							"title":"rootExecutionId"
+						},
+						"parentExecutionId":{
+							"type":"string",
+							"title":"parentExecutionId"
+						},
+						"toolName":{
+							"type":"string",
+							"title":"toolName"
+						},
+						"userId":{
+							"type":"integer",
+							"title":"userId"
+						},
+						"output":{
+							"type":"string",
+							"title":"output"
+						},
+						"llmErrorType":{
+							"type":"string",
+							"title":"llmErrorType"
+						},
+						"fromAutomationId":{
+							"type":"string",
+							"title":"fromAutomationId"
+						},
+						"topicName":{
+							"type":"string",
+							"title":"topicName"
+						},
+						"startTime":{
+							"type":"integer",
+							"title":"startTime"
+						},
+						"success":{
+							"type":"boolean",
+							"title":"success"
+						}
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.record.caseId",
+					"root.record.aiAgentId",
+					"root.record.modelId",
+					"root.record.inputToken",
+					"root.record.outputToken",
+					"root.record.cost",
+					"root.record.executionInstanceId",
+					"root.record.parent",
+					"root.record.provider",
+					"root.record.messageId",
+					"root.record.currentType",
+					"root.record.finish_reason",
+					"root.record.inputTokenCost",
+					"root.record.outputTokenCost",
+					"root.record.rootExecutionId",
+					"root.record.parentExecutionId",
+					"root.record.toolName",
+					"root.record.output",
+					"root.record.llmErrorType",
+					"root.record.fromAutomationId",
+					"root.record.topicName",
+					"root.record.success"
+				]
+			},
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":629,
+				"resourceName":"storage_by_unifyapps_create_record",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_VMx3Y-1",
+			"id":"n_GXLOo",
+			"index":2,
+			"inputs":{
+				"writeThroughSessionVariables":false,
+				"object_type":"e_traces",
+				"skipIfBlank":false,
+				"record":{
+					"caseId":"{{ n_A1AfB.outputs.caseId }}",
+					"aiAgentId":"{{ n_A1AfB.outputs.aiAgentId }}",
+					"modelId":"{{ n_A1AfB.outputs.modelId }}",
+					"inputToken":"{{ n_A1AfB.outputs.inputToken }}",
+					"outputToken":"{{ n_A1AfB.outputs.outputToken }}",
+					"cost":"{{ n_A1AfB.outputs.cost }}",
+					"executionInstanceId":"{{ n_A1AfB.outputs.executionInstanceId }}",
+					"parent":"{{ n_A1AfB.outputs.parent }}",
+					"provider":"{{ n_A1AfB.outputs.provider }}",
+					"messageId":"{{ n_A1AfB.outputs.messageId }}",
+					"llmTimeTaken":"{{ n_A1AfB.outputs.llmTimeTaken }}",
+					"input":"{{ n_A1AfB.outputs.input }}",
+					"currentType":"{{ n_A1AfB.outputs.currentType }}",
+					"finish_reason":"{{ n_A1AfB.outputs.finishReason }}",
+					"inputTokenCost":"{{ n_A1AfB.outputs.inputTokenCost }}",
+					"outputTokenCost":"{{ n_A1AfB.outputs.outputTokenCost }}",
+					"rootExecutionId":"{{ n_A1AfB.outputs.rootExecutionId }}",
+					"parentExecutionId":"{{ n_A1AfB.outputs.parentExecutionId }}",
+					"toolName":"{{ n_A1AfB.outputs.toolName }}",
+					"userId":"{{ n_A1AfB.outputs.userId }}",
+					"output":"{{ n_A1AfB.outputs.output }}",
+					"llmErrorType":"{{ n_A1AfB.outputs.llmErrorType }}",
+					"fromAutomationId":"{{ n_A1AfB.outputs.fromAutomationId }}",
+					"topicName":"{{ n_A1AfB.outputs.topicName }}",
+					"startTime":"{{ n_A1AfB.outputs.startTime }}",
+					"success":"{{ n_A1AfB.outputs.success }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Create record",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":457,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_VMx3Y-1",
+			"id":"n_1gNR2",
+			"index":3,
+			"inputs":{
+				"result":{
+					"result":true
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":-1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":true,
+	"tags":[
+		
+	],
+	"version":25
+}
