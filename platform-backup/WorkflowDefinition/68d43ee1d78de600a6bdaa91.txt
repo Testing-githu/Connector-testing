@@ -7,46 +7,96 @@
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_sxWVN",
+			"fromNodeId":"n_jwpYD",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_xV8Yb",
+			"toNodeId":"n_4CP0M",
 			"type":"next"
 		}
 	],
 	"id":"68d43ee1d78de600a6bdaa91",
 	"lastModifiedBy":1,
 	"lcName":"http_workflow_customauth_117587394063480",
-	"modifiedTime":1758740193812,
+	"modifiedTime":1758740204632,
 	"name":"http_workflow_customAuth_117587394063480",
 	"nodes":[
 		{
+			"context":{
+				"appName":"webhooks",
+				"resourceVersion":113,
+				"resourceName":"webhooks_default"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_sxWVN-1",
-			"id":"_sxWVN",
-			"index":0,
+			"id":"n_jwpYD",
+			"index":1,
+			"inputs":{
+				"request":{
+					"contentType":"application/json"
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Webhook",
+			"title":"New event",
 			"trigger":{
-				"type":"EVENT"
+				"type":"WEBHOOK"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"custom_http_endpoint",
+				"resourceVersion":896,
+				"resourceName":"custom_http_endpoint_execute",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_sxWVN-1",
-			"id":"_xV8Yb",
-			"index":0,
+			"id":"n_4CP0M",
+			"index":2,
+			"inputs":{
+				"isAsync":false,
+				"enableProxy":false,
+				"requestTimeoutInSecs":-1,
+				"httpMethod":"POST",
+				"connectionType":"DIRECT",
+				"sslVerify":false,
+				"path":"/aaocxzbn/au3zf5",
+				"baseUrl":"https://qa-automation.qa2.unifyapps.com/api-endpoint",
+				"responseHeaders":[
+					"output_String"
+				],
+				"httpVersion":"HTTP_2",
+				"responseContentType":"application/json",
+				"headersList":[
+					{
+						"key":"input_String",
+						"value":"cool"
+					},
+					{
+						"key":"Authorization",
+						"value":"Basic dW5pZnlhcHBzOlVuaWZ5QXBwc25wbTByYg=="
+					}
+				],
+				"authType":"CUSTOM",
+				"requestContentType":"application/json",
+				"ignoreTrailingSlashes":false,
+				"certificateType":"CERT_STRING"
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Custom HTTP Endpoint",
+			"title":"Execute REST request",
 			"type":"ACTION"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +110,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
