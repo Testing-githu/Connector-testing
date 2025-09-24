@@ -1,16 +1,30 @@
 {
 	"appsUsed":[
-		
+		"storage_by_unifyapps"
 	],
 	"createdTime":1758729809636,
 	"deleted":false,
+	"description":"",
 	"edges":[
-		
+		{
+			"fromNodeId":"ZFRxW",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"1yOcS",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"1yOcS",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"xfkGq",
+			"type":"next"
+		}
 	],
 	"id":"68d41651d78de600a6bd0fa2",
 	"lastModifiedBy":1,
 	"lcName":"backend_automationhpqkpsdvaa",
-	"modifiedTime":1758729809636,
+	"modifiedTime":1758729813159,
 	"name":"Backend_AutomationhpQkPSdVaA",
 	"nodes":[
 		{
@@ -163,18 +177,90 @@
 				"type":"CALLABLE"
 			},
 			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":6465,
+				"resourceName":"storage_by_unifyapps_update_record_by_id",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"ZFRxW-1",
+			"id":"1yOcS",
+			"index":0,
+			"inputs":{
+				"recordId":"{{ ZFRxW.outputs.pathParams.id }}",
+				"object_type":"Backend_AutomationefuYYFVzjNHvjgtIiHOa",
+				"record":{
+					"name":"{{ ZFRxW.outputs.body.name }}",
+					"location":"{{ ZFRxW.outputs.body.location }}",
+					"jobDetails":{
+						"companyDetails":{
+							"companyOwner":"{{ ZFRxW.outputs.body.jobDetails.companyDetails.companyOwner }}",
+							"companyEmployees":{
+								"source":"{{ ZFRxW.outputs.body.jobDetails.companyDetails.companyEmployees }}",
+								"items":{
+									"employeeName":"{{ ZFRxW.outputs.body.jobDetails.companyDetails.companyEmployees[0].employeeName }}",
+									"employeeAge":"{{ ZFRxW.outputs.body.jobDetails.companyDetails.companyEmployees[0].employeeAge }}",
+									"employeeHeight":"{{ ZFRxW.outputs.body.jobDetails.companyDetails.companyEmployees[0].employeeHeight }}"
+								},
+								"ua:type":"mappedArray"
+							}
+						},
+						"companyName":"{{ ZFRxW.outputs.body.jobDetails.companyName }}",
+						"isPublic":"{{ ZFRxW.outputs.body.jobDetails.isPublic }}"
+					},
+					"married":"{{ ZFRxW.outputs.body.married }}",
+					"age":"{{ ZFRxW.outputs.body.age }}",
+					"height":"{{ ZFRxW.outputs.body.height }}",
+					"multiSelect":{
+						"source":"{{ ZFRxW.outputs.body.multiSelect }}",
+						"items":"{{ ZFRxW.outputs.body.multiSelect }}",
+						"ua:type":"mappedArray"
+					}
+				},
+				"upsert":false
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Update an existing record",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":931,
+				"resourceName":"callables_return_response_to_api",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"ZFRxW-1",
+			"id":"xfkGq",
+			"index":0,
+			"inputs":{
+				"responseName":"200",
+				"body":{
+					"data":"{{ 1yOcS.outputs.properties }}"
+				},
+				"status":200
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Respond to API request",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
-		"enableVariableLogging":true,
-		"route":{
-			"default":false,
-			"tierName":"global"
-		}
+		"enableVariableLogging":true
 	},
 	"standard":false,
-	"version":0
+	"version":1
 }
