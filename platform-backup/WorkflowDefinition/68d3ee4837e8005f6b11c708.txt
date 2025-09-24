@@ -1,51 +1,125 @@
 {
 	"appsUsed":[
-		
+		"gmail"
 	],
 	"createdTime":1758719560542,
 	"deleted":false,
 	"edges":[
 		{
-			"fromNodeId":"_uINSt",
+			"fromNodeId":"n_7SMYE",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_EOQ6t",
+			"toNodeId":"n_qnMHq",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_qnMHq",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_x7G2j",
 			"type":"next"
 		}
 	],
 	"id":"68d3ee4837e8005f6b11c708",
 	"lastModifiedBy":1,
 	"lcName":"tmlocaljabrfhczvj",
-	"modifiedTime":1758719560542,
+	"modifiedTime":1758719575273,
 	"name":"tmLocalJAbRfHCZvj",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":925,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_uINSt-1",
-			"id":"_uINSt",
-			"index":0,
+			"id":"n_7SMYE",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"c":{
+							"type":"string",
+							"title":"c"
+						}
+					}
+				},
+				"setup":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"search_query":{
+							"type":"string",
+							"title":"search_query"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"gmail",
+				"resourceVersion":6132,
+				"connectionId":"67b015d1e6d91a18c9e3ed99",
+				"resourceName":"gmail_find_email",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_uINSt-1",
-			"id":"_EOQ6t",
-			"index":0,
+			"id":"n_qnMHq",
+			"index":2,
+			"inputs":{
+				"toCreate":false,
+				"searchQuery":"{{ n_7SMYE.outputs.search_query }}",
+				"count":1
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Gmail",
+			"title":"Find Email",
 			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":928,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_uINSt-1",
+			"id":"n_x7G2j",
+			"index":3,
+			"inputs":{
+				"result":{
+					"c":"{{ n_qnMHq.outputs.body_plain }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -59,5 +133,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
