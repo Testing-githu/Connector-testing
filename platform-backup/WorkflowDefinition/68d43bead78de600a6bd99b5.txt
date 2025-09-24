@@ -4,49 +4,111 @@
 	],
 	"createdTime":1758739434353,
 	"deleted":false,
+	"deploymentState":{
+		"deployedAt":1758739450052,
+		"deployedBy":1,
+		"deployedDefinitionId":"68d43bfaac0e78279c6f6e08",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":1
+	},
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_f6k8j",
+			"fromNodeId":"n_z7Ov7",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_6ElDp",
+			"toNodeId":"n_inHEf",
 			"type":"next"
 		}
 	],
 	"id":"68d43bead78de600a6bd99b5",
 	"lastModifiedBy":1,
 	"lcName":"cancelbuttoninrestoreversionmodal_117587393952770",
-	"modifiedTime":1758739434353,
+	"modifiedTime":1758739455045,
 	"name":"cancelButtonInRestoreVersionModal_117587393952770",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":945,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_f6k8j-1",
-			"id":"_f6k8j",
-			"index":0,
+			"id":"n_z7Ov7",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"output_String"
+					],
+					"properties":{
+						"output_String":{
+							"type":"string",
+							"title":"output_String"
+						}
+					}
+				},
+				"setup":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"input_String",
+						"variable1"
+					],
+					"properties":{
+						"input_String":{
+							"type":"string",
+							"title":"input_String"
+						},
+						"variable1":{
+							"type":"string",
+							"title":"variable1"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":948,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_f6k8j-1",
-			"id":"_6ElDp",
-			"index":0,
+			"id":"n_inHEf",
+			"index":2,
+			"inputs":{
+				"result":{
+					"output_String":"{{ n_z7Ov7.outputs.input_String }}"
+				}
+			},
 			"skip":false,
-			"title":"Select an app and action",
-			"type":"ACTION"
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +122,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":2
 }
