@@ -5,12 +5,12 @@
 	"createdTime":1747000729274,
 	"deleted":false,
 	"deploymentState":{
-		"deployedAt":1758650453093,
-		"deployedBy":-1,
-		"deployedDefinitionId":"68d2e0551bf7400a256cebe8",
+		"deployedAt":1758700814941,
+		"deployedBy":1,
+		"deployedDefinitionId":"68d3a50ed2a7c4429e39caa8",
 		"status":"DEPLOYED",
-		"version":71,
-		"workflowVersion":131
+		"version":72,
+		"workflowVersion":132
 	},
 	"edges":[
 		{
@@ -210,9 +210,9 @@
 		]
 	},
 	"id":"6759b44b0d889903a7bb41f7",
-	"lastModifiedBy":1,
+	"lastModifiedBy":-1,
 	"lcName":"data rag as action",
-	"modifiedTime":1758700814674,
+	"modifiedTime":1758731956719,
 	"name":"Data RAG As Action",
 	"nodes":[
 		{
@@ -298,6 +298,10 @@
 						"hasMoreData":{
 							"type":"boolean",
 							"title":"hasMoreData"
+						},
+						"passMessageDirectlyToAgent":{
+							"type":"string",
+							"title":"Pass Message Directly To Agent"
 						}
 					}
 				},
@@ -1787,6 +1791,13 @@
 											"operator":"EQUAL",
 											"value":"custom_api"
 										}
+									},
+									{
+										"property":"{{ _DWuYm.outputs.platform }}",
+										"filter":{
+											"operator":"STARTS_WITH",
+											"value":"custom_automation_"
+										}
 									}
 								],
 								"operator":"OR"
@@ -1970,6 +1981,13 @@
 								"operator":"EQUAL",
 								"value":"custom_api"
 							}
+						},
+						{
+							"property":"{{ _DWuYm.outputs.platform }}",
+							"filter":{
+								"operator":"STARTS_WITH",
+								"value":"custom_automation_"
+							}
 						}
 					],
 					"operator":"OR"
@@ -2130,6 +2148,10 @@
 			"inputs":{
 				"output":{
 					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"relevantKnowledgeList"
+					],
 					"properties":{
 						"relevantKnowledgeList":{
 							"type":"array",
@@ -2155,14 +2177,14 @@
 							},
 							"title":"Relevant Knowledge List"
 						}
-					},
-					"additionalProperties":false,
-					"required":[
-						"relevantKnowledgeList"
-					]
+					}
 				},
 				"input":{
 					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"tableNames"
+					],
 					"properties":{
 						"tableNames":{
 							"type":"array",
@@ -2180,14 +2202,11 @@
 							},
 							"title":"Knowledge List"
 						}
-					},
-					"additionalProperties":false,
-					"required":[
-						"tableNames"
-					]
+					}
 				},
-				"compile_static":false,
 				"code":"def ans = []\ndef knowledgeVsTables = [:]\n\nif (binding.hasVariable('tableNames') && binding.hasVariable('knowledgeList')) {\n  tableNames.each { tableName ->\n    knowledgeList.each { knowledge ->\n      // Check if the knowledge contains the 'table_name' key\n      if (knowledge.containsKey('table_name') && knowledge['table_name'] == tableName) {\n        def knowledgeId = knowledge['knowledgeId']\n        def tables = knowledgeVsTables[knowledgeId]\n        \n        // If tables are not found for this knowledgeId, initialize it\n        if (!tables) {\n          tables = []\n        }\n        if(!tables.contains(tableName)) {\n          tables << tableName\n        }\n        \n        // Update the knowledgeVsTables map with the updated list of tables\n        knowledgeVsTables[knowledgeId] = tables\n      }\n    }\n  }\n\n  // Populate the ans list with the knowledgeId and associated table names\n  knowledgeVsTables.each { entry ->\n    ans << ['knowledgeId': entry.key, 'tableNames': entry.value]\n  }\n}\n\nreturn ['relevantKnowledgeList': ans]\n",
+				"compile_static":false,
+				"captureStdOutput":false,
 				"parameters":{
 					"tableNames":{
 						"source":"{{ _R8xUT.outputs.tableNames }}",
@@ -2672,6 +2691,10 @@
 			"inputs":{
 				"result":{
 					"success":"true",
+					"sqlQuery":"{{ _fKJt7.outputs.sqlQuery }}",
+					"sqlQueryPlatformName":"{{ _fKJt7.outputs.sqlQueryPlatformName }}",
+					"hasMoreData":"{{ _fKJt7.outputs.hasMoreData }}",
+					"passMessageDirectlyToAgent":"{{ _R8xUT.outputs.passMessageDirectlyToAgent }}",
 					"rowData":{
 						"source":"{{ _mfTdR.outputs.items }}",
 						"ua:type":"mappedArray",
@@ -2698,10 +2721,7 @@
 						"ua:type":"mappedArray",
 						"source":"{{ rp0ma.outputs.result.chunks }}",
 						"items":"{{ rp0ma.outputs.result.chunks[0] }}"
-					},
-					"sqlQuery":"{{ _fKJt7.outputs.sqlQuery }}",
-					"sqlQueryPlatformName":"{{ _fKJt7.outputs.sqlQueryPlatformName }}",
-					"hasMoreData":"{{ _fKJt7.outputs.hasMoreData }}"
+					}
 				}
 			},
 			"skip":false,
@@ -2715,9 +2735,9 @@
 		
 	],
 	"settings":{
-		"enableNodeLevelLogging":false,
-		"enableRunLogging":false,
-		"enableVariableLogging":false,
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
 		"route":{
 			"default":false,
 			"tierName":"global"
@@ -2727,5 +2747,5 @@
 	"tags":[
 		"AI Agent"
 	],
-	"version":132
+	"version":133
 }
