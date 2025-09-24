@@ -5,12 +5,12 @@
 	"createdTime":1747000736105,
 	"deleted":false,
 	"deploymentState":{
-		"deployedAt":1758650452108,
-		"deployedBy":-1,
-		"deployedDefinitionId":"68d2e0541bf7400a256cebdf",
+		"deployedAt":1758700877442,
+		"deployedBy":1,
+		"deployedDefinitionId":"68d3a54dd2a7c4429e39cd8a",
 		"status":"DEPLOYED",
-		"version":57,
-		"workflowVersion":172
+		"version":58,
+		"workflowVersion":173
 	},
 	"edges":[
 		{
@@ -1310,9 +1310,9 @@
 		]
 	},
 	"id":"6729177526f70f5310b25dcf",
-	"lastModifiedBy":1,
+	"lastModifiedBy":-1,
 	"lcName":"excel file indexing for sql",
-	"modifiedTime":1758700876993,
+	"modifiedTime":1758731954952,
 	"name":"Excel File Indexing For SQL",
 	"nodes":[
 		{
@@ -2300,30 +2300,31 @@
 			"inputs":{
 				"output":{
 					"type":"object",
+					"additionalProperties":false,
+					"required":[],
 					"properties":{
 						"iscsv":{
 							"type":"boolean",
 							"title":"Iscsv"
 						}
-					},
-					"additionalProperties":false,
-					"required":[]
+					}
 				},
-				"configurationMode":"DEFAULT",
 				"input":{
 					"type":"object",
+					"additionalProperties":false,
+					"required":[],
 					"properties":{
 						"url":{
 							"type":"string",
 							"title":"Url"
 						}
-					},
-					"additionalProperties":false,
-					"required":[]
+					}
 				},
-				"code":"import os\nimport requests\nimport magic\n\nmimetype = None\nis_csv = os.path.basename(url).lower().endswith('.csv')\n\nif not is_csv:\n    response = requests.head(url, verify=False)\n    content_type = response.headers.get('Content-Type', '')\n    is_csv = 'text/csv' in content_type.lower()\n    if not mimetype and content_type:\n        mimetype = content_type.split(\";\")[0].strip()\n\nif not is_csv:\n    response = requests.get(url, verify=False)\n    mime = magic.Magic(mime=True)\n    mimetype = mime.from_buffer(response.content)\n    is_csv = mimetype in (\"text/csv\", \"text/plain\")\n\nresult = {\n    \"iscsv\": is_csv,\n    \"mimeType\": mimetype or \"Unknown\"\n}",
+				"configurationMode":"DEFAULT",
+				"code":"import os\nimport requests\nimport magic\n\ndef is_likely_csv_content(content_sample):\n    \"\"\"Check if content looks like CSV by examining structure\"\"\"\n    try:\n        lines = content_sample.decode('utf-8', errors='ignore').split('\\n')[:5]\n        if len(lines) < 2:\n            return False\n        \n        # Look for CSV patterns\n        first_line = lines[0].strip()\n        if not first_line:\n            return False\n            \n        # Check for common CSV delimiters\n        delimiters = [',', ';', '\\t', '|']\n        for delimiter in delimiters:\n            if delimiter in first_line:\n                # Check if multiple lines have similar delimiter count\n                delimiter_counts = [line.count(delimiter) for line in lines[:3] if line.strip()]\n                if len(set(delimiter_counts)) <= 2 and max(delimiter_counts, default=0) > 0:\n                    return True\n        return False\n    except:\n        return False\n\nmimetype = None\nis_csv = os.path.basename(url).lower().endswith('.csv')\n\n# Step 1: Check file extension\nif is_csv:\n    mimetype = \"text/csv\"\nelse:\n    # Step 2: Check HEAD request\n    try:\n        response = requests.head(url, verify=False, timeout=10)\n        content_type = response.headers.get('Content-Type', '')\n        if 'text/csv' in content_type.lower() or 'csv' in content_type.lower():\n            is_csv = True\n            mimetype = content_type.split(\";\")[0].strip()\n    except:\n        pass\n\n    # Step 3: Get actual content and check\n    if not is_csv:\n        try:\n            response = requests.get(url, verify=False, timeout=30)\n            \n            # Try magic first\n            mime = magic.Magic(mime=True)\n            detected_mime = mime.from_buffer(response.content)\n            mimetype = detected_mime\n            \n            # Check if magic detected CSV-like types\n            if detected_mime in (\"text/csv\", \"text/plain\"):\n                # Do content inspection for text/plain\n                if detected_mime == \"text/plain\" or detected_mime == \"application/octet-stream\":\n                    is_csv = is_likely_csv_content(response.content[:1024])  # Check first 1KB\n                else:\n                    is_csv = True\n            \n            # Fallback: if magic says octet-stream, still check content\n            elif detected_mime == \"application/octet-stream\":\n                is_csv = is_likely_csv_content(response.content[:1024])\n                \n        except Exception as e:\n            print(f\"Error during detection: {e}\")\n\nresult = {\n    \"iscsv\": is_csv,\n    \"mimeType\": mimetype or \"Unknown\"\n}",
 				"isAsync":false,
 				"python_version":"3.12",
+				"captureStdOutput":false,
 				"parameters":{
 					"url":"{{ _4935D.outputs.url }}"
 				}
@@ -6940,14 +6941,14 @@
 		
 	],
 	"settings":{
-		"enableNodeLevelLogging":false,
-		"enableRunLogging":false,
-		"enableVariableLogging":false,
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
 		"route":{
 			"default":false,
 			"tierName":"global"
 		}
 	},
 	"standard":true,
-	"version":173
+	"version":174
 }
