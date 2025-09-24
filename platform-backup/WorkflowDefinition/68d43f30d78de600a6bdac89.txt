@@ -7,46 +7,410 @@
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_Jbyz5",
+			"fromNodeId":"n_eJpvU",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_BDW67",
+			"toNodeId":"n_7mshB",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_7mshB",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_ip1gt",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_ip1gt",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_aBLw9",
+			"type":"loop"
+		},
+		{
+			"fromNodeId":"n_aBLw9",
+			"name":"loopback",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_ip1gt",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_ip1gt",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_14Tfq",
 			"type":"next"
 		}
 	],
 	"id":"68d43f30d78de600a6bdac89",
 	"lastModifiedBy":1,
 	"lcName":"additemtolist_captureiterations_117587393933370",
-	"modifiedTime":1758740272708,
+	"modifiedTime":1758740289498,
 	"name":"addItemToList_captureIterations_117587393933370",
 	"nodes":[
 		{
+			"context":{
+				"appName":"webhooks",
+				"resourceVersion":113,
+				"resourceName":"webhooks_default"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_Jbyz5-1",
-			"id":"_Jbyz5",
-			"index":0,
+			"id":"n_eJpvU",
+			"index":1,
+			"inputs":{
+				"request":{
+					"contentType":"application/json",
+					"body":{
+						"type":"object",
+						"properties":{
+							"list_of_integers":{
+								"type":"array",
+								"items":{
+									"type":"integer"
+								},
+								"title":"list_of_integers"
+							}
+						},
+						"additionalProperties":false,
+						"required":[
+							"list_of_integers"
+						]
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Webhook",
+			"title":"New event",
 			"trigger":{
-				"type":"EVENT"
+				"type":"WEBHOOK"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":910,
+				"resourceName":"variable_by_unifyapps_create_list",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_Jbyz5-1",
-			"id":"_BDW67",
-			"index":0,
+			"id":"n_7mshB",
+			"index":2,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{
+					"createList":{
+						"ui:title":"",
+						"ua:type":{
+							"ui:widget":"hidden"
+						},
+						"items":{
+							"ui:title":"Initial list items",
+							"ui:description":"Set the initial values of the list (defaults to empty)"
+						},
+						"ui:order":[
+							"*",
+							"items"
+						]
+					},
+					"ua:title":{
+						"ui:widget":"hidden"
+					},
+					"ua:list_type":{
+						"ui:widget":"hidden"
+					}
+				},
+				"schema":{
+					"allOf":[
+						{
+							"if":{
+								"properties":{
+									"ua:list_type":{
+										"const":"OBJECT"
+									}
+								}
+							},
+							"then":{
+								"properties":{
+									"createList":{
+										"type":"object",
+										"properties":{
+											"items":{
+												"type":"object",
+												"properties":{}
+											}
+										}
+									}
+								}
+							}
+						},
+						{
+							"if":{
+								"properties":{
+									"ua:list_type":{
+										"const":"STRING"
+									}
+								}
+							},
+							"then":{
+								"properties":{
+									"createList":{
+										"type":"object",
+										"properties":{
+											"source":{
+												"type":"string",
+												"format":"ua:source",
+												"title":"List of String"
+											},
+											"items":{
+												"type":"string"
+											}
+										}
+									}
+								}
+							}
+						},
+						{
+							"if":{
+								"properties":{
+									"ua:list_type":{
+										"const":"INTEGER"
+									}
+								}
+							},
+							"then":{
+								"properties":{
+									"createList":{
+										"type":"object",
+										"properties":{
+											"source":{
+												"type":"string",
+												"format":"ua:source",
+												"title":"List of Integers"
+											},
+											"items":{
+												"type":"integer"
+											}
+										}
+									}
+								}
+							}
+						},
+						{
+							"if":{
+								"properties":{
+									"ua:list_type":{
+										"const":"NUMBER"
+									}
+								}
+							},
+							"then":{
+								"properties":{
+									"createList":{
+										"type":"object",
+										"properties":{
+											"source":{
+												"type":"string",
+												"format":"ua:source",
+												"title":"List of Numbers"
+											},
+											"items":{
+												"type":"number"
+											}
+										}
+									}
+								}
+							}
+						},
+						{
+							"if":{
+								"properties":{
+									"ua:list_type":{
+										"const":"BOOLEAN"
+									}
+								}
+							},
+							"then":{
+								"properties":{
+									"createList":{
+										"type":"object",
+										"properties":{
+											"source":{
+												"type":"string",
+												"format":"ua:source",
+												"title":"List of Booleans"
+											},
+											"items":{
+												"type":"boolean"
+											}
+										}
+									}
+								}
+							}
+						}
+					],
+					"format":"ua:list",
+					"type":"object",
+					"properties":{
+						"ua:title":{
+							"type":"string"
+						},
+						"ua:list_type":{
+							"type":"string",
+							"title":"List Type",
+							"oneOf":[
+								{
+									"const":"OBJECT",
+									"title":"Object"
+								},
+								{
+									"const":"STRING",
+									"title":"String"
+								},
+								{
+									"const":"NUMBER",
+									"title":"Number"
+								},
+								{
+									"const":"INTEGER",
+									"title":"Integer"
+								},
+								{
+									"const":"BOOLEAN",
+									"title":"Boolean"
+								}
+							],
+							"default":"OBJECT"
+						},
+						"createList":{
+							"type":"object",
+							"properties":{
+								"ua:type":{
+									"type":"string",
+									"default":"mappedArray"
+								},
+								"source":{
+									"type":"string",
+									"format":"ua:source",
+									"title":"List Item Source"
+								},
+								"items":{
+									"additionalProperties":false,
+									"type":[
+										"object",
+										"string",
+										"number",
+										"boolean",
+										"integer"
+									],
+									"properties":{}
+								}
+							}
+						}
+					}
+				}
+			},
+			"inputs":{
+				"createList":{
+					"ua:type":"mappedArray"
+				},
+				"ua:list_type":"INTEGER"
+			},
+			"outputSchema":{
+				"dynamic":false,
+				"schema":{
+					"type":"object",
+					"properties":{
+						"items":{
+							"type":"array",
+							"title":"List",
+							"disableActions":true,
+							"items":{
+								"type":"integer"
+							}
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Variable by UnifyApps",
+			"title":"Create list",
 			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"loop",
+				"resourceVersion":116,
+				"resourceName":"loop_for_each",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_Jbyz5-1",
+			"id":"n_ip1gt",
+			"index":3,
+			"inputs":{
+				"repeatMode":"SINGLE",
+				"listSource":"{{ n_eJpvU.outputs.body.list_of_integers }}",
+				"captureIterations":true
+			},
+			"skip":false,
+			"subTitle":"Loop",
+			"title":"For each loop",
+			"type":"LOOP"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":911,
+				"resourceName":"variable_by_unifyapps_add_item_to_list",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"n_ip1gt@_Jbyz5-1@l",
+			"id":"n_aBLw9",
+			"index":4,
+			"inputs":{
+				"itemToAdd":"{{ n_ip1gt.outputs.item }}",
+				"insertLocation":"END",
+				"listName":"{{ n_7mshB.outputs.items[0] }}"
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Add item to list",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"stop"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_Jbyz5-1",
+			"id":"n_14Tfq",
+			"index":5,
+			"skip":false,
+			"subTitle":"Stop",
+			"title":"Stop",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +424,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
