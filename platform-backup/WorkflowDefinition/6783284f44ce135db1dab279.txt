@@ -5,12 +5,12 @@
 	"createdTime":1747000723587,
 	"deleted":false,
 	"deploymentState":{
-		"deployedAt":1758650391474,
-		"deployedBy":-1,
-		"deployedDefinitionId":"68d2e0171bf7400a256cea2f",
+		"deployedAt":1758700922930,
+		"deployedBy":1,
+		"deployedDefinitionId":"68d3a57ad2a7c4429e39d010",
 		"status":"DEPLOYED",
-		"version":69,
-		"workflowVersion":124
+		"version":70,
+		"workflowVersion":125
 	},
 	"edges":[
 		{
@@ -227,9 +227,9 @@
 		]
 	},
 	"id":"6783284f44ce135db1dab279",
-	"lastModifiedBy":1,
+	"lastModifiedBy":-1,
 	"lcName":"prompt builder",
-	"modifiedTime":1758700922772,
+	"modifiedTime":1758731899926,
 	"name":"Prompt Builder",
 	"nodes":[
 		{
@@ -252,6 +252,8 @@
 			"inputs":{
 				"result":{
 					"type":"object",
+					"additionalProperties":false,
+					"required":[],
 					"properties":{
 						"availableTools":{
 							"type":"array",
@@ -332,13 +334,22 @@
 						"isOnlyTextToSQLAgent":{
 							"type":"boolean",
 							"title":"Is Only Text To SQL Agent"
+						},
+						"disableInlineCitations":{
+							"type":"boolean",
+							"title":"Disable Inline Citations"
 						}
-					},
-					"additionalProperties":false,
-					"required":[]
+					}
 				},
 				"setup":{
 					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"caseId",
+						"agentId",
+						"task",
+						"instructionsToAppend"
+					],
 					"properties":{
 						"caseId":{
 							"type":"string",
@@ -356,14 +367,7 @@
 							"type":"string",
 							"title":"Instructions To Append"
 						}
-					},
-					"additionalProperties":false,
-					"required":[
-						"caseId",
-						"agentId",
-						"task",
-						"instructionsToAppend"
-					]
+					}
 				}
 			},
 			"skip":false,
@@ -1914,6 +1918,12 @@
 			"index":26,
 			"inputs":{
 				"result":{
+					"systemPrompt":"{{ JYICZ.outputs.systemPrompt }}",
+					"modelId":"{{ JYICZ.outputs.modelId }}",
+					"response_format_type":"{{ JYICZ.outputs.response_format }}",
+					"stream":"{{ JYICZ.outputs.stream }}",
+					"isOnlyTextToSQLAgent":"{{ JYICZ.outputs.isOnlyTextToSQLAgent }}",
+					"disableInlineCitations":"{{ JYICZ.outputs.disableInlineCitations }}",
 					"messages":{
 						"source":"{{ pe1Mu.outputs.items }}",
 						"ua:type":"mappedArray",
@@ -1926,7 +1936,6 @@
 							}
 						}
 					},
-					"systemPrompt":"{{ JYICZ.outputs.systemPrompt }}",
 					"availableTools":{
 						"ua:type":"mappedArray",
 						"items":{
@@ -1937,11 +1946,7 @@
 							"additional":"{{ n_OSuxU.outputs.items[0].additional }}"
 						},
 						"source":"{{ n_OSuxU.outputs.items }}"
-					},
-					"response_format_type":"{{ JYICZ.outputs.response_format }}",
-					"stream":"{{ JYICZ.outputs.stream }}",
-					"modelId":"{{ JYICZ.outputs.modelId }}",
-					"isOnlyTextToSQLAgent":"{{ JYICZ.outputs.isOnlyTextToSQLAgent }}"
+					}
 				}
 			},
 			"skip":false,
@@ -1961,9 +1966,9 @@
 		"entity|e_code_snippet|e_679477888163423f74930eba"
 	],
 	"settings":{
-		"enableNodeLevelLogging":false,
-		"enableRunLogging":false,
-		"enableVariableLogging":false,
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
 		"route":{
 			"default":false,
 			"tierName":"global"
@@ -1974,5 +1979,5 @@
 		"AI Agent",
 		"Team"
 	],
-	"version":125
+	"version":126
 }
