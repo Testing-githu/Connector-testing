@@ -1,0 +1,122 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1758691262463,
+	"deleted":false,
+	"description":"description",
+	"edges":[
+		{
+			"fromNodeId":"n_626r0",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_DM6N0",
+			"type":"next"
+		}
+	],
+	"id":"68d37fbe0ea4640c7f5dd12a",
+	"lastModifiedBy":1,
+	"lcName":"runvariables-workflow version_117586910312040",
+	"modifiedTime":1758691272664,
+	"name":"runVariables-Workflow Version_117586910312040",
+	"nodes":[
+		{
+			"context":{
+				"appName":"webhooks",
+				"resourceVersion":112,
+				"resourceName":"webhooks_default"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_vLOQc-1",
+			"id":"n_626r0",
+			"index":1,
+			"inputs":{
+				"request":{
+					"contentType":"application/json"
+				}
+			},
+			"skip":false,
+			"subTitle":"Webhook",
+			"title":"New event",
+			"trigger":{
+				"type":"WEBHOOK"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":775,
+				"resourceName":"variable_by_unifyapps_create_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_vLOQc-1",
+			"id":"n_DM6N0",
+			"index":2,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{},
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"variableName":{
+							"type":"string",
+							"title":"variableName"
+						}
+					},
+					"required":[
+						"variableName"
+					]
+				}
+			},
+			"inputs":{
+				"variableName":"{{ __RUN__.outputs.workflowVersion }}"
+			},
+			"outputSchema":{
+				"dynamic":false,
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"variableName":{
+							"type":"string",
+							"title":"variableName"
+						}
+					},
+					"required":[
+						"variableName"
+					]
+				}
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Create variables",
+			"type":"ACTION"
+		}
+	],
+	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":false,
+	"tags":[
+		
+	],
+	"version":1
+}
