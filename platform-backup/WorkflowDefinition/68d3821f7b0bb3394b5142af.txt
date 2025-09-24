@@ -1,16 +1,30 @@
 {
 	"appsUsed":[
-		
+		"storage_by_unifyapps"
 	],
 	"createdTime":1758691871194,
 	"deleted":false,
+	"description":"",
 	"edges":[
-		
+		{
+			"fromNodeId":"Fqmjr",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"ufGIO",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"ufGIO",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"tV7zx",
+			"type":"next"
+		}
 	],
 	"id":"68d3821f7b0bb3394b5142af",
 	"lastModifiedBy":1,
 	"lcName":"backend_automationjbfhbitqiu",
-	"modifiedTime":1758691871194,
+	"modifiedTime":1758691872227,
 	"name":"Backend_AutomationJbFhbitQiU",
 	"nodes":[
 		{
@@ -109,18 +123,74 @@
 				"type":"CALLABLE"
 			},
 			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":6342,
+				"resourceName":"storage_by_unifyapps_update_record_by_id",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"Fqmjr-1",
+			"id":"ufGIO",
+			"index":0,
+			"inputs":{
+				"recordId":"{{ Fqmjr.outputs.pathParams.id }}",
+				"object_type":"Backend_AutomationYhIuCKKLQjAoBTWNlznb",
+				"record":{
+					"name":"{{ Fqmjr.outputs.body.name }}",
+					"location":"{{ Fqmjr.outputs.body.location }}",
+					"married":"{{ Fqmjr.outputs.body.married }}",
+					"age":"{{ Fqmjr.outputs.body.age }}",
+					"height":"{{ Fqmjr.outputs.body.height }}",
+					"multiSelect":{
+						"source":"{{ Fqmjr.outputs.body.multiSelect }}",
+						"items":"{{ Fqmjr.outputs.body.multiSelect }}",
+						"ua:type":"mappedArray"
+					}
+				},
+				"upsert":false
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Update an existing record",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":808,
+				"resourceName":"callables_return_response_to_api",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"Fqmjr-1",
+			"id":"tV7zx",
+			"index":0,
+			"inputs":{
+				"responseName":"200",
+				"body":{
+					"data":"{{ ufGIO.outputs.properties }}"
+				},
+				"status":200
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Respond to API request",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
-		"enableVariableLogging":true,
-		"route":{
-			"default":false,
-			"tierName":"global"
-		}
+		"enableVariableLogging":true
 	},
 	"standard":false,
-	"version":0
+	"version":1
 }
