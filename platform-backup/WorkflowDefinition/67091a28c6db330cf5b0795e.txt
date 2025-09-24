@@ -5,12 +5,12 @@
 	"createdTime":1747000733509,
 	"deleted":false,
 	"deploymentState":{
-		"deployedAt":1758650389203,
-		"deployedBy":-1,
-		"deployedDefinitionId":"68d2e0151bf7400a256cea21",
+		"deployedAt":1758700859076,
+		"deployedBy":1,
+		"deployedDefinitionId":"68d3a53ad2a7c4429e39cc3c",
 		"status":"DEPLOYED",
-		"version":68,
-		"workflowVersion":184
+		"version":69,
+		"workflowVersion":185
 	},
 	"edges":[
 		{
@@ -439,9 +439,9 @@
 		]
 	},
 	"id":"67091a28c6db330cf5b0795e",
-	"lastModifiedBy":1,
+	"lastModifiedBy":-1,
 	"lcName":"document chunker",
-	"modifiedTime":1758700858749,
+	"modifiedTime":1758731897643,
 	"name":"Document Chunker",
 	"nodes":[
 		{
@@ -1795,7 +1795,8 @@
 					"mimeType":"{{ _gGujq.outputs.mimeType }}",
 					"chunkMetadata":"{{ _gGujq.outputs.chunkMetadata }}",
 					"lastPageNumber":"{{ _gGujq.outputs.cntr }}",
-					"document_parsing_model":"{{ _4sTBZ.outputs.documentParsing.documentParsingModel }}"
+					"document_parsing_model":"{{ _4sTBZ.outputs.documentParsing.documentParsingModel }}",
+					"enableDocumentImageExtraction":"{{ _4sTBZ.outputs.documentParsing.enableImageExtraction }}"
 				}
 			},
 			"options":{
@@ -2196,7 +2197,12 @@
 				"parameters":{
 					"fileDetails":"{{ _gGujq.outputs.filedetails }}",
 					"knowledgeId":"{{ _gGujq.outputs.knowledgeId }}",
-					"mimeType":"{{ _gGujq.outputs.mimeType }}"
+					"mimeType":"{{ _gGujq.outputs.mimeType }}",
+					"contextualRetrievalSettings":{
+						"modelId":"{{ _4sTBZ.outputs.contextualRetrievalSettings.modelId }}",
+						"enable":"{{ _4sTBZ.outputs.contextualRetrievalSettings.enable }}"
+					},
+					"enableDocumentImageExtraction":true
 				}
 			},
 			"skip":false,
@@ -2219,14 +2225,15 @@
 			"index":26,
 			"inputs":{
 				"result":{
+					"success":true,
 					"chunks":{
-						"source":"{{ _jJp5b.outputs.chunks }}",
 						"ua:type":"mappedArray",
 						"items":{
-							"text":"{{ _jJp5b.outputs.chunks[0] }}"
-						}
-					},
-					"success":true
+							"text":"{{ _jJp5b.outputs.chunks[0].text }}",
+							"metadata":"{{ _jJp5b.outputs.chunks[0].metadata }}"
+						},
+						"source":"{{ _jJp5b.outputs.chunks }}"
+					}
 				}
 			},
 			"skip":false,
@@ -2847,9 +2854,9 @@
 		
 	],
 	"settings":{
-		"enableNodeLevelLogging":false,
-		"enableRunLogging":false,
-		"enableVariableLogging":false,
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
 		"route":{
 			"default":false,
 			"headerValueTierMap":{},
@@ -2860,5 +2867,5 @@
 	"tags":[
 		"AI Agent"
 	],
-	"version":185
+	"version":186
 }
