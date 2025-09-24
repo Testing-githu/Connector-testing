@@ -7,46 +7,175 @@
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_2ZDh1",
+			"fromNodeId":"n_kztnx",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_xtl9F",
+			"toNodeId":"n_Zc62T",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Zc62T",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Io7ec",
 			"type":"next"
 		}
 	],
 	"id":"68d43d6fac0e78279c6f7812",
 	"lastModifiedBy":1,
 	"lcName":"import_soapapigroupcustom_ 117587394063480",
-	"modifiedTime":1758739823981,
+	"modifiedTime":1758739840579,
 	"name":"import_SoapAPIGroupCustom_ 117587394063480",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":945,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_2ZDh1-1",
-			"id":"_2ZDh1",
-			"index":0,
+			"id":"n_kztnx",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"output_String"
+					],
+					"properties":{
+						"output_String":{
+							"type":"string",
+							"title":"output_String"
+						}
+					}
+				},
+				"setup":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"input_String"
+					],
+					"properties":{
+						"input_String":{
+							"type":"string",
+							"title":"input_String"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"custom_http_endpoint",
+				"resourceVersion":894,
+				"resourceName":"custom_http_endpoint_execute_soap",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_2ZDh1-1",
-			"id":"_xtl9F",
-			"index":0,
+			"id":"n_Zc62T",
+			"index":2,
+			"inputs":{
+				"isAsync":false,
+				"enableProxy":false,
+				"requestTimeoutInSecs":-1,
+				"httpMethod":"POST",
+				"body":{
+					"tns:input":"cool"
+				},
+				"version":"v1.1",
+				"connectionType":"DIRECT",
+				"sslVerify":false,
+				"path":"/api-endpoint/a192yla/asnh2b",
+				"responseSchema":{
+					"type":"object",
+					"properties":{
+						"output":{
+							"type":"string"
+						}
+					}
+				},
+				"baseUrl":"https://qa-automation.qa2.unifyapps.com",
+				"password":"UnifyAppsd9yzwa",
+				"bodySchema":{
+					"type":"object",
+					"properties":{
+						"tns:input":{
+							"type":"string"
+						}
+					}
+				},
+				"targetNamespace":"http://www.example.com/",
+				"responseContentType":"text/xml",
+				"authType":"BASIC_AUTH",
+				"requestContentType":"text/xml",
+				"isNestedHeaders":false,
+				"namespaces":[
+					{
+						"key":"wsdl",
+						"value":"http://schemas.xmlsoap.org/wsdl/"
+					},
+					{
+						"key":"tns",
+						"value":"http://www.example.com/"
+					},
+					{
+						"key":"xsd",
+						"value":"http://www.w3.org/2001/XMLSchema"
+					},
+					{
+						"key":"soap",
+						"value":"http://schemas.xmlsoap.org/wsdl/soap/"
+					}
+				],
+				"username":"unifyapps"
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Custom HTTP Endpoint",
+			"title":"Execute SOAP request",
 			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":948,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_2ZDh1-1",
+			"id":"n_Io7ec",
+			"index":3,
+			"inputs":{
+				"result":{
+					"output_String":"{{ n_Zc62T.outputs.result }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +189,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
