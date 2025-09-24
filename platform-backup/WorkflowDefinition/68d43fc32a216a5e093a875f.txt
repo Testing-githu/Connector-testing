@@ -7,46 +7,138 @@
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_Czdn2",
+			"fromNodeId":"n_xXWY0",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_esNOh",
+			"toNodeId":"n_10znM",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_10znM",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_OU8i4",
 			"type":"next"
 		}
 	],
 	"id":"68d43fc32a216a5e093a875f",
 	"lastModifiedBy":1,
 	"lcName":"getsessionvariable_117587393933370",
-	"modifiedTime":1758740419249,
+	"modifiedTime":1758740433107,
 	"name":"getSessionVariable_117587393933370",
 	"nodes":[
 		{
+			"context":{
+				"appName":"webhooks",
+				"resourceVersion":113,
+				"resourceName":"webhooks_default"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_Czdn2-1",
-			"id":"_Czdn2",
-			"index":0,
+			"id":"n_xXWY0",
+			"index":1,
+			"inputs":{
+				"request":{
+					"contentType":"application/json"
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Webhook",
+			"title":"New event",
 			"trigger":{
-				"type":"EVENT"
+				"type":"WEBHOOK"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":909,
+				"resourceName":"variable_by_unifyapps_set_session_variable",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_Czdn2-1",
-			"id":"_esNOh",
-			"index":0,
+			"id":"n_10znM",
+			"index":2,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{},
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"Input":{
+							"type":"string",
+							"title":"Input"
+						}
+					},
+					"required":[]
+				}
+			},
+			"inputs":{
+				"Input":"UnifyApps"
+			},
+			"outputSchema":{
+				"dynamic":false,
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"Input":{
+							"type":"string",
+							"title":"Input"
+						}
+					},
+					"required":[]
+				}
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Variable by UnifyApps",
+			"title":"Set Session Variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":911,
+				"resourceName":"variable_by_unifyapps_get_session_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_Czdn2-1",
+			"id":"n_OU8i4",
+			"index":3,
+			"inputs":{
+				"variableSchema":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[],
+					"properties":{
+						"Input":{
+							"type":"string",
+							"title":"Input"
+						}
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Get Session Variables",
 			"type":"ACTION"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +152,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
