@@ -1,52 +1,110 @@
 {
 	"appsUsed":[
-		
+		"storage_by_unifyapps"
 	],
 	"createdTime":1758689854309,
 	"deleted":false,
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_VWBmL",
+			"fromNodeId":"n_PQhYZ",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_OcRHg",
+			"toNodeId":"n_1qVU6",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_1qVU6",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_O0MAA",
 			"type":"next"
 		}
 	],
 	"id":"68d37a3e35216125e50f7e70",
 	"lastModifiedBy":1,
 	"lcName":"dropcall-sin-modal-117586813419410",
-	"modifiedTime":1758689854309,
+	"modifiedTime":1758689868136,
 	"name":"dropcall-sin-modal-117586813419410",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":800,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_VWBmL-1",
-			"id":"_VWBmL",
-			"index":0,
+			"id":"n_PQhYZ",
+			"index":1,
+			"inputs":{},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":6341,
+				"resourceName":"storage_by_unifyapps_fetch_records",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_VWBmL-1",
-			"id":"_OcRHg",
-			"index":0,
+			"id":"n_1qVU6",
+			"index":2,
+			"inputs":{
+				"object_type":"dnt_analytics_dropdown_table1",
+				"includeRoleMappings":false,
+				"includeCurrentUserPermissions":false,
+				"translationsOption":"DEFAULT",
+				"page":{
+					"paginateBy":"OFFSET",
+					"limit":20
+				},
+				"numberOfRecordsToFetch":"MULTIPLE",
+				"readThroughSessionVariables":false,
+				"includeTotalCount":false
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Storage by UnifyApps",
+			"title":"Fetch records",
 			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":803,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_VWBmL-1",
+			"id":"n_O0MAA",
+			"index":3,
+			"inputs":{
+				"result":"{{ n_1qVU6.outputs.objects }}"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +118,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
