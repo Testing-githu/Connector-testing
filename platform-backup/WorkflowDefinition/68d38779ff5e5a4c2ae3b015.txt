@@ -1,16 +1,30 @@
 {
 	"appsUsed":[
-		
+		"storage_by_unifyapps"
 	],
 	"createdTime":1758693241732,
 	"deleted":false,
+	"description":"",
 	"edges":[
-		
+		{
+			"fromNodeId":"zGG6H",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"mOcmU",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"mOcmU",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"MNxVS",
+			"type":"next"
+		}
 	],
 	"id":"68d38779ff5e5a4c2ae3b015",
 	"lastModifiedBy":1,
 	"lcName":"backend_automationktylgbwihh",
-	"modifiedTime":1758693241732,
+	"modifiedTime":1758693250606,
 	"name":"Backend_AutomationktylGBwiHh",
 	"nodes":[
 		{
@@ -88,18 +102,69 @@
 				"type":"CALLABLE"
 			},
 			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":6344,
+				"resourceName":"storage_by_unifyapps_create_record",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"zGG6H-1",
+			"id":"mOcmU",
+			"index":0,
+			"inputs":{
+				"object_type":"Backend_AutomationQvzEEsXYDabcKjWqehOM",
+				"record":{
+					"name":"{{ zGG6H.outputs.body.name }}",
+					"location":"{{ zGG6H.outputs.body.location }}",
+					"married":"{{ zGG6H.outputs.body.married }}",
+					"age":"{{ zGG6H.outputs.body.age }}",
+					"height":"{{ zGG6H.outputs.body.height }}",
+					"multiSelect":{
+						"source":"{{ zGG6H.outputs.body.multiSelect }}",
+						"items":"{{ zGG6H.outputs.body.multiSelect }}",
+						"ua:type":"mappedArray"
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Create record",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":808,
+				"resourceName":"callables_return_response_to_api",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"zGG6H-1",
+			"id":"MNxVS",
+			"index":0,
+			"inputs":{
+				"responseName":"201_201",
+				"status":201
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to API request",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
-		"enableVariableLogging":true,
-		"route":{
-			"default":false,
-			"tierName":"global"
-		}
+		"enableVariableLogging":true
 	},
 	"standard":false,
-	"version":0
+	"version":1
 }
