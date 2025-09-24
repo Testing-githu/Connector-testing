@@ -7,46 +7,181 @@
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_Os0qX",
+			"fromNodeId":"n_LLVZb",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_egjTN",
+			"toNodeId":"n_2igkG",
 			"type":"next"
 		}
 	],
 	"id":"68d395f4ff5e5a4c2ae3d115",
 	"lastModifiedBy":1,
 	"lcName":"visibility_of_query_path_header_body_parameters_117586969448460",
-	"modifiedTime":1758696948180,
+	"modifiedTime":1758696958171,
 	"name":"visibility_of_query_path_header_body_parameters_117586969448460",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":806,
+				"resourceName":"callables_from_api"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_Os0qX-1",
-			"id":"_Os0qX",
-			"index":0,
+			"id":"n_LLVZb",
+			"index":1,
+			"inputs":{
+				"request":{
+					"headers":{
+						"type":"object",
+						"additionalProperties":false,
+						"required":[],
+						"properties":{
+							"StringHeader":{
+								"type":"string",
+								"title":"StringHeader"
+							}
+						}
+					},
+					"pathParams":{
+						"type":"object",
+						"additionalProperties":false,
+						"required":[],
+						"properties":{
+							"StringPath":{
+								"type":"string",
+								"title":"StringPath"
+							},
+							"NumberPath":{
+								"type":"number",
+								"title":"NumberPath"
+							},
+							"BooleanPath":{
+								"type":"boolean",
+								"title":"BooleanPath"
+							}
+						}
+					},
+					"queryParams":{
+						"type":"object",
+						"additionalProperties":false,
+						"required":[],
+						"properties":{
+							"StringQuery":{
+								"type":"string",
+								"title":"StringQuery"
+							},
+							"NumberQuery":{
+								"type":"number",
+								"title":"NumberQuery"
+							},
+							"BooleanQuery":{
+								"type":"boolean",
+								"title":"BooleanQuery"
+							},
+							"IntegerQuery":{
+								"type":"integer",
+								"title":"IntegerQuery"
+							}
+						}
+					},
+					"contentType":"application/json",
+					"body":{
+						"type":"object",
+						"properties":{
+							"StringBody":{
+								"type":"string",
+								"title":"StringBody"
+							},
+							"NumberBody":{
+								"type":"number",
+								"title":"NumberBody"
+							},
+							"BooleanBody":{
+								"type":"boolean",
+								"title":"BooleanBody"
+							},
+							"IntegerBody":{
+								"type":"integer",
+								"title":"IntegerBody"
+							}
+						},
+						"additionalProperties":false,
+						"required":[
+							"StringBody",
+							"NumberBody",
+							"BooleanBody",
+							"IntegerBody"
+						]
+					}
+				},
+				"endpointType":"REST",
+				"response":[
+					{
+						"name":"response",
+						"status":200,
+						"contentType":"application/json",
+						"textBody":{
+							"type":"string"
+						},
+						"body":{
+							"type":"object",
+							"properties":{
+								"response":{
+									"type":"string",
+									"title":"response"
+								}
+							},
+							"additionalProperties":false,
+							"required":[
+								"response"
+							]
+						}
+					}
+				],
+				"streamingResponse":false
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via API",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":808,
+				"resourceName":"callables_return_response_to_api",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_Os0qX-1",
-			"id":"_egjTN",
-			"index":0,
+			"id":"n_2igkG",
+			"index":2,
+			"inputs":{
+				"streamingCompleted":true,
+				"responseName":"200_response",
+				"body":{
+					"response":"cool"
+				},
+				"status":200
+			},
 			"skip":false,
-			"title":"Select an app and action",
-			"type":"ACTION"
+			"subTitle":"Callable",
+			"title":"Respond to API request",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +195,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
