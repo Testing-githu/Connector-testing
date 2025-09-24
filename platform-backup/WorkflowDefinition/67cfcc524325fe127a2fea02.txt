@@ -5,12 +5,12 @@
 	"createdTime":1747034403326,
 	"deleted":false,
 	"deploymentState":{
-		"deployedAt":1758650484128,
-		"deployedBy":-1,
-		"deployedDefinitionId":"68d2e0741bf7400a256cecc0",
+		"deployedAt":1758700772459,
+		"deployedBy":1,
+		"deployedDefinitionId":"68d3a4e4d2a7c4429e39c8d4",
 		"status":"DEPLOYED",
-		"version":53,
-		"workflowVersion":83
+		"version":54,
+		"workflowVersion":84
 	},
 	"edges":[
 		{
@@ -122,9 +122,9 @@
 		]
 	},
 	"id":"67cfcc524325fe127a2fea02",
-	"lastModifiedBy":1,
+	"lastModifiedBy":-1,
 	"lcName":"[ms teams] index attachments",
-	"modifiedTime":1758700772323,
+	"modifiedTime":1758731982493,
 	"name":"[MS Teams] Index attachments",
 	"nodes":[
 		{
@@ -138,7 +138,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"xaDIw-1",
 			"id":"B1VTB",
-			"index":0,
+			"index":1,
 			"inputs":{
 				"result":{
 					"additionalProperties":false,
@@ -252,7 +252,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"xaDIw-1",
 			"id":"sKlya",
-			"index":0,
+			"index":2,
 			"inputs":{
 				"output":{
 					"type":"object",
@@ -352,7 +352,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"xaDIw-1",
 			"id":"RwJro",
-			"index":0,
+			"index":3,
 			"inputs":{
 				"repeatMode":"SINGLE",
 				"listSource":"{{ sKlya.outputs.result.attachments }}",
@@ -376,7 +376,7 @@
 			"fallbackMode":"MANUAL",
 			"groupId":"RwJro@xaDIw-1@l",
 			"id":"whPBc",
-			"index":0,
+			"index":4,
 			"inputs":{
 				"attachmentId":"{{ RwJro.outputs.item.id }}",
 				"userId":"{{ sKlya.outputs.result.userId }}"
@@ -431,7 +431,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"whPBc@RwJro@xaDIw-1@l@success",
 			"id":"niUL1",
-			"index":0,
+			"index":5,
 			"inputs":{
 				"fileName":"{{ whPBc.outputs.name }}",
 				"mimeType":"{{ whPBc.outputs.file.mimeType }}",
@@ -455,7 +455,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"whPBc@RwJro@xaDIw-1@l@success",
 			"id":"CE2SE",
-			"index":0,
+			"index":6,
 			"inputs":{
 				"output":{
 					"type":"object",
@@ -535,10 +535,10 @@
 			},
 			"debug":false,
 			"dirty":false,
-			"fallbackMode":"STOP",
+			"fallbackMode":"CONTINUE",
 			"groupId":"whPBc@RwJro@xaDIw-1@l@success",
 			"id":"R2iXy",
-			"index":0,
+			"index":7,
 			"inputs":{
 				"automationId":"6708d0a1e5c64343ba9b24c8",
 				"runtimeConnections":{},
@@ -559,6 +559,56 @@
 					"authorEmail":"{{ whPBc.outputs.createdBy.user.email }}"
 				}
 			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"global":false
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS"
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"CONTINUE",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				}
+			},
 			"skip":false,
 			"subTitle":"Callable",
 			"title":"Call automation",
@@ -576,7 +626,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"whPBc@RwJro@xaDIw-1@l@success",
 			"id":"pj1md",
-			"index":0,
+			"index":8,
 			"inputs":{
 				"filters":[
 					{
@@ -627,7 +677,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"pj1md@whPBc@RwJro@xaDIw-1@l@success@y",
 			"id":"MvnkC",
-			"index":0,
+			"index":9,
 			"inputs":{
 				"automationId":"66af3ff4cd79b321cb478a37",
 				"runtimeConnections":{},
@@ -670,7 +720,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"whPBc@RwJro@xaDIw-1@l@error",
 			"id":"zip5x",
-			"index":0,
+			"index":10,
 			"inputs":{
 				"loop":"RwJro"
 			},
@@ -691,7 +741,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"xaDIw-1",
 			"id":"PAXSl",
-			"index":0,
+			"index":11,
 			"inputs":{
 				"result":{
 					"success":true
@@ -711,9 +761,9 @@
 		
 	],
 	"settings":{
-		"enableNodeLevelLogging":false,
-		"enableRunLogging":false,
-		"enableVariableLogging":false,
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
 		"route":{
 			"default":false,
 			"headerValueTierMap":{},
@@ -721,5 +771,5 @@
 		}
 	},
 	"standard":true,
-	"version":84
+	"version":85
 }
