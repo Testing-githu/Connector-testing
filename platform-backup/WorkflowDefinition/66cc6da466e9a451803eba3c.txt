@@ -5,12 +5,12 @@
 	"createdTime":1747000735049,
 	"deleted":false,
 	"deploymentState":{
-		"deployedAt":1758650388408,
-		"deployedBy":-1,
-		"deployedDefinitionId":"68d2e0141bf7400a256cea1b",
+		"deployedAt":1758700838293,
+		"deployedBy":1,
+		"deployedDefinitionId":"68d3a526d2a7c4429e39cb8e",
 		"status":"DEPLOYED",
-		"version":69,
-		"workflowVersion":150
+		"version":70,
+		"workflowVersion":151
 	},
 	"edges":[
 		{
@@ -234,9 +234,9 @@
 		]
 	},
 	"id":"66cc6da466e9a451803eba3c",
-	"lastModifiedBy":1,
+	"lastModifiedBy":-1,
 	"lcName":"knowledge refresher",
-	"modifiedTime":1758700838074,
+	"modifiedTime":1758731896966,
 	"name":"Knowledge Refresher",
 	"nodes":[
 		{
@@ -914,6 +914,7 @@
 					"operator":"AND"
 				},
 				"object_type":"knowledge",
+				"skipIfBlank":false,
 				"updateFields":[
 					{
 						"fieldName":"properties.refreshDetails.lastRefreshStatus",
@@ -939,13 +940,19 @@
 						"fieldName":"properties.errorDetails",
 						"actionType":"UNSET",
 						"setValue":"\"\""
+					},
+					{
+						"fieldName":"properties.indexingVersion",
+						"actionType":"SET",
+						"setValue":"=({{ AiXcs.outputs.properties.readVersion }}+1)"
 					}
 				],
 				"skipIfEmpty":false,
 				"page":{
 					"offset":0,
 					"limit":20
-				}
+				},
+				"unsetIfNull":false
 			},
 			"skip":false,
 			"subTitle":"success",
@@ -980,6 +987,7 @@
 					"operator":"AND"
 				},
 				"object_type":"knowledge",
+				"skipIfBlank":false,
 				"updateFields":[
 					{
 						"fieldName":"properties.refreshDetails.lastRefreshStatus",
@@ -1006,7 +1014,8 @@
 				"page":{
 					"offset":0,
 					"limit":20
-				}
+				},
+				"unsetIfNull":false
 			},
 			"skip":false,
 			"subTitle":"success",
@@ -1371,7 +1380,9 @@
 			"index":21,
 			"inputs":{
 				"recordId":"{{ SGTlp.outputs.knowledgeId }}",
+				"writeThroughSessionVariables":false,
 				"object_type":"debug_agent",
+				"skipIfBlank":false,
 				"record":{
 					"eventData":"{{ h2eNl.outputs }}"
 				},
@@ -1410,6 +1421,7 @@
 					"operator":"AND"
 				},
 				"object_type":"knowledge",
+				"skipIfBlank":false,
 				"updateFields":[
 					{
 						"fieldName":"properties.refreshDetails.lastRefreshStatus",
@@ -1426,7 +1438,8 @@
 				"page":{
 					"offset":0,
 					"limit":20
-				}
+				},
+				"unsetIfNull":false
 			},
 			"skip":false,
 			"subTitle":"FAILED",
@@ -1666,9 +1679,9 @@
 		
 	],
 	"settings":{
-		"enableNodeLevelLogging":false,
-		"enableRunLogging":false,
-		"enableVariableLogging":false,
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
 		"route":{
 			"default":false,
 			"headerValueTierMap":{},
@@ -1679,5 +1692,5 @@
 	"tags":[
 		"AI Agent"
 	],
-	"version":151
+	"version":152
 }
