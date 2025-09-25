@@ -1,51 +1,190 @@
 {
 	"appsUsed":[
-		
+		"clickup"
 	],
 	"createdTime":1758777005589,
 	"deleted":false,
 	"edges":[
 		{
-			"fromNodeId":"_iauhE",
+			"fromNodeId":"n_wfks3",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_wliNY",
+			"toNodeId":"n_OdujM",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_OdujM",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_jt4YQ",
 			"type":"next"
 		}
 	],
 	"id":"68d4cead2a216a5e093bdce6",
 	"lastModifiedBy":1,
 	"lcName":"cacheqa2ilgsoxlgbn",
-	"modifiedTime":1758777005589,
+	"modifiedTime":1758777043169,
 	"name":"cacheQA2ILGsoXLGBn",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1019,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_iauhE-1",
-			"id":"_iauhE",
-			"index":0,
+			"id":"n_wfks3",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"result":{
+							"type":"string",
+							"title":"result"
+						}
+					}
+				},
+				"setup":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"team_id":{
+							"type":"string",
+							"title":"team_id"
+						},
+						"space_id":{
+							"type":"string",
+							"title":"space_id"
+						},
+						"folder_id":{
+							"type":"string",
+							"title":"folder_id"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"clickup",
+				"resourceVersion":9381,
+				"connectionId":"67b0442665d0907dc7f5d402",
+				"resourceName":"clickup_get_folder_details",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_iauhE-1",
-			"id":"_wliNY",
-			"index":0,
+			"id":"n_OdujM",
+			"index":2,
+			"inputs":{
+				"team_id":"{{ n_wfks3.outputs.team_id }}",
+				"folder_id":"{{ n_wfks3.outputs.folder_id }}",
+				"space_id":"{{ n_wfks3.outputs.space_id }}"
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"global":false
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS"
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":true,
+					"logPolicies":[
+						{
+							"level":"ERROR",
+							"maskedFields":[
+								
+							],
+							"message":"{{ n_wfks3.outputs.folder_id }}",
+							"onlyOnFailure":false
+						}
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"STOP",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				}
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"ClickUp",
+			"title":"Get folder details",
 			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1022,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_iauhE-1",
+			"id":"n_jt4YQ",
+			"index":3,
+			"inputs":{
+				"result":{
+					"result":"{{ n_OdujM.outputs.name }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -59,5 +198,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
