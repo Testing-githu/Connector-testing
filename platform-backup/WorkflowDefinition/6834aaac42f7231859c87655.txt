@@ -1,0 +1,124 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1748282028943,
+	"deleted":true,
+	"deploymentState":{
+		"deployedAt":1748282036106,
+		"deployedBy":1,
+		"deployedDefinitionId":"6834aab442f7231859c87667",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":1
+	},
+	"description":"description",
+	"edges":[
+		{
+			"fromNodeId":"0nQWU",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"OliLC",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"OliLC",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"W7Tnp",
+			"type":"next"
+		}
+	],
+	"id":"6834aaac42f7231859c87655",
+	"lastModifiedBy":1,
+	"lcName":"generatepublicfileurl_117482803896550",
+	"modifiedTime":1748414385596,
+	"name":"generatepublicFileURL_117482803896550",
+	"nodes":[
+		{
+			"context":{
+				"appName":"webhooks",
+				"resourceVersion":4,
+				"resourceName":"webhooks_default"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"7WHxR-1",
+			"id":"0nQWU",
+			"index":0,
+			"inputs":{
+				"request":{
+					"contentType":"application/json"
+				}
+			},
+			"skip":false,
+			"subTitle":"Webhook",
+			"title":"New event",
+			"trigger":{
+				"type":"WEBHOOK"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"files_by_unifyapps",
+				"resourceVersion":4,
+				"resourceName":"files_by_unifyapps_upload_file",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"7WHxR-1",
+			"id":"OliLC",
+			"index":0,
+			"inputs":{
+				"fileName":"key",
+				"mimeType":"pdf",
+				"url":"https://arxiv.org/pdf/2407.02987",
+				"option":"url"
+			},
+			"skip":false,
+			"subTitle":"Files by UnifyApps",
+			"title":"Upload file",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"utility_by_unifyapps",
+				"resourceVersion":4,
+				"resourceName":"utility_by_unifyapps_generate_public_url",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"7WHxR-1",
+			"id":"W7Tnp",
+			"index":0,
+			"inputs":{
+				"file":"{{ OliLC.outputs.fileDetails }}",
+				"expiryTime":1
+			},
+			"skip":false,
+			"subTitle":"Utility by UnifyApps",
+			"title":"Generate public file URL",
+			"type":"ACTION"
+		}
+	],
+	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true
+	},
+	"standard":false,
+	"tags":[
+		
+	],
+	"version":2
+}
