@@ -1,0 +1,95 @@
+{
+	"appsUsed":[
+		"slack"
+	],
+	"createdTime":1748281992306,
+	"deleted":true,
+	"deploymentState":{
+		"deployedAt":1748282000625,
+		"deployedBy":1,
+		"deployedDefinitionId":"6834aa9042f7231859c8760f",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":1
+	},
+	"description":"description",
+	"edges":[
+		{
+			"fromNodeId":"x0E7w",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"ZRyko",
+			"type":"next"
+		}
+	],
+	"id":"6834aa8842f7231859c875f7",
+	"lastModifiedBy":1,
+	"lcName":"storagebyunifyapps_create record_trigger_117482803896550",
+	"modifiedTime":1748414390625,
+	"name":"StorageByUnifyapps_Create record_Trigger_117482803896550",
+	"nodes":[
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":4,
+				"resourceName":"storage_by_unifyapps_on_create_record"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"T6aoB-1",
+			"id":"x0E7w",
+			"index":0,
+			"inputs":{
+				"object_type":"ah53fvc"
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"New record",
+			"trigger":{
+				"type":"EVENT"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"slack",
+				"resourceVersion":7,
+				"connectionId":"662f8ddb91d8ba4394d0cce6",
+				"resourceName":"slack_post_message_in_channel",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"T6aoB-1",
+			"id":"ZRyko",
+			"index":0,
+			"inputs":{
+				"link_names":true,
+				"messageType":"text",
+				"channel":"C07AKEPN1U3",
+				"text":"{{ x0E7w.outputs.id }}{{ x0E7w.outputs.properties }}",
+				"mrkdwn":true
+			},
+			"skip":false,
+			"subTitle":"Slack",
+			"title":"Post message",
+			"type":"ACTION"
+		}
+	],
+	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true
+	},
+	"standard":false,
+	"tags":[
+		
+	],
+	"version":2
+}
