@@ -1,51 +1,194 @@
 {
 	"appsUsed":[
-		
+		"slack"
 	],
 	"createdTime":1758773666066,
 	"deleted":false,
 	"edges":[
 		{
-			"fromNodeId":"_icF72",
+			"fromNodeId":"n_LT7DN",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_NxmuP",
+			"toNodeId":"n_ouM8g",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_ouM8g",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_43NJt",
 			"type":"next"
 		}
 	],
 	"id":"68d4c1a22a216a5e093bba0e",
 	"lastModifiedBy":1,
 	"lcName":"cacheqa2idznjehcar",
-	"modifiedTime":1758773666066,
+	"modifiedTime":1758773701415,
 	"name":"cacheQA2IDZnJEHCAR",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1018,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_icF72-1",
-			"id":"_icF72",
-			"index":0,
+			"id":"n_LT7DN",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"message":{
+							"type":"string",
+							"title":"message"
+						},
+						"inputmessage":{
+							"type":"string",
+							"title":"inputmessage"
+						}
+					}
+				},
+				"setup":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"channel":{
+							"type":"string",
+							"title":"channel"
+						},
+						"purpose":{
+							"type":"string",
+							"title":"purpose"
+						},
+						"message":{
+							"type":"string",
+							"title":"message"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"slack",
+				"resourceVersion":6656,
+				"connectionId":"682adda0b3d1743888ec45db",
+				"resourceName":"slack_conversation_set_purpose",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_icF72-1",
-			"id":"_NxmuP",
-			"index":0,
+			"id":"n_ouM8g",
+			"index":2,
+			"inputs":{
+				"purpose":"{{ n_LT7DN.outputs.purpose }}",
+				"channel":"{{ n_LT7DN.outputs.channel }}"
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"global":false
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS"
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":true,
+					"logPolicies":[
+						{
+							"level":"ERROR",
+							"maskedFields":[
+								
+							],
+							"message":"{{ n_LT7DN.outputs.message }}",
+							"onlyOnFailure":false
+						}
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"STOP",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				}
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Slack",
+			"title":"Set conversation purpose",
 			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1021,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_icF72-1",
+			"id":"n_43NJt",
+			"index":3,
+			"inputs":{
+				"result":{
+					"message":"{{ n_ouM8g.outputs.channel }}",
+					"inputmessage":"{{ n_LT7DN.outputs.message }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -59,5 +202,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
