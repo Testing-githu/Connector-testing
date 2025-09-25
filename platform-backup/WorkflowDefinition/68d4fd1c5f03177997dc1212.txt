@@ -1,52 +1,110 @@
 {
 	"appsUsed":[
-		
+		"storage_by_unifyapps"
 	],
 	"createdTime":1758788892999,
 	"deleted":false,
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_dDNyE",
+			"fromNodeId":"n_lG3sC",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_HpUsj",
+			"toNodeId":"n_3y9sW",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_3y9sW",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Le4t2",
 			"type":"next"
 		}
 	],
 	"id":"68d4fd1c5f03177997dc1212",
 	"lastModifiedBy":1,
 	"lcName":"visible-custom-single-callable-117587850637980",
-	"modifiedTime":1758788892999,
+	"modifiedTime":1758788907771,
 	"name":"visible-custom-single-callable-117587850637980",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1020,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_dDNyE-1",
-			"id":"_dDNyE",
-			"index":0,
+			"id":"n_lG3sC",
+			"index":1,
+			"inputs":{},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":6577,
+				"resourceName":"storage_by_unifyapps_fetch_records",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_dDNyE-1",
-			"id":"_HpUsj",
-			"index":0,
+			"id":"n_3y9sW",
+			"index":2,
+			"inputs":{
+				"object_type":"dnt_analytics_dropdown_disable_table1",
+				"includeRoleMappings":false,
+				"includeCurrentUserPermissions":false,
+				"translationsOption":"DEFAULT",
+				"page":{
+					"paginateBy":"OFFSET",
+					"limit":20
+				},
+				"numberOfRecordsToFetch":"MULTIPLE",
+				"readThroughSessionVariables":false,
+				"includeTotalCount":false
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Storage by UnifyApps",
+			"title":"Fetch records",
 			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1023,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_dDNyE-1",
+			"id":"n_Le4t2",
+			"index":3,
+			"inputs":{
+				"result":"{{ n_3y9sW.outputs.objects }}"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +118,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
