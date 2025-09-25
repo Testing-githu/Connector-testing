@@ -6,46 +6,153 @@
 	"deleted":false,
 	"edges":[
 		{
-			"fromNodeId":"_5Nd4l",
+			"fromNodeId":"n_IofdE",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_Zw645",
+			"toNodeId":"n_xiOYP",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_xiOYP",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_SDT99",
 			"type":"next"
 		}
 	],
 	"id":"68d58fd410c76f5af091756e",
 	"lastModifiedBy":1,
 	"lcName":"interfacesqa2nbkugylonl",
-	"modifiedTime":1758826452975,
+	"modifiedTime":1758826493820,
 	"name":"interfacesQA2nbkUGYLOnl",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1052,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_5Nd4l-1",
-			"id":"_5Nd4l",
-			"index":0,
+			"id":"n_IofdE",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"c":{
+							"type":"integer",
+							"title":"c"
+						}
+					}
+				},
+				"setup":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"a":{
+							"type":"integer",
+							"title":"a"
+						},
+						"b":{
+							"type":"integer",
+							"title":"b"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1051,
+				"resourceName":"callables_call_interface",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_5Nd4l-1",
-			"id":"_Zw645",
-			"index":0,
+			"id":"n_xiOYP",
+			"index":2,
+			"inputs":{
+				"callableInterfaceId":"68d58dcf10c76f5af0916e2c",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"triggerWorkflowWithRuntimeType":"DEFAULT",
+				"callableInterfaces":[
+					{
+						"workflowId":"68d58dd610c76f5af0916e43",
+						"filter":{
+							"filters":[
+								{
+									"property":"state",
+									"filter":{
+										"operator":"NOT_EQUAL",
+										"value":"state"
+									}
+								},
+								{
+									"property":"=4026",
+									"filter":{
+										"operator":"GT",
+										"value":"=1003"
+									}
+								}
+							],
+							"operator":"OR"
+						}
+					}
+				],
+				"fallbackWorkflowId":"68d58df210c76f5af0916ea1",
+				"parameters":{
+					"a":"{{ n_IofdE.outputs.a }}",
+					"b":"{{ n_IofdE.outputs.b }}"
+				}
+			},
 			"skip":false,
-			"title":"Select an app and action",
-			"type":"ACTION"
+			"subTitle":"Callable",
+			"title":"Call interface",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1055,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_5Nd4l-1",
+			"id":"n_SDT99",
+			"index":3,
+			"inputs":{
+				"result":{
+					"c":"{{ n_xiOYP.outputs.c }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -59,5 +166,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
