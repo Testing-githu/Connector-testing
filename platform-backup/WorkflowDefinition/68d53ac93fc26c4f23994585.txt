@@ -68,7 +68,7 @@
 	"id":"68d53ac93fc26c4f23994585",
 	"lastModifiedBy":1,
 	"lcName":"new_test",
-	"modifiedTime":1758804899637,
+	"modifiedTime":1758805003284,
 	"name":"new_test",
 	"nodes":[
 		{
@@ -78,14 +78,27 @@
 				"resourceName":"webhooks_default"
 			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_URhjr-1",
 			"id":"n_KV7Oo",
 			"index":1,
 			"inputs":{
 				"request":{
-					"contentType":"application/json"
+					"contentType":"application/json",
+					"body":{
+						"type":"object",
+						"properties":{
+							"input_number":{
+								"type":"number",
+								"title":"Input Number"
+							}
+						},
+						"additionalProperties":false,
+						"required":[
+							"input_number"
+						]
+					}
 				}
 			},
 			"skip":false,
@@ -112,13 +125,37 @@
 					{
 						"id":"1",
 						"inputs":{
-							"name":"Branch 1"
+							"name":"Branch 1",
+							"conditions":{
+								"filters":[
+									{
+										"property":"4",
+										"filter":{
+											"operator":"EQUAL",
+											"value":"5"
+										}
+									}
+								],
+								"operator":"AND"
+							}
 						}
 					},
 					{
 						"id":"2",
 						"inputs":{
-							"name":"Branch 2"
+							"name":"Branch 2",
+							"conditions":{
+								"filters":[
+									{
+										"property":"5",
+										"filter":{
+											"operator":"EQUAL",
+											"value":"5"
+										}
+									}
+								],
+								"operator":"AND"
+							}
 						}
 					},
 					{
@@ -139,13 +176,25 @@
 				"type":"APPLICATION"
 			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"n_AMZ02@_URhjr-1@1",
 			"id":"n_AMZ02@1",
 			"index":3,
 			"inputs":{
-				"name":"Branch 1"
+				"name":"Branch 1",
+				"conditions":{
+					"filters":[
+						{
+							"property":"4",
+							"filter":{
+								"operator":"EQUAL",
+								"value":"5"
+							}
+						}
+					],
+					"operator":"AND"
+				}
 			},
 			"skip":false,
 			"title":"",
@@ -159,7 +208,7 @@
 				"type":"APPLICATION"
 			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"n_AMZ02@_URhjr-1@1",
 			"id":"n_ZgT7x",
@@ -212,15 +261,27 @@
 				"type":"APPLICATION"
 			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"n_AMZ02@_URhjr-1@2",
 			"id":"n_AMZ02@2",
 			"index":5,
 			"inputs":{
-				"name":"Branch 2"
+				"name":"Branch 2",
+				"conditions":{
+					"filters":[
+						{
+							"property":"5",
+							"filter":{
+								"operator":"EQUAL",
+								"value":"5"
+							}
+						}
+					],
+					"operator":"AND"
+				}
 			},
-			"skip":false,
+			"skip":true,
 			"title":"",
 			"type":"BRANCH_CONDITION"
 		},
@@ -275,5 +336,5 @@
 	"tags":[
 		
 	],
-	"version":6
+	"version":9
 }
