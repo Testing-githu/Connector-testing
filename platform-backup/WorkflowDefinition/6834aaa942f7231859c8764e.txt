@@ -1,0 +1,106 @@
+{
+	"appsUsed":[
+		"slack"
+	],
+	"createdTime":1748282025961,
+	"deleted":true,
+	"deploymentState":{
+		"deployedAt":1748282034892,
+		"deployedBy":1,
+		"deployedDefinitionId":"6834aab242f7231859c87662",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":1
+	},
+	"description":"description",
+	"edges":[
+		{
+			"fromNodeId":"JnAyu",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"MMRjQ",
+			"type":"next"
+		}
+	],
+	"id":"6834aaa942f7231859c8764e",
+	"lastModifiedBy":1,
+	"lcName":"storagebyunifyapps_conditions_create record_trigger_117482803896550",
+	"modifiedTime":1748414385844,
+	"name":"StorageByUnifyapps_Conditions_Create record_Trigger_117482803896550",
+	"nodes":[
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":4,
+				"resourceName":"storage_by_unifyapps_on_create_record"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"xoUyK-1",
+			"id":"JnAyu",
+			"index":0,
+			"inputs":{
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"property":"{{ JnAyu.outputs.properties.Name }}",
+							"filter":{
+								"operator":"EXISTS"
+							}
+						}
+					],
+					"operator":"AND"
+				},
+				"object_type":"ah53fvc"
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"New record",
+			"trigger":{
+				"type":"EVENT"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"slack",
+				"resourceVersion":7,
+				"connectionId":"662f8ddb91d8ba4394d0cce6",
+				"resourceName":"slack_post_message_in_channel",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"xoUyK-1",
+			"id":"MMRjQ",
+			"index":0,
+			"inputs":{
+				"link_names":true,
+				"messageType":"text",
+				"channel":"C07AKEPN1U3",
+				"text":"{{ JnAyu.outputs.id }}{{ JnAyu.outputs.properties }}",
+				"mrkdwn":true
+			},
+			"skip":false,
+			"subTitle":"Slack",
+			"title":"Post message",
+			"type":"ACTION"
+		}
+	],
+	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true
+	},
+	"standard":false,
+	"tags":[
+		
+	],
+	"version":2
+}
