@@ -1,16 +1,16 @@
 {
 	"appsUsed":[
-		
+		"storage_by_unifyapps"
 	],
 	"createdTime":1747000735237,
 	"deleted":false,
 	"deploymentState":{
-		"deployedAt":1758650474722,
+		"deployedAt":1758820984254,
 		"deployedBy":-1,
-		"deployedDefinitionId":"68d2e06a1bf7400a256cec80",
+		"deployedDefinitionId":"68d57a78b57aa23969b9525a",
 		"status":"DEPLOYED",
-		"version":78,
-		"workflowVersion":140
+		"version":83,
+		"workflowVersion":145
 	},
 	"edges":[
 		{
@@ -29,6 +29,27 @@
 		},
 		{
 			"fromNodeId":"_Zl7Th",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_keAdU",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_keAdU",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"CGEl3",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"CGEl3",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_ljn4J",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_ljn4J",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_o0yZa",
@@ -55,7 +76,7 @@
 	"id":"67dd2df5f1df631bbae2f509",
 	"lastModifiedBy":1,
 	"lcName":"knowledge indexer | crawl website with documents download",
-	"modifiedTime":1758700844359,
+	"modifiedTime":1758874454779,
 	"name":"Knowledge Indexer | Crawl Website with Documents Download",
 	"nodes":[
 		{
@@ -236,6 +257,122 @@
 		},
 		{
 			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":674,
+				"resourceName":"storage_by_unifyapps_update_records",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"O66xp-1",
+			"id":"n_keAdU",
+			"index":4,
+			"inputs":{
+				"numberOfRecordsToUpdate":"SINGLE",
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"property":"id",
+							"filter":{
+								"operator":"EQUAL",
+								"value":"{{ IWZGH.outputs.knowledge_id }}"
+							}
+						}
+					],
+					"operator":"AND"
+				},
+				"object_type":"knowledge",
+				"skipIfBlank":false,
+				"updateFields":[
+					{
+						"fieldName":"properties.indexingVersion",
+						"actionType":"SET",
+						"setValue":"{{ _Zl7Th.outputs.readVersion }}"
+					}
+				],
+				"page":{
+					"offset":0,
+					"limit":20
+				},
+				"unsetIfNull":false
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Update records by query",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":1804,
+				"resourceName":"storage_by_unifyapps_fetch_records",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"O66xp-1",
+			"id":"CGEl3",
+			"index":5,
+			"inputs":{
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"property":"id",
+							"filter":{
+								"operator":"EQUAL",
+								"value":"{{ IWZGH.outputs.knowledge_id }}"
+							}
+						}
+					],
+					"operator":"AND"
+				},
+				"searchField":{
+					"fields":""
+				},
+				"object_type":"knowledge",
+				"includeRoleMappings":false,
+				"includeCurrentUserPermissions":false,
+				"translationsOption":"DEFAULT",
+				"page":{
+					"limit":20,
+					"offset":0
+				},
+				"numberOfRecordsToFetch":"SINGLE",
+				"readThroughSessionVariables":false,
+				"includeTotalCount":false
+			},
+			"skip":false,
+			"subTitle":"fetchKnowledge",
+			"title":"Fetch records",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"standard_entities",
+				"resourceVersion":465,
+				"resourceName":"standard_entities_fetch_user",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"O66xp-1",
+			"id":"n_ljn4J",
+			"index":6,
+			"inputs":{
+				"fetchBy":"id",
+				"applicationId":"",
+				"user":"{{ CGEl3.outputs.ownerUserId }}"
+			},
+			"skip":false,
+			"subTitle":"Standard entities by UnifyApps",
+			"title":"Fetch User",
+			"type":"ACTION"
+		},
+		{
+			"context":{
 				"appName":"callables",
 				"resourceVersion":460,
 				"resourceName":"callables_call_automation",
@@ -246,27 +383,27 @@
 			"fallbackMode":"STOP",
 			"groupId":"O66xp-1",
 			"id":"n_o0yZa",
-			"index":4,
+			"index":7,
 			"inputs":{
 				"automationId":"687657ea9f2cd2b4cd9ba5da",
 				"runtimeConnections":{},
 				"synchronous":true,
 				"version":"-1",
 				"parameters":{
-					"name":"{{ _Zl7Th.outputs.name }}",
-					"aiAgentId":"{{ IWZGH.outputs.ai_agent_id }}",
+					"depth":"{{ n_Zwno0.outputs.depth }}",
 					"knowledgeId":"{{ IWZGH.outputs.knowledge_id }}",
 					"readVersion":"{{ _Zl7Th.outputs.readVersion }}",
+					"name":"{{ _Zl7Th.outputs.name }}",
 					"agenticProcessingModelId":"{{ n_Zwno0.outputs.agenticModelId }}",
+					"limit":{
+						"websiteFetchLimit":"{{ IWZGH.outputs.websiteFetchLimit }}",
+						"fileDownloadLimit":"=IF({{ IWZGH.outputs.downloadFilesAndIndex }},{{ IWZGH.outputs.downloadFilesAndIndexLimit }},0)"
+					},
+					"userEmail":"{{ n_ljn4J.outputs.username }}",
 					"url_list":{
 						"source":"{{ IWZGH.outputs.url_list }}",
 						"ua:type":"mappedArray",
 						"items":"{{ IWZGH.outputs.url_list[0] }}"
-					},
-					"depth":"{{ n_Zwno0.outputs.depth }}",
-					"limit":{
-						"websiteFetchLimit":"{{ IWZGH.outputs.websiteFetchLimit }}",
-						"fileDownloadLimit":"=IF({{ IWZGH.outputs.downloadFilesAndIndex }},{{ IWZGH.outputs.downloadFilesAndIndexLimit }},0)"
 					}
 				}
 			},
@@ -287,7 +424,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"O66xp-1",
 			"id":"Bonax",
-			"index":5,
+			"index":8,
 			"inputs":{
 				"result":{
 					"success":true
@@ -317,5 +454,5 @@
 		}
 	},
 	"standard":true,
-	"version":141
+	"version":146
 }
