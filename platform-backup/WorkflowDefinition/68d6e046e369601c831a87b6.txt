@@ -6,46 +6,101 @@
 	"deleted":false,
 	"edges":[
 		{
-			"fromNodeId":"_4SrkD",
+			"fromNodeId":"n_LxiAQ",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_4doA8",
+			"toNodeId":"n_HMwMm",
 			"type":"next"
 		}
 	],
 	"id":"68d6e046e369601c831a87b6",
 	"lastModifiedBy":1,
 	"lcName":"excelformulasqa2cifclzsyxs",
-	"modifiedTime":1758912582658,
+	"modifiedTime":1758912610056,
 	"name":"ExcelFormulasQA2cIFClZSYxs",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1152,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_4SrkD-1",
-			"id":"_4SrkD",
-			"index":0,
+			"id":"n_LxiAQ",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"r":{
+							"type":"string",
+							"title":"r"
+						}
+					}
+				},
+				"setup":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"rate":{
+							"type":"number",
+							"title":"rate"
+						},
+						"per":{
+							"type":"integer",
+							"title":"per"
+						},
+						"nper":{
+							"type":"integer",
+							"title":"nper"
+						},
+						"pv":{
+							"type":"integer",
+							"title":"pv"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1155,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_4SrkD-1",
-			"id":"_4doA8",
-			"index":0,
+			"id":"n_HMwMm",
+			"index":2,
+			"inputs":{
+				"result":{
+					"r":"=IPMT({{ n_LxiAQ.outputs.rate }},{{ n_LxiAQ.outputs.per }},{{ n_LxiAQ.outputs.nper }},{{ n_LxiAQ.outputs.pv }})"
+				}
+			},
 			"skip":false,
-			"title":"Select an app and action",
-			"type":"ACTION"
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -59,5 +114,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
