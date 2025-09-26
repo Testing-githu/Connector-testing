@@ -5,12 +5,12 @@
 	"createdTime":1747000734797,
 	"deleted":false,
 	"deploymentState":{
-		"deployedAt":1758650463334,
+		"deployedAt":1758820964449,
 		"deployedBy":-1,
-		"deployedDefinitionId":"68d2e05f1bf7400a256cec2d",
+		"deployedDefinitionId":"68d57a64b57aa23969b950c3",
 		"status":"DEPLOYED",
-		"version":71,
-		"workflowVersion":78
+		"version":75,
+		"workflowVersion":82
 	},
 	"edges":[
 		{
@@ -55,7 +55,7 @@
 	"id":"680bb38e89c13d6ab6b7babe",
 	"lastModifiedBy":1,
 	"lcName":"llm cost calculator",
-	"modifiedTime":1758700999006,
+	"modifiedTime":1758874532127,
 	"name":"LLM Cost Calculator",
 	"nodes":[
 		{
@@ -69,7 +69,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"Lccp2-1",
 			"id":"BXOwt",
-			"index":0,
+			"index":1,
 			"inputs":{
 				"result":{
 					"type":"object",
@@ -124,7 +124,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"Lccp2-1",
 			"id":"n_uwaNo",
-			"index":0,
+			"index":2,
 			"inputs":{
 				"automationId":"6854195c4a0205327f0f4712",
 				"runtimeConnections":{},
@@ -151,7 +151,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"Lccp2-1",
 			"id":"BLh1W",
-			"index":0,
+			"index":3,
 			"inputs":{
 				"triggerInputCondition":{
 					"filters":[
@@ -165,9 +165,10 @@
 					],
 					"operator":"AND"
 				},
-				"object_type":"e_supported_model_ai_agent",
+				"object_type":"model",
 				"includeRoleMappings":false,
 				"includeCurrentUserPermissions":false,
+				"translationsOption":"DEFAULT",
 				"page":{
 					"paginateBy":"OFFSET",
 					"limit":20
@@ -243,10 +244,11 @@
 			"fallbackMode":"STOP",
 			"groupId":"Lccp2-1",
 			"id":"3qBfx",
-			"index":0,
+			"index":4,
 			"inputs":{
 				"output":{
 					"type":"object",
+					"additionalProperties":false,
 					"properties":{
 						"inputCost":{
 							"type":"number",
@@ -256,11 +258,11 @@
 							"type":"number",
 							"title":"outputCost"
 						}
-					},
-					"additionalProperties":false
+					}
 				},
 				"input":{
 					"type":"object",
+					"additionalProperties":false,
 					"properties":{
 						"inputTokens":{
 							"type":"integer",
@@ -278,16 +280,16 @@
 							"type":"number",
 							"title":"outputTokenCost"
 						}
-					},
-					"additionalProperties":false
+					}
 				},
-				"compile_static":false,
 				"code":"def inputTokens = binding.hasVariable('inputTokens') ? binding.inputTokens : 0\ndef inputTokenCost = binding.hasVariable('inputTokenCost') ? binding.inputTokenCost : 0\ndef outputTokens = binding.hasVariable('outputTokens') ? binding.outputTokens : 0\ndef outputTokenCost = binding.hasVariable('outputTokenCost')  ? binding.outputTokenCost : 0\n\ndef inputCost = inputTokens * inputTokenCost / 1000000\ndef outputCost = outputTokens * outputTokenCost / 1000000\n\nreturn [\n  inputCost: inputCost,\n  outputCost: outputCost\n]",
+				"compile_static":false,
+				"captureStdOutput":false,
 				"parameters":{
 					"inputTokens":"{{ BXOwt.outputs.inputTokens }}",
 					"outputTokens":"{{ BXOwt.outputs.outputTokens }}",
-					"inputTokenCost":"{{ BLh1W.outputs.properties.pricing.input }}",
-					"outputTokenCost":"{{ BLh1W.outputs.properties.pricing.output }}"
+					"inputTokenCost":"{{ BLh1W.outputs.properties.Pricing.input.text }}",
+					"outputTokenCost":"{{ BLh1W.outputs.properties.Pricing.output.text }}"
 				}
 			},
 			"skip":false,
@@ -307,7 +309,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"Lccp2-1",
 			"id":"lmqhl",
-			"index":0,
+			"index":5,
 			"inputs":{
 				"result":{
 					"inputTokenCost":"{{ 3qBfx.outputs.result.inputCost }}",
@@ -338,5 +340,5 @@
 	"tags":[
 		
 	],
-	"version":79
+	"version":83
 }
