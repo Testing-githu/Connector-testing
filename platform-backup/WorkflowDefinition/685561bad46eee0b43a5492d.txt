@@ -5,12 +5,12 @@
 	"createdTime":1756405549199,
 	"deleted":false,
 	"deploymentState":{
-		"deployedAt":1758650461859,
+		"deployedAt":1758820963013,
 		"deployedBy":-1,
-		"deployedDefinitionId":"68d2e05d1bf7400a256cec22",
+		"deployedDefinitionId":"68d57a62b57aa23969b950b6",
 		"status":"DEPLOYED",
-		"version":25,
-		"workflowVersion":46
+		"version":30,
+		"workflowVersion":51
 	},
 	"edges":[
 		{
@@ -38,18 +38,34 @@
 			"fromNodeId":"n_LArxA",
 			"priority":0,
 			"skip":false,
+			"toNodeId":"n_LWtjd",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_LWtjd",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_kPsYl",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"_kPsYl",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_5XW5v",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_LWtjd",
+			"name":"no",
+			"priority":0,
+			"skip":false,
 			"toNodeId":"_5XW5v",
 			"type":"next"
 		},
 		{
 			"fromNodeId":"_5XW5v",
-			"priority":0,
-			"skip":false,
-			"toNodeId":"n_Ab3P5",
-			"type":"next"
-		},
-		{
-			"fromNodeId":"n_Ab3P5",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"eTMKg",
@@ -125,7 +141,7 @@
 	"id":"685561bad46eee0b43a5492d",
 	"lastModifiedBy":1,
 	"lcName":"index people",
-	"modifiedTime":1758700803418,
+	"modifiedTime":1758874498933,
 	"name":"Index People",
 	"nodes":[
 		{
@@ -311,6 +327,7 @@
 				},
 				"code":"if (mappings.containsKey(\"manager_id\")) {\n    def managerId = getValueByPath(sourceUserInfo, mappings[\"manager_id\"])\n    return [\"managerId\" : managerId]\n}\n\ndef getValueByPath(def obj, String path) {\n    path.tokenize('.').inject(obj) { acc, key ->\n        acc instanceof Map ? acc[key] : null\n    }\n}\n\nreturn",
 				"compile_static":false,
+				"captureStdOutput":false,
 				"parameters":{
 					"mappings":"{{ n_nfMKA.outputs.mappings }}",
 					"sourceUserInfo":"{{ pw9Zq.outputs.sourceUserInfo }}"
@@ -319,6 +336,85 @@
 			"skip":false,
 			"subTitle":"get appManagerId",
 			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":439,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"RNhme-1",
+			"id":"n_LWtjd",
+			"index":5,
+			"inputs":{
+				"filters":[
+					{
+						"property":"{{ n_LArxA.outputs.result.managerId }}",
+						"filter":{
+							"operator":"EXISTS"
+						}
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":364,
+				"resourceName":"storage_by_unifyapps_fetch_records",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_LWtjd@RNhme-1@y",
+			"id":"_kPsYl",
+			"index":6,
+			"inputs":{
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"property":"properties_appName",
+							"filter":{
+								"operator":"EQUAL",
+								"value":"{{ pw9Zq.outputs.appName }}"
+							}
+						},
+						{
+							"property":"properties_sourceUserId",
+							"filter":{
+								"operator":"EQUAL",
+								"value":"{{ n_LArxA.outputs.result.managerId }}"
+							}
+						}
+					],
+					"operator":"AND"
+				},
+				"object_type":"people_identity",
+				"includeRoleMappings":false,
+				"includeCurrentUserPermissions":false,
+				"translationsOption":"DEFAULT",
+				"page":{
+					"paginateBy":"OFFSET",
+					"limit":20
+				},
+				"numberOfRecordsToFetch":"SINGLE",
+				"readThroughSessionVariables":false,
+				"includeTotalCount":false
+			},
+			"skip":false,
+			"subTitle":"Manager Identity",
+			"title":"Fetch records",
 			"type":"ACTION"
 		},
 		{
@@ -333,7 +429,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"RNhme-1",
 			"id":"_5XW5v",
-			"index":5,
+			"index":7,
 			"inputs":{
 				"triggerInputCondition":{
 					"filters":[
@@ -345,23 +441,11 @@
 							}
 						},
 						{
-							"filters":[
-								{
-									"property":"properties_sourceUserId",
-									"filter":{
-										"operator":"EQUAL",
-										"value":"{{ n_LArxA.outputs.result.managerId }}"
-									}
-								},
-								{
-									"property":"properties_email",
-									"filter":{
-										"operator":"EQUAL",
-										"value":"{{ pw9Zq.outputs.email }}"
-									}
-								}
-							],
-							"operator":"OR"
+							"property":"properties_email",
+							"filter":{
+								"operator":"EQUAL",
+								"value":"{{ pw9Zq.outputs.email }}"
+							}
 						}
 					],
 					"operator":"AND"
@@ -374,222 +458,13 @@
 					"paginateBy":"OFFSET",
 					"limit":20
 				},
-				"numberOfRecordsToFetch":"MULTIPLE",
+				"numberOfRecordsToFetch":"SINGLE",
 				"readThroughSessionVariables":false,
 				"includeTotalCount":false
 			},
 			"skip":false,
-			"subTitle":"PeopleIdentities",
+			"subTitle":"People Identity",
 			"title":"Fetch records",
-			"type":"ACTION"
-		},
-		{
-			"additional":{
-				"xsdSchemaConfig":{
-					"root":{}
-				},
-				"visibleOptionalFields":[
-					"root.parameters.peopleIdentity.items"
-				]
-			},
-			"context":{
-				"appName":"code_by_unifyapps",
-				"resourceVersion":0,
-				"resourceName":"code_by_unifyapps_groovy",
-				"type":"APPLICATION"
-			},
-			"debug":false,
-			"dirty":false,
-			"fallbackMode":"STOP",
-			"groupId":"RNhme-1",
-			"id":"n_Ab3P5",
-			"index":6,
-			"inputs":{
-				"output":{
-					"type":"object",
-					"additionalProperties":false,
-					"properties":{
-						"manager":{
-							"type":"object",
-							"properties":{
-								"id":{
-									"type":"string",
-									"title":"id"
-								},
-								"entityType":{
-									"type":"string",
-									"title":"entityType"
-								},
-								"properties":{
-									"type":"object",
-									"properties":{
-										"appName":{
-											"type":"string",
-											"title":"appName"
-										},
-										"email":{
-											"type":"string",
-											"title":"email"
-										},
-										"sourceUserInfo":{
-											"type":"object",
-											"title":"sourceUserInfo"
-										},
-										"sourceUserId":{
-											"type":"string",
-											"title":"sourceUserId"
-										},
-										"peopleId":{
-											"type":"string",
-											"title":"peopleId"
-										}
-									},
-									"title":"properties",
-									"additionalProperties":false
-								},
-								"version":{
-									"type":"integer",
-									"title":"version"
-								},
-								"createdTime":{
-									"type":"integer",
-									"title":"createdTime"
-								},
-								"modifiedTime":{
-									"type":"integer",
-									"title":"modifiedTime"
-								},
-								"ownerUserId":{
-									"type":"integer",
-									"title":"ownerUserId"
-								},
-								"lastModifiedBy":{
-									"type":"integer",
-									"title":"lastModifiedBy"
-								},
-								"deleted":{
-									"type":"boolean",
-									"title":"deleted"
-								},
-								"standard":{
-									"type":"boolean",
-									"title":"standard"
-								}
-							},
-							"title":"manager",
-							"additionalProperties":false
-						},
-						"appPerson":{
-							"type":"object",
-							"properties":{
-								"id":{
-									"type":"string",
-									"title":"id"
-								},
-								"entityType":{
-									"type":"string",
-									"title":"entityType"
-								},
-								"properties":{
-									"type":"object",
-									"properties":{
-										"appName":{
-											"type":"string",
-											"title":"appName"
-										},
-										"email":{
-											"type":"string",
-											"title":"email"
-										},
-										"sourceUserInfo":{
-											"type":"object",
-											"title":"sourceUserInfo"
-										},
-										"sourceUserId":{
-											"type":"string",
-											"title":"sourceUserId"
-										},
-										"peopleId":{
-											"type":"string",
-											"title":"peopleId"
-										}
-									},
-									"title":"properties",
-									"additionalProperties":false
-								},
-								"version":{
-									"type":"integer",
-									"title":"version"
-								},
-								"createdTime":{
-									"type":"integer",
-									"title":"createdTime"
-								},
-								"modifiedTime":{
-									"type":"integer",
-									"title":"modifiedTime"
-								},
-								"ownerUserId":{
-									"type":"integer",
-									"title":"ownerUserId"
-								},
-								"lastModifiedBy":{
-									"type":"integer",
-									"title":"lastModifiedBy"
-								},
-								"deleted":{
-									"type":"boolean",
-									"title":"deleted"
-								},
-								"standard":{
-									"type":"boolean",
-									"title":"standard"
-								}
-							},
-							"title":"appPerson",
-							"additionalProperties":false
-						}
-					}
-				},
-				"input":{
-					"type":"object",
-					"additionalProperties":false,
-					"required":[],
-					"properties":{
-						"peopleIdentity":{
-							"type":"array",
-							"items":{
-								"type":"object",
-								"properties":{},
-								"additionalProperties":false
-							},
-							"title":"People Identity"
-						},
-						"email":{
-							"type":"string",
-							"title":"Email"
-						},
-						"managerId":{
-							"type":"string",
-							"title":"Manager Id"
-						}
-					}
-				},
-				"code":"def result = [:]\n\npeopleIdentity.each { obj ->\n    if (obj?.properties?.sourceUserId == managerId) {\n        result[\"manager\"] = obj\n    }\n    if (obj?.properties?.email == email) {\n        result[\"appPerson\"] = obj\n    }\n}\nreturn result",
-				"compile_static":false,
-				"parameters":{
-					"email":"{{ pw9Zq.outputs.email }}",
-					"managerId":"{{ n_LArxA.outputs.result.managerId }}",
-					"peopleIdentity":{
-						"source":"{{ _5XW5v.outputs.objects }}",
-						"ua:type":"mappedArray",
-						"items":"{{ _5XW5v.outputs.objects[0] }}"
-					}
-				}
-			},
-			"skip":false,
-			"subTitle":"get manager, appPerson",
-			"title":"Execute Groovy code",
 			"type":"ACTION"
 		},
 		{
@@ -604,7 +479,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"RNhme-1",
 			"id":"eTMKg",
-			"index":7,
+			"index":8,
 			"inputs":{
 				"triggerInputCondition":{
 					"filters":[
@@ -647,7 +522,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"RNhme-1",
 			"id":"pS2JH",
-			"index":8,
+			"index":9,
 			"inputs":{
 				"output":{
 					"type":"object",
@@ -798,13 +673,14 @@
 				},
 				"code":"import java.time.*\nimport java.time.format.DateTimeFormatter\n\ndef input = [:]\ndef person = binding.hasVariable(\"existingPerson\") ? new LinkedHashMap(existingPerson) : [:]\ndef peopleEntityTypeDetails = binding.hasVariable(\"peopleEntityTypeDetails\") ? (peopleEntityTypeDetails.properties?:[:]) : [:]\n\nmappings.each { personField, sourcePath ->\n    def value = getValueByPath(sourceUserInfo, sourcePath)\n    if (value != null) {\n        if (peopleEntityTypeDetails[personField]?.format in [\"date-time\", \"date\"] && binding.hasVariable('dateFormat')) {    \n            person[personField] = toEpochMillis(value, dateFormat)\n        }\n        else if(binding.hasVariable('managerPeopleIdentity') && personField == \"manager_id\"){\n            person[personField] = managerPeopleIdentity\n        }\n        else {\n            person[personField] = value\n        }\n        \n    } else if(peopleEntityTypeDetails[personField]?.containsKey(\"default\")) {\n        person[personField] = peopleEntityTypeDetails[personField].get(\"default\")\n    }\n}\n\n\nreturn [\n    \"person\": person\n]\n\n\ndef getValueByPath(def obj, String path) {\n    path.tokenize('.').inject(obj) { acc, key ->\n        acc instanceof Map ? acc[key] : null\n    }\n}\n\ndef toEpochMillis(String dateStr, String dateFormat) {\n    if (dateFormat == \"epoch\") {\n        return dateStr.toLong()\n    }\n    def formatter = DateTimeFormatter.ofPattern(dateFormat).withZone(ZoneOffset.UTC)\n    def instant = Instant.from(formatter.parse(dateStr))\n    return instant.toEpochMilli()\n}",
 				"compile_static":false,
+				"captureStdOutput":false,
 				"parameters":{
 					"mappings":"{{ n_nfMKA.outputs.mappings }}",
 					"sourceUserInfo":"{{ pw9Zq.outputs.sourceUserInfo }}",
 					"existingPerson":"{{ eTMKg.outputs.properties }}",
 					"dateFormat":"{{ n_nfMKA.outputs.dateFormat }}",
 					"peopleEntityTypeDetails":"{{ n_HwR6y.outputs.peopleEntityTypeDetails }}",
-					"managerPeopleIdentity":"{{ n_Ab3P5.outputs.result.manager.properties.peopleId }}"
+					"managerPeopleIdentity":"{{ _kPsYl.outputs.properties.peopleId }}"
 				}
 			},
 			"skip":false,
@@ -824,10 +700,12 @@
 			"fallbackMode":"STOP",
 			"groupId":"RNhme-1",
 			"id":"n_fCGSS",
-			"index":9,
+			"index":10,
 			"inputs":{
 				"output":{
 					"type":"object",
+					"additionalProperties":false,
+					"required":[],
 					"properties":{
 						"context":{
 							"type":"object",
@@ -841,12 +719,12 @@
 							"additionalProperties":false,
 							"title":"Inputs"
 						}
-					},
-					"additionalProperties":false,
-					"required":[]
+					}
 				},
 				"input":{
 					"type":"object",
+					"additionalProperties":false,
+					"required":[],
 					"properties":{
 						"person":{
 							"type":"object",
@@ -858,12 +736,11 @@
 							"type":"string",
 							"title":"Record Id"
 						}
-					},
-					"additionalProperties":false,
-					"required":[]
+					}
 				},
-				"compile_static":false,
 				"code":"def recordId = binding.hasVariable(\"recordId\") ? recordId : null\n\nreturn [\n  \"context\": [\n    \"appName\"     : \"storage_by_unifyapps\",\n    \"resourceName\": \"storage_by_unifyapps_update_record_by_id\",\n    \"type\"        : \"APPLICATION\"\n  ],\n  \"inputs\" : [\n    \"object_type\": \"ai_agent_people\",\n    \"record\"     : person,\n    \"recordId\"   : recordId,\n    \"upsert\"     : true\n  ]\n]",
+				"compile_static":false,
+				"captureStdOutput":false,
 				"parameters":{
 					"person":"{{ pS2JH.outputs.result.person }}",
 					"recordId":"{{ eTMKg.outputs.id }}"
@@ -886,10 +763,63 @@
 			"fallbackMode":"STOP",
 			"groupId":"RNhme-1",
 			"id":"n_eesoD",
-			"index":10,
+			"index":11,
 			"inputs":{
 				"input":"{{ n_fCGSS.outputs.result.inputs }}",
 				"context":"{{ n_fCGSS.outputs.result.context }}"
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"global":false
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS"
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":2.0,
+					"captureRetries":false,
+					"count":3,
+					"enabled":true,
+					"initialDelay":3000,
+					"maxDelay":15000
+				},
+				"stepError":"STOP",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				}
 			},
 			"skip":false,
 			"subTitle":"Upsert People",
@@ -908,9 +838,9 @@
 			"fallbackMode":"STOP",
 			"groupId":"RNhme-1",
 			"id":"n_amBqd",
-			"index":11,
+			"index":12,
 			"inputs":{
-				"recordId":"{{ n_Ab3P5.outputs.result.appPerson.id }}",
+				"recordId":"{{ _5XW5v.outputs.id }}",
 				"writeThroughSessionVariables":false,
 				"object_type":"people_identity",
 				"skipIfBlank":false,
@@ -940,7 +870,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"RNhme-1",
 			"id":"n_Loz7J",
-			"index":12,
+			"index":13,
 			"inputs":{
 				"object":"{{ pS2JH.outputs.result.person }}"
 			},
@@ -961,7 +891,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"RNhme-1",
 			"id":"n_2EaF1",
-			"index":13,
+			"index":14,
 			"inputs":{
 				"automationId":"67d974b49fd67f0caf7bbbde",
 				"runtimeConnections":{},
@@ -1008,15 +938,15 @@
 			"fallbackMode":"STOP",
 			"groupId":"RNhme-1",
 			"id":"n_HJhQa",
-			"index":14,
+			"index":15,
 			"inputs":{
 				"automationId":"684af4233965b351836f34e6",
 				"runtimeConnections":{},
 				"synchronous":true,
 				"version":"-1",
 				"parameters":{
-					"personMetaData":"{{ pS2JH.outputs.result.person }}",
-					"email":"{{ pw9Zq.outputs.email }}"
+					"email":"{{ pw9Zq.outputs.email }}",
+					"personMetaData":"{{ pS2JH.outputs.result.person }}"
 				}
 			},
 			"skip":false,
@@ -1036,7 +966,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"RNhme-1",
 			"id":"Ffdfk",
-			"index":15,
+			"index":16,
 			"inputs":{
 				"result":{
 					"person":"{{ pS2JH.outputs.result.person }}",
@@ -1066,5 +996,5 @@
 	"tags":[
 		
 	],
-	"version":47
+	"version":52
 }
