@@ -7,46 +7,165 @@
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_pz3jo",
+			"fromNodeId":"n_TQXnF",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_6umnw",
+			"toNodeId":"n_W1bu2",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_W1bu2",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_utX7c",
+			"type":"loop"
+		},
+		{
+			"fromNodeId":"n_utX7c",
+			"name":"loopback",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_W1bu2",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_W1bu2",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_aq8ou",
 			"type":"next"
 		}
 	],
 	"id":"68d6ee32f6a6f3445e70a61c",
 	"lastModifiedBy":1,
 	"lcName":"forloopcaptureiterations11758912235611",
-	"modifiedTime":1758916146801,
+	"modifiedTime":1758916161783,
 	"name":"forLoopCaptureIterations11758912235611",
 	"nodes":[
 		{
+			"context":{
+				"appName":"webhooks",
+				"resourceVersion":115,
+				"resourceName":"webhooks_default"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_pz3jo-1",
-			"id":"_pz3jo",
-			"index":0,
+			"id":"n_TQXnF",
+			"index":1,
+			"inputs":{
+				"request":{
+					"contentType":"application/json"
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Webhook",
+			"title":"New event",
 			"trigger":{
-				"type":"EVENT"
+				"type":"WEBHOOK"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"loop",
+				"resourceVersion":75,
+				"resourceName":"loop_for",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_pz3jo-1",
-			"id":"_6umnw",
-			"index":0,
+			"id":"n_W1bu2",
+			"index":2,
+			"inputs":{
+				"start":0,
+				"limit":10,
+				"step":1,
+				"captureIterations":true
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Loop",
+			"title":"For loop",
+			"type":"LOOP"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":1118,
+				"resourceName":"variable_by_unifyapps_create_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"n_W1bu2@_pz3jo-1@l",
+			"id":"n_utX7c",
+			"index":3,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{},
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"a":{
+							"type":"number",
+							"title":"a"
+						}
+					},
+					"required":[
+						"a"
+					]
+				}
+			},
+			"inputs":{
+				"a":"{{ n_W1bu2.outputs.index }}"
+			},
+			"outputSchema":{
+				"dynamic":false,
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"a":{
+							"type":"number",
+							"title":"a"
+						}
+					},
+					"required":[
+						"a"
+					]
+				}
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Create variables",
 			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"stop"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_pz3jo-1",
+			"id":"n_aq8ou",
+			"index":4,
+			"skip":false,
+			"subTitle":"Stop",
+			"title":"Stop",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +179,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
