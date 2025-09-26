@@ -1,0 +1,125 @@
+{
+	"appsUsed":[
+		
+	],
+	"createdTime":1758913136453,
+	"deleted":false,
+	"description":"description",
+	"edges":[
+		{
+			"fromNodeId":"n_w00cL",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_3LjZP",
+			"type":"next"
+		}
+	],
+	"id":"68d6e270f6a6f3445e709174",
+	"lastModifiedBy":1,
+	"lcName":"condition box|number input - not in 11758912241680",
+	"modifiedTime":1758913164466,
+	"name":"Condition Box|Number Input - Not in 11758912241680",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1152,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_tVLJq-1",
+			"id":"n_w00cL",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"output_Number"
+					],
+					"properties":{
+						"output_Number":{
+							"type":"number",
+							"title":"output_Number"
+						}
+					}
+				},
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"property":"{{ n_w00cL.outputs.input_Number }}",
+							"filter":{
+								"operator":"NOT_IN",
+								"value":"3"
+							}
+						}
+					],
+					"operator":"AND"
+				},
+				"setup":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"input_Number"
+					],
+					"properties":{
+						"input_Number":{
+							"type":"number",
+							"title":"input_Number"
+						}
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1155,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_tVLJq-1",
+			"id":"n_3LjZP",
+			"index":2,
+			"inputs":{
+				"result":{
+					"output_Number":"{{ n_w00cL.outputs.input_Number }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":false,
+	"tags":[
+		
+	],
+	"version":2
+}
