@@ -5,12 +5,12 @@
 	"createdTime":1747000729864,
 	"deleted":false,
 	"deploymentState":{
-		"deployedAt":1758650368138,
-		"deployedBy":-1,
-		"deployedDefinitionId":"68d2e0001bf7400a256ce992",
+		"deployedAt":1758874479472,
+		"deployedBy":1,
+		"deployedDefinitionId":"68d64b6fb57aa23969be9d5a",
 		"status":"DEPLOYED",
-		"version":75,
-		"workflowVersion":97
+		"version":81,
+		"workflowVersion":103
 	},
 	"edges":[
 		{
@@ -855,9 +855,9 @@
 		]
 	},
 	"id":"6805ed8f0b23cb21fda8bb24",
-	"lastModifiedBy":1,
+	"lastModifiedBy":0,
 	"lcName":"run query on sql based platforms",
-	"modifiedTime":1758700819768,
+	"modifiedTime":1758886184294,
 	"name":"Run Query On SQL Based Platforms",
 	"nodes":[
 		{
@@ -899,6 +899,10 @@
 						"err_msg":{
 							"type":"string",
 							"title":"err_msg"
+						},
+						"passMessageDirectlyToAgent":{
+							"type":"string",
+							"title":"Pass Message Directly To Agent"
 						}
 					}
 				},
@@ -4065,32 +4069,33 @@
 			"inputs":{
 				"output":{
 					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"connectionId"
+					],
 					"properties":{
 						"connectionId":{
 							"type":"string",
 							"title":"Connection Id"
 						}
-					},
-					"additionalProperties":false,
-					"required":[
-						"connectionId"
-					]
+					}
 				},
 				"input":{
 					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"platformName"
+					],
 					"properties":{
 						"platformName":{
 							"type":"string",
 							"title":"Platform Name"
 						}
-					},
-					"additionalProperties":false,
-					"required":[
-						"platformName"
-					]
+					}
 				},
-				"compile_static":false,
 				"code":"return [\"connectionId\": platformName.substring(\"starrocks_\".length())]",
+				"compile_static":false,
+				"captureStdOutput":false,
 				"parameters":{
 					"platformName":"{{ gVOa7.outputs.platformName }}"
 				}
@@ -4358,6 +4363,7 @@
 				"result":{
 					"status":"{{ n_ymYWi.outputs.status }}",
 					"err_msg":"{{ n_ymYWi.outputs.err_msg }}",
+					"passMessageDirectlyToAgent":"{{ n_ymYWi.outputs.passMessageDirectlyToAgent }}",
 					"columnNames":{
 						"ua:type":"mappedArray",
 						"items":"{{ n_ymYWi.outputs.columnNames[0] }}",
@@ -4588,9 +4594,9 @@
 		
 	],
 	"settings":{
-		"enableNodeLevelLogging":false,
-		"enableRunLogging":false,
-		"enableVariableLogging":false,
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
 		"route":{
 			"default":false,
 			"tierName":"global"
@@ -4600,5 +4606,5 @@
 	"tags":[
 		
 	],
-	"version":98
+	"version":104
 }
