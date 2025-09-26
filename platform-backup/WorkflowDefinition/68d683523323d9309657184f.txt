@@ -6,46 +6,117 @@
 	"deleted":false,
 	"edges":[
 		{
-			"fromNodeId":"_KAMUq",
+			"fromNodeId":"n_mnIZH",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_CCi50",
+			"toNodeId":"n_kGNNw",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_kGNNw",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_K1a6B",
 			"type":"next"
 		}
 	],
 	"id":"68d683523323d9309657184f",
 	"lastModifiedBy":1,
 	"lcName":"prefixttmkmrztgv",
-	"modifiedTime":1758888786762,
+	"modifiedTime":1758888798409,
 	"name":"PREFIXTTMkmRZtgv",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1149,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_KAMUq-1",
-			"id":"_KAMUq",
-			"index":0,
+			"id":"n_mnIZH",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"output":{
+							"type":"string",
+							"title":"output"
+						}
+					}
+				},
+				"setup":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"a":{
+							"type":"string",
+							"title":"a"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"utility_by_unifyapps",
+				"resourceVersion":1385,
+				"resourceName":"utility_by_unifyapps_from_xml_to_json_object",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_KAMUq-1",
-			"id":"_CCi50",
-			"index":0,
+			"id":"n_kGNNw",
+			"index":2,
+			"inputs":{
+				"xmlString":"{{ n_mnIZH.outputs.a }}"
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Utility by UnifyApps",
+			"title":"Deserialise XML string to JSON object",
 			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1152,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_KAMUq-1",
+			"id":"n_K1a6B",
+			"index":3,
+			"inputs":{
+				"result":{
+					"output":"{{ n_kGNNw.outputs.result }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -59,5 +130,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
