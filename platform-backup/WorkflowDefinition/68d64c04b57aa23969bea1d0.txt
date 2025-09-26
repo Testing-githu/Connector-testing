@@ -1,5 +1,7 @@
 {
-	"appsUsed":[],
+	"appsUsed":[
+		
+	],
 	"createdTime":1758874628842,
 	"deleted":false,
 	"deploymentState":{
@@ -29,7 +31,7 @@
 	"id":"68d64c04b57aa23969bea1d0",
 	"lastModifiedBy":1,
 	"lcName":"utilitybyunifyappslocalyrardskrrv",
-	"modifiedTime":1758878640401,
+	"modifiedTime":1758883504081,
 	"name":"UtilityByUnifyAppsLocalYrARDSKRrV",
 	"nodes":[
 		{
@@ -39,28 +41,16 @@
 				"resourceName":"callables_from_automation"
 			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_cUBS1-1",
 			"id":"n_dGkzb",
 			"index":1,
 			"inputs":{
-				"result":{
-					"type":"object",
-					"additionalProperties":false,
-					"properties":{
-						"r":{
-							"type":"string",
-							"title":"r"
-						}
-					}
-				},
 				"setup":{
 					"type":"object",
 					"additionalProperties":false,
-					"required":[
-						
-					],
+					"required":[],
 					"properties":{
 						"a":{
 							"type":"string",
@@ -80,8 +70,8 @@
 		{
 			"context":{
 				"appName":"utility_by_unifyapps",
-				"resourceVersion":1309,
-				"resourceName":"utility_by_unifyapps_decode_base64_text",
+				"resourceVersion":1338,
+				"resourceName":"utility_by_unifyapps_from_xml_to_json_object",
 				"type":"APPLICATION"
 			},
 			"debug":false,
@@ -91,12 +81,11 @@
 			"id":"n_ualgt",
 			"index":2,
 			"inputs":{
-				"charset":"US-ASCII",
-				"encodedText":"{{ n_dGkzb.outputs.a }}"
+				"xmlString":"<company>\n    <name>Acme Corp</name>\n    <employees>\n        <employee>\n            <name>John</name>\n            <role>Developer</role>\n        </employee>\n        <employee>\n            <name>Jane</name>\n            <role>Manager</role>\n        </employee>\n    </employees>\n</company>"
 			},
 			"skip":false,
 			"subTitle":"Utility by UnifyApps",
-			"title":"Decode base64 text",
+			"title":"Deserialise XML string to JSON object",
 			"type":"ACTION"
 		},
 		{
@@ -107,15 +96,13 @@
 				"type":"APPLICATION"
 			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_cUBS1-1",
 			"id":"n_KxmPd",
 			"index":3,
 			"inputs":{
-				"result":{
-					"r":"{{ n_ualgt.outputs.decodedText }}"
-				}
+				"result":"{{ n_ualgt.outputs.result }}"
 			},
 			"skip":false,
 			"subTitle":"Callable",
@@ -124,7 +111,9 @@
 		}
 	],
 	"ownerUserId":1,
-	"schemaReferences":[],
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -135,6 +124,8 @@
 		}
 	},
 	"standard":false,
-	"tags":[],
-	"version":6
+	"tags":[
+		
+	],
+	"version":7
 }
