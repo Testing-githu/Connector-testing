@@ -5,12 +5,12 @@
 	"createdTime":1747000744265,
 	"deleted":false,
 	"deploymentState":{
-		"deployedAt":1758650444208,
-		"deployedBy":-1,
-		"deployedDefinitionId":"68d2e04c1bf7400a256ceba4",
+		"deployedAt":1758874567541,
+		"deployedBy":1,
+		"deployedDefinitionId":"68d64bc7b57aa23969bea033",
 		"status":"DEPLOYED",
-		"version":70,
-		"workflowVersion":205
+		"version":75,
+		"workflowVersion":210
 	},
 	"edges":[
 		{
@@ -139,9 +139,9 @@
 		]
 	},
 	"id":"67ee3acc81058473ef8df41e",
-	"lastModifiedBy":1,
+	"lastModifiedBy":0,
 	"lcName":"generate and publish charts tool",
-	"modifiedTime":1758700909869,
+	"modifiedTime":1758886266195,
 	"name":"Generate And Publish Charts Tool",
 	"nodes":[
 		{
@@ -725,6 +725,7 @@
 				"object_type":"citation_store",
 				"includeRoleMappings":false,
 				"includeCurrentUserPermissions":false,
+				"translationsOption":"DEFAULT",
 				"page":{
 					"paginateBy":"OFFSET",
 					"limit":20
@@ -992,6 +993,7 @@
 				"recordId":"{{ VQR9W.outputs.outputMsgId }}",
 				"writeThroughSessionVariables":true,
 				"object_type":"service_hub_message",
+				"skipIfBlank":false,
 				"skipPermissionCheck":false,
 				"updateFields":[
 					{
@@ -1008,8 +1010,14 @@
 						"fieldName":"properties.additional.platformName",
 						"actionType":"SET",
 						"setValue":"{{ _rRol0.outputs.properties.sqlQueryPlatformName }}"
+					},
+					{
+						"fieldName":"properties.additional.SQLServerAddditionalMetadata",
+						"actionType":"SET",
+						"setValue":"{{ _rRol0.outputs.properties.SQLServerAddditionalMetadata }}"
 					}
-				]
+				],
+				"unsetIfNull":false
 			},
 			"skip":false,
 			"subTitle":"Storage by UnifyApps",
@@ -1251,9 +1259,9 @@
 		"entity|e_code_snippet|e_67ee3c5e63b9fe35e35bcec2"
 	],
 	"settings":{
-		"enableNodeLevelLogging":false,
-		"enableRunLogging":false,
-		"enableVariableLogging":false,
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
 		"route":{
 			"default":false,
 			"tierName":"global"
@@ -1263,5 +1271,5 @@
 	"tags":[
 		"AI Agent"
 	],
-	"version":206
+	"version":211
 }
