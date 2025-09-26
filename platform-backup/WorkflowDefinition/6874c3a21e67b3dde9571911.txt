@@ -5,12 +5,12 @@
 	"createdTime":1754459033211,
 	"deleted":false,
 	"deploymentState":{
-		"deployedAt":1758700910448,
+		"deployedAt":1758874567976,
 		"deployedBy":1,
-		"deployedDefinitionId":"68d3a56ed2a7c4429e39cfa0",
+		"deployedDefinitionId":"68d64bc7b57aa23969bea039",
 		"status":"DEPLOYED",
-		"version":47,
-		"workflowVersion":76
+		"version":51,
+		"workflowVersion":80
 	},
 	"edges":[
 		{
@@ -94,6 +94,57 @@
 		},
 		{
 			"fromNodeId":"_v9jpu",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_6i0h1",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_6i0h1",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_33o6H",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_33o6H",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_2a1yY",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_2a1yY",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_J4HyM",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_J4HyM",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_YRx3o",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_2a1yY",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_VaDBg",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_YRx3o",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_NwnE7",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_VaDBg",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_NwnE7",
@@ -211,9 +262,9 @@
 		]
 	},
 	"id":"6874c3a21e67b3dde9571911",
-	"lastModifiedBy":-1,
+	"lastModifiedBy":0,
 	"lcName":"generatechart tool (with blocks)",
-	"modifiedTime":1758731935877,
+	"modifiedTime":1758886250046,
 	"name":"GenerateChart Tool (with Blocks)",
 	"nodes":[
 		{
@@ -231,11 +282,12 @@
 			"inputs":{
 				"result":{
 					"additionalProperties":false,
+					"type":"object",
+					"required":[],
 					"ua:modal":{
 						"field_type":"STRING",
 						"is_optional":true
 					},
-					"type":"object",
 					"properties":{
 						"toolOutput":{
 							"type":"string",
@@ -249,17 +301,17 @@
 							"type":"string",
 							"title":"Error"
 						}
-					},
-					"required":[]
+					}
 				},
 				"callableInterfaceId":"679484ef9c8ab5620dca9609",
 				"setup":{
 					"additionalProperties":false,
+					"type":"object",
+					"required":[],
 					"ua:modal":{
 						"field_type":"STRING",
 						"is_optional":true
 					},
-					"type":"object",
 					"properties":{
 						"toolId":{
 							"type":"string",
@@ -299,8 +351,7 @@
 							"additionalProperties":false,
 							"title":"Tool Additional"
 						}
-					},
-					"required":[]
+					}
 				}
 			},
 			"skip":false,
@@ -340,6 +391,7 @@
 				"object_type":"service_hub_case",
 				"includeRoleMappings":false,
 				"includeCurrentUserPermissions":false,
+				"translationsOption":"DEFAULT",
 				"page":{
 					"paginateBy":"OFFSET",
 					"limit":20
@@ -374,6 +426,9 @@
 			"inputs":{
 				"output":{
 					"type":"object",
+					"additionalProperties":false,
+					"$comment":"resultPublish",
+					"required":[],
 					"properties":{
 						"result":{
 							"type":"array",
@@ -530,13 +585,14 @@
 							"type":"string",
 							"title":"Chart Type"
 						}
-					},
-					"additionalProperties":false,
-					"$comment":"resultPublish",
-					"required":[]
+					}
 				},
 				"input":{
 					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"toolInputs"
+					],
 					"properties":{
 						"toolInputs":{
 							"type":"object",
@@ -544,14 +600,11 @@
 							"additionalProperties":false,
 							"title":"Tool Inputs"
 						}
-					},
-					"additionalProperties":false,
-					"required":[
-						"toolInputs"
-					]
+					}
 				},
-				"compile_static":false,
 				"code":"// if(!binding.hasVariable('toolInputs')){\n//   return [:]\n// }\n// if(toolInputs.toBlocks) return [\"result\" : toolInputs.toBlocks, \"chartId\" : toolInputs.chartId]\n// return toolInputs;\nif(!binding.hasVariable('toolInputs')){\n  return [:]\n}\nif(toolInputs.toBlocks) {\n  if(toolInputs.toBlocks.chartType) return [\"result\" : [toolInputs.toBlocks], \"chartId\" : toolInputs.chartId, \"chartType\" :toolInputs.toBlocks.chartType ]\n  else return [\"result\" : [toolInputs.toBlocks], \"chartId\" : toolInputs.chartId, \"chartType\" :\"\" ]\n  }\nreturn toolInputs",
+				"compile_static":false,
+				"captureStdOutput":false,
 				"parameters":{
 					"toolInputs":"{{ GpPp2.outputs.toolInputs }}"
 				}
@@ -650,6 +703,7 @@
 				"object_type":"citation_store",
 				"includeRoleMappings":false,
 				"includeCurrentUserPermissions":false,
+				"translationsOption":"DEFAULT",
 				"page":{
 					"paginateBy":"OFFSET",
 					"limit":20
@@ -679,6 +733,10 @@
 			"inputs":{
 				"output":{
 					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"out"
+					],
 					"properties":{
 						"out":{
 							"type":"array",
@@ -704,14 +762,15 @@
 							"type":"boolean",
 							"title":"All In String"
 						}
-					},
-					"additionalProperties":false,
-					"required":[
-						"out"
-					]
+					}
 				},
 				"input":{
 					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"rows",
+						"columnNames"
+					],
 					"properties":{
 						"rows":{
 							"type":"array",
@@ -731,15 +790,11 @@
 							},
 							"title":"Column Names"
 						}
-					},
-					"additionalProperties":false,
-					"required":[
-						"rows",
-						"columnNames"
-					]
+					}
 				},
-				"compile_static":false,
 				"code":"\nif (!binding.hasVariable('rows') || rows.size() == 0) return [\"out\": [], \"isNegative\": false]\n\ndef sql_output = []\ndef stringsinCol = []\nrows.each { row ->\n    columnNames.each { col ->\n        if (!row.containsKey(col)) {\n            row[col] = \"null\"\n        }\n    }\n    sql_output << row\n}\n\ndef datePattern = ~/^\\d{4}-\\d{2}-\\d{2}$/\ndef typeMap = [\n    (String): \"STRING\",\n    (Integer): \"INTEGER\",\n    (Long): \"INTEGER\",\n    (Float): \"FLOAT\",\n    (Double): \"FLOAT\",\n    (BigDecimal): \"FLOAT\",\n    (Boolean): \"BOOLEAN\",\n    (Date): \"DATETYPE\",\n    (java.sql.Date): \"DATETYPE\"\n]\n\n// Gather column values by column\ndef columnValues = [:].withDefault{ [] }\nsql_output.each { row ->\n    columnNames.each { col ->\n        columnValues[col] << row[col]\n    }\n}\n\ndef schemaRec = [:]\ndef isNegative = false // <-- This will become true if any min < 0\ndef allStringCols = true\nif (sql_output) {\n    def firstRec = sql_output[0]\n    schemaRec = firstRec.collectEntries { k, v ->\n        def t = v?.getClass()\n        if (t == String) {\n            stringsinCol << k\n        }\n        if(t!=String) allStringCols=false\n\n        def mapped = (t == String && v ==~ datePattern) ? \"DATETYPE\" : typeMap.get(t)\n        if (mapped == null) mapped = t?.simpleName ?: \"UNKNOWN\"\n        if (mapped in [\"INTEGER\", \"FLOAT\"]) {\n            def vals = columnValues[k].collect {\n                if (it instanceof Number) return it\n                try { return it != null ? new BigDecimal(it.toString()) : null } catch(e) { return null }\n            }.findAll { it != null }\n            def minVal = vals && !vals.isEmpty() ? vals.min() : null\n            def maxVal = vals && !vals.isEmpty() ? vals.max() : null\n\n            // Check if any min is negative\n            if (minVal != null && minVal < 0) {\n                isNegative = true\n            }\n            [(k): [type: mapped, min: minVal, max: maxVal]]\n        } else {\n            [(k): [type: mapped, min: null, max: null]]\n        }\n    }\n}\n\nreturn [\"out\": (schemaRec ? [schemaRec] : []), \"isNegative\": isNegative, \"columnsInString\" : stringsinCol, \"allInString\" : allStringCols]\n\n",
+				"compile_static":false,
+				"captureStdOutput":false,
 				"parameters":{
 					"rows":{
 						"ua:type":"mappedArray",
@@ -863,6 +918,8 @@
 			"inputs":{
 				"output":{
 					"type":"object",
+					"additionalProperties":false,
+					"required":[],
 					"properties":{
 						"chartType":{
 							"type":"array",
@@ -871,12 +928,12 @@
 							},
 							"title":"Chart Type"
 						}
-					},
-					"additionalProperties":false,
-					"required":[]
+					}
 				},
 				"input":{
 					"type":"object",
+					"additionalProperties":false,
+					"required":[],
 					"properties":{
 						"hasMoreData":{
 							"type":"boolean",
@@ -885,16 +942,20 @@
 						"chartType":{
 							"type":"string",
 							"title":"chartType"
+						},
+						"tableAlreadyPublished":{
+							"type":"boolean",
+							"title":"Table Already Published"
 						}
-					},
-					"additionalProperties":false,
-					"required":[]
+					}
 				},
+				"code":"// if (!binding.hasVariable('chartType')) {\n//     if(!binding.hasVariable('hasMoreData'))\n//         return [\"chartType\" : null]\n\n//     if (hasMoreData)\n//         return [\"chartType\" : [\"TABLE\"]]\n//     else\n//         return [\"chartType\" : null]\n// }\n\n// def allowedChartTypes = [\"TABLE\", \"LINE\", \"BAR\", \"COLUMN\", \"PIE\", \"DUAL_AXES\"]\n\n// def originalChartType = chartType as List  // Make a copy for eviction check\n\n// // Filter chartType for allowed types only:\n// chartType = chartType.findAll { it in allowedChartTypes }\n\n// // If any types were evicted (i.e., sizes aren't same)\n// if (chartType.size() != originalChartType.size()) {\n//     if (!chartType.contains('Table')) {\n//         chartType << 'Table'\n//     }\n// }\n\n// // Proceed with your regular logic\n// if(!binding.hasVariable('hasMoreData'))\n//     return [\"chartType\" : chartType]\n\n// if (hasMoreData) {\n//     if (!chartType.contains('Table')) {\n//         chartType << 'Table'\n//     }\n// }\n// return [\"chartType\" : chartType]\n\nif (!binding.hasVariable('chartType')) {\n    if (!binding.hasVariable('hasMoreData'))\n        return [\"chartType\": null]\n\n    if (hasMoreData && !binding.hasVariable('tableAlreadyPublished'))\n        return [\"chartType\": [\"TABLE\"]]\n    \n    else\n        return [\"chartType\": null]\n}\nif (hasMoreData && !binding.hasVariable('tableAlreadyPublished'))\n    return [\"chartType\": [\"TABLE\"]]\n    \ndef allowedChartTypes = [\"TABLE\", \"LINE\", \"BAR\", \"COLUMN\", \"PIE\", \"DUAL_AXES\"]\n\n// chartType is a String input\ndef ctype = chartType?.toUpperCase()?.trim()\n\ndef chartTypeList = []\nif (ctype in allowedChartTypes) {\n    chartTypeList << ctype\n}\n\n// If input ctype is not valid, fallback/add \"TABLE\"\nif (chartTypeList.isEmpty()) {\n    chartTypeList << \"TABLE\"\n}\n\n// If hasMoreData is not present, just return the (possibly fixed) chartType\nif (!binding.hasVariable('hasMoreData'))\n    return [\"chartType\": chartTypeList]\n\n// If hasMoreData is true, TABLE must be present\nif (hasMoreData && !chartTypeList.contains(\"TABLE\") && !binding.hasVariable('tableAlreadyPublished')) {\n    chartTypeList << \"TABLE\"\n}\n\nreturn [\"chartType\": chartTypeList]",
 				"compile_static":false,
-				"code":"// if (!binding.hasVariable('chartType')) {\n//     if(!binding.hasVariable('hasMoreData'))\n//         return [\"chartType\" : null]\n\n//     if (hasMoreData)\n//         return [\"chartType\" : [\"TABLE\"]]\n//     else\n//         return [\"chartType\" : null]\n// }\n\n// def allowedChartTypes = [\"TABLE\", \"LINE\", \"BAR\", \"COLUMN\", \"PIE\", \"DUAL_AXES\"]\n\n// def originalChartType = chartType as List  // Make a copy for eviction check\n\n// // Filter chartType for allowed types only:\n// chartType = chartType.findAll { it in allowedChartTypes }\n\n// // If any types were evicted (i.e., sizes aren't same)\n// if (chartType.size() != originalChartType.size()) {\n//     if (!chartType.contains('Table')) {\n//         chartType << 'Table'\n//     }\n// }\n\n// // Proceed with your regular logic\n// if(!binding.hasVariable('hasMoreData'))\n//     return [\"chartType\" : chartType]\n\n// if (hasMoreData) {\n//     if (!chartType.contains('Table')) {\n//         chartType << 'Table'\n//     }\n// }\n// return [\"chartType\" : chartType]\n\nif (!binding.hasVariable('chartType')) {\n    if (!binding.hasVariable('hasMoreData'))\n        return [\"chartType\": null]\n\n    if (hasMoreData)\n        return [\"chartType\": [\"TABLE\"]]\n    else\n        return [\"chartType\": null]\n}\nif (hasMoreData)\n    return [\"chartType\": [\"TABLE\"]]\n    \ndef allowedChartTypes = [\"TABLE\", \"LINE\", \"BAR\", \"COLUMN\", \"PIE\", \"DUAL_AXES\"]\n\n// chartType is a String input\ndef ctype = chartType?.toUpperCase()?.trim()\n\ndef chartTypeList = []\nif (ctype in allowedChartTypes) {\n    chartTypeList << ctype\n}\n\n// If input ctype is not valid, fallback/add \"TABLE\"\nif (chartTypeList.isEmpty()) {\n    chartTypeList << \"TABLE\"\n}\n\n// If hasMoreData is not present, just return the (possibly fixed) chartType\nif (!binding.hasVariable('hasMoreData'))\n    return [\"chartType\": chartTypeList]\n\n// If hasMoreData is true, TABLE must be present\nif (hasMoreData && !chartTypeList.contains(\"TABLE\")) {\n    chartTypeList << \"TABLE\"\n}\n\nreturn [\"chartType\": chartTypeList]",
+				"captureStdOutput":false,
 				"parameters":{
 					"hasMoreData":"{{ gbJBq.outputs.properties.hasMoreData }}",
-					"chartType":"{{ O9a4D.outputs.result.chartType }}"
+					"chartType":"{{ O9a4D.outputs.result.chartType }}",
+					"tableAlreadyPublished":"{{ gbJBq.outputs.properties.tableIsPublished }}"
 				}
 			},
 			"skip":false,
@@ -953,6 +1014,13 @@
 			"inputs":{
 				"output":{
 					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"is_object_present",
+						"sql_output",
+						"sql_output_ui",
+						"num_rows"
+					],
 					"properties":{
 						"is_object_present":{
 							"type":"boolean",
@@ -984,17 +1052,15 @@
 							"type":"integer",
 							"title":"num_rows"
 						}
-					},
-					"additionalProperties":false,
-					"required":[
-						"is_object_present",
-						"sql_output",
-						"sql_output_ui",
-						"num_rows"
-					]
+					}
 				},
 				"input":{
 					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"rows",
+						"columnNames"
+					],
 					"properties":{
 						"rows":{
 							"type":"array",
@@ -1021,16 +1087,12 @@
 							},
 							"title":"sql_ui"
 						}
-					},
-					"additionalProperties":false,
-					"required":[
-						"rows",
-						"columnNames"
-					]
+					}
 				},
-				"compile_static":false,
 				"code":"// if (!binding.hasVariable('rows') || rows.size() == 0) {\n//     return [\"is_object_present\": false, \"columns_greater_10\": false, \"sql_output\": [], \"sql_output_ui\": [], \"num_rows\": 0]\n// }\n// try {\n//     def sql_output = []\n//     rows.each { row ->\n//         // if (row.columns.size() != 0) {\n//         columnNames.each { col ->\n//             if (!row.containsKey(col)) {\n//                 row[col] = \"null\"\n//             }\n//         }\n//         sql_output << row\n//         // }        \n//     }\n//     if (sql_output.size() == 0) {\n//         return [\"is_object_present\": false, \"columns_greater_10\": false, \"sql_output\": sql_output, \"sql_output_ui\": sql_ui, \"num_rows\": rows.size()]\n//     }\n//     if (sql_output[0].size() >= 10){\n//         return [\"is_object_present\": true, \"columns_greater_10\": true, \"sql_output\": sql_output, \"sql_output_ui\": sql_ui, \"num_rows\": rows.size()]\n//     }\n//     if (sql_output.size() <= 2) {\n//         return [\"is_object_present\": true, \"columns_greater_10\": false, \"sql_output\": sql_output, \"sql_output_ui\": sql_ui, \"num_rows\": rows.size()]\n//     }\n//     return [\"is_object_present\": true, \"columns_greater_10\": false, \"sql_output\": sql_output, \"sql_output_ui\": sql_ui, \"num_rows\": rows.size()]\n// } catch (Exception e) {\n//     return [\"is_object_present\": false, \"columns_greater_10\": false, \"sql_output\": [], \"sql_output_ui\": [], \"num_rows\": rows?.size() ?: 0]\n// }\n\nif (!binding.hasVariable('rows') || rows.size() == 0) {\n    return [\"is_object_present\": false, \"columns_greater_10\": false, \"sql_output\": [], \"sql_output_ui\": [], \"num_rows\": 0]\n}\ntry {\n    def sql_output = []\n    rows.each { row ->\n        columnNames.each { col ->\n            if (!row.containsKey(col) || row[col] == \"null\") {\n                def typeInfo = sql_ui[col][\"type\"]\n                def defaultValue\n                switch(typeInfo) {\n                    case \"INTEGER\":\n                        defaultValue = 0\n                        break\n                    case \"FLOAT\":\n                        defaultValue = 0.0\n                        break\n                    case \"STRING\":\n                        defaultValue = \"\"\n                        break\n                    case \"BOOLEAN\":\n                        defaultValue = false\n                        break\n                    case \"DATETYPE\":\n                    case \"DATE\": // just in case\n                        defaultValue = null\n                        break\n                    default:\n                        defaultValue = null\n                }\n                row[col] = defaultValue\n            }\n        }\n        sql_output << row\n    }\n    if (sql_output.size() == 0) {\n        return [\"is_object_present\": false, \"columns_greater_10\": false, \"sql_output\": sql_output, \"sql_output_ui\": sql_ui, \"num_rows\": rows.size()]\n    }\n    if (sql_output[0].size() >= 20){\n        return [\"is_object_present\": true, \"columns_greater_10\": true, \"sql_output\": sql_output, \"sql_output_ui\": sql_ui, \"num_rows\": rows.size()]\n    }\n    if (sql_output.size() <= 2) {\n        return [\"is_object_present\": true, \"columns_greater_10\": false, \"sql_output\": sql_output, \"sql_output_ui\": sql_ui, \"num_rows\": rows.size()]\n    }\n    return [\"is_object_present\": true, \"columns_greater_10\": false, \"sql_output\": sql_output, \"sql_output_ui\": sql_ui, \"num_rows\": rows.size()]\n} catch (Exception e) {\n    return [\"is_object_present\": false, \"columns_greater_10\": false, \"sql_output\": [], \"sql_output_ui\": [], \"num_rows\": rows?.size() ?: 0]\n}",
+				"compile_static":false,
 				"isAsync":false,
+				"captureStdOutput":false,
 				"parameters":{
 					"rows":{
 						"ua:type":"mappedArray",
@@ -1052,6 +1114,265 @@
 			"skip":false,
 			"subTitle":"Code By UnifyApps",
 			"title":"Execute groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":458,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"kFhpo-1",
+			"id":"n_6i0h1",
+			"index":12,
+			"inputs":{
+				"automationId":"67a48d37f8f1744841dabb63",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"version":"-1",
+				"parameters":{
+					"aiAgentId":"{{ _xNOFZ.outputs.properties.fromCustomerUserId }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":44,
+				"resourceName":"variable_by_unifyapps_create_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"kFhpo-1",
+			"id":"n_33o6H",
+			"index":13,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{},
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"sqlOutput":{
+							"type":"array",
+							"items":{
+								"type":"object",
+								"properties":{},
+								"additionalProperties":false
+							},
+							"title":"Sql Output"
+						}
+					},
+					"required":[]
+				}
+			},
+			"inputs":{
+				"sqlOutput":{
+					"source":"{{ _v9jpu.outputs.result.sql_output }}",
+					"ua:type":"mappedArray",
+					"items":"{{ _v9jpu.outputs.result.sql_output[0] }}"
+				}
+			},
+			"outputSchema":{
+				"dynamic":false,
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"sqlOutput":{
+							"type":"array",
+							"items":{
+								"type":"object",
+								"properties":{},
+								"additionalProperties":false
+							},
+							"title":"Sql Output"
+						}
+					},
+					"required":[]
+				}
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Create variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":29,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"kFhpo-1",
+			"id":"n_2a1yY",
+			"index":14,
+			"inputs":{
+				"filters":[
+					{
+						"property":"{{ _v9jpu.outputs.result.sql_output }}",
+						"filter":{
+							"operator":"EXISTS"
+						}
+					},
+					{
+						"property":"{{ n_6i0h1.outputs.properties.preProcessingSettings.maxRowLimitForSQL }}",
+						"filter":{
+							"operator":"EXISTS"
+						}
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.parameters.sql_output.items"
+				]
+			},
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":43,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_2a1yY@kFhpo-1@y",
+			"id":"n_J4HyM",
+			"index":15,
+			"inputs":{
+				"output":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[],
+					"properties":{
+						"sql_output":{
+							"type":"array",
+							"items":{
+								"type":"object",
+								"properties":{},
+								"additionalProperties":false
+							},
+							"title":"Sql Output"
+						}
+					}
+				},
+				"input":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[],
+					"properties":{
+						"sql_output":{
+							"type":"array",
+							"items":{
+								"type":"object",
+								"properties":{},
+								"additionalProperties":false
+							},
+							"title":"Sql Output"
+						},
+						"rowLimit":{
+							"type":"integer",
+							"title":"Row Limit"
+						}
+					}
+				},
+				"code":"\ndef limit = 25;\nlimit = Math.min(limit, rowLimit)\nif(binding.hasVariable('sql_output')) result = sql_output.take(limit);\n\nreturn ['sql_output' : result]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"rowLimit":"{{ n_6i0h1.outputs.properties.preProcessingSettings.maxRowLimitForSQL }}",
+					"sql_output":{
+						"source":"{{ _v9jpu.outputs.result.sql_output }}",
+						"ua:type":"mappedArray",
+						"items":"{{ _v9jpu.outputs.result.sql_output[0] }}"
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":44,
+				"resourceName":"variable_by_unifyapps_update_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_2a1yY@kFhpo-1@y",
+			"id":"n_YRx3o",
+			"index":16,
+			"inputs":{
+				"variables":[
+					{
+						"source":"{{ n_33o6H.outputs.sqlOutput }}",
+						"value":{
+							"source":"{{ n_J4HyM.outputs.result.sql_output }}",
+							"ua:type":"mappedArray",
+							"items":"{{ n_J4HyM.outputs.result.sql_output[0] }}"
+						}
+					}
+				]
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Update variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":44,
+				"resourceName":"variable_by_unifyapps_update_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_2a1yY@kFhpo-1@n",
+			"id":"n_VaDBg",
+			"index":17,
+			"inputs":{
+				"variables":[
+					{
+						"source":"{{ n_33o6H.outputs.sqlOutput }}",
+						"value":{
+							"source":"{{ _v9jpu.outputs.result.sql_output }}",
+							"ua:type":"mappedArray",
+							"items":"{{ _v9jpu.outputs.result.sql_output[0] }}"
+						}
+					}
+				]
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Update variables",
 			"type":"ACTION"
 		},
 		{
@@ -1155,7 +1476,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"kFhpo-1",
 			"id":"n_NwnE7",
-			"index":12,
+			"index":18,
 			"inputs":{
 				"automationId":"6874b1992b1acace3a8cbff4",
 				"runtimeConnections":{},
@@ -1164,9 +1485,9 @@
 				"parameters":{
 					"result":{
 						"sql_output":{
-							"source":"{{ _v9jpu.outputs.result.sql_output }}",
 							"ua:type":"mappedArray",
-							"items":"{{ _v9jpu.outputs.result.sql_output[0] }}"
+							"source":"{{ n_33o6H.outputs.sqlOutput }}",
+							"items":"{{ n_33o6H.outputs.sqlOutput[0] }}"
 						},
 						"chartType":{
 							"source":"{{ QiKPQ.outputs.chartType }}",
@@ -1248,11 +1569,12 @@
 			"fallbackMode":"STOP",
 			"groupId":"kFhpo-1",
 			"id":"_0YITF",
-			"index":13,
+			"index":19,
 			"inputs":{
 				"object_type":"e_ai_agent_conversation_state",
 				"includeRoleMappings":false,
 				"includeCurrentUserPermissions":false,
+				"translationsOption":"DEFAULT",
 				"id":"{{ GpPp2.outputs.caseId }}",
 				"readThroughSessionVariables":false
 			},
@@ -1273,7 +1595,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"kFhpo-1",
 			"id":"_kUEOO",
-			"index":14,
+			"index":20,
 			"inputs":{
 				"filters":[
 					{
@@ -1303,7 +1625,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_kUEOO@kFhpo-1@y",
 			"id":"_rVRqK",
-			"index":15,
+			"index":21,
 			"inputs":{
 				"callableInterfaceId":"__ua__publish_response_interface",
 				"parameters":{
@@ -1332,7 +1654,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_kUEOO@kFhpo-1@y",
 			"id":"0eoZB",
-			"index":16,
+			"index":22,
 			"inputs":{
 				"variables":[
 					{
@@ -1358,7 +1680,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_kUEOO@kFhpo-1@n",
 			"id":"_GVgit",
-			"index":17,
+			"index":23,
 			"inputs":{
 				"automationId":"66d1673d9627d00147081244",
 				"runtimeConnections":{},
@@ -1373,7 +1695,8 @@
 						},
 						"role":"bot"
 					},
-					"caseId":"{{ GpPp2.outputs.caseId }}"
+					"caseId":"{{ GpPp2.outputs.caseId }}",
+					"fromCustomerUserId":"{{ _xNOFZ.outputs.properties.fromCustomerUserId }}"
 				}
 			},
 			"skip":false,
@@ -1393,7 +1716,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_kUEOO@kFhpo-1@n",
 			"id":"x4Q8x",
-			"index":18,
+			"index":24,
 			"inputs":{
 				"variables":[
 					{
@@ -1419,7 +1742,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"kFhpo-1",
 			"id":"_O59t6",
-			"index":19,
+			"index":25,
 			"inputs":{
 				"automationId":"6736c489a1789a4ff7441c36",
 				"runtimeConnections":{},
@@ -1459,7 +1782,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"kFhpo-1",
 			"id":"DnQRn",
-			"index":20,
+			"index":26,
 			"inputSchema":{
 				"type":"SCHEMA_AND_LAYOUT",
 				"dynamic":false,
@@ -1742,7 +2065,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"kFhpo-1",
 			"id":"mnDjC",
-			"index":21,
+			"index":27,
 			"inputs":{
 				"insertLocation":"END",
 				"itemsToAdd":{
@@ -1778,11 +2101,12 @@
 			"fallbackMode":"STOP",
 			"groupId":"kFhpo-1",
 			"id":"y4EAP",
-			"index":22,
+			"index":28,
 			"inputs":{
 				"recordId":"{{ _GVgit.outputs.messageId }}",
 				"writeThroughSessionVariables":false,
 				"object_type":"service_hub_message",
+				"skipIfBlank":false,
 				"skipPermissionCheck":false,
 				"updateFields":[
 					{
@@ -1799,8 +2123,14 @@
 						"fieldName":"properties.additional.platformName",
 						"actionType":"SET",
 						"setValue":"{{ gbJBq.outputs.properties.sqlQueryPlatformName }}"
+					},
+					{
+						"fieldName":"properties.additional.SQLServerAddditionalMetadata",
+						"actionType":"SET",
+						"setValue":"{{ gbJBq.outputs.properties.SQLServerAddditionalMetadata }}"
 					}
-				]
+				],
+				"unsetIfNull":false
 			},
 			"skip":false,
 			"subTitle":"Storage by UnifyApps",
@@ -1819,7 +2149,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"kFhpo-1",
 			"id":"jREnR",
-			"index":23,
+			"index":29,
 			"inputSchema":{
 				"type":"SCHEMA_AND_LAYOUT",
 				"dynamic":false,
@@ -1876,7 +2206,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"kFhpo-1",
 			"id":"auRVz",
-			"index":24,
+			"index":30,
 			"inputs":{
 				"output":{
 					"type":"object",
@@ -1920,7 +2250,7 @@
 					"required":[]
 				},
 				"compile_static":false,
-				"code":"def normalizedBlockType(block) {\n    // Handles Chart blocktypes with a specific chartType\n    if (block.blockType?.toLowerCase() == 'chart' && block.chartType) {\n        // Lowercase and normalize chartType if needed\n        return block.chartType.toLowerCase() + ' chart'\n    }\n    \n    // For other types, operate as before:\n    def bt = block.blockType?.toLowerCase() \n    if (bt in ['keyvalue']) return bt + ' table'\n    if (bt in ['line', 'bar', 'column', 'pie', 'dual_axes']) return bt + ' chart'\n    if (bt == 'typography') return bt + ' block'\n    return bt\n}\n\n// Instead of blocks*.blockType, map on each block to handle both blocktype & chartType\ndef blockTypes = blocks.collect { normalizedBlockType(it) }\n\ndef msg = blockTypes.join(' + ') + \" data has been published/displayed to the user that represents the row and column data from the SQL output already in the chat. [IMPORTANT] Do not repeat the same information in the Final Answer as it is already presented in this block to the user. Do not make any judgements based on the blocktype given.[IMPORTANT] In the final answer, do not give any dummy chartlink or chart description or information about the chart.\" \n\n// If blockTypes size is 1 and it's 'table', add instruction\nif (blockTypes.size() == 1 && (blockTypes[0] == 'keyvalue table' || blockTypes[0] == 'table')) {\n    msg += \" Only a table is produced, dont refer to it as a 'chart' in the Final Answer.\"\n}\n\nif (binding.hasVariable(\"hasMoreData\") && hasMoreData){\n    if (blockTypes.any { it == 'table' }) {\n        msg += \" STRICTLY Mention the 'Export' option for table, which allows users to export all records or access the complete, non-truncated output from the table.\"\n    }\n}\n\nreturn [\n    \"msg\" : msg\n]",
+				"code":"def normalizedBlockType(block) {\n    // Handles Chart blocktypes with a specific chartType\n    if (block.blockType?.toLowerCase() == 'chart' && block.chartType) {\n        // Lowercase and normalize chartType if needed\n        return block.chartType.toLowerCase() + ' chart'\n    }\n    \n    // For other types, operate as before:\n    def bt = block.blockType?.toLowerCase() \n    if (bt in ['keyvalue']) return bt + ' table'\n    if (bt in ['line', 'bar', 'column', 'pie', 'dual_axes']) return bt + ' chart'\n    if (bt == 'typography') return bt + ' block'\n    return bt\n}\n\n// Instead of blocks*.blockType, map on each block to handle both blocktype & chartType\ndef blockTypes = blocks.collect { normalizedBlockType(it) }\n\n// def msg = blockTypes.join(' + ') + \" data has been published/displayed to the user that represents the row and column data from the SQL output already in the chat. [IMPORTANT] Do not repeat the same information in the Final Answer as it is already presented in this block to the user. Do not make any judgements based on the blocktype given.[IMPORTANT] In the final answer, do not give any dummy chartlink or chart description or information about the chart.\" \n\ndef msg = blockTypes.join(' + ') + \" data has been displayed to the user that represents the row and column data from the SQL output already in the chat. Give comprehensive commentary, analysis, max, min, outliers and trends related to the data published STRICTLY in MARKDOWN format with proper emojis, headers and sections. [STRICTLY] Never publish the data as a table in markdown as table has already been published.\"\n\n// If blockTypes size is 1 and it's 'table', add instruction\nif (blockTypes.size() == 1 && (blockTypes[0] == 'keyvalue table' || blockTypes[0] == 'table')) {\n    msg += \" Only a table is produced, dont refer to it as a 'chart' in the Final Answer.\"\n}\n\nif (binding.hasVariable(\"hasMoreData\") && hasMoreData){\n    if (blockTypes.any { it == 'table' }) {\n        msg += \" STRICTLY Mention the 'Export' option for table, which allows users to export all records or access the complete, non-truncated output from the table.\"\n    }\n    else{\n        msg+=\" STRICTLY mention, that this is an incomplete visual representation, Table shown above can be used to export the full non-truncated version of the data output. THis pictorial representation just contains the top 25 rows from the data output for visual representation purposes.\"\n    }\n}\n\nreturn [\n    \"msg\" : msg\n]",
 				"parameters":{
 					"blocks":{
 						"ua:type":"mappedArray",
@@ -1950,7 +2280,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"kFhpo-1",
 			"id":"_UuNZv",
-			"index":25,
+			"index":31,
 			"inputs":{
 				"result":{
 					"success":true,
@@ -1977,5 +2307,5 @@
 		}
 	},
 	"standard":true,
-	"version":77
+	"version":81
 }
