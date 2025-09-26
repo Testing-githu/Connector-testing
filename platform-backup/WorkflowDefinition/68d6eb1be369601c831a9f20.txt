@@ -4,61 +4,135 @@
 	],
 	"createdTime":1758915355879,
 	"deleted":false,
+	"deploymentState":{
+		"deployedAt":1758915377533,
+		"deployedBy":1,
+		"deployedDefinitionId":"68d6eb31ce29ec20a05c0e92",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":1
+	},
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_GyrMw",
+			"fromNodeId":"n_LcLI4",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_9Yyl5",
+			"toNodeId":"n_MNk9E",
 			"type":"next"
 		}
 	],
 	"id":"68d6eb1be369601c831a9f20",
 	"lastModifiedBy":1,
 	"lcName":"telemetry_formvalidation_117589122431570",
-	"modifiedTime":1758915355879,
+	"modifiedTime":1758915384310,
 	"name":"telemetry_formValidation_117589122431570",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1160,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
 			"dirty":false,
 			"fallbackMode":"STOP",
 			"groupId":"_GyrMw-1",
-			"id":"_GyrMw",
-			"index":0,
+			"id":"n_LcLI4",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"output_String"
+					],
+					"properties":{
+						"output_String":{
+							"type":"string",
+							"title":"output_String"
+						}
+					}
+				},
+				"setup":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"input_String"
+					],
+					"properties":{
+						"input_String":{
+							"type":"string",
+							"title":"input_String"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1164,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
 			"debug":false,
 			"dirty":false,
 			"fallbackMode":"STOP",
 			"groupId":"_GyrMw-1",
-			"id":"_9Yyl5",
-			"index":0,
+			"id":"n_MNk9E",
+			"index":2,
+			"inputs":{
+				"result":{
+					"output_String":"{{ n_LcLI4.outputs.input_String }}"
+				}
+			},
 			"skip":false,
-			"title":"Select an app and action",
-			"type":"ACTION"
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
 		"enableVariableLogging":true,
 		"route":{
 			"default":false,
+			"headerValueTierMap":{},
 			"tierName":"global"
+		},
+		"telemetryConfig":{
+			"enableTelemetry":true,
+			"metricConfigs":[
+				{
+					"buckets":[
+						
+					],
+					"eventType":"ALWAYS_END",
+					"metricType":"WORKFLOW_EXECUTION_DURATION",
+					"name":"form_validation",
+					"tags":[
+						
+					]
+				}
+			]
 		}
 	},
 	"standard":false,
 	"tags":[
 		
 	],
-	"version":0
+	"version":2
 }
