@@ -5,12 +5,12 @@
 	"createdTime":1747000716794,
 	"deleted":false,
 	"deploymentState":{
-		"deployedAt":1758650408499,
+		"deployedAt":1758820904768,
 		"deployedBy":-1,
-		"deployedDefinitionId":"68d2e0281bf7400a256ceaa6",
+		"deployedDefinitionId":"68d57a28b57aa23969b94e6f",
 		"status":"DEPLOYED",
-		"version":69,
-		"workflowVersion":193
+		"version":73,
+		"workflowVersion":197
 	},
 	"edges":[
 		{
@@ -22,6 +22,13 @@
 		},
 		{
 			"fromNodeId":"9dbcQ",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_eOYKQ",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_eOYKQ",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"jNHUU",
@@ -113,7 +120,7 @@
 	"id":"67834374fc387b38c73b7972",
 	"lastModifiedBy":1,
 	"lcName":"system prompt builder",
-	"modifiedTime":1758700924020,
+	"modifiedTime":1758874545977,
 	"name":"System Prompt Builder",
 	"nodes":[
 		{
@@ -136,6 +143,8 @@
 			"inputs":{
 				"result":{
 					"type":"object",
+					"additionalProperties":false,
+					"required":[],
 					"properties":{
 						"availableTools":{
 							"type":"array",
@@ -210,13 +219,20 @@
 								}
 							},
 							"additionalProperties":false
+						},
+						"disableInlineCitations":{
+							"type":"boolean",
+							"title":"Disable Inline Citations"
 						}
-					},
-					"additionalProperties":false,
-					"required":[]
+					}
 				},
 				"setup":{
 					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"caseId",
+						"agentId"
+					],
 					"properties":{
 						"caseId":{
 							"type":"string",
@@ -226,12 +242,7 @@
 							"type":"string",
 							"title":"Agent Id"
 						}
-					},
-					"additionalProperties":false,
-					"required":[
-						"caseId",
-						"agentId"
-					]
+					}
 				}
 			},
 			"skip":false,
@@ -305,6 +316,57 @@
 		},
 		{
 			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":0,
+				"resourceName":"variable_by_unifyapps_set_session_variable",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"zGFGr-1",
+			"id":"n_eOYKQ",
+			"index":3,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{},
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"isOnlyTextToSQLAgent":{
+							"type":"boolean",
+							"title":"Is Only Text To SQL Agent"
+						}
+					},
+					"required":[]
+				}
+			},
+			"inputs":{
+				"isOnlyTextToSQLAgent":"{{ 9dbcQ.outputs.agent_attributes.textToSQLSettings.isOnlyTextToSQLAgent }}"
+			},
+			"outputSchema":{
+				"dynamic":false,
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"isOnlyTextToSQLAgent":{
+							"type":"boolean",
+							"title":"Is Only Text To SQL Agent"
+						}
+					},
+					"required":[]
+				}
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Set Session Variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
 				"appName":"callables",
 				"resourceVersion":146,
 				"resourceName":"callables_call_automation",
@@ -315,7 +377,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"zGFGr-1",
 			"id":"jNHUU",
-			"index":3,
+			"index":4,
 			"inputs":{
 				"automationId":"67d5ca385c39266befb90a21",
 				"runtimeConnections":{},
@@ -363,7 +425,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"zGFGr-1",
 			"id":"896HW",
-			"index":4,
+			"index":5,
 			"inputs":{
 				"variableSchema":{
 					"type":"object",
@@ -394,7 +456,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"zGFGr-1",
 			"id":"n_tZvNw",
-			"index":5,
+			"index":6,
 			"inputs":{
 				"triggerInputCondition":{
 					"filters":[
@@ -436,7 +498,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"zGFGr-1",
 			"id":"n_vjLXr",
-			"index":6,
+			"index":7,
 			"inputs":{
 				"triggerInputCondition":{
 					"filters":[
@@ -491,7 +553,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"zGFGr-1",
 			"id":"n_G2D9J",
-			"index":7,
+			"index":8,
 			"inputs":{
 				"filters":[
 					{
@@ -520,7 +582,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_G2D9J@zGFGr-1@y",
 			"id":"n_fO1cZ",
-			"index":8,
+			"index":9,
 			"inputs":{
 				"output":{
 					"type":"object",
@@ -576,7 +638,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_G2D9J@zGFGr-1@y",
 			"id":"n_BLduV",
-			"index":9,
+			"index":10,
 			"inputs":{
 				"automationId":"{{ n_tZvNw.outputs.properties.preProcessingSettings.systemPromptSetting.addContextAutomationId }}",
 				"runtimeConnections":"",
@@ -601,7 +663,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_G2D9J@zGFGr-1@y",
 			"id":"n_UcIPe",
-			"index":10,
+			"index":11,
 			"inputs":{
 				"output":{
 					"type":"object",
@@ -653,7 +715,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_G2D9J@zGFGr-1@y",
 			"id":"_AnIBs",
-			"index":11,
+			"index":12,
 			"inputs":{
 				"result":{
 					"availableTools":{
@@ -696,9 +758,20 @@
 			"fallbackMode":"STOP",
 			"groupId":"zGFGr-1",
 			"id":"MmIks",
-			"index":12,
+			"index":13,
 			"inputs":{
 				"result":{
+					"systemPrompt":"{{ jNHUU.outputs.compiledTemplate }}",
+					"modelId":"{{ 9dbcQ.outputs.agent_attributes.modelId }}",
+					"response_format":"{{ jNHUU.outputs.response_format }}",
+					"stream":"{{ jNHUU.outputs.stream }}",
+					"currentTopic":"{{ 9dbcQ.outputs.agent_attributes.currentTopic }}",
+					"textToSQLSettings":{
+						"isOnlyTextToSQLAgent":"{{ 9dbcQ.outputs.agent_attributes.textToSQLSettings.isOnlyTextToSQLAgent }}",
+						"topicIdForOnlyText2SQL":"{{ 9dbcQ.outputs.agent_attributes.textToSQLSettings.topicIdForOnlyText2SQL }}",
+						"sqlAndChart1LLMCall_Variant":"{{ 9dbcQ.outputs.agent_attributes.textToSQLSettings.sqlAndChart1LLMCall_Variant }}"
+					},
+					"disableInlineCitations":"{{ 9dbcQ.outputs.agent_attributes.disableInlineCitations }}",
 					"availableTools":{
 						"ua:type":"mappedArray",
 						"items":{
@@ -709,16 +782,6 @@
 							"additional":"{{ 9dbcQ.outputs.availableTools[0].additional }}"
 						},
 						"source":"{{ 9dbcQ.outputs.availableTools }}"
-					},
-					"systemPrompt":"{{ jNHUU.outputs.compiledTemplate }}",
-					"modelId":"{{ 9dbcQ.outputs.agent_attributes.modelId }}",
-					"response_format":"{{ jNHUU.outputs.response_format }}",
-					"stream":"{{ jNHUU.outputs.stream }}",
-					"currentTopic":"{{ 9dbcQ.outputs.agent_attributes.currentTopic }}",
-					"textToSQLSettings":{
-						"isOnlyTextToSQLAgent":"{{ 9dbcQ.outputs.agent_attributes.textToSQLSettings.isOnlyTextToSQLAgent }}",
-						"topicIdForOnlyText2SQL":"{{ 9dbcQ.outputs.agent_attributes.textToSQLSettings.topicIdForOnlyText2SQL }}",
-						"sqlAndChart1LLMCall_Variant":"{{ 9dbcQ.outputs.agent_attributes.textToSQLSettings.sqlAndChart1LLMCall_Variant }}"
 					}
 				}
 			},
@@ -742,5 +805,5 @@
 		}
 	},
 	"standard":true,
-	"version":194
+	"version":198
 }
