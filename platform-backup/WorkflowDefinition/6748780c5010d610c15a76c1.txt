@@ -5,12 +5,12 @@
 	"createdTime":1747000741494,
 	"deleted":false,
 	"deploymentState":{
-		"deployedAt":1758650435889,
-		"deployedBy":-1,
-		"deployedDefinitionId":"68d2e0431bf7400a256ceb6c",
+		"deployedAt":1758886256368,
+		"deployedBy":0,
+		"deployedDefinitionId":"68d679703323d9309656d847",
 		"status":"DEPLOYED",
-		"version":69,
-		"workflowVersion":68
+		"version":76,
+		"workflowVersion":75
 	},
 	"edges":[
 		{
@@ -54,6 +54,35 @@
 			"fromNodeId":"n_Bte99",
 			"priority":0,
 			"skip":false,
+			"toNodeId":"n_W2MAk",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_W2MAk",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_5rqm7",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_5rqm7",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_rf4pt",
+			"type":"loop"
+		},
+		{
+			"fromNodeId":"n_rf4pt",
+			"name":"loopback",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_5rqm7",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_5rqm7",
+			"priority":0,
+			"skip":false,
 			"toNodeId":"n_EnhYF",
 			"type":"next"
 		},
@@ -73,6 +102,13 @@
 			"type":"next"
 		},
 		{
+			"fromNodeId":"n_EnhYF",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_xFWzF",
+			"type":"next"
+		},
+		{
 			"fromNodeId":"n_7lbCf",
 			"name":"no",
 			"priority":0,
@@ -81,14 +117,21 @@
 			"type":"next"
 		},
 		{
-			"fromNodeId":"n_EnhYF",
+			"fromNodeId":"_tAedA",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_bgVuM",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_xFWzF",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"_Ab4M7",
 			"type":"next"
 		},
 		{
-			"fromNodeId":"_tAedA",
+			"fromNodeId":"n_bgVuM",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"_Ab4M7",
@@ -106,9 +149,9 @@
 		]
 	},
 	"id":"6748780c5010d610c15a76c1",
-	"lastModifiedBy":1,
+	"lastModifiedBy":-1,
 	"lcName":"knowledge delete handler",
-	"modifiedTime":1758700862684,
+	"modifiedTime":1758886256417,
 	"name":"Knowledge Delete Handler",
 	"nodes":[
 		{
@@ -154,6 +197,13 @@
 						"filter":{
 							"operator":"EQUAL",
 							"value":"true"
+						}
+					},
+					{
+						"property":"{{ _hm05z.outputs.properties.sourceType }}",
+						"filter":{
+							"operator":"EQUAL",
+							"value":"APPLICATION"
 						}
 					}
 				],
@@ -236,6 +286,95 @@
 		},
 		{
 			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":635,
+				"resourceName":"storage_by_unifyapps_fetch_records",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_7lbCf@_tJUQz-1@y",
+			"id":"n_W2MAk",
+			"index":6,
+			"inputs":{
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"property":"properties_knowledgeId",
+							"filter":{
+								"operator":"EQUAL",
+								"value":"{{ _hm05z.outputs.id }}"
+							}
+						}
+					],
+					"operator":"AND"
+				},
+				"object_type":"knowledge_indexer_details",
+				"includeRoleMappings":false,
+				"includeCurrentUserPermissions":false,
+				"translationsOption":"DEFAULT",
+				"page":{
+					"paginateBy":"OFFSET",
+					"limit":20000
+				},
+				"numberOfRecordsToFetch":"MULTIPLE",
+				"readThroughSessionVariables":false,
+				"includeTotalCount":false
+			},
+			"skip":false,
+			"subTitle":"KnowledgeIndexerDetails",
+			"title":"Fetch records",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"loop",
+				"resourceVersion":456,
+				"resourceName":"loop_for_each",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_7lbCf@_tJUQz-1@y",
+			"id":"n_5rqm7",
+			"index":7,
+			"inputs":{
+				"repeatMode":"SINGLE",
+				"listSource":"{{ n_W2MAk.outputs.objects }}",
+				"captureIterations":false
+			},
+			"skip":false,
+			"subTitle":"Loop on executions",
+			"title":"For each loop",
+			"type":"LOOP"
+		},
+		{
+			"context":{
+				"appName":"standard_entities",
+				"resourceVersion":247,
+				"resourceName":"standard_entities_cancel_workflow",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_5rqm7@n_7lbCf@_tJUQz-1@y@l",
+			"id":"n_rf4pt",
+			"index":8,
+			"inputs":{
+				"executionId":"{{ n_5rqm7.outputs.item.properties.lastExecutionId }}",
+				"workflowRunTimeType":"DEFAULT",
+				"workflowId":"68593c745c7a1473d6a4f195"
+			},
+			"skip":false,
+			"subTitle":"Cancel Indexer flows",
+			"title":"Cancel workflow",
+			"type":"ACTION"
+		},
+		{
+			"context":{
 				"appName":"loop",
 				"resourceVersion":455,
 				"resourceName":"loop_for_each",
@@ -246,7 +385,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_7lbCf@_tJUQz-1@y",
 			"id":"n_EnhYF",
-			"index":6,
+			"index":9,
 			"inputs":{
 				"repeatMode":"SINGLE",
 				"listSource":"{{ n_dfx6r.outputs.properties.indexerAutomations }}",
@@ -269,7 +408,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_EnhYF@n_7lbCf@_tJUQz-1@y@l",
 			"id":"_6SqmB",
-			"index":7,
+			"index":10,
 			"inputs":{
 				"schedule_name":"knowledge_indexer_{{ _hm05z.outputs.id }}_{{ _hm05z.outputs.properties.indexingVersion }}_{{ n_EnhYF.outputs.item.type }}"
 			},
@@ -277,6 +416,34 @@
 			"subTitle":"Cancel indexer schedules",
 			"title":"Cancel scheduled callable",
 			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":469,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_7lbCf@_tJUQz-1@y",
+			"id":"_xFWzF",
+			"index":11,
+			"inputs":{
+				"automationId":"68cafae45ccba45545e21015",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"version":"-1",
+				"parameters":{
+					"knowledgeId":"{{ _hm05z.outputs.id }}",
+					"version":"=SUM({{ _hm05z.outputs.properties.indexingVersion }},1)"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
 		},
 		{
 			"context":{
@@ -290,7 +457,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_7lbCf@_tJUQz-1@n",
 			"id":"_tAedA",
-			"index":8,
+			"index":12,
 			"inputs":{
 				"schedule_name":"{{ _hm05z.outputs.id }}_refreshrer"
 			},
@@ -301,6 +468,34 @@
 		},
 		{
 			"context":{
+				"appName":"callables",
+				"resourceVersion":469,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_7lbCf@_tJUQz-1@n",
+			"id":"n_bgVuM",
+			"index":13,
+			"inputs":{
+				"automationId":"68cafae45ccba45545e21015",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"version":"-1",
+				"parameters":{
+					"knowledgeId":"{{ _hm05z.outputs.id }}",
+					"version":"=SUM({{ _hm05z.outputs.properties.indexingVersion }},1)"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
 				"appName":"stop"
 			},
 			"debug":false,
@@ -308,7 +503,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_tJUQz-1",
 			"id":"_Ab4M7",
-			"index":9,
+			"index":14,
 			"skip":false,
 			"subTitle":"Stop",
 			"title":"Stop",
@@ -320,9 +515,9 @@
 		
 	],
 	"settings":{
-		"enableNodeLevelLogging":false,
-		"enableRunLogging":false,
-		"enableVariableLogging":false,
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
 		"route":{
 			"default":false,
 			"tierName":"global"
@@ -334,5 +529,5 @@
 		"Internal",
 		"knowledge_v2"
 	],
-	"version":69
+	"version":76
 }
