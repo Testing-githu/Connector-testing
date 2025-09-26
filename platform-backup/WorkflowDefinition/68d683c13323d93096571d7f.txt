@@ -6,46 +6,117 @@
 	"deleted":false,
 	"edges":[
 		{
-			"fromNodeId":"_zoBMF",
+			"fromNodeId":"n_gnpd1",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_49nis",
+			"toNodeId":"n_GDs8g",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_GDs8g",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_YB5Z0",
 			"type":"next"
 		}
 	],
 	"id":"68d683c13323d93096571d7f",
 	"lastModifiedBy":1,
 	"lcName":"prefixrwuygjhwoi",
-	"modifiedTime":1758888897364,
+	"modifiedTime":1758888909583,
 	"name":"PREFIXrWUYgjhWOi",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1149,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_zoBMF-1",
-			"id":"_zoBMF",
-			"index":0,
+			"id":"n_gnpd1",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"output":{
+							"type":"string",
+							"title":"output"
+						}
+					}
+				},
+				"setup":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"a":{
+							"type":"string",
+							"title":"a"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"utility_by_unifyapps",
+				"resourceVersion":1385,
+				"resourceName":"utility_by_unifyapps_from_xml_to_json_object",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_zoBMF-1",
-			"id":"_49nis",
-			"index":0,
+			"id":"n_GDs8g",
+			"index":2,
+			"inputs":{
+				"xmlString":"{{ n_gnpd1.outputs.a }}"
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Utility by UnifyApps",
+			"title":"Deserialise XML string to JSON object",
 			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1152,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_zoBMF-1",
+			"id":"n_YB5Z0",
+			"index":3,
+			"inputs":{
+				"result":{
+					"output":"{{ n_GDs8g.outputs.result }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -59,5 +130,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
