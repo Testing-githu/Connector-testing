@@ -6,46 +6,89 @@
 	"deleted":false,
 	"edges":[
 		{
-			"fromNodeId":"_zHjUO",
+			"fromNodeId":"n_KTHRk",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_mt8iw",
+			"toNodeId":"n_VJ1mP",
 			"type":"next"
 		}
 	],
 	"id":"68d6ed5ee369601c831aa268",
 	"lastModifiedBy":1,
 	"lcName":"excelformulasqa2kdcywqisaz",
-	"modifiedTime":1758915934021,
+	"modifiedTime":1758915960086,
 	"name":"ExcelFormulasQA2kdCyWqiSAZ",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1162,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_zHjUO-1",
-			"id":"_zHjUO",
-			"index":0,
+			"id":"n_KTHRk",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"r":{
+							"type":"string",
+							"title":"r"
+						}
+					}
+				},
+				"setup":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"a":{
+							"type":"string",
+							"title":"a"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1165,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_zHjUO-1",
-			"id":"_mt8iw",
-			"index":0,
+			"id":"n_VJ1mP",
+			"index":2,
+			"inputs":{
+				"result":{
+					"r":"=SECOND({{ n_KTHRk.outputs.a }})"
+				}
+			},
 			"skip":false,
-			"title":"Select an app and action",
-			"type":"ACTION"
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -59,5 +102,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
