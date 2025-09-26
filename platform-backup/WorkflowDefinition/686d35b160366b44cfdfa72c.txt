@@ -5,12 +5,12 @@
 	"createdTime":1754459044447,
 	"deleted":false,
 	"deploymentState":{
-		"deployedAt":1758874446507,
-		"deployedBy":1,
-		"deployedDefinitionId":"68d64b4eb57aa23969be9c60",
+		"deployedAt":1758886267858,
+		"deployedBy":-1,
+		"deployedDefinitionId":"68d6797b3323d9309656d939",
 		"status":"DEPLOYED",
-		"version":52,
-		"workflowVersion":69
+		"version":53,
+		"workflowVersion":70
 	},
 	"edges":[
 		{
@@ -106,6 +106,13 @@
 			"fromNodeId":"_zH2N7",
 			"priority":0,
 			"skip":false,
+			"toNodeId":"n_LxuU0",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_LxuU0",
+			"priority":0,
+			"skip":false,
 			"toNodeId":"_7DkYu",
 			"type":"next"
 		},
@@ -149,9 +156,9 @@
 		]
 	},
 	"id":"686d35b160366b44cfdfa72c",
-	"lastModifiedBy":-1,
+	"lastModifiedBy":0,
 	"lcName":"channel knowledge indexer wrapper",
-	"modifiedTime":1758886267785,
+	"modifiedTime":1758886267872,
 	"name":"Channel Knowledge Indexer Wrapper",
 	"nodes":[
 		{
@@ -728,6 +735,39 @@
 			"type":"ACTION"
 		},
 		{
+			"context":{
+				"appName":"analytics_by_unifyapps",
+				"resourceVersion":469,
+				"resourceName":"analytics_by_unifyapps_execute_query",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_aNWFQ@n_9wnAp@_hNHYl-1@error@n",
+			"id":"n_LxuU0",
+			"index":13,
+			"inputs":{
+				"outputSchema":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[],
+					"properties":{
+						"id":{
+							"type":"string",
+							"title":"Id"
+						}
+					}
+				},
+				"query":"SELECT id FROM WORKFLOW_EXECUTION \nWHERE workflowId = '{{ n_YFuhI.outputs.indexerAutomation }}' \n  AND JSON_QUERY(startNodeOutput, '$.knowledgeId') = '{{ n_YFuhI.outputs.knowledgeId }}' \n  AND status = 'FAILED' \n  AND endTime >= UNIX_TIMESTAMP(DATE_SUB(NOW(), INTERVAL 30 MINUTE)) * 1000\nORDER BY startTime DESC\nLIMIT 1;",
+				"group":"ENTITY_REPORTING"
+			},
+			"skip":false,
+			"subTitle":"Get Failed Execution",
+			"title":"Execute Analytics SQL Query",
+			"type":"ACTION"
+		},
+		{
 			"additional":{
 				"visibleOptionalFields":[
 					"root.updateFields.items.fieldName",
@@ -745,7 +785,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_aNWFQ@n_9wnAp@_hNHYl-1@error@n",
 			"id":"_7DkYu",
-			"index":13,
+			"index":14,
 			"inputs":{
 				"recordId":"{{ n_YFuhI.outputs.rawDataId }}",
 				"writeThroughSessionVariables":false,
@@ -764,7 +804,7 @@
 						"setValue":"FAILED"
 					},
 					{
-						"fieldName":"properties.errorDetails",
+						"fieldName":"properties.errorDetails.error",
 						"actionType":"SET",
 						"setValue":"{{ n_9wnAp.outputs }}"
 					},
@@ -772,6 +812,16 @@
 						"fieldName":"properties.lastProcessedTime",
 						"actionType":"SET",
 						"setValue":"{{ _zH2N7.outputs.result.currentTime }}"
+					},
+					{
+						"fieldName":"properties.errorDetails.workflowId",
+						"actionType":"SET",
+						"setValue":"{{ n_YFuhI.outputs.indexerAutomation }}"
+					},
+					{
+						"fieldName":"properties.errorDetails.executionId",
+						"actionType":"SET",
+						"setValue":"{{ n_LxuU0.outputs.objects[0].columns.id }}"
 					}
 				],
 				"unsetIfNull":false
@@ -793,7 +843,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_9wnAp@_hNHYl-1@error",
 			"id":"n_9htay",
-			"index":14,
+			"index":15,
 			"inputs":{
 				"result":{
 					"success":false,
@@ -817,7 +867,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_hNHYl-1",
 			"id":"n_POMRK",
-			"index":15,
+			"index":16,
 			"inputs":{
 				"result":{
 					"success":true
@@ -847,5 +897,5 @@
 	"tags":[
 		"knowledge_v2"
 	],
-	"version":70
+	"version":71
 }
