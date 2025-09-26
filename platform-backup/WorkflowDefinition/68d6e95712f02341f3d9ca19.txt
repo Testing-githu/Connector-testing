@@ -4,49 +4,108 @@
 	],
 	"createdTime":1758914903693,
 	"deleted":false,
+	"deploymentState":{
+		"deployedAt":1758914921363,
+		"deployedBy":1,
+		"deployedDefinitionId":"68d6e969e369601c831a9cec",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":1
+	},
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_Ceila",
+			"fromNodeId":"n_of8cH",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_mDwmQ",
+			"toNodeId":"n_s7leN",
 			"type":"next"
 		}
 	],
 	"id":"68d6e95712f02341f3d9ca19",
 	"lastModifiedBy":1,
 	"lcName":"child callable update schema workflow 11758912216972",
-	"modifiedTime":1758914903693,
+	"modifiedTime":1758914952083,
 	"name":"Child callable update schema Workflow 11758912216972",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1160,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_Ceila-1",
-			"id":"_Ceila",
-			"index":0,
+			"id":"n_of8cH",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"Output_String"
+					],
+					"properties":{
+						"Output_String":{
+							"type":"string",
+							"title":"Output_String"
+						}
+					}
+				},
+				"setup":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"Input_Object"
+					],
+					"properties":{
+						"Input_Object":{
+							"type":"object",
+							"properties":{},
+							"additionalProperties":false,
+							"title":"Input_Object"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1163,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
 			"debug":false,
 			"dirty":false,
 			"fallbackMode":"STOP",
 			"groupId":"_Ceila-1",
-			"id":"_mDwmQ",
-			"index":0,
+			"id":"n_s7leN",
+			"index":2,
+			"inputs":{
+				"result":{
+					"Output_String":"{{ n_of8cH.outputs.Input_String }}"
+				}
+			},
 			"skip":false,
-			"title":"Select an app and action",
-			"type":"ACTION"
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +119,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":2
 }
