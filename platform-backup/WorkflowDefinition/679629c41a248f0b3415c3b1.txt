@@ -5,12 +5,12 @@
 	"createdTime":1747000727432,
 	"deleted":false,
 	"deploymentState":{
-		"deployedAt":1758650474021,
+		"deployedAt":1758820982866,
 		"deployedBy":-1,
-		"deployedDefinitionId":"68d2e0691bf7400a256cec7a",
+		"deployedDefinitionId":"68d57a76b57aa23969b95233",
 		"status":"DEPLOYED",
-		"version":68,
-		"workflowVersion":149
+		"version":71,
+		"workflowVersion":153
 	},
 	"edges":[
 		{
@@ -510,7 +510,7 @@
 	"id":"679629c41a248f0b3415c3b1",
 	"lastModifiedBy":1,
 	"lcName":"user/assistant prompt builder",
-	"modifiedTime":1758700923297,
+	"modifiedTime":1758874545180,
 	"name":"User/Assistant Prompt Builder",
 	"nodes":[
 		{
@@ -1368,6 +1368,8 @@
 			"inputs":{
 				"output":{
 					"type":"object",
+					"additionalProperties":false,
+					"required":[],
 					"properties":{
 						"contentBlock":{
 							"type":"object",
@@ -1375,25 +1377,31 @@
 							"additionalProperties":false,
 							"title":"Content Block"
 						}
-					},
-					"additionalProperties":false,
-					"required":[]
+					}
 				},
 				"input":{
 					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"timezone"
+					],
 					"properties":{
 						"context":{
 							"type":"string",
 							"title":"Context"
+						},
+						"timezone":{
+							"type":"string",
+							"title":"Timezone"
 						}
-					},
-					"additionalProperties":false,
-					"required":[]
+					}
 				},
+				"code":"import java.text.SimpleDateFormat\nimport java.util.Date\nimport java.util.TimeZone\n\ndef context = binding.hasVariable(\"context\") ? binding.getVariable(\"context\") : \"\"\ndef readableTime = getReadableTime()\n\nreturn [\"contentBlock\": [\n  \"type\" : \"text\",\n  \"text\" : \"This is a hidden message not visible to user, containing the additional details to keep in mind: \" + context + \" The current date and time is \" + readableTime + \". Please consider this timestamp while generating responses to ensure accuracy and relevance to the present moment.\"\n]]\n\nString getReadableTime() {\n  // Get timezone from environment variable, default to UTC if not set\n  String timezoneId = \"UTC\"\n  if(binding.hasVariable(\"timezone\"))\n  timezoneId =  binding.getVariable(\"timezone\")\n  \n  try {\n    // Get the current timestamp in milliseconds\n    long currentTimestamp = System.currentTimeMillis()\n    \n    // Convert timestamp to Date\n    Date date = new Date(currentTimestamp)\n    \n    // Create timezone object\n    TimeZone timezone = TimeZone.getTimeZone(timezoneId)\n    \n    // Format date into a more descriptive format\n    SimpleDateFormat sdf = new SimpleDateFormat(\"d'st' 'of' MMMM, 'Year' yyyy. EEEE. 'Time:' HH:mm:ss z\")\n    sdf.setTimeZone(timezone)\n    \n    // Create a custom suffix for the day\n    String day = new SimpleDateFormat(\"d\").format(date)\n    String suffix = getDaySuffix(Integer.parseInt(day))\n    \n    // Apply the custom suffix and include timezone info\n    String formattedTime = sdf.format(date).replace(\"st\", suffix)\n    \n    return formattedTime + \" (Timezone: \" + timezoneId + \")\"\n    \n  } catch (Exception e) {\n    // Fallback to UTC if there's any error with the timezone\n    String utcTime = getReadableTimeUTC()\n    return utcTime + \" (Fallback to UTC due to invalid timezone: \" + timezoneId + \")\"\n  }\n}\n\nString getDaySuffix(int day) {\n  if (day >= 11 && day <= 13) {\n    return \"th\"\n  }\n  switch (day % 10) {\n    case 1: return \"st\"\n    case 2: return \"nd\"\n    case 3: return \"rd\"\n    default: return \"th\"\n  }\n}\n\nString getReadableTimeUTC() {\n  long currentTimestamp = System.currentTimeMillis()\n  Date date = new Date(currentTimestamp)\n  \n  SimpleDateFormat sdf = new SimpleDateFormat(\"d'st' 'of' MMMM, 'Year' yyyy. EEEE. 'Time:' HH:mm:ss z\")\n  sdf.setTimeZone(TimeZone.getTimeZone(\"UTC\"))\n  \n  String day = new SimpleDateFormat(\"d\").format(date)\n  String suffix = getDaySuffix(Integer.parseInt(day))\n  \n  return sdf.format(date).replace(\"st\", suffix)\n}",
 				"compile_static":true,
-				"code":"import java.text.SimpleDateFormat\nimport java.util.Date\n\ndef context = binding.hasVariable(\"context\") ? binding.getVariable(\"context\") : \"\"\ndef readableTime = getReadableTime()\n\n\nreturn [\"contentBlock\": [\n  \"type\" : \"text\",\n  \"text\" : \"This is a hidden message not visible to user, containing the additional details to keep in mind: \" + context + \" The current date and time is \" + readableTime + \". Please consider this timestamp while generating responses to ensure accuracy and relevance to the present moment.\"\n]]\n\n\ndef getReadableTime() {\n  // Get the current timestamp in milliseconds\n  long currentTimestamp = System.currentTimeMillis()\n\n  // Convert timestamp to Date\n  Date date = new Date(currentTimestamp)\n\n  // Format date into a more descriptive format\n  SimpleDateFormat sdf = new SimpleDateFormat(\"d'st' 'of' MMMM, 'Year' yyyy. EEEE. 'Time:' HH:mm:ss\")\n\n  // Create a custom suffix for the day\n  String day = new SimpleDateFormat(\"d\").format(date)\n  String suffix = \"th\"\n  if (day.endsWith(\"1\") && !day.equals(\"11\")) suffix = \"st\"\n  else if (day.endsWith(\"2\") && !day.equals(\"12\")) suffix = \"nd\"\n  else if (day.endsWith(\"3\") && !day.equals(\"13\")) suffix = \"rd\"\n\n  // Apply the custom suffix\n  return sdf.format(date).replace(\"st\", suffix)\n}",
+				"captureStdOutput":false,
 				"parameters":{
-					"context":"{{ UkaLa.outputs.context }}"
+					"context":"{{ UkaLa.outputs.context }}",
+					"timezone":"{{ __ENV__.outputs.TIMEZONE_ID }}"
 				}
 			},
 			"skip":false,
@@ -2185,7 +2193,7 @@
 						}
 					}
 				},
-				"code":"def output = new StringBuilder()\n\nif (binding.hasVariable('messageContent')) {\n    output.append(binding.getVariable('messageContent')).append(\"\\n\")\n}\n\nif (binding.hasVariable('attachmentsList') && binding.getVariable('attachmentsList') != null) {\n    def attachments = binding.getVariable('attachmentsList')\n    output.append(\"Here are the list of Files Uploaded along with this Message :\\n\")\n    attachments.each { attachment ->\n        output.append(\"FileName: \")\n               .append(attachment.name)\n               .append(\" , FileType: \")\n               .append(attachment.fileType)\n               .append(\" , FileDetailsSource: \")\n               .append(attachment.fileDetailsSource)\n               .append(\" , FileDetailsSourceType: \")\n               .append(attachment.fileDetailsSourceType)\n               .append(\"\\n\")\n    }\n}\n\nreturn ['output': output.toString()]\n",
+				"code":"def output = new StringBuilder()\n\nif (binding.hasVariable('messageContent')) {\n    output.append(binding.getVariable('messageContent')).append(\"\\n\")\n}\n\nif (binding.hasVariable('attachmentsList') && binding.getVariable('attachmentsList') != null) {\n    def attachments = binding.getVariable('attachmentsList')\n    output.append(\"Here are the list of Files Uploaded along with this Message :\\n\")\n    attachments.each { attachment ->\n        output.append(\"FileName: \")\n               .append(attachment.name)\n               .append(\" , FileType: \")\n               .append(attachment.fileType)\n               .append(\" , FileDetailsSource: \")\n               .append(attachment.fileDetailsSource)\n               .append(\" , FileDetailsSourceType: \")\n               .append(attachment.fileDetailsSourceType)\n               .append(\" , size: \")\n               .append(attachment.size)\n               .append(\"\\n\")\n    }\n}\n\nreturn ['output': output.toString()]\n",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
@@ -3256,6 +3264,8 @@
 			"inputs":{
 				"output":{
 					"type":"object",
+					"additionalProperties":false,
+					"required":[],
 					"properties":{
 						"userMessages":{
 							"type":"array",
@@ -3279,12 +3289,14 @@
 							"type":"string",
 							"title":"Tool Response Time"
 						}
-					},
-					"additionalProperties":false,
-					"required":[]
+					}
 				},
 				"input":{
 					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"message"
+					],
 					"properties":{
 						"message":{
 							"type":"object",
@@ -3305,14 +3317,11 @@
 							},
 							"title":"Tools"
 						}
-					},
-					"additionalProperties":false,
-					"required":[
-						"message"
-					]
+					}
 				},
+				"code":"List<Map<String, Object>> assistantMessages = []\nList<Map<String, Object>> userMessages = []\nObject toolResponseTime = null\nList<String> toolUseMessageBlockedTools = ['think','ClarifyFromUser','PublishCitations']\nList<Map<String, Object>> tools = binding.hasVariable(\"tools\") ? (List<Map<String, Object>>) binding.getVariable(\"tools\") : []\n\nMap<String, Object> message = safeMap(binding.getVariable(\"message\"))\nMap<String, Object> content = safeMap(message[\"content\"])\nMap<String, Object> agentResponse = safeMap(content[\"agentResponse\"])\nMap<String, Object> toolUseDetails = safeMap(agentResponse[\"toolUseDetails\"])\n\nif (toolUseDetails[\"toolId\"] != null) {\n    String toolId = toolUseDetails[\"toolId\"] as String\n    String toolName = toolUseDetails[\"toolName\"] as String\n    Map<String, Object> input = safeMap(toolUseDetails[\"toolInput\"])\n\n    if (toolName == \"PublishCitations\") {\n        assistantMessages.add([\n            type: \"text\",\n            text: \"Thought: I now know the answer\\nFinalAnswer: \" + (content[\"text\"] ?: \"\"),\n            final_answer: (content[\"text\"] ?: \"\")\n        ])\n    } else if (toolName == \"think\") {\n        if (input[\"thought\"] != null) {\n            assistantMessages.add([\n                type: \"text\",\n                text: input[\"thought\"],\n                thought: input[\"thought\"]\n            ])\n        }\n    } else {\n        String text = content[\"text\"] as String\n        String thinkingSignature = agentResponse[\"thinkingSignature\"] as String\n        if (text) {\n            assistantMessages.add([\n                type: \"text\",\n                text: \"Thought: \" + text,\n                thought: text,\n                thinkingSignature: thinkingSignature\n            ])\n        } else {\n            List<Map<String, Object>> blocks = safeMap(content[\"coPilotBlocks\"])[\"blocks\"] as List<Map<String, Object>>\n            for (Map<String, Object> block : blocks) {\n                if ((block[\"blockType\"] as String) == \"Typography\") {\n                    Map<String, Object> data = safeMap(block[\"data\"])\n                    assistantMessages.add([\n                        type: \"text\",\n                        text: \"Thought: \" + (data[\"text\"] ?: \"\"),\n                        thought: (data[\"text\"] ?: \"\")\n                    ])\n                }\n            }\n        }\n    }\n\n    if (!toolUseMessageBlockedTools.contains(toolName)) {\n        assistantMessages.add([\n            type: \"tool_use\",\n            id: toolId,\n            name: getSanitizedName(toolName),\n            input: input\n        ])\n        userMessages.add([\n            type: \"tool_result\",\n            tool_use_id: toolId,\n            content: toolUseDetails[\"toolOutput\"],\n            name: getSanitizedName(toolName),\n        ])\n    }\n    toolResponseTime = toolUseDetails[\"toolResponseTime\"]\n\n} else if (!tools.isEmpty()) {\n    String text = content[\"text\"] as String\n    String thinkingSignature = agentResponse[\"thinkingSignature\"] as String\n    boolean isPublishCitation = false\n    for (Map<String, Object> tool : tools) {\n        String toolName = tool[\"toolName\"] as String\n        String toolId = tool[\"toolId\"] as String\n        Map<String, Object> input = safeMap(tool[\"toolInput\"])\n\n        if (toolName == \"PublishCitations\") {\n            assistantMessages.add([\n                type: \"text\",\n                text: \"Thought: I now know the answer\\nFinalAnswer: \" + (content[\"text\"] ?: \"\"),\n                final_answer: (content[\"text\"] ?: \"\")\n            ])\n            isPublishCitation = true\n        } else if (toolName == \"think\") {\n            if (input[\"thought\"] != null) {\n                assistantMessages.add([\n                    type: \"text\",\n                    text: input[\"thought\"],\n                    thought: input[\"thought\"]\n                ])\n            }\n            isPublishCitation = true\n        }\n\n        if (!toolUseMessageBlockedTools.contains(toolName)) {\n            assistantMessages.add([\n                type: \"tool_use\",\n                id: toolId,\n                name: getSanitizedName(toolName),\n                input: input\n            ])\n            userMessages.add([\n                type: \"tool_result\",\n                tool_use_id: toolId,\n                content: tool[\"toolOutput\"],\n                name: getSanitizedName(toolName)\n            ])\n        }\n        toolResponseTime = tool[\"toolResponseTime\"]\n    }\n    if (text) {\n        if(!isPublishCitation){\n            assistantMessages.add([\n                type: \"text\",\n                text: \"Thought: \" + text,\n                thought: text,\n                thinkingSignature: thinkingSignature\n            ])\n        }\n    } else {\n        List<Map<String, Object>> blocks = safeMap(content[\"coPilotBlocks\"])[\"blocks\"] as List<Map<String, Object>>\n        for (Map<String, Object> block : blocks) {\n            if ((block[\"blockType\"] as String) == \"Typography\") {\n                Map<String, Object> data = safeMap(block[\"data\"])\n                assistantMessages.add([\n                    type: \"text\",\n                    text: \"Thought: \" + (data[\"text\"] ?: \"\"),\n                    thought: (data[\"text\"] ?: \"\")\n                ])\n            }\n        }\n    }\n\n} else if (agentResponse[\"rawLLMResponse\"] != null || agentResponse[\"observation\"] != null)  {\n    String rawLLMResponse = agentResponse[\"rawLLMResponse\"] as String\n    String observation = agentResponse[\"observation\"] as String\n    if(rawLLMResponse != '')\n        assistantMessages.add([type: \"text\", text: rawLLMResponse, rawLLMResponse: rawLLMResponse])\n     userMessages.add([type: \"text\", text: observation ?: \"Thought:\"])\n\n} else {\n    Map<String, Object> additional = safeMap(message[\"additional\"])\n    if ((additional[\"internalMessageType\"] ?: \"\") != \"THOUGHT\") {\n        if (content[\"text\"] != null) {\n            assistantMessages.add([\n                type: \"text\",\n                text: \"Thought: I now know the answer\\nFinalAnswer: \" + content[\"text\"],\n                final_answer: content[\"text\"]\n            ])\n        } else if (safeMap(content[\"interfaceDetails\"])[\"interfaceDescription\"] != null) {\n            assistantMessages.add([\n                type: \"text\",\n                text: \"Thought: I now know the answer\\nFinalAnswer: \" + safeMap(content[\"interfaceDetails\"])[\"interfaceDescription\"],\n                final_answer: safeMap(content[\"interfaceDetails\"])[\"interfaceDescription\"]\n            ])\n        } else {\n            List<Map<String, Object>> blocks = safeMap(content[\"coPilotBlocks\"])[\"blocks\"] as List<Map<String, Object>>\n            for (Map<String, Object> block : blocks) {\n                if ((block[\"blockType\"] as String) == \"Typography\") {\n                    Map<String, Object> data = safeMap(block[\"data\"])\n                    assistantMessages.add([\n                        type: \"text\",\n                        text: \"Thought: I now know the answer\\nFinalAnswer: \" + (data[\"text\"] ?: \"\"),\n                        final_answer: (data[\"text\"] ?: \"\")\n                    ])\n                }\n            }\n        }\n    }\n}\n\nreturn [\n    assistantMessages: assistantMessages,\n    userMessages     : userMessages,\n    toolResponseTime : toolResponseTime\n]\n\n\nstatic Map<String, Object> safeMap(Object obj) {\n    return (obj instanceof Map) ? (Map<String, Object>) obj : Collections.emptyMap()\n}\n\nstatic String getSanitizedName(String header) {\n    StringBuilder sb = new StringBuilder()\n    for (char c : header.toCharArray()) {\n        sb.append(c.isLetterOrDigit() ? c : \"_\")\n    }\n    return sb.toString()\n}\n",
 				"compile_static":true,
-				"code":"List<Map<String, Object>> assistantMessages = []\nList<Map<String, Object>> userMessages = []\nObject toolResponseTime = null\nList<String> toolUseMessageBlockedTools = ['think','ClarifyFromUser','PublishCitations']\nList<Map<String, Object>> tools = binding.hasVariable(\"tools\") ? (List<Map<String, Object>>) binding.getVariable(\"tools\") : []\n\nMap<String, Object> message = safeMap(binding.getVariable(\"message\"))\nMap<String, Object> content = safeMap(message[\"content\"])\nMap<String, Object> agentResponse = safeMap(content[\"agentResponse\"])\nMap<String, Object> toolUseDetails = safeMap(agentResponse[\"toolUseDetails\"])\n\nif (toolUseDetails[\"toolId\"] != null) {\n    String toolId = toolUseDetails[\"toolId\"] as String\n    String toolName = toolUseDetails[\"toolName\"] as String\n    Map<String, Object> input = safeMap(toolUseDetails[\"toolInput\"])\n\n    if (toolId == \"PublishCitations\") {\n        assistantMessages.add([\n            type: \"text\",\n            text: \"Thought: I now know the answer\\nFinalAnswer: \" + (content[\"text\"] ?: \"\"),\n            final_answer: (content[\"text\"] ?: \"\")\n        ])\n    } else if (toolId == \"think\") {\n        if (input[\"thought\"] != null) {\n            assistantMessages.add([\n                type: \"text\",\n                text: input[\"thought\"],\n                thought: input[\"thought\"]\n            ])\n        }\n    } else {\n        String text = content[\"text\"] as String\n        String thinkingSignature = agentResponse[\"thinkingSignature\"] as String\n        if (text) {\n            assistantMessages.add([\n                type: \"text\",\n                text: \"Thought: \" + text,\n                thought: text,\n                thinkingSignature: thinkingSignature\n            ])\n        } else {\n            List<Map<String, Object>> blocks = safeMap(content[\"coPilotBlocks\"])[\"blocks\"] as List<Map<String, Object>>\n            for (Map<String, Object> block : blocks) {\n                if ((block[\"blockType\"] as String) == \"Typography\") {\n                    Map<String, Object> data = safeMap(block[\"data\"])\n                    assistantMessages.add([\n                        type: \"text\",\n                        text: \"Thought: \" + (data[\"text\"] ?: \"\"),\n                        thought: (data[\"text\"] ?: \"\")\n                    ])\n                }\n            }\n        }\n    }\n\n    if (!toolUseMessageBlockedTools.contains(toolName)) {\n        assistantMessages.add([\n            type: \"tool_use\",\n            id: toolId,\n            name: getSanitizedName(toolName),\n            input: input\n        ])\n        userMessages.add([\n            type: \"tool_result\",\n            tool_use_id: toolId,\n            content: toolUseDetails[\"toolOutput\"]\n        ])\n    }\n    toolResponseTime = toolUseDetails[\"toolResponseTime\"]\n\n} else if (!tools.isEmpty()) {\n    String text = content[\"text\"] as String\n    String thinkingSignature = agentResponse[\"thinkingSignature\"] as String\n    boolean isPublishCitation = false\n    for (Map<String, Object> tool : tools) {\n        String toolName = tool[\"toolName\"] as String\n        String toolId = tool[\"toolId\"] as String\n        Map<String, Object> input = safeMap(tool[\"toolInput\"])\n\n        if (toolName == \"PublishCitations\") {\n            assistantMessages.add([\n                type: \"text\",\n                text: \"Thought: I now know the answer\\nFinalAnswer: \" + (content[\"text\"] ?: \"\"),\n                final_answer: (content[\"text\"] ?: \"\")\n            ])\n            isPublishCitation = true\n        } else if (toolName == \"think\") {\n            if (input[\"thought\"] != null) {\n                assistantMessages.add([\n                    type: \"text\",\n                    text: input[\"thought\"],\n                    thought: input[\"thought\"]\n                ])\n            }\n            isPublishCitation = true\n        }\n\n        if (!toolUseMessageBlockedTools.contains(toolName)) {\n            assistantMessages.add([\n                type: \"tool_use\",\n                id: toolId,\n                name: getSanitizedName(toolName),\n                input: input\n            ])\n            userMessages.add([\n                type: \"tool_result\",\n                tool_use_id: toolId,\n                content: tool[\"toolOutput\"]\n            ])\n        }\n        toolResponseTime = tool[\"toolResponseTime\"]\n    }\n    if (text) {\n        if(!isPublishCitation){\n            assistantMessages.add([\n                type: \"text\",\n                text: \"Thought: \" + text,\n                thought: text,\n                thinkingSignature: thinkingSignature\n            ])\n        }\n    } else {\n        List<Map<String, Object>> blocks = safeMap(content[\"coPilotBlocks\"])[\"blocks\"] as List<Map<String, Object>>\n        for (Map<String, Object> block : blocks) {\n            if ((block[\"blockType\"] as String) == \"Typography\") {\n                Map<String, Object> data = safeMap(block[\"data\"])\n                assistantMessages.add([\n                    type: \"text\",\n                    text: \"Thought: \" + (data[\"text\"] ?: \"\"),\n                    thought: (data[\"text\"] ?: \"\")\n                ])\n            }\n        }\n    }\n\n} else if (agentResponse[\"rawLLMResponse\"] != null || agentResponse[\"observation\"] != null)  {\n    String rawLLMResponse = agentResponse[\"rawLLMResponse\"] as String\n    String observation = agentResponse[\"observation\"] as String\n    if(rawLLMResponse != '')\n        assistantMessages.add([type: \"text\", text: rawLLMResponse, rawLLMResponse: rawLLMResponse])\n     userMessages.add([type: \"text\", text: observation ?: \"Thought:\"])\n\n} else {\n    Map<String, Object> additional = safeMap(message[\"additional\"])\n    if ((additional[\"internalMessageType\"] ?: \"\") != \"THOUGHT\") {\n        if (content[\"text\"] != null) {\n            assistantMessages.add([\n                type: \"text\",\n                text: \"Thought: I now know the answer\\nFinalAnswer: \" + content[\"text\"],\n                final_answer: content[\"text\"]\n            ])\n        } else if (safeMap(content[\"interfaceDetails\"])[\"interfaceDescription\"] != null) {\n            assistantMessages.add([\n                type: \"text\",\n                text: \"Thought: I now know the answer\\nFinalAnswer: \" + safeMap(content[\"interfaceDetails\"])[\"interfaceDescription\"],\n                final_answer: safeMap(content[\"interfaceDetails\"])[\"interfaceDescription\"]\n            ])\n        } else {\n            List<Map<String, Object>> blocks = safeMap(content[\"coPilotBlocks\"])[\"blocks\"] as List<Map<String, Object>>\n            for (Map<String, Object> block : blocks) {\n                if ((block[\"blockType\"] as String) == \"Typography\") {\n                    Map<String, Object> data = safeMap(block[\"data\"])\n                    assistantMessages.add([\n                        type: \"text\",\n                        text: \"Thought: I now know the answer\\nFinalAnswer: \" + (data[\"text\"] ?: \"\"),\n                        final_answer: (data[\"text\"] ?: \"\")\n                    ])\n                }\n            }\n        }\n    }\n}\n\nreturn [\n    assistantMessages: assistantMessages,\n    userMessages     : userMessages,\n    toolResponseTime : toolResponseTime\n]\n\n\nstatic Map<String, Object> safeMap(Object obj) {\n    return (obj instanceof Map) ? (Map<String, Object>) obj : Collections.emptyMap()\n}\n\nstatic String getSanitizedName(String header) {\n    StringBuilder sb = new StringBuilder()\n    for (char c : header.toCharArray()) {\n        sb.append(c.isLetterOrDigit() ? c : \"_\")\n    }\n    return sb.toString()\n}\n",
+				"captureStdOutput":false,
 				"parameters":{
 					"message":"{{ kgcmN.outputs.item.properties }}",
 					"modelName":"{{ KrMQT.outputs.modelName }}",
@@ -3655,5 +3664,5 @@
 		"AI Agent",
 		"Team"
 	],
-	"version":150
+	"version":154
 }
