@@ -7,46 +7,107 @@
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_sSUdl",
+			"fromNodeId":"n_ylmj2",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_br5EF",
+			"toNodeId":"n_V085x",
 			"type":"next"
 		}
 	],
 	"id":"68d6e255e369601c831a8d6f",
 	"lastModifiedBy":1,
 	"lcName":"condition box|number input - does not contain 11758912241680",
-	"modifiedTime":1758913109185,
+	"modifiedTime":1758913119980,
 	"name":"Condition Box|Number Input - Does not contain 11758912241680",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1152,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_sSUdl-1",
-			"id":"_sSUdl",
-			"index":0,
+			"id":"n_ylmj2",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"output_Number"
+					],
+					"properties":{
+						"output_Number":{
+							"type":"number",
+							"title":"output_Number"
+						}
+					}
+				},
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"property":"{{ n_ylmj2.outputs.input_Number }}",
+							"filter":{
+								"operator":"NOT_CONTAINS",
+								"value":"3"
+							}
+						}
+					],
+					"operator":"AND"
+				},
+				"setup":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"input_Number"
+					],
+					"properties":{
+						"input_Number":{
+							"type":"number",
+							"title":"input_Number"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1155,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_sSUdl-1",
-			"id":"_br5EF",
-			"index":0,
+			"id":"n_V085x",
+			"index":2,
+			"inputs":{
+				"result":{
+					"output_Number":"{{ n_ylmj2.outputs.input_Number }}"
+				}
+			},
 			"skip":false,
-			"title":"Select an app and action",
-			"type":"ACTION"
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +121,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
