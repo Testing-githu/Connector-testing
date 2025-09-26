@@ -191,9 +191,9 @@
 		]
 	},
 	"id":"68593cbb518c4b5388423263",
-	"lastModifiedBy":0,
+	"lastModifiedBy":-1,
 	"lcName":"deep research tool | websearch",
-	"modifiedTime":1758885730677,
+	"modifiedTime":1758886168423,
 	"name":"Deep Research Tool | WebSearch",
 	"nodes":[
 		{
@@ -1139,8 +1139,6 @@
 			"inputs":{
 				"output":{
 					"type":"object",
-					"additionalProperties":false,
-					"required":[],
 					"properties":{
 						"chunks":{
 							"type":"array",
@@ -1166,12 +1164,12 @@
 							},
 							"title":"Chunks"
 						}
-					}
+					},
+					"additionalProperties":false,
+					"required":[]
 				},
 				"input":{
 					"type":"object",
-					"additionalProperties":false,
-					"required":[],
 					"properties":{
 						"input":{
 							"type":"object",
@@ -1195,11 +1193,12 @@
 							},
 							"title":"Result List"
 						}
-					}
+					},
+					"additionalProperties":false,
+					"required":[]
 				},
-				"code":"def results = resultList\n\ndef favicons = binding.hasVariable('favicon') ? favicon as List : []\n\ndef chunks = []\n\nfor (int idx = 0; idx < results.size(); idx++) {\n    def item = results[idx]\n    // pick the matching favicon entry by index, or fall back to empty string\n    def iconUrl = (idx < favicons.size() && favicons[idx]?.favicon) ? favicons[idx].favicon : \"\"\n\n    chunks << [\n        chunkMetadata: [\n            chunkContents   : item.summarized_content ? [ item.summarized_content ] : [],\n            name            : item?.title,\n            title           : item?.title,\n            referenceUrl    : item?.url,\n            websiteUrl      : item?.url,\n            uniqueEntityId  : item?.url,\n            sourceType      : \"WEBSITE\",\n            iconUrl         : iconUrl\n        ],\n        content: item.summarized_content ?: \"\"\n    ]\n}\n\nreturn [ chunks: chunks ]",
 				"compile_static":false,
-				"captureStdOutput":false,
+				"code":"def results = (input?.results as List) ?: []\nresults = resultList\n\ndef favicons = binding.hasVariable('favicon') ? favicon as List : []\n\ndef chunks = []\n\nfor (int idx = 0; idx < results.size(); idx++) {\n    def item = results[idx]\n    // pick the matching favicon entry by index, or fall back to empty string\n    def iconUrl = (idx < favicons.size() && favicons[idx]?.favicon) ? favicons[idx].favicon : \"\"\n\n    chunks << [\n        chunkMetadata: [\n            chunkContents   : item.summarized_content ? [ item.summarized_content ] : [],\n            name            : item?.title,\n            title           : item?.title,\n            referenceUrl    : item?.url,\n            websiteUrl      : item?.url,\n            uniqueEntityId  : item?.url,\n            sourceType      : \"WEBSITE\",\n            iconUrl         : iconUrl\n        ],\n        content: item.summarized_content ?: \"\"\n    ]\n}\n\nreturn [ chunks: chunks ]",
 				"parameters":{
 					"input":"{{ RkGgx.outputs }}",
 					"favicon":{
@@ -1623,5 +1622,5 @@
 	"tags":[
 		
 	],
-	"version":123
+	"version":124
 }
