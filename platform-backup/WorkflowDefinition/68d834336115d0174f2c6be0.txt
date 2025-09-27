@@ -7,46 +7,123 @@
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_CRLX6",
+			"fromNodeId":"n_zMlek",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_4ObfM",
+			"toNodeId":"n_4VPYx",
 			"type":"next"
 		}
 	],
 	"id":"68d834336115d0174f2c6be0",
 	"lastModifiedBy":1,
 	"lcName":"verify_api_triggering_body_listnumbertype_117589985508600",
-	"modifiedTime":1758999603428,
+	"modifiedTime":1758999621959,
 	"name":"Verify_API_Triggering_Body_ListNumberType_117589985508600",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1360,
+				"resourceName":"callables_from_api"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_CRLX6-1",
-			"id":"_CRLX6",
-			"index":0,
+			"id":"n_zMlek",
+			"index":1,
+			"inputs":{
+				"request":{
+					"contentType":"application/json",
+					"body":{
+						"type":"object",
+						"properties":{
+							"List_Numbers":{
+								"type":"array",
+								"items":{
+									"type":"number"
+								},
+								"title":"List_Numbers"
+							}
+						},
+						"additionalProperties":false,
+						"required":[
+							"List_Numbers"
+						]
+					}
+				},
+				"endpointType":"REST",
+				"response":[
+					{
+						"name":"200",
+						"status":200,
+						"contentType":"application/json",
+						"textBody":{
+							"type":"string"
+						},
+						"body":{
+							"type":"object",
+							"properties":{
+								"List_Numbers":{
+									"type":"array",
+									"items":{
+										"type":"number"
+									},
+									"title":"List_Numbers"
+								}
+							},
+							"additionalProperties":false,
+							"required":[
+								"List_Numbers"
+							]
+						}
+					}
+				],
+				"streamingResponse":false
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via API",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1362,
+				"resourceName":"callables_return_response_to_api",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_CRLX6-1",
-			"id":"_4ObfM",
-			"index":0,
+			"id":"n_4VPYx",
+			"index":2,
+			"inputs":{
+				"streamingCompleted":true,
+				"responseName":"200_200",
+				"body":{
+					"List_Numbers":{
+						"source":"{{ n_zMlek.outputs.body.List_Numbers }}",
+						"ua:type":"mappedArray",
+						"items":"{{ n_zMlek.outputs.body.List_Numbers }}"
+					}
+				},
+				"status":200
+			},
 			"skip":false,
-			"title":"Select an app and action",
-			"type":"ACTION"
+			"subTitle":"Callable",
+			"title":"Respond to API request",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +137,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
