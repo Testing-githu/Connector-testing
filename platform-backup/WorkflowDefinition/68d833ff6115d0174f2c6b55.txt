@@ -7,46 +7,113 @@
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_gpj2U",
+			"fromNodeId":"n_eKem4",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_KIz13",
+			"toNodeId":"n_bNqjW",
 			"type":"next"
 		}
 	],
 	"id":"68d833ff6115d0174f2c6b55",
 	"lastModifiedBy":1,
 	"lcName":"verify_api_triggering_body_inttype_117589985508600",
-	"modifiedTime":1758999551930,
+	"modifiedTime":1758999566419,
 	"name":"Verify_API_Triggering_Body_IntType_117589985508600",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1360,
+				"resourceName":"callables_from_api"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_gpj2U-1",
-			"id":"_gpj2U",
-			"index":0,
+			"id":"n_eKem4",
+			"index":1,
+			"inputs":{
+				"request":{
+					"contentType":"application/json",
+					"body":{
+						"type":"object",
+						"properties":{
+							"Age":{
+								"type":"integer",
+								"title":"Age"
+							}
+						},
+						"additionalProperties":false,
+						"required":[
+							"Age"
+						]
+					}
+				},
+				"endpointType":"REST",
+				"response":[
+					{
+						"name":"200",
+						"status":200,
+						"contentType":"application/json",
+						"textBody":{
+							"type":"string"
+						},
+						"body":{
+							"type":"object",
+							"properties":{
+								"Age":{
+									"type":"integer",
+									"title":"Age"
+								}
+							},
+							"additionalProperties":false,
+							"required":[
+								"Age"
+							]
+						}
+					}
+				],
+				"streamingResponse":false
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via API",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1362,
+				"resourceName":"callables_return_response_to_api",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_gpj2U-1",
-			"id":"_KIz13",
-			"index":0,
+			"id":"n_bNqjW",
+			"index":2,
+			"inputs":{
+				"streamingCompleted":true,
+				"responseName":"200_200",
+				"body":{
+					"Age":"{{ n_eKem4.outputs.body.Age }}"
+				},
+				"status":200
+			},
 			"skip":false,
-			"title":"Select an app and action",
-			"type":"ACTION"
+			"subTitle":"Callable",
+			"title":"Respond to API request",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +127,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
