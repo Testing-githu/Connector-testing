@@ -17,13 +17,6 @@
 			"fromNodeId":"n_5jkrx",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"n_soWbZ",
-			"type":"next"
-		},
-		{
-			"fromNodeId":"n_soWbZ",
-			"priority":0,
-			"skip":false,
 			"toNodeId":"n_B6drs",
 			"type":"next"
 		},
@@ -38,7 +31,7 @@
 	"id":"68d64b3fb57aa23969be9bf4",
 	"lastModifiedBy":1,
 	"lcName":"utilitybyunifyappslocalihbrwxdwvh",
-	"modifiedTime":1758965436084,
+	"modifiedTime":1758966804703,
 	"name":"UtilityByUnifyAppsLocalIHbRwxDWVh",
 	"nodes":[
 		{
@@ -48,7 +41,7 @@
 				"resourceName":"callables_from_automation"
 			},
 			"debug":false,
-			"dirty":true,
+			"dirty":false,
 			"fallbackMode":"STOP",
 			"groupId":"_yf9tt-1",
 			"id":"n_5jkrx",
@@ -95,32 +88,9 @@
 		},
 		{
 			"context":{
-				"appName":"files_by_unifyapps",
-				"resourceVersion":1243,
-				"resourceName":"files_by_unifyapps_upload_file",
-				"type":"APPLICATION"
-			},
-			"debug":false,
-			"dirty":true,
-			"fallbackMode":"STOP",
-			"groupId":"_yf9tt-1",
-			"id":"n_soWbZ",
-			"index":2,
-			"inputs":{
-				"fileName":"testone",
-				"url":"https://arxiv.org/pdf/2407.02987",
-				"option":"url"
-			},
-			"skip":false,
-			"subTitle":"Files by UnifyApps",
-			"title":"Upload file",
-			"type":"ACTION"
-		},
-		{
-			"context":{
 				"appName":"utility_by_unifyapps",
-				"resourceVersion":1531,
-				"resourceName":"utility_by_unifyapps_generate_public_url",
+				"resourceVersion":1538,
+				"resourceName":"utility_by_unifyapps_decode_jwt_token",
 				"type":"APPLICATION"
 			},
 			"debug":false,
@@ -128,14 +98,13 @@
 			"fallbackMode":"STOP",
 			"groupId":"_yf9tt-1",
 			"id":"n_B6drs",
-			"index":3,
+			"index":2,
 			"inputs":{
-				"file":"{{ n_soWbZ.outputs.fileDetails }}",
-				"expiryTime":1
+				"token":"eyJhbGciOiJIUzI1NiIsImtpZCI6IjY4YTljMjY3ZWE0NTAzMzZmM2ExYTZhMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWUsImlhdCI6MTUxNjIzOTAyMn0.5kdbGVQdvaq7r22SYEU8K1kT7qkHM6ko7FoFjRWbIM0"
 			},
 			"skip":false,
 			"subTitle":"Utility by UnifyApps",
-			"title":"Generate public file URL",
+			"title":"Decode JWT Token",
 			"type":"ACTION"
 		},
 		{
@@ -150,10 +119,10 @@
 			"fallbackMode":"STOP",
 			"groupId":"_yf9tt-1",
 			"id":"n_3f5lt",
-			"index":4,
+			"index":3,
 			"inputs":{
 				"result":{
-					"r":"{{ n_B6drs.outputs.fileContent }}"
+					"r":"{{ n_B6drs.outputs.headers }}"
 				}
 			},
 			"skip":false,
@@ -179,5 +148,5 @@
 	"tags":[
 		
 	],
-	"version":4
+	"version":6
 }
