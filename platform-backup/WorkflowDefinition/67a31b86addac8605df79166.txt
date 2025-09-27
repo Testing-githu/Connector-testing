@@ -5,12 +5,12 @@
 	"createdTime":1747000722234,
 	"deleted":false,
 	"deploymentState":{
-		"deployedAt":1758888514772,
+		"deployedAt":1758963946395,
 		"deployedBy":1,
-		"deployedDefinitionId":"68d682423323d93096570f9e",
+		"deployedDefinitionId":"68d7a8eace29ec20a05f0a80",
 		"status":"DEPLOYED",
-		"version":77,
-		"workflowVersion":112
+		"version":78,
+		"workflowVersion":113
 	},
 	"edges":[
 		{
@@ -219,9 +219,9 @@
 		]
 	},
 	"id":"67a31b86addac8605df79166",
-	"lastModifiedBy":1,
+	"lastModifiedBy":-1,
 	"lcName":"add context to agent",
-	"modifiedTime":1758963946309,
+	"modifiedTime":1758966118149,
 	"name":"Add Context To Agent",
 	"nodes":[
 		{
@@ -639,7 +639,7 @@
 			},
 			"debug":false,
 			"dirty":false,
-			"fallbackMode":"CONTINUE",
+			"fallbackMode":"STOP",
 			"groupId":"Pki0l@O1Yki-1@y",
 			"id":"grr6j",
 			"index":9,
@@ -647,79 +647,24 @@
 				"recordId":"{{ FTC3Q.outputs.messageId }}",
 				"writeThroughSessionVariables":false,
 				"object_type":"service_hub_message",
-				"skipIfBlank":false,
 				"skipPermissionCheck":false,
 				"updateFields":[
 					{
-						"setValue":"{{ FTC3Q.outputs.rawLLMResponse }}",
 						"fieldName":"properties.content.agentResponse.rawLLMResponse",
-						"actionType":"SET"
+						"actionType":"SET",
+						"setValue":"{{ FTC3Q.outputs.rawLLMResponse }}"
 					},
 					{
-						"setValue":"{{ FTC3Q.outputs.executionOutput }}",
 						"actionType":"SET",
+						"setValue":"{{ FTC3Q.outputs.executionOutput }}",
 						"fieldName":"properties.content.agentResponse.observation"
 					},
 					{
-						"setValue":"{{ aAK6V.outputs.result.toolUseDetailsModified }}",
 						"fieldName":"properties.content.agentResponse.toolUseDetails",
-						"actionType":"SET"
+						"actionType":"SET",
+						"setValue":"{{ aAK6V.outputs.result.toolUseDetailsModified }}"
 					}
-				],
-				"unsetIfNull":false
-			},
-			"options":{
-				"bulkheadConfig":{
-					"enabled":false,
-					"global":false
-				},
-				"businessHoursConfig":{
-					"enabled":false,
-					"waitForNextWindow":false
-				},
-				"cacheConfig":{
-					"enabled":false,
-					"usagePolicy":"ALWAYS"
-				},
-				"circuitBreakerConfig":{
-					"enabled":false
-				},
-				"disableLogging":false,
-				"enabledForReExecution":false,
-				"hookConfig":{
-					"enabled":false,
-					"postHooks":[
-						
-					],
-					"preHooks":[
-						
-					]
-				},
-				"logConfig":{
-					"enabled":false,
-					"logPolicies":[
-						
-					]
-				},
-				"rateLimitConfig":{
-					"enabled":false,
-					"waitForNextWindow":false
-				},
-				"retryConfig":{
-					"backOffFactor":null,
-					"captureRetries":false,
-					"enabled":false
-				},
-				"stepError":"CONTINUE",
-				"telemetryConfig":{
-					"enableTelemetry":false,
-					"metricConfigs":[
-						
-					]
-				},
-				"timeoutConfig":{
-					"enabled":false
-				}
+				]
 			},
 			"skip":false,
 			"subTitle":"tool failure feedback",
@@ -1217,9 +1162,9 @@
 		
 	],
 	"settings":{
-		"enableNodeLevelLogging":false,
-		"enableRunLogging":false,
-		"enableVariableLogging":false,
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
 		"route":{
 			"default":false,
 			"tierName":"global"
@@ -1230,5 +1175,5 @@
 		"AI Agent",
 		"Team"
 	],
-	"version":113
+	"version":114
 }
