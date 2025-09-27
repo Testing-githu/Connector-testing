@@ -7,46 +7,133 @@
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_caJt6",
+			"fromNodeId":"n_rDZnq",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_03Klx",
+			"toNodeId":"n_Q8XHH",
 			"type":"next"
 		}
 	],
 	"id":"68d83419d5488f2430a61e58",
 	"lastModifiedBy":1,
 	"lcName":"verify_api_triggering_body_objecttype_117589985508600",
-	"modifiedTime":1758999577884,
+	"modifiedTime":1758999600306,
 	"name":"Verify_API_Triggering_Body_ObjectType_117589985508600",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1360,
+				"resourceName":"callables_from_api"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_caJt6-1",
-			"id":"_caJt6",
-			"index":0,
+			"id":"n_rDZnq",
+			"index":1,
+			"inputs":{
+				"request":{
+					"contentType":"application/json",
+					"body":{
+						"type":"object",
+						"properties":{
+							"CarsBrands_models":{
+								"type":"object",
+								"properties":{
+									"Car":{
+										"type":"string",
+										"title":"Car"
+									},
+									"Year":{
+										"type":"integer",
+										"title":"Year"
+									}
+								},
+								"title":"CarsBrands_models",
+								"additionalProperties":false
+							}
+						},
+						"additionalProperties":false
+					}
+				},
+				"endpointType":"REST",
+				"response":[
+					{
+						"name":"200",
+						"status":200,
+						"contentType":"application/json",
+						"textBody":{
+							"type":"string"
+						},
+						"body":{
+							"type":"object",
+							"properties":{
+								"CarsBrands_models":{
+									"type":"object",
+									"properties":{
+										"Car":{
+											"type":"string",
+											"title":"Car"
+										},
+										"Year":{
+											"type":"integer",
+											"title":"Year"
+										}
+									},
+									"title":"CarsBrands_models",
+									"additionalProperties":false
+								}
+							},
+							"additionalProperties":false
+						},
+						"namespaces":[]
+					}
+				],
+				"streamingResponse":false
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via API",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1362,
+				"resourceName":"callables_return_response_to_api",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_caJt6-1",
-			"id":"_03Klx",
-			"index":0,
+			"id":"n_Q8XHH",
+			"index":2,
+			"inputs":{
+				"streamingCompleted":true,
+				"responseName":"200_200",
+				"body":{
+					"CarsBrands_models":{
+						"Car":"{{ n_rDZnq.outputs.body.CarsBrands_models.Car }}",
+						"Year":"{{ n_rDZnq.outputs.body.CarsBrands_models.Year }}"
+					}
+				},
+				"status":200
+			},
 			"skip":false,
-			"title":"Select an app and action",
-			"type":"ACTION"
+			"subTitle":"Callable",
+			"title":"Respond to API request",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +147,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
