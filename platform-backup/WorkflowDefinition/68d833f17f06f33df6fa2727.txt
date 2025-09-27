@@ -7,46 +7,114 @@
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_cgdJQ",
+			"fromNodeId":"n_FgRaQ",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_Kl0jI",
+			"toNodeId":"n_o9WD7",
 			"type":"next"
 		}
 	],
 	"id":"68d833f17f06f33df6fa2727",
 	"lastModifiedBy":1,
 	"lcName":"verify_api_triggering_headers_listtype_117589985508600",
-	"modifiedTime":1758999537632,
+	"modifiedTime":1758999554203,
 	"name":"Verify_API_Triggering_Headers_ListType_117589985508600",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1360,
+				"resourceName":"callables_from_api"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_cgdJQ-1",
-			"id":"_cgdJQ",
-			"index":0,
+			"id":"n_FgRaQ",
+			"index":1,
+			"inputs":{
+				"request":{
+					"headers":{
+						"type":"object",
+						"additionalProperties":false,
+						"required":[],
+						"properties":{
+							"List_of_Cars":{
+								"type":"array",
+								"items":{
+									"type":"string"
+								},
+								"title":"List_of_Cars"
+							}
+						}
+					},
+					"contentType":"application/json"
+				},
+				"endpointType":"REST",
+				"response":[
+					{
+						"name":"200",
+						"status":200,
+						"contentType":"application/json",
+						"textBody":{
+							"type":"string"
+						},
+						"body":{
+							"type":"object",
+							"properties":{
+								"output":{
+									"type":"string",
+									"title":"output"
+								}
+							},
+							"additionalProperties":false,
+							"required":[
+								"output"
+							]
+						}
+					}
+				],
+				"streamingResponse":false
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via API",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1362,
+				"resourceName":"callables_return_response_to_api",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_cgdJQ-1",
-			"id":"_Kl0jI",
-			"index":0,
+			"id":"n_o9WD7",
+			"index":2,
+			"inputs":{
+				"streamingCompleted":true,
+				"responseName":"200_200",
+				"body":{
+					"output":"{{ n_FgRaQ.outputs.headers.List_of_Cars }}"
+				},
+				"status":200
+			},
 			"skip":false,
-			"title":"Select an app and action",
-			"type":"ACTION"
+			"subTitle":"Callable",
+			"title":"Respond to API request",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +128,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
