@@ -4,49 +4,135 @@
 	],
 	"createdTime":1758999488191,
 	"deleted":false,
+	"deploymentState":{
+		"deployedAt":1758999498506,
+		"deployedBy":1,
+		"deployedDefinitionId":"68d833ca6115d0174f2c6ae3",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":1
+	},
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_dqPwj",
+			"fromNodeId":"n_enSp4",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_mwZhG",
+			"toNodeId":"n_BKqbY",
 			"type":"next"
 		}
 	],
 	"id":"68d833c0d5488f2430a61d78",
 	"lastModifiedBy":1,
 	"lcName":"automation-trigger condition with where group conditions 11758998546597",
-	"modifiedTime":1758999488191,
+	"modifiedTime":1758999515623,
 	"name":"Automation-trigger condition with Where group conditions 11758998546597",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1358,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_dqPwj-1",
-			"id":"_dqPwj",
-			"index":0,
+			"id":"n_enSp4",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"output_String"
+					],
+					"properties":{
+						"output_String":{
+							"type":"string",
+							"title":"output_String"
+						}
+					}
+				},
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"filters":[
+								{
+									"property":"{{ n_enSp4.outputs.input_String }}",
+									"filter":{
+										"operator":"ENDS_WITH",
+										"value":"apps"
+									}
+								},
+								{
+									"property":"{{ n_enSp4.outputs.input_Integer }}",
+									"filter":{
+										"operator":"EQUAL",
+										"value":"-22"
+									}
+								}
+							],
+							"operator":"AND"
+						}
+					],
+					"operator":"AND"
+				},
+				"setup":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"input_String",
+						"input_Integer"
+					],
+					"properties":{
+						"input_String":{
+							"type":"string",
+							"title":"input_String"
+						},
+						"input_Integer":{
+							"type":"number",
+							"title":"input_Integer"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1361,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_dqPwj-1",
-			"id":"_mwZhG",
-			"index":0,
+			"id":"n_BKqbY",
+			"index":2,
+			"inputs":{
+				"result":{
+					"output_String":"{{ n_enSp4.outputs.input_String }}"
+				}
+			},
 			"skip":false,
-			"title":"Select an app and action",
-			"type":"ACTION"
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +146,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":2
 }
