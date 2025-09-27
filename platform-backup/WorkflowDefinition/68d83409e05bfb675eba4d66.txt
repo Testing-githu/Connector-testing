@@ -7,46 +7,205 @@
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_ANOm3",
+			"fromNodeId":"n_J6ivd",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_VaGLI",
+			"toNodeId":"n_wWx5L",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_wWx5L",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_1ykk1",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_wWx5L",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_QUVQH",
 			"type":"next"
 		}
 	],
 	"id":"68d83409e05bfb675eba4d66",
 	"lastModifiedBy":1,
 	"lcName":"condition_paths_117589985428310",
-	"modifiedTime":1758999561965,
+	"modifiedTime":1758999584357,
 	"name":"condition_paths_117589985428310",
 	"nodes":[
 		{
+			"context":{
+				"appName":"webhooks",
+				"resourceVersion":116,
+				"resourceName":"webhooks_default"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_ANOm3-1",
-			"id":"_ANOm3",
-			"index":0,
+			"id":"n_J6ivd",
+			"index":1,
+			"inputs":{
+				"request":{
+					"contentType":"application/json"
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Webhook",
+			"title":"New event",
 			"trigger":{
-				"type":"EVENT"
+				"type":"WEBHOOK"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":116,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_ANOm3-1",
-			"id":"_VaGLI",
-			"index":0,
+			"id":"n_wWx5L",
+			"index":2,
+			"inputs":{
+				"filters":[
+					{
+						"property":"1",
+						"filter":{
+							"operator":"EQUAL",
+							"value":"1"
+						}
+					}
+				],
+				"operator":"AND"
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":1308,
+				"resourceName":"variable_by_unifyapps_create_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"n_wWx5L@_ANOm3-1@y",
+			"id":"n_1ykk1",
+			"index":3,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{},
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"Input":{
+							"type":"string",
+							"title":"Input"
+						}
+					},
+					"required":[
+						"Input"
+					]
+				}
+			},
+			"inputs":{
+				"Input":"Hii"
+			},
+			"outputSchema":{
+				"dynamic":false,
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"Input":{
+							"type":"string",
+							"title":"Input"
+						}
+					},
+					"required":[
+						"Input"
+					]
+				}
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Create variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":1308,
+				"resourceName":"variable_by_unifyapps_create_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"n_wWx5L@_ANOm3-1@n",
+			"id":"n_QUVQH",
+			"index":4,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{},
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"Output":{
+							"type":"string",
+							"title":"Output"
+						}
+					},
+					"required":[
+						"Output"
+					]
+				}
+			},
+			"inputs":{
+				"Output":"Hello"
+			},
+			"outputSchema":{
+				"dynamic":false,
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"Output":{
+							"type":"string",
+							"title":"Output"
+						}
+					},
+					"required":[
+						"Output"
+					]
+				}
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Create variables",
 			"type":"ACTION"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +219,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
