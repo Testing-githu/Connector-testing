@@ -7,46 +7,133 @@
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_lbEZV",
+			"fromNodeId":"n_LuM7J",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_HwVks",
+			"toNodeId":"n_YDOlU",
 			"type":"next"
 		}
 	],
 	"id":"68d83200e05bfb675eba48cb",
 	"lastModifiedBy":1,
 	"lcName":"createworkflowwithcallableheaders117589985465970",
-	"modifiedTime":1758999040696,
+	"modifiedTime":1758999056467,
 	"name":"createWorkflowWithCallableHeaders117589985465970",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1360,
+				"resourceName":"callables_from_api"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_lbEZV-1",
-			"id":"_lbEZV",
-			"index":0,
+			"id":"n_LuM7J",
+			"index":1,
+			"inputs":{
+				"request":{
+					"headers":{
+						"type":"object",
+						"additionalProperties":false,
+						"required":[],
+						"properties":{
+							"name":{
+								"type":"string",
+								"title":"name"
+							},
+							"address":{
+								"type":"array",
+								"items":{
+									"type":"string"
+								},
+								"title":"address"
+							}
+						}
+					},
+					"soapHeaders":{
+						"type":"object",
+						"additionalProperties":false,
+						"required":[],
+						"properties":{
+							"designation":{
+								"type":"string",
+								"title":"designation"
+							},
+							"languages":{
+								"type":"array",
+								"items":{
+									"type":"string"
+								},
+								"title":"languages"
+							}
+						}
+					},
+					"contentType":"application/json"
+				},
+				"endpointType":"SOAP",
+				"response":[
+					{
+						"name":"success",
+						"status":200,
+						"body":{
+							"type":"object",
+							"additionalProperties":false,
+							"required":[
+								"output"
+							],
+							"properties":{
+								"output":{
+									"type":"string",
+									"title":"output"
+								}
+							}
+						}
+					}
+				],
+				"soapVersion":"v1.2",
+				"streamingResponse":false
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via API",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1362,
+				"resourceName":"callables_return_response_to_api",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_lbEZV-1",
-			"id":"_HwVks",
-			"index":0,
+			"id":"n_YDOlU",
+			"index":2,
+			"inputs":{
+				"streamingCompleted":true,
+				"responseName":"200_success",
+				"body":{
+					"output":"{{ n_LuM7J.outputs.headers }}{{ n_LuM7J.outputs.soapHeaders }}"
+				},
+				"status":200
+			},
 			"skip":false,
-			"title":"Select an app and action",
-			"type":"ACTION"
+			"subTitle":"Callable",
+			"title":"Respond to API request",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +147,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
