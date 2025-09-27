@@ -7,46 +7,107 @@
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_ie7oz",
+			"fromNodeId":"n_YwHo7",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_35JXP",
+			"toNodeId":"n_ViREA",
 			"type":"next"
 		}
 	],
 	"id":"68d83287d5488f2430a61a8a",
 	"lastModifiedBy":1,
 	"lcName":"condition box|string input - contains 11758998546597",
-	"modifiedTime":1758999175660,
+	"modifiedTime":1758999194164,
 	"name":"Condition Box|String Input - Contains 11758998546597",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1358,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_ie7oz-1",
-			"id":"_ie7oz",
-			"index":0,
+			"id":"n_YwHo7",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"output_String"
+					],
+					"properties":{
+						"output_String":{
+							"type":"string",
+							"title":"output_String"
+						}
+					}
+				},
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"property":"{{ n_YwHo7.outputs.input_String }}",
+							"filter":{
+								"operator":"CONTAINS",
+								"value":"cool"
+							}
+						}
+					],
+					"operator":"AND"
+				},
+				"setup":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"input_String"
+					],
+					"properties":{
+						"input_String":{
+							"type":"string",
+							"title":"input_String"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1361,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_ie7oz-1",
-			"id":"_35JXP",
-			"index":0,
+			"id":"n_ViREA",
+			"index":2,
+			"inputs":{
+				"result":{
+					"output_String":"{{ n_YwHo7.outputs.input_String }}"
+				}
+			},
 			"skip":false,
-			"title":"Select an app and action",
-			"type":"ACTION"
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +121,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
