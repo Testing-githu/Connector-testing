@@ -4,10 +4,40 @@
 	],
 	"createdTime":1758999546256,
 	"deleted":false,
+	"deploymentState":{
+		"deployedAt":1758999564557,
+		"deployedBy":1,
+		"deployedDefinitionId":"68d8340ce05bfb675eba4d6f",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":1
+	},
 	"description":"description",
 	"edges":[
 		{
 			"fromNodeId":"n_22XKn",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_cwlG0",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_cwlG0",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_yLaHx",
+			"type":"scope"
+		},
+		{
+			"fromNodeId":"n_yLaHx",
+			"name":"scope-loopback",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_cwlG0",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_cwlG0",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_MhV97",
@@ -17,7 +47,7 @@
 	"id":"68d833fa3a575b2c6b334c6b",
 	"lastModifiedBy":1,
 	"lcName":"scopewithratelimitpolicypass_11758998523601",
-	"modifiedTime":1758999562061,
+	"modifiedTime":1758999575661,
 	"name":"ScopeWithRateLimitPolicyPass_11758998523601",
 	"nodes":[
 		{
@@ -70,6 +100,62 @@
 		},
 		{
 			"context":{
+				"appName":"scope",
+				"resourceVersion":117,
+				"resourceName":"scope_trigger_scope",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_SpOOV-1",
+			"id":"n_cwlG0",
+			"index":2,
+			"inputs":{
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"property":"{{ n_22XKn.outputs.input_String }}",
+							"filter":{
+								"operator":"EQUAL",
+								"value":"Unifyapps"
+							}
+						}
+					],
+					"operator":"AND"
+				}
+			},
+			"skip":false,
+			"subTitle":"Scope",
+			"title":"Trigger Scope",
+			"type":"SCOPE"
+		},
+		{
+			"context":{
+				"appName":"test_http",
+				"resourceVersion":1434,
+				"connectionId":"66b0ee649c311126267a17b7",
+				"resourceName":"test_http_post_api",
+				"type":"APPLICATION",
+				"scopeNodeId":"n_cwlG0"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"n_cwlG0@_SpOOV-1@s",
+			"id":"n_yLaHx",
+			"index":3,
+			"inputs":{
+				"field1":"workflow continues",
+				"field2":false
+			},
+			"skip":false,
+			"subTitle":"Test HTTP API",
+			"title":"Test HTTP Post API",
+			"type":"ACTION"
+		},
+		{
+			"context":{
 				"appName":"callables",
 				"resourceVersion":1361,
 				"resourceName":"callables_return_to_automation",
@@ -80,7 +166,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_SpOOV-1",
 			"id":"n_MhV97",
-			"index":2,
+			"index":4,
 			"inputs":{
 				"result":{
 					"output_String":"{{ n_22XKn.outputs.input_String }}"
@@ -109,5 +195,5 @@
 	"tags":[
 		
 	],
-	"version":1
+	"version":2
 }
