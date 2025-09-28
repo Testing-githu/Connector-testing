@@ -4,49 +4,123 @@
 	],
 	"createdTime":1759085840775,
 	"deleted":false,
+	"deploymentState":{
+		"deployedAt":1759085852014,
+		"deployedBy":1,
+		"deployedDefinitionId":"68d9851b6115d0174f2ec68a",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":1
+	},
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_jIlv7",
+			"fromNodeId":"n_bcRvN",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_QUYHf",
+			"toNodeId":"n_P3tpn",
 			"type":"next"
 		}
 	],
 	"id":"68d98510fdd6e200c36fa1ad",
 	"lastModifiedBy":1,
 	"lcName":"callable via automation-trigger condition with group and deleted condition 11759084912102",
-	"modifiedTime":1759085840775,
+	"modifiedTime":1759085869532,
 	"name":"Callable via Automation-trigger condition with group and deleted condition 11759084912102",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1406,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_jIlv7-1",
-			"id":"_jIlv7",
-			"index":0,
+			"id":"n_bcRvN",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"output_String"
+					],
+					"properties":{
+						"output_String":{
+							"type":"string",
+							"title":"output_String"
+						}
+					}
+				},
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"filters":[
+								{
+									"property":"{{ n_bcRvN.outputs.input_String }}",
+									"filter":{
+										"operator":"EQUAL",
+										"value":"Unifyapps"
+									}
+								}
+							],
+							"operator":"AND"
+						}
+					],
+					"operator":"AND"
+				},
+				"setup":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"input_String"
+					],
+					"properties":{
+						"input_String":{
+							"type":"string",
+							"title":"input_String"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1409,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_jIlv7-1",
-			"id":"_QUYHf",
-			"index":0,
+			"id":"n_P3tpn",
+			"index":2,
+			"inputs":{
+				"result":{
+					"output_String":"{{ n_bcRvN.outputs.input_String }}"
+				}
+			},
 			"skip":false,
-			"title":"Select an app and action",
-			"type":"ACTION"
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +134,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":2
 }
