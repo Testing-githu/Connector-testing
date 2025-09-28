@@ -4,10 +4,40 @@
 	],
 	"createdTime":1759085845261,
 	"deleted":false,
+	"deploymentState":{
+		"deployedAt":1759085856129,
+		"deployedBy":1,
+		"deployedDefinitionId":"68d985206115d0174f2ec6a8",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":1
+	},
 	"description":"description",
 	"edges":[
 		{
 			"fromNodeId":"n_ZxolD",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_mXbOt",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_mXbOt",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_QZlMX",
+			"type":"loop"
+		},
+		{
+			"fromNodeId":"n_QZlMX",
+			"name":"loopback",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_mXbOt",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_mXbOt",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_x7XRn",
@@ -17,7 +47,7 @@
 	"id":"68d98515fdd6e200c36fa1cb",
 	"lastModifiedBy":1,
 	"lcName":"child automation with while loop 11759084912102",
-	"modifiedTime":1759085853636,
+	"modifiedTime":1759085871077,
 	"name":"Child automation with while loop 11759084912102",
 	"nodes":[
 		{
@@ -70,6 +100,62 @@
 		},
 		{
 			"context":{
+				"appName":"loop",
+				"resourceVersion":120,
+				"resourceName":"loop_while",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_m3xr8-1",
+			"id":"n_mXbOt",
+			"index":2,
+			"inputs":{
+				"condition":{
+					"filters":[
+						{
+							"property":"{{ n_ZxolD.outputs.input_String }}",
+							"filter":{
+								"operator":"EQUAL",
+								"value":"Unifyapps"
+							}
+						}
+					],
+					"operator":"AND"
+				},
+				"captureIterations":false
+			},
+			"skip":false,
+			"subTitle":"Loop",
+			"title":"While loop",
+			"type":"LOOP"
+		},
+		{
+			"context":{
+				"appName":"test_http",
+				"resourceVersion":1482,
+				"connectionId":"66b0ee649c311126267a17b7",
+				"resourceName":"test_http_post_api",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"n_mXbOt@_m3xr8-1@l",
+			"id":"n_QZlMX",
+			"index":3,
+			"inputs":{
+				"field1":"workflow continues",
+				"field2":false
+			},
+			"skip":false,
+			"subTitle":"Test HTTP API",
+			"title":"Test HTTP Post API",
+			"type":"ACTION"
+		},
+		{
+			"context":{
 				"appName":"callables",
 				"resourceVersion":1409,
 				"resourceName":"callables_return_to_automation",
@@ -80,7 +166,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_m3xr8-1",
 			"id":"n_x7XRn",
-			"index":2,
+			"index":4,
 			"inputs":{
 				"result":{
 					"output_String":"{{ n_ZxolD.outputs.input_String }}"
@@ -109,5 +195,5 @@
 	"tags":[
 		
 	],
-	"version":1
+	"version":2
 }
