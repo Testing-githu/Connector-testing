@@ -7,46 +7,155 @@
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_twCvK",
+			"fromNodeId":"n_tTFGT",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_OFmL7",
+			"toNodeId":"n_JiuMF",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_JiuMF",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_i8lQT",
 			"type":"next"
 		}
 	],
 	"id":"68d98316fdd6e200c36f9698",
 	"lastModifiedBy":1,
 	"lcName":"integer_stringformate_117590849137200",
-	"modifiedTime":1759085334229,
+	"modifiedTime":1759085348486,
 	"name":"integer_stringFormate_117590849137200",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1406,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_twCvK-1",
-			"id":"_twCvK",
-			"index":0,
+			"id":"n_tTFGT",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"result"
+					],
+					"properties":{
+						"result":{
+							"type":"number",
+							"title":"result"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":1356,
+				"resourceName":"variable_by_unifyapps_create_variables",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_twCvK-1",
-			"id":"_OFmL7",
-			"index":0,
+			"id":"n_JiuMF",
+			"index":2,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{},
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"input_num":{
+							"type":"number",
+							"title":"input_num"
+						},
+						"input_str":{
+							"type":"string",
+							"title":"input_str"
+						}
+					},
+					"required":[
+						"input_num",
+						"input_str"
+					]
+				}
+			},
+			"inputs":{
+				"input_num":10,
+				"input_str":"00010"
+			},
+			"outputSchema":{
+				"dynamic":false,
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"input_num":{
+							"type":"number",
+							"title":"input_num"
+						},
+						"input_str":{
+							"type":"string",
+							"title":"input_str"
+						}
+					},
+					"required":[
+						"input_num",
+						"input_str"
+					]
+				}
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Variable by UnifyApps",
+			"title":"Create variables",
 			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1409,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_twCvK-1",
+			"id":"n_i8lQT",
+			"index":3,
+			"inputs":{
+				"result":{
+					"result":"=SUM({{ n_JiuMF.outputs.input_num }},{{ n_JiuMF.outputs.input_str }})"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +169,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
