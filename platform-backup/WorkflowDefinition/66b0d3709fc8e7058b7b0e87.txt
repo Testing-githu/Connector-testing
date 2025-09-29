@@ -5,12 +5,12 @@
 	"createdTime":1747000729038,
 	"deleted":false,
 	"deploymentState":{
-		"deployedAt":1758963937033,
-		"deployedBy":1,
-		"deployedDefinitionId":"68d7a8e0ce29ec20a05f0a40",
+		"deployedAt":1758966100122,
+		"deployedBy":-1,
+		"deployedDefinitionId":"68d7b1546115d0174f2b8a3e",
 		"status":"DEPLOYED",
-		"version":78,
-		"workflowVersion":155
+		"version":79,
+		"workflowVersion":156
 	},
 	"edges":[
 		{
@@ -235,11 +235,34 @@
 			"fromNodeId":"I7hXX",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"N6Zxf",
+			"toNodeId":"n_Bvsy6",
 			"type":"next"
 		},
 		{
 			"fromNodeId":"9Cy69",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Bvsy6",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Bvsy6",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_zYRZZ",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_zYRZZ",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"N6Zxf",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Bvsy6",
 			"name":"no",
 			"priority":0,
 			"skip":false,
@@ -260,7 +283,7 @@
 	"id":"66b0d3709fc8e7058b7b0e87",
 	"lastModifiedBy":-1,
 	"lcName":"relevance groundedness (ai agent)",
-	"modifiedTime":1758966100029,
+	"modifiedTime":1759125274095,
 	"name":"Relevance Groundedness (AI Agent)",
 	"nodes":[
 		{
@@ -274,10 +297,11 @@
 			"fallbackMode":"STOP",
 			"groupId":"2yRzo-1",
 			"id":"9Ou0Q",
-			"index":0,
+			"index":1,
 			"inputs":{
 				"result":{
 					"type":"object",
+					"additionalProperties":false,
 					"properties":{
 						"groundedness":{
 							"type":"string",
@@ -287,11 +311,12 @@
 							"type":"string",
 							"title":"relevance"
 						}
-					},
-					"additionalProperties":false
+					}
 				},
 				"setup":{
 					"type":"object",
+					"additionalProperties":false,
+					"required":[],
 					"properties":{
 						"answer":{
 							"type":"string",
@@ -308,10 +333,12 @@
 						"caseId":{
 							"type":"string",
 							"title":"Case Id"
+						},
+						"parentType":{
+							"type":"string",
+							"title":"Parent Type"
 						}
-					},
-					"additionalProperties":false,
-					"required":[]
+					}
 				}
 			},
 			"skip":false,
@@ -334,7 +361,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"2yRzo-1",
 			"id":"xlzZF",
-			"index":0,
+			"index":2,
 			"inputs":{
 				"automationId":"679629c41a248f0b3415c3b1",
 				"runtimeConnections":{},
@@ -362,7 +389,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"2yRzo-1",
 			"id":"sXufa",
-			"index":0,
+			"index":3,
 			"inputs":{
 				"variableSchema":{
 					"type":"object",
@@ -402,21 +429,22 @@
 			"fallbackMode":"STOP",
 			"groupId":"2yRzo-1",
 			"id":"ckKJQ",
-			"index":0,
+			"index":4,
 			"inputs":{
 				"output":{
 					"type":"object",
+					"additionalProperties":false,
+					"required":[],
 					"properties":{
 						"context":{
 							"type":"string",
 							"title":"context"
 						}
-					},
-					"additionalProperties":false,
-					"required":[]
+					}
 				},
 				"input":{
 					"type":"object",
+					"additionalProperties":false,
 					"properties":{
 						"message":{
 							"type":"array",
@@ -442,11 +470,13 @@
 							},
 							"title":"message"
 						}
-					},
-					"additionalProperties":false
+					}
 				},
+				"configurationMode":"DEFAULT",
 				"code":"import json\n\noutput_lines = []\n\nfor msg in message:\n    role = msg[\"role\"]\n    content_list = msg[\"content\"]\n    \n    # If role is 'user' or 'assistant', we check each item in 'content'\n    for item in content_list:\n        item_type = item.get(\"type\")\n        \n        # 1) Handle user text\n        if role == \"user\" and item_type == \"text\":\n            # USER text\n            text_content = item[\"text\"]\n            output_lines.append(f'USER: {text_content}')\n        \n        # 2) Handle assistant text\n        elif role == \"assistant\" and item_type == \"text\":\n            # ASSISTANT text (like \"Thought: ...\")\n            text_content = item[\"text\"]\n            output_lines.append(f'ASSISTANT: {text_content}')\n        \n        # 3) Handle tool call (assistant uses a tool)\n        elif role == \"assistant\" and item_type == \"tool_use\":\n            # TOOL CALL\n            tool_name = item.get(\"name\")\n            tool_input = item.get(\"input\", {})\n            query = tool_input.get(\"query\", \"\")\n            output_lines.append(\n                f'TOOL CALL: {tool_name}, query: \"{query}\"'\n            )\n        \n        # 4) Handle tool result (user role, tool_result type)\n        elif role == \"user\" and item_type == \"tool_result\":\n            # TOOL RESULT\n            tool_result_text = item.get(\"content\", \"\")\n            # or you might want to store the entire chunk text\n            output_lines.append(f'TOOL RESULT: {tool_result_text}')\n\n# Join all lines into a single string\nresult =  {\n  \"context\" : \"\\n\".join(output_lines)\n}",
 				"isAsync":false,
+				"python_version":"3.12",
+				"captureStdOutput":false,
 				"parameters":{
 					"message":{
 						"ua:type":"mappedArray",
@@ -488,21 +518,23 @@
 			"fallbackMode":"STOP",
 			"groupId":"2yRzo-1",
 			"id":"V63rM",
-			"index":0,
+			"index":5,
 			"inputs":{
 				"output":{
 					"type":"object",
+					"additionalProperties":false,
+					"required":[],
 					"properties":{
 						"userMsg":{
 							"type":"string",
 							"title":"userMsg"
 						}
-					},
-					"additionalProperties":false,
-					"required":[]
+					}
 				},
 				"input":{
 					"type":"object",
+					"additionalProperties":false,
+					"required":[],
 					"properties":{
 						"message":{
 							"type":"array",
@@ -528,12 +560,13 @@
 							},
 							"title":"message"
 						}
-					},
-					"additionalProperties":false,
-					"required":[]
+					}
 				},
+				"configurationMode":"DEFAULT",
 				"code":"# for msg in reversed(message):\n#     if msg.get('role') == 'user':\n#         for content_item in msg.get('content', []):\n#             # We only want items where type != 'tool_result'\n#             if content_item.get('type') != 'tool_result':\n#                 result =  { \"userMsg\" : content_item.get('text', '')}\n\nfor msg in reversed(message):\n    if msg.get('role') == 'user':\n        for content_item in msg.get('content', []):\n            if content_item.get('type') != 'tool_result':\n                result = {\"userMsg\": content_item.get('text', '')}\n                break  # Stop once the last user message is found\n        break  # Stop the outer\n\n        result =  { \"userMsg\" : content_item.get('text', '')}\n# found_continue = False\n# res = None\n\n# for msg in reversed(message):\n#     if msg.get('role') == 'user':\n#         for content_item in msg.get('content', []):\n#             if content_item.get('type') != 'tool_result':\n#                 text_val = content_item.get('text', '')\n#                 if not found_continue:\n#                     if text_val == 'Lets continue..':\n#                         found_continue = True\n#                         break  # Move to the previous message\n#                 else:\n#                     result = {\"userMsg\": text_val}\n#                     break\n#         if found_continue and res is not None:\n#             break\n\n#         result =  { \"userMsg\" : res}\n\n# for msg in reversed(message):\n#     if msg.get('role') == 'user':\n#         for content_item in msg.get('content', []):\n#             # We only want items where type != 'tool_result'\n#             if content_item.get('type') != 'tool_result':\n#                 result = {\"userMsg\": content_item.get('text', '')}\n#                 break  # Stop once the last user message is found\n#         break  # Stop the outer\n\n#         result =  { \"userMsg\" : content_item.get('text', '')}",
 				"isAsync":false,
+				"python_version":"3.12",
+				"captureStdOutput":false,
 				"parameters":{
 					"message":{
 						"source":"{{ xlzZF.outputs.messages }}",
@@ -566,15 +599,11 @@
 			"fallbackMode":"STOP",
 			"groupId":"2yRzo-1",
 			"id":"bYRFf",
-			"index":0,
+			"index":6,
 			"inputSchema":{
 				"type":"SCHEMA_AND_LAYOUT",
 				"dynamic":false,
-				"layout":{
-					"ui:submitButtonOptions":{
-						"norender":true
-					}
-				},
+				"layout":{},
 				"schema":{
 					"additionalProperties":false,
 					"type":"object",
@@ -586,6 +615,10 @@
 						"groundedness":{
 							"type":"number",
 							"title":"groundedness"
+						},
+						"startTime":{
+							"type":"integer",
+							"title":"Start Time"
 						}
 					},
 					"required":[]
@@ -593,6 +626,7 @@
 			},
 			"inputs":{
 				"groundedness":1,
+				"startTime":"=INT((NOW()-DATE(1970,1,1))*86400000)",
 				"relevance":1
 			},
 			"outputSchema":{
@@ -608,6 +642,10 @@
 						"groundedness":{
 							"type":"number",
 							"title":"groundedness"
+						},
+						"startTime":{
+							"type":"integer",
+							"title":"Start Time"
 						}
 					},
 					"required":[]
@@ -628,7 +666,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"2yRzo-1",
 			"id":"RYZa7",
-			"index":0,
+			"index":7,
 			"inputs":{
 				"branches":[
 					{
@@ -689,7 +727,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"RYZa7@2yRzo-1@1",
 			"id":"RYZa7@1",
-			"index":0,
+			"index":8,
 			"inputs":{
 				"name":"Relevance",
 				"conditions":{
@@ -721,7 +759,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"RYZa7@2yRzo-1@1",
 			"id":"CrMl2",
-			"index":0,
+			"index":9,
 			"inputs":{
 				"input_schema":{
 					"question":"{{ V63rM.outputs.result.userMsg }}",
@@ -746,7 +784,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"RYZa7@2yRzo-1@1",
 			"id":"mj9E8",
-			"index":0,
+			"index":10,
 			"inputSchema":{
 				"type":"SCHEMA_AND_LAYOUT",
 				"dynamic":false,
@@ -799,7 +837,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"RYZa7@2yRzo-1@1",
 			"id":"X9JXq",
-			"index":0,
+			"index":11,
 			"inputSchema":{
 				"type":"SCHEMA_AND_LAYOUT",
 				"dynamic":false,
@@ -877,7 +915,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"RYZa7@2yRzo-1@1",
 			"id":"dvULv",
-			"index":0,
+			"index":12,
 			"inputs":{
 				"automationId":"66ac70650f725f5b425d12d8",
 				"runtimeConnections":{},
@@ -923,7 +961,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"RYZa7@2yRzo-1@1",
 			"id":"Jkwsc",
-			"index":0,
+			"index":13,
 			"inputs":{
 				"variables":[
 					{
@@ -949,7 +987,7 @@
 			"fallbackMode":"MANUAL",
 			"groupId":"RYZa7@2yRzo-1@1",
 			"id":"2WRbj",
-			"index":0,
+			"index":14,
 			"inputs":{
 				"jsonSchema":{
 					"type":"object",
@@ -1009,7 +1047,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"2WRbj@RYZa7@2yRzo-1@1@success",
 			"id":"_UDmpo",
-			"index":0,
+			"index":15,
 			"inputs":{
 				"variables":[
 					{
@@ -1035,7 +1073,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"2WRbj@RYZa7@2yRzo-1@1@error",
 			"id":"t5QYF",
-			"index":0,
+			"index":16,
 			"inputs":{
 				"variables":[
 					{
@@ -1061,7 +1099,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"RYZa7@2yRzo-1@2",
 			"id":"RYZa7@2",
-			"index":0,
+			"index":17,
 			"inputs":{
 				"name":"GroundedNess",
 				"conditions":{
@@ -1093,7 +1131,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"RYZa7@2yRzo-1@2",
 			"id":"PVFny",
-			"index":0,
+			"index":18,
 			"inputs":{
 				"input_schema":{
 					"answer":"{{ 9Ou0Q.outputs.answer }}",
@@ -1118,7 +1156,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"RYZa7@2yRzo-1@2",
 			"id":"53TKb",
-			"index":0,
+			"index":19,
 			"inputSchema":{
 				"type":"SCHEMA_AND_LAYOUT",
 				"dynamic":false,
@@ -1171,7 +1209,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"RYZa7@2yRzo-1@2",
 			"id":"AYikG",
-			"index":0,
+			"index":20,
 			"inputSchema":{
 				"type":"SCHEMA_AND_LAYOUT",
 				"dynamic":false,
@@ -1249,7 +1287,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"RYZa7@2yRzo-1@2",
 			"id":"51AmW",
-			"index":0,
+			"index":21,
 			"inputs":{
 				"automationId":"66ac70650f725f5b425d12d8",
 				"runtimeConnections":{},
@@ -1294,7 +1332,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"RYZa7@2yRzo-1@2",
 			"id":"1WNUn",
-			"index":0,
+			"index":22,
 			"inputs":{
 				"variables":[
 					{
@@ -1320,7 +1358,7 @@
 			"fallbackMode":"MANUAL",
 			"groupId":"RYZa7@2yRzo-1@2",
 			"id":"eQIhy",
-			"index":0,
+			"index":23,
 			"inputs":{
 				"jsonSchema":{
 					"type":"object",
@@ -1380,7 +1418,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"eQIhy@RYZa7@2yRzo-1@2@success",
 			"id":"_LgGJD",
-			"index":0,
+			"index":24,
 			"inputs":{
 				"variables":[
 					{
@@ -1406,7 +1444,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"eQIhy@RYZa7@2yRzo-1@2@error",
 			"id":"9WeDM",
-			"index":0,
+			"index":25,
 			"inputs":{
 				"variables":[
 					{
@@ -1432,7 +1470,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"2yRzo-1",
 			"id":"9Cy69",
-			"index":0,
+			"index":26,
 			"inputs":{
 				"filters":[
 					{
@@ -1467,7 +1505,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"9Cy69@2yRzo-1@y",
 			"id":"I7hXX",
-			"index":0,
+			"index":27,
 			"inputs":{
 				"duration":1,
 				"unit":"SECONDS"
@@ -1476,6 +1514,126 @@
 			"subTitle":"Delay",
 			"title":"Set delay duration",
 			"type":"DELAY"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":439,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"2yRzo-1",
+			"id":"n_Bvsy6",
+			"index":28,
+			"inputs":{
+				"filters":[
+					{
+						"property":"{{ 9Ou0Q.outputs.parentType }}",
+						"filter":{
+							"operator":"EXISTS"
+						}
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":467,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"CONTINUE",
+			"groupId":"n_Bvsy6@2yRzo-1@y",
+			"id":"n_zYRZZ",
+			"index":29,
+			"inputs":{
+				"automationId":"68c51597269ad81cc750a3ca",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"version":"-1",
+				"parameters":{
+					"caseId":"{{ 9Ou0Q.outputs.caseId }}",
+					"aiAgentId":"{{ 9Ou0Q.outputs.aiAgentId }}",
+					"executionInstanceId":"{{ __RUN__.outputs.executionId }}",
+					"parent":"{{ 9Ou0Q.outputs.parentType }}",
+					"messageId":"{{ sXufa.outputs.messageId }}",
+					"llmTimeTaken":"=INT((NOW()-DATE(1970,1,1))*86400000)-{{ bYRFf.outputs.startTime }}",
+					"input":"{{ 9Ou0Q.outputs }}",
+					"currentType":"Groundedness And Relevance",
+					"rootExecutionId":"{{ __RUN__.outputs.rootExecutionId }}",
+					"parentExecutionId":"{{ __RUN__.outputs.parentExecutionId }}",
+					"userId":"=IF(ISNUMBER({{ __RUN__.outputs.userId }}), {{ __RUN__.outputs.userId }}, 0)",
+					"output":"{\"groundedness\": {{ bYRFf.outputs.groundedness }}, \"relevance\": {{ bYRFf.outputs.relevance }}}",
+					"fromAutomationId":"{{ __RUN__.outputs.workflowId }}",
+					"startTime":"{{ bYRFf.outputs.startTime }}",
+					"success":true
+				}
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"global":false
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS"
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"CONTINUE",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				}
+			},
+			"skip":false,
+			"subTitle":"Capture Trace",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
 		},
 		{
 			"context":{
@@ -1489,7 +1647,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"2yRzo-1",
 			"id":"N6Zxf",
-			"index":0,
+			"index":30,
 			"inputs":{
 				"result":{
 					"groundedness":"{{ bYRFf.outputs.groundedness }}",
@@ -1519,5 +1677,5 @@
 	"tags":[
 		"AI Agent"
 	],
-	"version":156
+	"version":157
 }
