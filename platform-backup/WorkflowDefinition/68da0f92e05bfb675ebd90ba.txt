@@ -1,52 +1,80 @@
 {
 	"appsUsed":[
-		
+		"slack",
+		"storage_by_unifyapps"
 	],
 	"createdTime":1759121298694,
 	"deleted":false,
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_iJsoy",
+			"fromNodeId":"n_sRa1g",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_3G3MJ",
+			"toNodeId":"n_9mWBK",
 			"type":"next"
 		}
 	],
 	"id":"68da0f92e05bfb675ebd90ba",
 	"lastModifiedBy":1,
 	"lcName":"storagebyunifyapps_create record_trigger_117591198606590",
-	"modifiedTime":1759121298694,
+	"modifiedTime":1759121320727,
 	"name":"StorageByUnifyapps_Create record_Trigger_117591198606590",
 	"nodes":[
 		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":7050,
+				"resourceName":"storage_by_unifyapps_on_create_record"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_iJsoy-1",
-			"id":"_iJsoy",
-			"index":0,
+			"id":"n_sRa1g",
+			"index":1,
+			"inputs":{
+				"object_type":"a84fszu"
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Storage by UnifyApps",
+			"title":"New record",
 			"trigger":{
 				"type":"EVENT"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"slack",
+				"resourceVersion":7122,
+				"connectionId":"662f8ddb91d8ba4394d0cce6",
+				"resourceName":"slack_post_message_in_channel",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_iJsoy-1",
-			"id":"_3G3MJ",
-			"index":0,
+			"id":"n_9mWBK",
+			"index":2,
+			"inputs":{
+				"link_names":true,
+				"messageType":"text",
+				"channel":"C07AKEPN1U3",
+				"text":"{{ n_sRa1g.outputs.id }}{{ n_sRa1g.outputs.properties }}",
+				"mrkdwn":true
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Slack",
+			"title":"Post message",
 			"type":"ACTION"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +88,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
