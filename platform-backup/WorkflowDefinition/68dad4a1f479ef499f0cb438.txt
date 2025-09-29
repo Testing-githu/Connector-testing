@@ -6,46 +6,89 @@
 	"deleted":false,
 	"edges":[
 		{
-			"fromNodeId":"_1KVsp",
+			"fromNodeId":"n_gW6VW",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_utQPd",
+			"toNodeId":"n_cbg7q",
 			"type":"next"
 		}
 	],
 	"id":"68dad4a1f479ef499f0cb438",
 	"lastModifiedBy":1,
 	"lcName":"excelformulasqa2ulrpniisrv",
-	"modifiedTime":1759171745298,
+	"modifiedTime":1759171769177,
 	"name":"ExcelFormulasQA2ulRpniiSrv",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1495,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_1KVsp-1",
-			"id":"_1KVsp",
-			"index":0,
+			"id":"n_gW6VW",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"r":{
+							"type":"string",
+							"title":"r"
+						}
+					}
+				},
+				"setup":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"a":{
+							"type":"integer",
+							"title":"a"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1498,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_1KVsp-1",
-			"id":"_utQPd",
-			"index":0,
+			"id":"n_cbg7q",
+			"index":2,
+			"inputs":{
+				"result":{
+					"r":"=IF({{ n_gW6VW.outputs.a }}>3,\"Yes\",\"No\")"
+				}
+			},
 			"skip":false,
-			"title":"Select an app and action",
-			"type":"ACTION"
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -59,5 +102,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
