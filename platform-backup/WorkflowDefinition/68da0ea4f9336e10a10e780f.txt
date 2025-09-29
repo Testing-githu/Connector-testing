@@ -1,13 +1,28 @@
 {
 	"appsUsed":[
-		
+		"slack"
 	],
 	"createdTime":1759121060708,
 	"deleted":false,
+	"deploymentState":{
+		"deployedAt":1759121084249,
+		"deployedBy":1,
+		"deployedDefinitionId":"68da0ebc6115d0174f319082",
+		"status":"DEPLOYED",
+		"version":2,
+		"workflowVersion":2
+	},
 	"description":"description",
 	"edges":[
 		{
 			"fromNodeId":"n_YILYN",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_jeWM8",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_jeWM8",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_GStzN",
@@ -17,7 +32,7 @@
 	"id":"68da0ea4f9336e10a10e780f",
 	"lastModifiedBy":1,
 	"lcName":"compare_versions_117591198694400",
-	"modifiedTime":1759121070310,
+	"modifiedTime":1759121096766,
 	"name":"Compare_Versions_117591198694400",
 	"nodes":[
 		{
@@ -50,12 +65,17 @@
 					"type":"object",
 					"additionalProperties":false,
 					"required":[
-						"input_String"
+						"input_String",
+						"name"
 					],
 					"properties":{
 						"input_String":{
 							"type":"string",
 							"title":"input_String"
+						},
+						"name":{
+							"type":"string",
+							"title":"name"
 						}
 					}
 				}
@@ -70,6 +90,32 @@
 		},
 		{
 			"context":{
+				"appName":"slack",
+				"resourceVersion":7122,
+				"connectionId":"662f8ddb91d8ba4394d0cce6",
+				"resourceName":"slack_post_message_in_channel",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_81K5r-1",
+			"id":"n_jeWM8",
+			"index":2,
+			"inputs":{
+				"link_names":true,
+				"messageType":"text",
+				"channel":"C07AKEPN1U3",
+				"text":"add new node",
+				"mrkdwn":true
+			},
+			"skip":false,
+			"subTitle":"Slack",
+			"title":"Post message",
+			"type":"ACTION"
+		},
+		{
+			"context":{
 				"appName":"callables",
 				"resourceVersion":1448,
 				"resourceName":"callables_return_to_automation",
@@ -80,7 +126,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_81K5r-1",
 			"id":"n_GStzN",
-			"index":2,
+			"index":3,
 			"inputs":{
 				"result":{
 					"output_String":"{{ n_YILYN.outputs.input_String }}"
@@ -109,5 +155,5 @@
 	"tags":[
 		
 	],
-	"version":1
+	"version":3
 }
