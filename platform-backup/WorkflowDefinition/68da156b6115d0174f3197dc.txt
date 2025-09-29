@@ -6,46 +6,218 @@
 	"deleted":false,
 	"edges":[
 		{
-			"fromNodeId":"_XleRa",
+			"fromNodeId":"n_L7v0E",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_VMFWb",
+			"toNodeId":"n_VN8g2",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_VN8g2",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Hu98W",
 			"type":"next"
 		}
 	],
 	"id":"68da156b6115d0174f3197dc",
 	"lastModifiedBy":1,
 	"lcName":"cacheqa2pqojmxrtxt",
-	"modifiedTime":1759122795414,
+	"modifiedTime":1759122839579,
 	"name":"cacheQA2PqoJMxrTXt",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1445,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_XleRa-1",
-			"id":"_XleRa",
-			"index":0,
+			"id":"n_L7v0E",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"c":{
+							"type":"integer",
+							"title":"c"
+						}
+					}
+				},
+				"setup":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"a":{
+							"type":"integer",
+							"title":"a"
+						},
+						"b":{
+							"type":"integer",
+							"title":"b"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":1383,
+				"resourceName":"code_by_unifyapps_javascript",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_XleRa-1",
-			"id":"_VMFWb",
-			"index":0,
+			"id":"n_VN8g2",
+			"index":2,
+			"inputs":{
+				"output":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"c":{
+							"type":"integer",
+							"title":"c"
+						}
+					}
+				},
+				"input":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"a":{
+							"type":"integer",
+							"title":"a"
+						},
+						"b":{
+							"type":"integer",
+							"title":"b"
+						}
+					}
+				},
+				"code":"let ans={};\nans['c']=a+b;",
+				"isAsync":false,
+				"parameters":{
+					"a":"{{ n_L7v0E.outputs.a }}",
+					"b":"{{ n_L7v0E.outputs.b }}"
+				}
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"global":false
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS"
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":true,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						{
+							"continueOnFailure":false,
+							"parameters":{
+								"x":"{{ n_L7v0E.outputs.a }}",
+								"y":"{{ n_L7v0E.outputs.b }}"
+							},
+							"workflowId":"68da150ae05bfb675ebd9677"
+						},
+						{
+							"continueOnFailure":false,
+							"parameters":{
+								"x":"{{ n_L7v0E.outputs.a }}",
+								"y":"{{ n_L7v0E.outputs.b }}"
+							},
+							"workflowId":"68da15396115d0174f3197c9"
+						}
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"STOP",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Javascript",
 			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1448,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_XleRa-1",
+			"id":"n_Hu98W",
+			"index":3,
+			"inputs":{
+				"result":{
+					"c":"{{ n_VN8g2.outputs.result }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -59,5 +231,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
