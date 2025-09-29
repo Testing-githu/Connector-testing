@@ -6,46 +6,140 @@
 	"deleted":false,
 	"edges":[
 		{
-			"fromNodeId":"_waGYS",
+			"fromNodeId":"n_iKJ32",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_yDy7g",
+			"toNodeId":"n_iZ1WZ",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_iZ1WZ",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_rlQSM",
 			"type":"next"
 		}
 	],
 	"id":"68da2f9e3d93db7914c95d27",
 	"lastModifiedBy":1,
 	"lcName":"mhngf",
-	"modifiedTime":1759129502555,
+	"modifiedTime":1759129559292,
 	"name":"mhngf",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1472,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_waGYS-1",
-			"id":"_waGYS",
-			"index":0,
+			"id":"n_iKJ32",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"c"
+					],
+					"properties":{
+						"c":{
+							"type":"string",
+							"title":"c"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":1406,
+				"resourceName":"code_by_unifyapps_java",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_waGYS-1",
-			"id":"_yDy7g",
-			"index":0,
+			"id":"n_iZ1WZ",
+			"index":2,
+			"inputs":{
+				"output":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"c"
+					],
+					"properties":{
+						"c":{
+							"type":"integer",
+							"title":"c"
+						}
+					}
+				},
+				"input":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"a"
+					],
+					"properties":{
+						"a":{
+							"type":"integer",
+							"title":"a"
+						}
+					}
+				},
+				"code":"try {\nString str = null;\nresult = str.length();  // NullPointerException\n} catch (ArithmeticException e) {\n                            result = \"Arithmetic error!\";\n                                  } catch (NullPointerException e) {\n                                      result = \"Null pointer error!\";\n                                  } catch (Exception e) {\n                                      result = \"Some other error: \" + e;\n                                  }",
+				"captureStdOutput":false,
+				"parameters":{
+					"a":23
+				}
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Java code",
 			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1475,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_waGYS-1",
+			"id":"n_rlQSM",
+			"index":3,
+			"inputs":{
+				"result":{
+					"c":"{{ n_iZ1WZ.outputs.result }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -59,5 +153,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
