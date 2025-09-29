@@ -7,46 +7,123 @@
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_Dw6OQ",
+			"fromNodeId":"n_5FhRS",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_tgfn8",
+			"toNodeId":"n_uRMCd",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_uRMCd",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_kQuyB",
 			"type":"next"
 		}
 	],
 	"id":"68da0fb86115d0174f3191fe",
 	"lastModifiedBy":1,
 	"lcName":"deserilizestringobjectdeserialize_117591198606590",
-	"modifiedTime":1759121336412,
+	"modifiedTime":1759121350227,
 	"name":"Deserilizestringobjectdeserialize_117591198606590",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1445,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_Dw6OQ-1",
-			"id":"_Dw6OQ",
-			"index":0,
+			"id":"n_5FhRS",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"result"
+					],
+					"properties":{
+						"result":{
+							"type":"string",
+							"title":"result"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"utility_by_unifyapps",
+				"resourceVersion":1708,
+				"resourceName":"utility_by_unifyapps_to_json_object",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_Dw6OQ-1",
-			"id":"_tgfn8",
-			"index":0,
+			"id":"n_uRMCd",
+			"index":2,
+			"inputs":{
+				"jsonSchema":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"objects"
+					],
+					"properties":{
+						"objects":{
+							"type":"string",
+							"title":"objects"
+						}
+					}
+				},
+				"jsonString":"{\"name\": \"The Workflow Is Running Fine\"}"
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Utility by UnifyApps",
+			"title":"Deserialise string to JSON object",
 			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1448,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_Dw6OQ-1",
+			"id":"n_kQuyB",
+			"index":3,
+			"inputs":{
+				"result":{
+					"result":"{{ n_uRMCd.outputs.result }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +137,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
