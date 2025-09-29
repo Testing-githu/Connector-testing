@@ -5,12 +5,12 @@
 	"createdTime":1747000727432,
 	"deleted":false,
 	"deploymentState":{
-		"deployedAt":1758963938725,
-		"deployedBy":1,
-		"deployedDefinitionId":"68d7a8e2ce29ec20a05f0a48",
+		"deployedAt":1758966117262,
+		"deployedBy":-1,
+		"deployedDefinitionId":"68d7b165e05bfb675eb93a5d",
 		"status":"DEPLOYED",
-		"version":75,
-		"workflowVersion":157
+		"version":76,
+		"workflowVersion":158
 	},
 	"edges":[
 		{
@@ -510,7 +510,7 @@
 	"id":"679629c41a248f0b3415c3b1",
 	"lastModifiedBy":-1,
 	"lcName":"user/assistant prompt builder",
-	"modifiedTime":1758966116818,
+	"modifiedTime":1759125292448,
 	"name":"User/Assistant Prompt Builder",
 	"nodes":[
 		{
@@ -1667,7 +1667,7 @@
 						}
 					}
 				},
-				"code":"def toReturn = [:]\ndef fileList = []\ndef inputModalities = []\n\nif (binding.hasVariable(\"inputModality\")) {\n    def im = binding.getVariable(\"inputModality\")\n    // Ensure inputModalities is a list\n    inputModalities = im instanceof List ? im : [im]\n}\n\ndef addToFileList = { attachment, modalities ->\n    def mimeType = attachment?.mimeType?.toLowerCase()\n    try {\n        if (attachment?.fileDetails?.size?.toInteger() > 4000000) return false\n    } catch (Exception e) {\n        return false\n    }\n    if (!mimeType) return false\n    for (modality in modalities) {\n        if (mimeType.contains(modality?.toLowerCase())) {\n            return true\n        }\n    }\n    return false\n}\n\ndef msg = message?.additional?.rephrasedUserMessage\ntoReturn['messageContent'] = msg ?: message?.content?.text\n\nif (binding.hasVariable('attachments')) {\n    def attachments = binding.getVariable('attachments')\n    def attachmentsList = []\n\n    def hasImages = false\n    for (attachment in attachments) {\n        if (attachment?.images) {\n            for (imageItem in attachment.images) {\n                def imageFileObj = imageItem?.file ?: imageItem?.fileObj\n                if (imageFileObj && imageItem?.mimeType) {\n                    if (addToFileList(imageItem, inputModalities)){\n                        hasImages = true\n                        fileList.add([\n                            \"mimeType\": imageItem.mimeType,\n                            \"fileObj\": [\n                                \"name\": imageFileObj.name,\n                                \"fileType\": imageFileObj.type,\n                                \"source\": imageFileObj.source,\n                                \"sourceType\": imageFileObj.sourceType,\n                                \"size\": null\n                            ]\n                        ])\n                    }\n                }\n            }\n        }\n        \n        def attMap = [\n            \"name\": attachment?.name,\n            \"fileType\": attachment?.fileType,\n            \"fileDetailsSource\": attachment?.fileDetails?.source,\n            \"fileDetailsSourceType\": attachment?.fileDetails?.sourceType,\n            \"size\": attachment?.fileDetails?.size\n        ]\n        \n        if (!hasImages && addToFileList(attachment, inputModalities)) {\n            fileList.add([\n                \"mimeType\": attachment?.mimeType,\n                \"fileObj\": [\n                    \"name\": attachment?.name,\n                    \"fileType\": attachment?.fileType,\n                    \"source\": attachment?.fileDetails?.source,\n                    \"sourceType\": attachment?.fileDetails?.sourceType,\n                    \"size\": attachment?.fileDetails?.size\n                ]\n            ])\n        }\n        attachmentsList.add(attMap)\n    }\n    if (hasImages) {\n        toReturn['fileList'] = fileList\n        return toReturn\n\n    }\n    toReturn['attachmentsList'] = attachmentsList\n}\n\ntoReturn['fileList'] = fileList\nreturn toReturn",
+				"code":"def toReturn = [:]\ndef fileList = []\ndef inputModalities = []\n\nif (binding.hasVariable(\"inputModality\")) {\n    def im = binding.getVariable(\"inputModality\")\n    // Ensure inputModalities is a list\n    inputModalities = im instanceof List ? im : [im]\n}\n\ndef addToFileList = { attachment, modalities ->\n    def mimeType = attachment?.mimeType?.toLowerCase()\n    try {\n        if (attachment?.fileDetails?.size?.toInteger() > 4000000) return false\n    } catch (Exception e) {\n        return false\n    }\n    if (!mimeType) return false\n    for (modality in modalities) {\n        if (mimeType.contains(modality?.toLowerCase())) {\n            return true\n        }\n    }\n    return false\n}\n\ndef msg = message?.additional?.rephrasedUserMessage\ntoReturn['messageContent'] = msg ?: message?.content?.text\n\nif (binding.hasVariable('attachments')) {\n    def attachments = binding.getVariable('attachments')\n    def attachmentsList = []\n\n    def hasImages = false\n    for (attachment in attachments) {\n        if (attachment?.images) {\n            for (imageItem in attachment.images) {\n                def imageFileObj = imageItem?.file ?: imageItem?.fileObj\n                if (imageFileObj && imageItem?.mimeType) {\n                    if (addToFileList(imageItem, inputModalities)){\n                        hasImages = true\n                        fileList.add([\n                            \"mimeType\": imageItem.mimeType,\n                            \"fileObj\": [\n                                \"name\": imageFileObj.name,\n                                \"fileType\": imageFileObj.type,\n                                \"source\": imageFileObj.source,\n                                \"sourceType\": imageFileObj.sourceType,\n                                \"size\": null\n                            ]\n                        ])\n                    }\n                }\n            }\n        }\n        \n        def attMap = [\n            \"name\": attachment?.name,\n            \"fileType\": attachment?.fileType,\n            \"fileDetailsSource\": attachment?.fileDetails?.source,\n            \"fileDetailsSourceType\": attachment?.fileDetails?.sourceType,\n            \"size\": attachment?.fileDetails?.size\n        ]\n        \n        if (!hasImages && addToFileList(attachment, inputModalities)) {\n            fileList.add([\n                \"mimeType\": attachment?.mimeType,\n                \"fileObj\": [\n                    \"name\": attachment?.name,\n                    \"fileType\": attachment?.fileType,\n                    \"source\": attachment?.fileDetails?.source,\n                    \"sourceType\": attachment?.fileDetails?.sourceType,\n                    \"size\": attachment?.fileDetails?.size\n                ]\n            ])\n        }\n        attachmentsList.add(attMap)\n    }\n    \n    toReturn['attachmentsList'] = attachmentsList\n}\n\ntoReturn['fileList'] = fileList\nreturn toReturn",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
@@ -3664,5 +3664,5 @@
 		"AI Agent",
 		"Team"
 	],
-	"version":158
+	"version":159
 }
