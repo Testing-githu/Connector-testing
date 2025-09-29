@@ -7,46 +7,128 @@
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_bVcvv",
+			"fromNodeId":"n_10Awh",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_u1Pm5",
+			"toNodeId":"n_8stJo",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_8stJo",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_bpU7B",
 			"type":"next"
 		}
 	],
 	"id":"68da0fc0e05bfb675ebd90e0",
 	"lastModifiedBy":1,
 	"lcName":"deserilizearraydeserilize_117591198606590",
-	"modifiedTime":1759121344910,
+	"modifiedTime":1759121359784,
 	"name":"Deserilizearraydeserilize_117591198606590",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1445,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_bVcvv-1",
-			"id":"_bVcvv",
-			"index":0,
+			"id":"n_10Awh",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"result"
+					],
+					"properties":{
+						"result":{
+							"type":"string",
+							"title":"result"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"utility_by_unifyapps",
+				"resourceVersion":1708,
+				"resourceName":"utility_by_unifyapps_to_json_object",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_bVcvv-1",
-			"id":"_u1Pm5",
-			"index":0,
+			"id":"n_8stJo",
+			"index":2,
+			"inputs":{
+				"jsonSchema":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"array"
+					],
+					"properties":{
+						"array":{
+							"type":"array",
+							"items":{
+								"type":"object",
+								"properties":{},
+								"additionalProperties":false
+							},
+							"title":"array"
+						}
+					}
+				},
+				"jsonString":"{\"array\":[1,2,3,4,5,6]}"
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Utility by UnifyApps",
+			"title":"Deserialise string to JSON object",
 			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1448,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_bVcvv-1",
+			"id":"n_bpU7B",
+			"index":3,
+			"inputs":{
+				"result":{
+					"result":"{{ n_8stJo.outputs.result }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +142,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
