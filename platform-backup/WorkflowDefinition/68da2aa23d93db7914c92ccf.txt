@@ -1,0 +1,155 @@
+{
+	"appsUsed":[
+		"storage_by_unifyapps"
+	],
+	"createdTime":1759128226567,
+	"deleted":false,
+	"description":"description",
+	"edges":[
+		{
+			"fromNodeId":"n_wZzFu",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_J5WR5",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_J5WR5",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_KVZiS",
+			"type":"next"
+		}
+	],
+	"id":"68da2aa23d93db7914c92ccf",
+	"lastModifiedBy":1,
+	"lcName":"storagebyunifyapps_update an existing record_117591270379280",
+	"modifiedTime":1759128261808,
+	"name":"StorageByUnifyapps_Update an existing record_117591270379280",
+	"nodes":[
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1471,
+				"resourceName":"callables_from_automation"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_XCr9Z-1",
+			"id":"n_wZzFu",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"Output"
+					],
+					"properties":{
+						"Output":{
+							"type":"string",
+							"title":"Output"
+						}
+					}
+				},
+				"setup":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"Name":{
+							"type":"string",
+							"title":"Name"
+						},
+						"Age":{
+							"type":"integer",
+							"title":"Age"
+						},
+						"Profession":{
+							"type":"string",
+							"title":"Profession"
+						}
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":7089,
+				"resourceName":"storage_by_unifyapps_update_record_by_id",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_XCr9Z-1",
+			"id":"n_J5WR5",
+			"index":2,
+			"inputs":{
+				"recordId":"{{ n_wZzFu.outputs.Name }}",
+				"writeThroughSessionVariables":false,
+				"object_type":"ang6nnh",
+				"skipIfBlank":false,
+				"record":{
+					"Name":"{{ n_wZzFu.outputs.Name }}",
+					"Age":"{{ n_wZzFu.outputs.Age }}",
+					"Profession":"{{ n_wZzFu.outputs.Profession }}"
+				},
+				"upsert":false
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Update an existing record",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1474,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_XCr9Z-1",
+			"id":"n_KVZiS",
+			"index":3,
+			"inputs":{
+				"result":{
+					"Output":"{{ n_J5WR5.outputs.object.id }}{{ n_J5WR5.outputs.object.properties }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		}
+	],
+	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
+	"settings":{
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
+		"route":{
+			"default":false,
+			"tierName":"global"
+		}
+	},
+	"standard":false,
+	"tags":[
+		
+	],
+	"version":1
+}
