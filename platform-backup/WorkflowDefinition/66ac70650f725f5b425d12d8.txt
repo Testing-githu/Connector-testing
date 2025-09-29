@@ -5,12 +5,12 @@
 	"createdTime":1747000715279,
 	"deleted":false,
 	"deploymentState":{
-		"deployedAt":1758963883371,
+		"deployedAt":1759166572040,
 		"deployedBy":1,
-		"deployedDefinitionId":"68d7a8abce29ec20a05f0877",
+		"deployedDefinitionId":"68dac06cd46b57677a979453",
 		"status":"DEPLOYED",
-		"version":74,
-		"workflowVersion":740
+		"version":77,
+		"workflowVersion":743
 	},
 	"description":"All LLM calls related to ai agent goes through this automation",
 	"edges":[
@@ -400,7 +400,7 @@
 	"id":"66ac70650f725f5b425d12d8",
 	"lastModifiedBy":-1,
 	"lcName":"call llm (ai agent)",
-	"modifiedTime":1758965963748,
+	"modifiedTime":1759169740758,
 	"name":"Call LLM (AI Agent)",
 	"nodes":[
 		{
@@ -2807,11 +2807,23 @@
 						"filter":{
 							"filters":[
 								{
-									"property":"{{ n_rQhLl.outputs.properties.provider }}",
-									"filter":{
-										"operator":"EQUAL",
-										"value":"google"
-									}
+									"filters":[
+										{
+											"property":"{{ n_rQhLl.outputs.properties.provider }}",
+											"filter":{
+												"operator":"EQUAL",
+												"value":"google"
+											}
+										},
+										{
+											"property":"{{ n_rQhLl.outputs.properties.provider }}",
+											"filter":{
+												"operator":"EQUAL",
+												"value":"google_gemini"
+											}
+										}
+									],
+									"operator":"OR"
 								},
 								{
 									"property":"{{ EE8de.outputs.stream }}",
@@ -3733,7 +3745,6 @@
 				"synchronous":true,
 				"version":"-1",
 				"parameters":{
-					"logProbs":"{{ EE8de.outputs.logProbs }}",
 					"aiAgentId":"{{ EE8de.outputs.aiAgentId }}",
 					"caseId":"{{ EE8de.outputs.caseId }}",
 					"modelId":"{{ EE8de.outputs.modelId }}",
@@ -3745,6 +3756,13 @@
 					"maxTokens":"{{ EE8de.outputs.maxTokens }}",
 					"temperature":"{{ EE8de.outputs.temperature }}",
 					"presencePenalty":"{{ EE8de.outputs.presencePenalty }}",
+					"logProbs":"{{ EE8de.outputs.logProbs }}",
+					"topK":"{{ EE8de.outputs.topK }}",
+					"systemPrompt":"{{ EE8de.outputs.systemPrompt }}",
+					"stream":false,
+					"step":"{{ EE8de.outputs.step }}",
+					"messageId":"{{ EE8de.outputs.messageId }}",
+					"retry_count":"=SUM({{ GQFTz.outputs.retry_count }},-1)",
 					"message":{
 						"source":"{{ EE8de.outputs.message }}",
 						"ua:type":"mappedArray",
@@ -3768,13 +3786,7 @@
 								"parameters":"{{ EE8de.outputs.tools[0].function.parameters }}"
 							}
 						}
-					},
-					"topK":"{{ EE8de.outputs.topK }}",
-					"systemPrompt":"{{ EE8de.outputs.systemPrompt }}",
-					"step":"{{ EE8de.outputs.step }}",
-					"messageId":"{{ EE8de.outputs.messageId }}",
-					"stream":false,
-					"retry_count":"={{ GQFTz.outputs.retry_count }}-1"
+					}
 				}
 			},
 			"skip":false,
@@ -4134,5 +4146,5 @@
 		"AI Agent",
 		"Internal"
 	],
-	"version":741
+	"version":744
 }
