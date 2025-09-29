@@ -4,49 +4,186 @@
 	],
 	"createdTime":1759173663769,
 	"deleted":false,
+	"deploymentState":{
+		"deployedAt":1759173675577,
+		"deployedBy":1,
+		"deployedDefinitionId":"68dadc2bc543eb66a23da69b",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":1
+	},
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_XTqI6",
+			"fromNodeId":"n_m5BZL",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_owS8w",
+			"toNodeId":"n_dj8Xd",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_dj8Xd",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_KkkC4",
 			"type":"next"
 		}
 	],
 	"id":"68dadc1fc543eb66a23da680",
 	"lastModifiedBy":1,
 	"lcName":"showtaggedversionsonlycheckbox_117591714983070",
-	"modifiedTime":1759173663769,
+	"modifiedTime":1759173689052,
 	"name":"showTaggedVersionsOnlyCheckbox_117591714983070",
 	"nodes":[
 		{
+			"context":{
+				"appName":"webhooks",
+				"resourceVersion":118,
+				"resourceName":"webhooks_default"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_XTqI6-1",
-			"id":"_XTqI6",
-			"index":0,
+			"id":"n_m5BZL",
+			"index":1,
+			"inputs":{
+				"request":{
+					"contentType":"application/json",
+					"body":{
+						"type":"object",
+						"properties":{
+							"input":{
+								"type":"string",
+								"title":"input"
+							}
+						},
+						"additionalProperties":false,
+						"required":[
+							"input"
+						]
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Webhook",
+			"title":"New event",
 			"trigger":{
-				"type":"EVENT"
+				"type":"WEBHOOK"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":1437,
+				"resourceName":"variable_by_unifyapps_create_variables",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_XTqI6-1",
-			"id":"_owS8w",
-			"index":0,
+			"id":"n_dj8Xd",
+			"index":2,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{},
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"inputField":{
+							"type":"string",
+							"title":"inputField"
+						}
+					},
+					"required":[
+						"inputField"
+					]
+				}
+			},
+			"inputs":{},
+			"outputSchema":{
+				"dynamic":false,
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"inputField":{
+							"type":"string",
+							"title":"inputField"
+						}
+					},
+					"required":[
+						"inputField"
+					]
+				}
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Variable by UnifyApps",
+			"title":"Create variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":1437,
+				"resourceName":"variable_by_unifyapps_create_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_XTqI6-1",
+			"id":"n_KkkC4",
+			"index":3,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{},
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"VariableName":{
+							"type":"string",
+							"title":"VariableName"
+						}
+					},
+					"required":[
+						"VariableName"
+					]
+				}
+			},
+			"inputs":{},
+			"outputSchema":{
+				"dynamic":false,
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"VariableName":{
+							"type":"string",
+							"title":"VariableName"
+						}
+					},
+					"required":[
+						"VariableName"
+					]
+				}
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Create variables",
 			"type":"ACTION"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +197,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":2
 }
