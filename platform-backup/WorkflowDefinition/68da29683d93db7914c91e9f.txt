@@ -4,6 +4,14 @@
 	],
 	"createdTime":1759127912491,
 	"deleted":false,
+	"deploymentState":{
+		"deployedAt":1759128015400,
+		"deployedBy":1,
+		"deployedDefinitionId":"68da29cf3d93db7914c921c2",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":1
+	},
 	"edges":[
 		{
 			"fromNodeId":"n_XK5aP",
@@ -23,7 +31,7 @@
 	"id":"68da29683d93db7914c91e9f",
 	"lastModifiedBy":1,
 	"lcName":"jnyhbgvf",
-	"modifiedTime":1759128013574,
+	"modifiedTime":1759129087264,
 	"name":"jnyhbgvf",
 	"nodes":[
 		{
@@ -91,6 +99,9 @@
 				"input":{
 					"type":"object",
 					"additionalProperties":false,
+					"required":[
+						"str"
+					],
 					"properties":{
 						"a":{
 							"type":"integer",
@@ -99,14 +110,19 @@
 						"b":{
 							"type":"integer",
 							"title":"b"
+						},
+						"str":{
+							"type":"string",
+							"title":"str"
 						}
 					}
 				},
-				"code":"result = a+b;",
+				"code":"try {\nString str = null;\nresult = str.length();  // NullPointerException\n} catch (ArithmeticException e) {\n                            result = \"Arithmetic error!\";\n                                  } catch (NullPointerException e) {\n                                      result = \"Null pointer error!\";\n                                  } catch (Exception e) {\n                                      result = \"Some other error: \" + e;\n                                  }",
 				"captureStdOutput":false,
 				"parameters":{
 					"a":32,
-					"b":43
+					"b":43,
+					"str":"Hello World"
 				}
 			},
 			"skip":false,
@@ -155,5 +171,5 @@
 	"tags":[
 		
 	],
-	"version":1
+	"version":2
 }
