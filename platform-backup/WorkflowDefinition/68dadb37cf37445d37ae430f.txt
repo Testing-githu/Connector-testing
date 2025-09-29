@@ -1,52 +1,99 @@
 {
 	"appsUsed":[
-		
+		"shopify"
 	],
 	"createdTime":1759173431747,
 	"deleted":false,
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_q7vur",
+			"fromNodeId":"n_ZFkRt",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_P2tYP",
+			"toNodeId":"n_OgiPf",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_OgiPf",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_QrP8o",
+			"type":"loop"
+		},
+		{
+			"fromNodeId":"n_QrP8o",
+			"name":"loopback",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_OgiPf",
 			"type":"next"
 		}
 	],
 	"id":"68dadb37cf37445d37ae430f",
 	"lastModifiedBy":1,
 	"lcName":"multiple action node with incomplete input  - 11759171506046",
-	"modifiedTime":1759173431747,
+	"modifiedTime":1759173439666,
 	"name":"Multiple action node with incomplete input  - 11759171506046",
 	"nodes":[
 		{
+			"context":{
+				"appName":"shopify",
+				"resourceVersion":10270,
+				"connectionId":"6798bc9b219ec7180823c4e5",
+				"resourceName":"shopify_on_order_create"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_q7vur-1",
-			"id":"_q7vur",
-			"index":0,
+			"id":"n_ZFkRt",
+			"index":1,
+			"inputs":{},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Shopify",
+			"title":"Order created",
 			"trigger":{
 				"type":"EVENT"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"loop",
+				"resourceVersion":121,
+				"resourceName":"loop_for_each",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_q7vur-1",
-			"id":"_P2tYP",
-			"index":0,
+			"id":"n_OgiPf",
+			"index":2,
+			"inputs":{
+				"captureIterations":false
+			},
+			"skip":false,
+			"subTitle":"Loop",
+			"title":"For each loop",
+			"type":"LOOP"
+		},
+		{
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"n_OgiPf@_q7vur-1@l",
+			"id":"n_QrP8o",
+			"index":3,
 			"skip":false,
 			"title":"Select an app and action",
 			"type":"ACTION"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +107,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
