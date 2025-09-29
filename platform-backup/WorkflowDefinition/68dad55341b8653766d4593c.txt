@@ -7,46 +7,110 @@
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_nylT6",
+			"fromNodeId":"n_0rPsR",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_uLNvQ",
+			"toNodeId":"n_1h7Ap",
 			"type":"next"
 		}
 	],
 	"id":"68dad55341b8653766d4593c",
 	"lastModifiedBy":1,
 	"lcName":"requestfields_mandatoryfields117591715092960",
-	"modifiedTime":1759171923245,
+	"modifiedTime":1759171936731,
 	"name":"requestFields_mandatoryFields117591715092960",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1497,
+				"resourceName":"callables_from_api"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_nylT6-1",
-			"id":"_nylT6",
-			"index":0,
+			"id":"n_0rPsR",
+			"index":1,
+			"inputs":{
+				"request":{
+					"body":{
+						"type":"object",
+						"additionalProperties":false,
+						"required":[
+							"input"
+						],
+						"properties":{
+							"input":{
+								"type":"string",
+								"title":"input"
+							}
+						}
+					},
+					"contentType":"application/json"
+				},
+				"endpointType":"SOAP",
+				"response":[
+					{
+						"name":"success",
+						"status":200,
+						"body":{
+							"type":"object",
+							"additionalProperties":false,
+							"required":[
+								"output"
+							],
+							"properties":{
+								"output":{
+									"type":"string",
+									"title":"output"
+								}
+							}
+						}
+					}
+				],
+				"soapVersion":"v1.2",
+				"streamingResponse":false
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via API",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1499,
+				"resourceName":"callables_return_response_to_api",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_nylT6-1",
-			"id":"_uLNvQ",
-			"index":0,
+			"id":"n_1h7Ap",
+			"index":2,
+			"inputs":{
+				"streamingCompleted":true,
+				"responseName":"200_success",
+				"body":{
+					"output":"{{ n_0rPsR.outputs.body.input }}"
+				},
+				"status":200
+			},
 			"skip":false,
-			"title":"Select an app and action",
-			"type":"ACTION"
+			"subTitle":"Callable",
+			"title":"Respond to API request",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +124,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
