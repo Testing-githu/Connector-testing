@@ -1,52 +1,122 @@
 {
 	"appsUsed":[
-		
+		"storage_by_unifyapps"
 	],
 	"createdTime":1759173602226,
 	"deleted":false,
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_iyl1m",
+			"fromNodeId":"n_AzoKS",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_r37L2",
+			"toNodeId":"n_Eihqs",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Eihqs",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_es26b",
 			"type":"next"
 		}
 	],
 	"id":"68dadbe2c543eb66a23da5c7",
 	"lastModifiedBy":1,
 	"lcName":"storage_by_countlargerecord117591715080370",
-	"modifiedTime":1759173602226,
+	"modifiedTime":1759173620007,
 	"name":"Storage_by_CountLargeRecord117591715080370",
 	"nodes":[
 		{
+			"context":{
+				"appName":"webhooks",
+				"resourceVersion":118,
+				"resourceName":"webhooks_default"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_iyl1m-1",
-			"id":"_iyl1m",
-			"index":0,
+			"id":"n_AzoKS",
+			"index":1,
+			"inputs":{
+				"request":{
+					"contentType":"application/json"
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Webhook",
+			"title":"New event",
 			"trigger":{
-				"type":"EVENT"
+				"type":"WEBHOOK"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":7135,
+				"resourceName":"storage_by_unifyapps_create_record",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_iyl1m-1",
-			"id":"_r37L2",
-			"index":0,
+			"id":"n_Eihqs",
+			"index":2,
+			"inputs":{
+				"writeThroughSessionVariables":false,
+				"object_type":"aw3c9s",
+				"skipIfBlank":false,
+				"record":{
+					"movieId":123456,
+					"title":"Cool",
+					"genres":"Drama"
+				}
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Storage by UnifyApps",
+			"title":"Create record",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":7136,
+				"resourceName":"storage_by_unifyapps_count_records",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_iyl1m-1",
+			"id":"n_es26b",
+			"index":3,
+			"inputs":{
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"property":"properties_movieId",
+							"filter":{
+								"operator":"EXISTS"
+							}
+						}
+					],
+					"operator":"AND"
+				},
+				"object_type":"aw3c9s"
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Count records",
 			"type":"ACTION"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +130,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
