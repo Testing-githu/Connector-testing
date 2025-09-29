@@ -1,52 +1,192 @@
 {
 	"appsUsed":[
-		
+		"slack"
 	],
 	"createdTime":1759173604399,
 	"deleted":false,
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_fHlrP",
+			"fromNodeId":"n_Oj1A9",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_48E3q",
+			"toNodeId":"n_f3OEJ",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_f3OEJ",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_QP2p0",
 			"type":"next"
 		}
 	],
 	"id":"68dadbe4bc16e10d35bfd1b5",
 	"lastModifiedBy":1,
 	"lcName":"enable_logging_11759171501372",
-	"modifiedTime":1759173604399,
+	"modifiedTime":1759173618711,
 	"name":"enable_logging_11759171501372",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1499,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_fHlrP-1",
-			"id":"_fHlrP",
-			"index":0,
+			"id":"n_Oj1A9",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"output"
+					],
+					"properties":{
+						"output":{
+							"type":"string",
+							"title":"output"
+						}
+					}
+				},
+				"setup":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"Input1":{
+							"type":"integer",
+							"title":"Input1"
+						},
+						"Input2":{
+							"type":"integer",
+							"title":"Input2"
+						},
+						"Input3":{
+							"type":"integer",
+							"title":"Input3"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"slack",
+				"resourceVersion":7202,
+				"connectionId":"662f8ddb91d8ba4394d0cce6",
+				"resourceName":"slack_post_message_in_channel",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_fHlrP-1",
-			"id":"_48E3q",
-			"index":0,
+			"id":"n_f3OEJ",
+			"index":2,
+			"inputs":{
+				"link_names":true,
+				"messageType":"text",
+				"channel":"unify-apps",
+				"text":"Test message",
+				"mrkdwn":true
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"global":false
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS"
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":true,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"STOP",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Slack",
+			"title":"Post message",
 			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1502,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_fHlrP-1",
+			"id":"n_QP2p0",
+			"index":3,
+			"inputs":{
+				"result":{
+					"output":"{{ n_f3OEJ.outputs.ok }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +200,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
