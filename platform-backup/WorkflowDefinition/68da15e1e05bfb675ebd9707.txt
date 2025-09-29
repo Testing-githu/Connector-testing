@@ -6,46 +6,188 @@
 	"deleted":false,
 	"edges":[
 		{
-			"fromNodeId":"_ywj5G",
+			"fromNodeId":"n_MqvIE",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_C2fS7",
+			"toNodeId":"n_R1PbZ",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_R1PbZ",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_AmS7E",
 			"type":"next"
 		}
 	],
 	"id":"68da15e1e05bfb675ebd9707",
 	"lastModifiedBy":1,
 	"lcName":"cacheqa2jrowpgfxrf",
-	"modifiedTime":1759122913218,
+	"modifiedTime":1759122951461,
 	"name":"cacheQA2jrOWPGfxrF",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1445,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_ywj5G-1",
-			"id":"_ywj5G",
-			"index":0,
+			"id":"n_MqvIE",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"d":{
+							"type":"integer",
+							"title":"d"
+						}
+					}
+				},
+				"setup":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"a":{
+							"type":"integer",
+							"title":"a"
+						},
+						"b":{
+							"type":"integer",
+							"title":"b"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1446,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_ywj5G-1",
-			"id":"_C2fS7",
-			"index":0,
+			"id":"n_R1PbZ",
+			"index":2,
+			"inputs":{
+				"automationId":"68da1552e05bfb675ebd96b3",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"version":"-1",
+				"parameters":{
+					"a":"{{ n_MqvIE.outputs.a }}",
+					"b":"{{ n_MqvIE.outputs.b }}"
+				}
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"global":false
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS"
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":true,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						{
+							"continueOnFailure":false,
+							"parameters":{
+								"x":"{{ n_MqvIE.outputs.a }}",
+								"y":"{{ n_MqvIE.outputs.b }}"
+							},
+							"workflowId":"68da15afe05bfb675ebd96f1"
+						}
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"STOP",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
+			},
 			"skip":false,
-			"title":"Select an app and action",
-			"type":"ACTION"
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1448,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_ywj5G-1",
+			"id":"n_AmS7E",
+			"index":3,
+			"inputs":{
+				"result":{
+					"d":"{{ n_R1PbZ.outputs.c }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -59,5 +201,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
