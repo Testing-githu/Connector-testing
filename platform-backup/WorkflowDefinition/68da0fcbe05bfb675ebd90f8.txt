@@ -1,52 +1,80 @@
 {
 	"appsUsed":[
-		
+		"slack",
+		"storage_by_unifyapps"
 	],
 	"createdTime":1759121355217,
 	"deleted":false,
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_nuwqw",
+			"fromNodeId":"n_FK7lw",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_98NkU",
+			"toNodeId":"n_dcKX6",
 			"type":"next"
 		}
 	],
 	"id":"68da0fcbe05bfb675ebd90f8",
 	"lastModifiedBy":1,
 	"lcName":"storagebyunifyapps_delete records_trigger_117591198606590",
-	"modifiedTime":1759121355217,
+	"modifiedTime":1759121377971,
 	"name":"StorageByUnifyapps_Delete records_Trigger_117591198606590",
 	"nodes":[
 		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":7050,
+				"resourceName":"storage_by_unifyapps_on_delete_record"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_nuwqw-1",
-			"id":"_nuwqw",
-			"index":0,
+			"id":"n_FK7lw",
+			"index":1,
+			"inputs":{
+				"object_type":"a84fszu"
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Storage by UnifyApps",
+			"title":"Deleted record",
 			"trigger":{
 				"type":"EVENT"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"slack",
+				"resourceVersion":7122,
+				"connectionId":"662f8ddb91d8ba4394d0cce6",
+				"resourceName":"slack_post_message_in_channel",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_nuwqw-1",
-			"id":"_98NkU",
-			"index":0,
+			"id":"n_dcKX6",
+			"index":2,
+			"inputs":{
+				"link_names":true,
+				"messageType":"text",
+				"channel":"C07AKEPN1U3",
+				"text":"{{ n_FK7lw.outputs.deleted }}",
+				"mrkdwn":true
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Slack",
+			"title":"Post message",
 			"type":"ACTION"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +88,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
