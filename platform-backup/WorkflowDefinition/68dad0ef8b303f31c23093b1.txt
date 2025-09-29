@@ -6,46 +6,126 @@
 	"deleted":false,
 	"edges":[
 		{
-			"fromNodeId":"_HIpV5",
+			"fromNodeId":"n_AV3R4",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_WzwPR",
+			"toNodeId":"n_oQvtc",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_oQvtc",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_gmgfN",
 			"type":"next"
 		}
 	],
 	"id":"68dad0ef8b303f31c23093b1",
 	"lastModifiedBy":1,
 	"lcName":"tmqa2mgrovbwzal",
-	"modifiedTime":1759170799618,
+	"modifiedTime":1759170837165,
 	"name":"tmQA2mgrovbwzal",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1495,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_HIpV5-1",
-			"id":"_HIpV5",
-			"index":0,
+			"id":"n_AV3R4",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"c":{
+							"type":"string",
+							"title":"c"
+						}
+					}
+				},
+				"setup":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"name":{
+							"type":"string",
+							"title":"name"
+						},
+						"age":{
+							"type":"integer",
+							"title":"age"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"template_by_unifyapps",
+				"resourceVersion":1339,
+				"resourceName":"template_by_unifyapps_compile_template",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_HIpV5-1",
-			"id":"_WzwPR",
-			"index":0,
+			"id":"n_oQvtc",
+			"index":2,
+			"inputs":{
+				"input_schema":{
+					"name":"{{ n_AV3R4.outputs.name }}",
+					"age":"{{ n_AV3R4.outputs.age }}"
+				},
+				"template_content":"Thank you for applying {{ n_AV3R4.outputs.name }}",
+				"template_id":"e_688dd40cdbb1ba843be61b11"
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Template by UnifyApps",
+			"title":"Compile template",
 			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1498,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_HIpV5-1",
+			"id":"n_gmgfN",
+			"index":3,
+			"inputs":{
+				"result":{
+					"c":"{{ n_oQvtc.outputs.output }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -59,5 +139,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
