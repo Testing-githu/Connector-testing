@@ -5,16 +5,62 @@
 	"createdTime":1758007273444,
 	"deleted":false,
 	"deploymentState":{
-		"deployedAt":1758886293015,
-		"deployedBy":0,
-		"deployedDefinitionId":"68d679943323d9309656db20",
+		"deployedAt":1759125290611,
+		"deployedBy":-1,
+		"deployedDefinitionId":"68da1f2a787a2819a08112a3",
 		"status":"DEPLOYED",
-		"version":15,
-		"workflowVersion":29
+		"version":17,
+		"workflowVersion":31
 	},
 	"edges":[
 		{
 			"fromNodeId":"n_A1AfB",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_iCLoU",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_iCLoU",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_8PhUY",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_8PhUY",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_2dEkJ",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_2dEkJ",
+			"name":"success",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_kBCft",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_kBCft",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_GXLOo",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_2dEkJ",
+			"name":"error",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_GXLOo",
+			"type":"error"
+		},
+		{
+			"fromNodeId":"n_8PhUY",
+			"name":"no",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_GXLOo",
@@ -39,9 +85,9 @@
 		]
 	},
 	"id":"68c51597269ad81cc750a3ca",
-	"lastModifiedBy":-1,
+	"lastModifiedBy":1,
 	"lcName":"[ai agent] capture trace",
-	"modifiedTime":1758966114855,
+	"modifiedTime":1759166630042,
 	"name":"[AI AGENT] Capture Trace",
 	"nodes":[
 		{
@@ -178,6 +224,12 @@
 						"success":{
 							"type":"boolean",
 							"title":"success"
+						},
+						"outputObject":{
+							"type":"object",
+							"properties":{},
+							"additionalProperties":false,
+							"title":"Output Object"
 						}
 					}
 				}
@@ -189,6 +241,183 @@
 				"type":"CALLABLE"
 			},
 			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":459,
+				"resourceName":"variable_by_unifyapps_create_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_VMx3Y-1",
+			"id":"n_iCLoU",
+			"index":2,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{},
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"output":{
+							"type":"string",
+							"title":"Output"
+						}
+					},
+					"required":[]
+				}
+			},
+			"inputs":{
+				"output":"{{ n_A1AfB.outputs.output }}"
+			},
+			"outputSchema":{
+				"dynamic":false,
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"output":{
+							"type":"string",
+							"title":"Output"
+						}
+					},
+					"required":[]
+				}
+			},
+			"skip":false,
+			"subTitle":"Output Variable",
+			"title":"Create variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":439,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_VMx3Y-1",
+			"id":"n_8PhUY",
+			"index":3,
+			"inputs":{
+				"filters":[
+					{
+						"property":"{{ n_A1AfB.outputs.outputObject }}",
+						"filter":{
+							"operator":"EXISTS"
+						}
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"outputObject ?",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"utility_by_unifyapps",
+				"resourceVersion":450,
+				"resourceName":"utility_by_unifyapps_to_json_string",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"MANUAL",
+			"groupId":"n_8PhUY@_VMx3Y-1@y",
+			"id":"n_2dEkJ",
+			"index":4,
+			"inputs":{
+				"object":"{{ n_A1AfB.outputs.outputObject }}"
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"global":false
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS"
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"MANUAL",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				}
+			},
+			"skip":false,
+			"subTitle":"Serialise output object to string",
+			"title":"Serialise object to JSON string",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":448,
+				"resourceName":"variable_by_unifyapps_update_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_2dEkJ@n_8PhUY@_VMx3Y-1@y@success",
+			"id":"n_kBCft",
+			"index":5,
+			"inputs":{
+				"variables":[
+					{
+						"source":"{{ n_iCLoU.outputs.output }}",
+						"value":"{{ n_2dEkJ.outputs.result }}"
+					}
+				]
+			},
+			"skip":false,
+			"subTitle":"Update output",
+			"title":"Update variables",
+			"type":"ACTION"
 		},
 		{
 			"additional":{
@@ -228,7 +457,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_VMx3Y-1",
 			"id":"n_GXLOo",
-			"index":2,
+			"index":6,
 			"inputs":{
 				"writeThroughSessionVariables":false,
 				"object_type":"e_traces",
@@ -254,7 +483,7 @@
 					"parentExecutionId":"{{ n_A1AfB.outputs.parentExecutionId }}",
 					"toolName":"{{ n_A1AfB.outputs.toolName }}",
 					"userId":"{{ n_A1AfB.outputs.userId }}",
-					"output":"{{ n_A1AfB.outputs.output }}",
+					"output":"{{ n_iCLoU.outputs.output }}",
 					"llmErrorType":"{{ n_A1AfB.outputs.llmErrorType }}",
 					"fromAutomationId":"{{ n_A1AfB.outputs.fromAutomationId }}",
 					"topicName":"{{ n_A1AfB.outputs.topicName }}",
@@ -279,7 +508,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_VMx3Y-1",
 			"id":"n_1gNR2",
-			"index":3,
+			"index":7,
 			"inputs":{
 				"result":{
 					"result":true
@@ -296,9 +525,9 @@
 		
 	],
 	"settings":{
-		"enableNodeLevelLogging":true,
-		"enableRunLogging":true,
-		"enableVariableLogging":true,
+		"enableNodeLevelLogging":false,
+		"enableRunLogging":false,
+		"enableVariableLogging":false,
 		"route":{
 			"default":false,
 			"tierName":"global"
@@ -308,5 +537,5 @@
 	"tags":[
 		
 	],
-	"version":30
+	"version":32
 }
