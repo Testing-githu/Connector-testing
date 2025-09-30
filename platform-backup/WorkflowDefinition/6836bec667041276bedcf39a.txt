@@ -5,12 +5,12 @@
 	"createdTime":1751383765831,
 	"deleted":false,
 	"deploymentState":{
-		"deployedAt":1758966120083,
-		"deployedBy":-1,
-		"deployedDefinitionId":"68d7b1686115d0174f2b8ae9",
+		"deployedAt":1759229885912,
+		"deployedBy":1,
+		"deployedDefinitionId":"68dbb7bd37a5b56e94dd3758",
 		"status":"DEPLOYED",
-		"version":79,
-		"workflowVersion":92
+		"version":83,
+		"workflowVersion":96
 	},
 	"edges":[
 		{
@@ -60,6 +60,13 @@
 			"fromNodeId":"n_frosY",
 			"priority":0,
 			"skip":false,
+			"toNodeId":"_8wlER",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_8wlER",
+			"priority":0,
+			"skip":false,
 			"toNodeId":"GKzRT",
 			"type":"next"
 		},
@@ -91,7 +98,7 @@
 	"id":"6836bec667041276bedcf39a",
 	"lastModifiedBy":-1,
 	"lcName":"handle stream completion",
-	"modifiedTime":1759125296265,
+	"modifiedTime":1759253972927,
 	"name":"Handle Stream Completion",
 	"nodes":[
 		{
@@ -387,8 +394,47 @@
 			"dirty":false,
 			"fallbackMode":"STOP",
 			"groupId":"2bVVx-1",
-			"id":"GKzRT",
+			"id":"_8wlER",
 			"index":7,
+			"inputs":{
+				"automation_id":"68a7438a7cdf147e40665747",
+				"with_signal_id":false,
+				"waitingInstanceRuntimeType":"{{ tsNbs.outputs.properties.accumulatorInstanceRunTimeType }}",
+				"waitingInstanceId":"{{ tsNbs.outputs.properties.accumulatorInstanceId }}",
+				"signal_payload":{
+					"completed":false,
+					"payload":{
+						"eventType":"stream_completed"
+					}
+				},
+				"nodeId":"wonjF"
+			},
+			"skip":true,
+			"subTitle":"Signals by UnifyApps",
+			"title":"Emit signal",
+			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.signal_payload.payload.chunkContent",
+					"root.signal_payload.payload.coPilotBlocks.items",
+					"root.signal_payload.payload.eventType",
+					"root.signal_payload.payload.messageType"
+				]
+			},
+			"context":{
+				"appName":"signals_by_unifyapps",
+				"resourceVersion":382,
+				"resourceName":"signals_by_unifyapps_emit_signal",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"2bVVx-1",
+			"id":"GKzRT",
+			"index":8,
 			"inputs":{
 				"automation_id":"6835e54e0c98860093440ef7",
 				"with_signal_id":false,
@@ -425,7 +471,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"2bVVx-1",
 			"id":"P5enk",
-			"index":8,
+			"index":9,
 			"inputs":{
 				"recordId":"{{ rxnB9.outputs.caseId }}",
 				"writeThroughSessionVariables":false,
@@ -456,7 +502,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"2bVVx-1",
 			"id":"kQIV9",
-			"index":9,
+			"index":10,
 			"inputs":{
 				"result":{
 					"success":true
@@ -485,5 +531,5 @@
 	"tags":[
 		
 	],
-	"version":93
+	"version":97
 }
