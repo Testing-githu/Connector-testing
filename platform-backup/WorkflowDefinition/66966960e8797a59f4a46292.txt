@@ -5,12 +5,12 @@
 	"createdTime":1747000713626,
 	"deleted":false,
 	"deploymentState":{
-		"deployedAt":1759169736830,
-		"deployedBy":-1,
-		"deployedDefinitionId":"68daccc88b303f31c2308158",
+		"deployedAt":1759229887253,
+		"deployedBy":1,
+		"deployedDefinitionId":"68dbb7bf37a5b56e94dd376a",
 		"status":"DEPLOYED",
-		"version":63,
-		"workflowVersion":526
+		"version":64,
+		"workflowVersion":529
 	},
 	"description":"",
 	"edges":[
@@ -490,6 +490,21 @@
 		},
 		{
 			"fromNodeId":"cgzKP",
+			"name":"error",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_uJDuh",
+			"type":"error"
+		},
+		{
+			"fromNodeId":"cgzKP",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_tKktC",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"_uJDuh",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"_tKktC",
@@ -631,30 +646,16 @@
 		"configs":[
 			{
 				"permissions":[
-					"A",
-					"EXPORT_AS_TEMPLATE",
-					"C",
-					"S",
-					"VI",
-					"D",
-					"VIEW_RUNS",
-					"E",
-					"TEST",
-					"V",
-					"VS",
-					"DEP"
+					"V"
 				],
-				"principalIds":[
-					"1"
-				],
-				"principalType":"USER"
+				"principalType":"GLOBAL"
 			}
 		]
 	},
 	"id":"66966960e8797a59f4a46292",
-	"lastModifiedBy":1,
+	"lastModifiedBy":-1,
 	"lcName":"trigger ai agent",
-	"modifiedTime":1759229887142,
+	"modifiedTime":1759253819778,
 	"name":"Trigger AI Agent",
 	"nodes":[
 		{
@@ -1385,8 +1386,9 @@
 				"synchronous":true,
 				"version":"-1",
 				"parameters":{
+					"userQuery":"{{ _jxDmp.outputs.userQuery }}",
 					"aiAgentId":"{{ vBzOH.outputs.aiAgentId }}",
-					"userQuery":"{{ _jxDmp.outputs.userQuery }}"
+					"caseId":"{{ vBzOH.outputs.caseId }}"
 				}
 			},
 			"skip":false,
@@ -3034,7 +3036,7 @@
 			},
 			"debug":false,
 			"dirty":false,
-			"fallbackMode":"STOP",
+			"fallbackMode":"MANUAL",
 			"groupId":"_z6FNM@RZFta@VMKDo@vBzOH-1@y@default@y",
 			"id":"cgzKP",
 			"index":55,
@@ -3048,8 +3050,86 @@
 					"aiAgentId":"{{ vBzOH.outputs.aiAgentId }}"
 				}
 			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"global":false
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS"
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"MANUAL",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				}
+			},
 			"skip":false,
 			"subTitle":"Trigger Agent Executor",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"cgzKP@_z6FNM@RZFta@VMKDo@vBzOH-1@y@default@y@error",
+			"id":"_uJDuh",
+			"index":56,
+			"inputs":{
+				"automationId":"68ad6550c2dc2d2036d2b3c5",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"version":"-1",
+				"parameters":{
+					"caseId":"{{ vBzOH.outputs.caseId }}",
+					"aiAgentId":"{{ vBzOH.outputs.aiAgentId }}",
+					"errorMessage":"{{ cgzKP.outputs }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
 			"title":"Call automation",
 			"type":"CALL_WORKFLOW"
 		},
@@ -3065,7 +3145,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_z6FNM@RZFta@VMKDo@vBzOH-1@y@default@y",
 			"id":"_tKktC",
-			"index":56,
+			"index":57,
 			"inputs":{
 				"result":{
 					"skipResponse":true,
@@ -3089,7 +3169,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"vBzOH-1",
 			"id":"EjZ3h",
-			"index":57,
+			"index":58,
 			"inputs":{
 				"triggerInputCondition":{
 					"filters":[
@@ -3129,7 +3209,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"vBzOH-1",
 			"id":"_z1VWT",
-			"index":58,
+			"index":59,
 			"inputs":{
 				"filters":[
 					{
@@ -3159,7 +3239,7 @@
 			"fallbackMode":"CONTINUE",
 			"groupId":"_z1VWT@vBzOH-1@y",
 			"id":"_6xCrQ",
-			"index":59,
+			"index":60,
 			"inputs":{
 				"automationId":"67419516deb2aa254818a06d",
 				"runtimeConnections":{},
@@ -3222,7 +3302,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"vBzOH-1",
 			"id":"ms3X5",
-			"index":60,
+			"index":61,
 			"inputSchema":{
 				"type":"SCHEMA_AND_LAYOUT",
 				"dynamic":false,
@@ -3491,7 +3571,7 @@
 			"fallbackMode":"MANUAL",
 			"groupId":"vBzOH-1",
 			"id":"Es78y",
-			"index":61,
+			"index":62,
 			"inputs":{
 				"automationId":"67933cc866e1f1098aa02c39",
 				"runtimeConnections":{},
@@ -3552,7 +3632,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"Es78y@vBzOH-1@error",
 			"id":"_Cpndc",
-			"index":62,
+			"index":63,
 			"inputs":{
 				"automationId":"68ad6550c2dc2d2036d2b3c5",
 				"runtimeConnections":{},
@@ -3581,7 +3661,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"Es78y@vBzOH-1@error",
 			"id":"Iq9ab",
-			"index":63,
+			"index":64,
 			"inputs":{
 				"output":{
 					"type":"object",
@@ -3635,7 +3715,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"Es78y@vBzOH-1@error",
 			"id":"fy5V5",
-			"index":64,
+			"index":65,
 			"inputs":{
 				"numberOfRecordsToUpdate":"SINGLE",
 				"triggerInputCondition":{
@@ -3686,7 +3766,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"Es78y@vBzOH-1@error",
 			"id":"n_FlPIH",
-			"index":65,
+			"index":66,
 			"inputs":{
 				"numberOfRecordsToUpdate":"SINGLE",
 				"triggerInputCondition":{
@@ -3732,7 +3812,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"vBzOH-1",
 			"id":"pEZXT",
-			"index":66,
+			"index":67,
 			"inputs":{
 				"automationId":"67b4908aaffe713b4ced2d83",
 				"runtimeConnections":{},
@@ -3760,7 +3840,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"vBzOH-1",
 			"id":"SThPI",
-			"index":67,
+			"index":68,
 			"inputs":{
 				"result":{
 					"skipResponse":true,
@@ -3778,9 +3858,9 @@
 		
 	],
 	"settings":{
-		"enableNodeLevelLogging":false,
-		"enableRunLogging":false,
-		"enableVariableLogging":false,
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
 		"route":{
 			"default":false,
 			"tierName":"global"
@@ -3790,5 +3870,5 @@
 	"tags":[
 		"AI Agent"
 	],
-	"version":529
+	"version":530
 }
