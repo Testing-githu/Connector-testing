@@ -427,7 +427,7 @@
 	"id":"6853b4abc2f89c23458360c7",
 	"lastModifiedBy":1,
 	"lcName":"dqm start asset scan",
-	"modifiedTime":1759216297704,
+	"modifiedTime":1759216326788,
 	"name":"DQM Start Asset Scan",
 	"nodes":[
 		{
@@ -4597,7 +4597,7 @@
 				"type":"APPLICATION"
 			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"n_FJjLY@n_h8TCK@_klfvA-1@l@y",
 			"id":"n_O6rxZ",
@@ -4605,37 +4605,38 @@
 			"inputs":{
 				"output":{
 					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"isEmpty"
+					],
 					"properties":{
 						"isEmpty":{
 							"type":"boolean",
 							"title":"Is Empty"
 						}
-					},
-					"additionalProperties":false,
-					"required":[
-						"isEmpty"
-					]
+					}
 				},
 				"input":{
 					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"condition"
+					],
 					"properties":{
 						"condition":{
 							"type":"string",
 							"title":"Condition"
 						}
-					},
-					"additionalProperties":false,
-					"required":[
-						"condition"
-					]
+					}
 				},
-				"compile_static":false,
 				"code":"if (binding.hasVariable(\"condition\")) {\n  return [\"isEmpty\": condition == null || condition.isEmpty()]\n}\nreturn [\"isEmpty\": true]",
+				"compile_static":false,
+				"captureStdOutput":false,
 				"parameters":{
 					"condition":"{{ n_ZprAA.outputs.condition }}"
 				}
 			},
-			"skip":false,
+			"skip":true,
 			"subTitle":"Check if condition is empty",
 			"title":"Execute Groovy code",
 			"type":"ACTION"
@@ -4683,7 +4684,7 @@
 				"type":"APPLICATION"
 			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"n_COFmh@n_FJjLY@n_h8TCK@_klfvA-1@l@y@n",
 			"id":"n_xleVE",
@@ -4715,7 +4716,7 @@
 				"query":"SELECT COUNT(*) AS count FROM ENTITY_{{ n_QO6RD.outputs.properties.entityId }} WHERE {{ n_ZprAA.outputs.condition }}",
 				"group":"ENTITY_REPORTING"
 			},
-			"skip":false,
+			"skip":true,
 			"subTitle":"Analytics",
 			"title":"Execute Analytics SQL Query",
 			"type":"ACTION"
@@ -4932,5 +4933,5 @@
 		"dqm",
 		"Internal"
 	],
-	"version":110
+	"version":111
 }
