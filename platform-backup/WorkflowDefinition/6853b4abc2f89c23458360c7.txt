@@ -427,7 +427,7 @@
 	"id":"6853b4abc2f89c23458360c7",
 	"lastModifiedBy":1,
 	"lcName":"dqm start asset scan",
-	"modifiedTime":1759216974343,
+	"modifiedTime":1759217125362,
 	"name":"DQM Start Asset Scan",
 	"nodes":[
 		{
@@ -4229,7 +4229,7 @@
 				"type":"APPLICATION"
 			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_klfvA-1",
 			"id":"n_59b6q",
@@ -4237,6 +4237,10 @@
 			"inputs":{
 				"output":{
 					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"ruleVsRuleSetResults"
+					],
 					"properties":{
 						"ruleVsRuleSetResults":{
 							"type":"array",
@@ -4301,14 +4305,16 @@
 							},
 							"title":"Rule Vs Rule Set Results"
 						}
-					},
-					"additionalProperties":false,
-					"required":[
-						"ruleVsRuleSetResults"
-					]
+					}
 				},
 				"input":{
 					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"ruleVsRulesetBreakdown",
+						"ruleVsRuleName",
+						"aggregationRulesVsRulesetResults"
+					],
 					"properties":{
 						"ruleVsRulesetBreakdown":{
 							"type":"array",
@@ -4375,16 +4381,11 @@
 							},
 							"title":"Aggregation Rules Vs Ruleset Results"
 						}
-					},
-					"additionalProperties":false,
-					"required":[
-						"ruleVsRulesetBreakdown",
-						"ruleVsRuleName",
-						"aggregationRulesVsRulesetResults"
-					]
+					}
 				},
+				"code":"if (!binding.hasVariable(\"ruleVsRulesetBreakdown\") ||\n        !(binding.getVariable(\"ruleVsRulesetBreakdown\") instanceof List) ||\n        binding.getVariable(\"ruleVsRulesetBreakdown\") == null) {\n    binding.setVariable(\"ruleVsRulesetBreakdown\", [])\n}\nif (!binding.hasVariable(\"ruleVsRuleName\") ||\n        !(binding.getVariable(\"ruleVsRuleName\") instanceof Map) ||\n        binding.getVariable(\"ruleVsRuleName\") == null) {\n    binding.setVariable(\"ruleVsRuleName\", [:])\n}\nif (!binding.hasVariable(\"aggregationRulesVsRulesetResults\") ||\n        !(binding.getVariable(\"aggregationRulesVsRulesetResults\") instanceof List) ||\n        binding.getVariable(\"aggregationRulesVsRulesetResults\") == null) {\n    binding.setVariable(\"aggregationRulesVsRulesetResults\", [])\n}\n\nList<Map<String, Object>> ruleVsRulesetBreakdownList = binding.getVariable(\"ruleVsRulesetBreakdown\")\nMap<String, String> ruleVsRuleName = binding.getVariable(\"ruleVsRuleName\")\nList<Map<String, Object>> aggregationRulesVsRulesetResults = binding.getVariable(\"aggregationRulesVsRulesetResults\")\n\nList<Map<String, Object>> ruleVsRuleSetResults = []\n\nruleVsRulesetBreakdownList.each { entry ->\n    String ruleId = entry.ruleId\n    String ruleSetId = entry.ruleSetId\n    String result = entry.result\n    Long count = entry.count ?: 0\n    def attribute = entry.attributes ?: [:]\n    def parameter = entry.parameters ?: [:]\n\n    // Find or create matching group in final result list\n    def existingGroup = ruleVsRuleSetResults.find {\n        it.ruleId == ruleId &&\n        it.attributes == attribute &&\n        it.parameters == parameter\n    }\n\n    if (!existingGroup) {\n        existingGroup = [\n            ruleId       : ruleId,\n            ruleName     : ruleVsRuleName[ruleId] ?: \"\",\n            attributes   : attribute,\n            parameters   : parameter,\n            resultVsCount: []\n        ]\n        ruleVsRuleSetResults.add(existingGroup)\n    }\n\n    // Append to result breakdown\n    existingGroup.resultVsCount.add([\n        ruleSetId: ruleSetId,\n        result   : result,\n        count    : count\n    ])\n}\n\n// Add any aggregation rules that already follow the updated format\nruleVsRuleSetResults.addAll(aggregationRulesVsRulesetResults)\n\nreturn [\"ruleVsRuleSetResults\": ruleVsRuleSetResults]\n",
 				"compile_static":false,
-				"code":"if (!binding.hasVariable(\"ruleVsRulesetBreakdown\")) {\n    binding.setVariable(\"ruleVsRulesetBreakdown\", [])\n}\nif (!binding.hasVariable(\"ruleVsRuleName\")) {\n    binding.setVariable(\"ruleVsRuleName\", [:])\n}\nif (!binding.hasVariable(\"aggregationRulesVsRulesetResults\")) {\n    binding.setVariable(\"aggregationRulesVsRulesetResults\", [])\n}\n\nList<Map<String, Object>> ruleVsRulesetBreakdownList = binding.getVariable(\"ruleVsRulesetBreakdown\")\nMap<String, String> ruleVsRuleName = binding.getVariable(\"ruleVsRuleName\")\nList<Map<String, Object>> aggregationRulesVsRulesetResults = binding.getVariable(\"aggregationRulesVsRulesetResults\")\n\nList<Map<String, Object>> ruleVsRuleSetResults = []\n\nruleVsRulesetBreakdownList.each { entry ->\n    String ruleId = entry.ruleId\n    String ruleSetId = entry.ruleSetId\n    String result = entry.result\n    Long count = entry.count ?: 0\n    def attribute = entry.attributes ?: [:]\n    def parameter = entry.parameters ?: [:]\n\n    // Find or create matching group in final result list\n    def existingGroup = ruleVsRuleSetResults.find {\n        it.ruleId == ruleId &&\n        it.attributes == attribute &&\n        it.parameters == parameter\n    }\n\n    if (!existingGroup) {\n        existingGroup = [\n            ruleId       : ruleId,\n            ruleName     : ruleVsRuleName[ruleId] ?: \"\",\n            attributes   : attribute,\n            parameters   : parameter,\n            resultVsCount: []\n        ]\n        ruleVsRuleSetResults << existingGroup\n    }\n\n    // Append to result breakdown\n    existingGroup.resultVsCount << [\n        ruleSetId: ruleSetId,\n        result   : result,\n        count    : count\n    ]\n}\n\n// Add any aggregation rules that already follow the updated format\nruleVsRuleSetResults.addAll(aggregationRulesVsRulesetResults)\n\nreturn [\"ruleVsRuleSetResults\": ruleVsRuleSetResults]\n",
+				"captureStdOutput":false,
 				"parameters":{
 					"ruleVsRuleName":"{{ n_Oo61g.outputs.ruleIdVsRuleName }}",
 					"aggregationRulesVsRulesetResults":{
@@ -4934,5 +4935,5 @@
 		"dqm",
 		"Internal"
 	],
-	"version":114
+	"version":115
 }
