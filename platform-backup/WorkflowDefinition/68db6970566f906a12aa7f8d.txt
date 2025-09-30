@@ -4,49 +4,131 @@
 	],
 	"createdTime":1759209840859,
 	"deleted":false,
+	"deploymentState":{
+		"deployedAt":1759209857109,
+		"deployedBy":1,
+		"deployedDefinitionId":"68db697f54a9fa09cfb98557",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":1
+	},
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_SWpTH",
+			"fromNodeId":"n_4aksO",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_NvP5N",
+			"toNodeId":"n_Lg7b3",
 			"type":"next"
 		}
 	],
 	"id":"68db6970566f906a12aa7f8d",
 	"lastModifiedBy":1,
 	"lcName":"comparedeployedversions_validatemodifiednode_117592094677440",
-	"modifiedTime":1759209840859,
+	"modifiedTime":1759209862073,
 	"name":"compareDeployedVersions_validateModifiedNode_117592094677440",
 	"nodes":[
 		{
+			"context":{
+				"appName":"webhooks",
+				"resourceVersion":118,
+				"resourceName":"webhooks_default"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_SWpTH-1",
-			"id":"_SWpTH",
-			"index":0,
+			"id":"n_4aksO",
+			"index":1,
+			"inputs":{
+				"request":{
+					"contentType":"application/json",
+					"body":{
+						"type":"object",
+						"properties":{
+							"input":{
+								"type":"string",
+								"title":"input"
+							},
+							"variableName":{
+								"type":"string",
+								"title":"variableName"
+							}
+						},
+						"additionalProperties":false,
+						"required":[
+							"input",
+							"variableName"
+						]
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Webhook",
+			"title":"New event",
 			"trigger":{
-				"type":"EVENT"
+				"type":"WEBHOOK"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":1492,
+				"resourceName":"variable_by_unifyapps_create_variables",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_SWpTH-1",
-			"id":"_NvP5N",
-			"index":0,
+			"id":"n_Lg7b3",
+			"index":2,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{},
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"inputField":{
+							"type":"string",
+							"title":"inputField"
+						}
+					},
+					"required":[
+						"inputField"
+					]
+				}
+			},
+			"inputs":{},
+			"outputSchema":{
+				"dynamic":false,
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"inputField":{
+							"type":"string",
+							"title":"inputField"
+						}
+					},
+					"required":[
+						"inputField"
+					]
+				}
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Variable by UnifyApps",
+			"title":"Create variables",
 			"type":"ACTION"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +142,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":2
 }
