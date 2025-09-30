@@ -5,12 +5,12 @@
 	"createdTime":1747000729038,
 	"deleted":false,
 	"deploymentState":{
-		"deployedAt":1759169873216,
-		"deployedBy":-1,
-		"deployedDefinitionId":"68dacd518b303f31c2308544",
+		"deployedAt":1759229869968,
+		"deployedBy":1,
+		"deployedDefinitionId":"68dbb7ad37a5b56e94dd3644",
 		"status":"DEPLOYED",
-		"version":82,
-		"workflowVersion":159
+		"version":83,
+		"workflowVersion":160
 	},
 	"edges":[
 		{
@@ -281,9 +281,9 @@
 		]
 	},
 	"id":"66b0d3709fc8e7058b7b0e87",
-	"lastModifiedBy":1,
+	"lastModifiedBy":-1,
 	"lcName":"relevance groundedness (ai agent)",
-	"modifiedTime":1759229869885,
+	"modifiedTime":1759253951692,
 	"name":"Relevance Groundedness (AI Agent)",
 	"nodes":[
 		{
@@ -410,6 +410,9 @@
 		},
 		{
 			"additional":{
+				"xsdSchemaConfig":{
+					"root":{}
+				},
 				"visibleOptionalFields":[
 					"root.parameters.message.items.content.items",
 					"root.parameters.message.items.role",
@@ -420,8 +423,8 @@
 			},
 			"context":{
 				"appName":"code_by_unifyapps",
-				"resourceVersion":147,
-				"resourceName":"code_by_unifyapps_python",
+				"resourceVersion":483,
+				"resourceName":"code_by_unifyapps_groovy",
 				"type":"APPLICATION"
 			},
 			"debug":false,
@@ -438,13 +441,14 @@
 					"properties":{
 						"context":{
 							"type":"string",
-							"title":"context"
+							"title":"Context"
 						}
 					}
 				},
 				"input":{
 					"type":"object",
 					"additionalProperties":false,
+					"required":[],
 					"properties":{
 						"message":{
 							"type":"array",
@@ -456,45 +460,29 @@
 										"items":{
 											"type":"object",
 											"properties":{},
-											"additionalProperties":false,
-											"required":[]
+											"additionalProperties":false
 										},
-										"title":"content"
+										"title":"Content"
 									},
 									"role":{
 										"type":"string",
-										"title":"role"
+										"title":"Role"
 									}
 								},
-								"additionalProperties":false
+								"additionalProperties":false,
+								"required":[]
 							},
-							"title":"message"
+							"title":"Message"
 						}
 					}
 				},
-				"configurationMode":"DEFAULT",
-				"code":"import json\n\noutput_lines = []\n\nfor msg in message:\n    role = msg[\"role\"]\n    content_list = msg[\"content\"]\n    \n    # If role is 'user' or 'assistant', we check each item in 'content'\n    for item in content_list:\n        item_type = item.get(\"type\")\n        \n        # 1) Handle user text\n        if role == \"user\" and item_type == \"text\":\n            # USER text\n            text_content = item[\"text\"]\n            output_lines.append(f'USER: {text_content}')\n        \n        # 2) Handle assistant text\n        elif role == \"assistant\" and item_type == \"text\":\n            # ASSISTANT text (like \"Thought: ...\")\n            text_content = item[\"text\"]\n            output_lines.append(f'ASSISTANT: {text_content}')\n        \n        # 3) Handle tool call (assistant uses a tool)\n        elif role == \"assistant\" and item_type == \"tool_use\":\n            # TOOL CALL\n            tool_name = item.get(\"name\")\n            tool_input = item.get(\"input\", {})\n            query = tool_input.get(\"query\", \"\")\n            output_lines.append(\n                f'TOOL CALL: {tool_name}, query: \"{query}\"'\n            )\n        \n        # 4) Handle tool result (user role, tool_result type)\n        elif role == \"user\" and item_type == \"tool_result\":\n            # TOOL RESULT\n            tool_result_text = item.get(\"content\", \"\")\n            # or you might want to store the entire chunk text\n            output_lines.append(f'TOOL RESULT: {tool_result_text}')\n\n# Join all lines into a single string\nresult =  {\n  \"context\" : \"\\n\".join(output_lines)\n}",
-				"isAsync":false,
-				"python_version":"3.12",
-				"captureStdOutput":false,
-				"parameters":{
-					"message":{
-						"ua:type":"mappedArray",
-						"items":{
-							"content":{
-								"ua:type":"mappedArray",
-								"source":"{{ xlzZF.outputs.messages[0].content }}",
-								"items":"{{ xlzZF.outputs.messages[0].content[0] }}"
-							},
-							"role":"{{ xlzZF.outputs.messages[0].role }}"
-						},
-						"source":"{{ xlzZF.outputs.messages }}"
-					}
-				}
+				"code":"def outputLines = []\n\nif(binding.hasVariable('message')){\n    for (msg in message) {\n        def role = msg[\"role\"]\n        def contentList = msg[\"content\"]\n        \n        // If role is 'user' or 'assistant', we check each item in 'content'\n        for (item in contentList) {\n            def itemType = item.get(\"type\")\n            \n            // 1) Handle user text\n            if (role == \"user\" && itemType == \"text\") {\n                // USER text\n                def textContent = item[\"text\"]\n                outputLines.add(\"USER: ${textContent}\")\n            }\n            \n            // 2) Handle assistant text\n            else if (role == \"assistant\" && itemType == \"text\") {\n                // ASSISTANT text (like \"Thought: ...\")\n                def textContent = item[\"text\"]\n                outputLines.add(\"ASSISTANT: ${textContent}\")\n            }\n            \n            // 3) Handle tool call (assistant uses a tool)\n            else if (role == \"assistant\" && itemType == \"tool_use\") {\n                // TOOL CALL\n                def toolName = item.get(\"name\")\n                def toolInput = item.get(\"input\", [:])\n                def query = toolInput.get(\"query\", \"\")\n                outputLines.add(\"TOOL CALL: ${toolName}, query: \\\"${query}\\\"\")\n            }\n            \n            // 4) Handle tool result (user role, tool_result type)\n            else if (role == \"user\" && itemType == \"tool_result\") {\n                // TOOL RESULT\n                def toolResultText = item.get(\"content\", \"\")\n                // or you might want to store the entire chunk text\n                outputLines.add(\"TOOL RESULT: ${toolResultText}\")\n            }\n        }\n    }\n}\n\n// Join all lines into a single string\ndef result = [\n    context: outputLines.join(\"\\n\")\n]\n\nreturn result",
+				"compile_static":false,
+				"captureStdOutput":false
 			},
 			"skip":false,
 			"subTitle":"Context(MsgHistory)",
-			"title":"Execute Python script",
+			"title":"Execute Groovy code",
 			"type":"ACTION"
 		},
 		{
@@ -509,8 +497,8 @@
 			},
 			"context":{
 				"appName":"code_by_unifyapps",
-				"resourceVersion":147,
-				"resourceName":"code_by_unifyapps_python",
+				"resourceVersion":483,
+				"resourceName":"code_by_unifyapps_groovy",
 				"type":"APPLICATION"
 			},
 			"debug":false,
@@ -527,7 +515,7 @@
 					"properties":{
 						"userMsg":{
 							"type":"string",
-							"title":"userMsg"
+							"title":"User Msg"
 						}
 					}
 				},
@@ -546,26 +534,24 @@
 										"items":{
 											"type":"object",
 											"properties":{},
-											"additionalProperties":false,
-											"required":[]
+											"additionalProperties":false
 										},
-										"title":"content"
+										"title":"Content"
 									},
 									"role":{
 										"type":"string",
-										"title":"role"
+										"title":"Role"
 									}
 								},
-								"additionalProperties":false
+								"additionalProperties":false,
+								"required":[]
 							},
-							"title":"message"
+							"title":"Message"
 						}
 					}
 				},
-				"configurationMode":"DEFAULT",
-				"code":"# for msg in reversed(message):\n#     if msg.get('role') == 'user':\n#         for content_item in msg.get('content', []):\n#             # We only want items where type != 'tool_result'\n#             if content_item.get('type') != 'tool_result':\n#                 result =  { \"userMsg\" : content_item.get('text', '')}\n\nfor msg in reversed(message):\n    if msg.get('role') == 'user':\n        for content_item in msg.get('content', []):\n            if content_item.get('type') != 'tool_result':\n                result = {\"userMsg\": content_item.get('text', '')}\n                break  # Stop once the last user message is found\n        break  # Stop the outer\n\n        result =  { \"userMsg\" : content_item.get('text', '')}\n# found_continue = False\n# res = None\n\n# for msg in reversed(message):\n#     if msg.get('role') == 'user':\n#         for content_item in msg.get('content', []):\n#             if content_item.get('type') != 'tool_result':\n#                 text_val = content_item.get('text', '')\n#                 if not found_continue:\n#                     if text_val == 'Lets continue..':\n#                         found_continue = True\n#                         break  # Move to the previous message\n#                 else:\n#                     result = {\"userMsg\": text_val}\n#                     break\n#         if found_continue and res is not None:\n#             break\n\n#         result =  { \"userMsg\" : res}\n\n# for msg in reversed(message):\n#     if msg.get('role') == 'user':\n#         for content_item in msg.get('content', []):\n#             # We only want items where type != 'tool_result'\n#             if content_item.get('type') != 'tool_result':\n#                 result = {\"userMsg\": content_item.get('text', '')}\n#                 break  # Stop once the last user message is found\n#         break  # Stop the outer\n\n#         result =  { \"userMsg\" : content_item.get('text', '')}",
-				"isAsync":false,
-				"python_version":"3.12",
+				"code":"def result = [:]\n\nif(!binding.hasVariable('message')) return [userMsg : \"\"]\n\nfor (msg in message.reverse()) {\n    if (msg?.role == 'user') {\n        for (contentItem in msg?.content ?: []) {\n            if (contentItem?.type != 'tool_result') {\n                result = [userMsg: contentItem?.text ?: '']\n                return result  // Exit immediately once found\n            }\n        }\n    }\n}\n\nreturn result",
+				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
 					"message":{
@@ -584,7 +570,7 @@
 			},
 			"skip":false,
 			"subTitle":"LastUserMsg",
-			"title":"Execute Python script",
+			"title":"Execute Groovy code",
 			"type":"ACTION"
 		},
 		{
@@ -1665,9 +1651,9 @@
 		
 	],
 	"settings":{
-		"enableNodeLevelLogging":false,
-		"enableRunLogging":false,
-		"enableVariableLogging":false,
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
 		"route":{
 			"default":false,
 			"tierName":"global"
@@ -1677,5 +1663,5 @@
 	"tags":[
 		"AI Agent"
 	],
-	"version":160
+	"version":161
 }
