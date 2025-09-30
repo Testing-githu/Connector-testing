@@ -5,12 +5,12 @@
 	"createdTime":1747000732375,
 	"deleted":false,
 	"deploymentState":{
-		"deployedAt":1759166634968,
-		"deployedBy":1,
-		"deployedDefinitionId":"68dac0aad46b57677a97962d",
+		"deployedAt":1759169789654,
+		"deployedBy":-1,
+		"deployedDefinitionId":"68daccfd8b303f31c23082e0",
 		"status":"DEPLOYED",
-		"version":81,
-		"workflowVersion":146
+		"version":82,
+		"workflowVersion":147
 	},
 	"edges":[
 		{
@@ -414,9 +414,9 @@
 		]
 	},
 	"id":"6794799d9c8ab5620dca8daf",
-	"lastModifiedBy":-1,
+	"lastModifiedBy":1,
 	"lcName":"agent system prompt generator",
-	"modifiedTime":1759169789505,
+	"modifiedTime":1759229819505,
 	"name":"Agent System Prompt Generator",
 	"nodes":[
 		{
@@ -886,7 +886,7 @@
 				"type":"APPLICATION"
 			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"QNtpA-1",
 			"id":"_tOXww",
@@ -934,7 +934,7 @@
 						}
 					}
 				},
-				"code":"def systemPromptInstructions = \"\"\n\ndef lang\n\nif (binding.hasVariable(\"localLanguage\")) {\n    lang = localLanguage\n} else if (binding.hasVariable(\"language\")) {\n    lang = language\n} \n\nif (binding.hasVariable(\"responseLanguagePreference\") &&\n    (responseLanguagePreference == \"USER_LOCALE\" || responseLanguagePreference == \"FIXED_LANGUAGE\") &&\n    lang) {\n    \n    systemPromptInstructions += \"Always answer in ${lang} language, no matter what language you encounter in past chats/thoughts.\"\n} else {\n    systemPromptInstructions += \"Respond in the same language as the user's query. If the user writes in English, respond in English. If uncertain about the language, default to English. For single-word queries or ambiguous cases, respond in English unless there are clear linguistic markers indicating another language. Detect the user query language directly from the most recent user query as user might switch the language in between the conversation. Any user message with the tool_response can be ignored for language selection such as chunks / document fetched from knowledge or any tool output.\"\n}\n\ndef toneInstruction = \"\"\ndef styleInstruction = \"\"\ndef formatInstruction = \"\"\n\nif(binding.hasVariable(\"tone\")) {\n    toneInstruction = \" Use a \" + tone.toLowerCase() + \" tone.\"\n}\nif(binding.hasVariable(\"style\")) {\n    styleInstruction = \" Write in a \" + style.toLowerCase() + \" style.\"\n}\n\nif(binding.hasVariable(\"format\")) {\n    formatInstruction = \" Present responses in \" + format.toLowerCase() + \" format.\"\n}\nsystemPromptInstructions += toneInstruction + styleInstruction + formatInstruction\n\nreturn [systemPromptInstructions:systemPromptInstructions]\n",
+				"code":"def systemPromptInstructions = \"\"\n\ndef lang\n\nif (binding.hasVariable(\"localLanguage\")) {\n    lang = localLanguage\n} else if (binding.hasVariable(\"language\")) {\n    lang = language\n} \n\nif (binding.hasVariable(\"responseLanguagePreference\") &&\n    (responseLanguagePreference == \"USER_LOCALE\" || responseLanguagePreference == \"FIXED_LANGUAGE\") &&\n    lang) {\n    \n    systemPromptInstructions += \"Always answer in ${lang} language, no matter what language you encounter in past chats/thoughts.\"\n} else {\n    systemPromptInstructions += \"Respond in the same language as the user's query. If the user writes in English, respond in English. If uncertain about the language, default to English. For single-word queries or ambiguous cases, respond in English unless there are clear linguistic markers indicating another language. Detect the user query language directly from the most recent user query as user might switch the language in between the conversation. Any user message with the tool_response can be ignored for language selection such as chunks / document fetched from knowledge or any tool output.\"\n}\n\ndef toneInstruction = \"\"\ndef styleInstruction = \"\"\ndef formatInstruction = \"\"\n\nif(binding.hasVariable(\"tone\") && tone != null) {\n    toneInstruction = \" Use a \" + tone.toLowerCase() + \" tone.\"\n}\nif(binding.hasVariable(\"style\") && style != null) {\n    styleInstruction = \" Write in a \" + style.toLowerCase() + \" style.\"\n}\n\nif(binding.hasVariable(\"format\") && format != null) {\n    formatInstruction = \" Present responses in \" + format.toLowerCase() + \" format.\"\n}\nsystemPromptInstructions += toneInstruction + styleInstruction + formatInstruction\n\nreturn [systemPromptInstructions:systemPromptInstructions]\n",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
@@ -3131,5 +3131,5 @@
 		"AI Agent",
 		"Team"
 	],
-	"version":147
+	"version":148
 }
