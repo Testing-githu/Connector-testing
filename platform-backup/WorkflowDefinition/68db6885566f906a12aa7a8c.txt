@@ -7,46 +7,83 @@
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_lVmgK",
+			"fromNodeId":"n_NPdeL",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_FWMeG",
+			"toNodeId":"n_o8npb",
 			"type":"next"
 		}
 	],
 	"id":"68db6885566f906a12aa7a8c",
 	"lastModifiedBy":1,
 	"lcName":"audittestchangetype_117592094677440",
-	"modifiedTime":1759209605050,
+	"modifiedTime":1759209615355,
 	"name":"auditTestChangeType_117592094677440",
 	"nodes":[
 		{
+			"context":{
+				"appName":"webhooks",
+				"resourceVersion":118,
+				"resourceName":"webhooks_default"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_lVmgK-1",
-			"id":"_lVmgK",
-			"index":0,
+			"id":"n_NPdeL",
+			"index":1,
+			"inputs":{
+				"request":{
+					"contentType":"application/json"
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Webhook",
+			"title":"New event",
 			"trigger":{
-				"type":"EVENT"
+				"type":"WEBHOOK"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"audit_by_unifyapps",
+				"resourceVersion":1402,
+				"resourceName":"audit_by_unifyapps_get_audit_records_for_asset",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_lVmgK-1",
-			"id":"_FWMeG",
-			"index":0,
+			"id":"n_o8npb",
+			"index":2,
+			"inputs":{
+				"filter":{
+					"filters":[
+						{
+							"property":"CHANGE_TYPE",
+							"filter":{
+								"operator":"EXISTS"
+							}
+						}
+					],
+					"operator":"AND"
+				},
+				"assetId":"123",
+				"sortOrder":"DESC",
+				"assetClass":"dnt_anlaytics_object"
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Audit by UnifyApps",
+			"title":"Get audit records",
 			"type":"ACTION"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +97,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
