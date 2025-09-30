@@ -9,18 +9,18 @@
 			"fromNodeId":"n_wuObS",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"n_wwWrk",
+			"toNodeId":"n_mUsek",
 			"type":"next"
 		},
 		{
-			"fromNodeId":"n_wwWrk",
+			"fromNodeId":"n_mUsek",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"n_eqL0a",
+			"toNodeId":"n_Yc7Wn",
 			"type":"next"
 		},
 		{
-			"fromNodeId":"n_eqL0a",
+			"fromNodeId":"n_Yc7Wn",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_WEKsf",
@@ -30,7 +30,7 @@
 	"id":"68dbb5bae1e9c51c8378039e",
 	"lastModifiedBy":1,
 	"lcName":"testt1 (copy)",
-	"modifiedTime":1759229849704,
+	"modifiedTime":1759244470515,
 	"name":"testt1 (copy)",
 	"nodes":[
 		{
@@ -45,7 +45,24 @@
 			"groupId":"_5vp7M-1",
 			"id":"n_wuObS",
 			"index":1,
-			"inputs":{},
+			"inputs":{
+				"setup":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"list"
+					],
+					"properties":{
+						"list":{
+							"type":"array",
+							"items":{
+								"type":"integer"
+							},
+							"title":"List"
+						}
+					}
+				}
+			},
 			"skip":false,
 			"subTitle":"Callable",
 			"title":"Trigger via automation",
@@ -56,54 +73,280 @@
 		},
 		{
 			"context":{
-				"appName":"files_by_unifyapps",
-				"resourceVersion":1485,
-				"resourceName":"files_by_unifyapps_upload_file",
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":1496,
+				"resourceName":"variable_by_unifyapps_create_list",
 				"type":"APPLICATION"
 			},
 			"debug":false,
 			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_5vp7M-1",
-			"id":"n_wwWrk",
+			"id":"n_mUsek",
 			"index":2,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{
+					"createList":{
+						"ui:title":"",
+						"ua:type":{
+							"ui:widget":"hidden"
+						},
+						"items":{
+							"ui:title":"Initial list items",
+							"ui:description":"Set the initial values of the list (defaults to empty)"
+						},
+						"ui:order":[
+							"*",
+							"items"
+						]
+					},
+					"ua:title":{
+						"ui:widget":"hidden"
+					},
+					"ua:list_type":{
+						"ui:widget":"hidden"
+					}
+				},
+				"schema":{
+					"allOf":[
+						{
+							"if":{
+								"properties":{
+									"ua:list_type":{
+										"const":"OBJECT"
+									}
+								}
+							},
+							"then":{
+								"properties":{
+									"createList":{
+										"type":"object",
+										"properties":{
+											"items":{
+												"type":"object",
+												"properties":{}
+											}
+										}
+									}
+								}
+							}
+						},
+						{
+							"if":{
+								"properties":{
+									"ua:list_type":{
+										"const":"STRING"
+									}
+								}
+							},
+							"then":{
+								"properties":{
+									"createList":{
+										"type":"object",
+										"properties":{
+											"source":{
+												"type":"string",
+												"format":"ua:source",
+												"title":"List of String"
+											},
+											"items":{
+												"type":"string"
+											}
+										}
+									}
+								}
+							}
+						},
+						{
+							"if":{
+								"properties":{
+									"ua:list_type":{
+										"const":"INTEGER"
+									}
+								}
+							},
+							"then":{
+								"properties":{
+									"createList":{
+										"type":"object",
+										"properties":{
+											"source":{
+												"type":"string",
+												"format":"ua:source",
+												"title":"List of Integers"
+											},
+											"items":{
+												"type":"integer"
+											}
+										}
+									}
+								}
+							}
+						},
+						{
+							"if":{
+								"properties":{
+									"ua:list_type":{
+										"const":"NUMBER"
+									}
+								}
+							},
+							"then":{
+								"properties":{
+									"createList":{
+										"type":"object",
+										"properties":{
+											"source":{
+												"type":"string",
+												"format":"ua:source",
+												"title":"List of Numbers"
+											},
+											"items":{
+												"type":"number"
+											}
+										}
+									}
+								}
+							}
+						},
+						{
+							"if":{
+								"properties":{
+									"ua:list_type":{
+										"const":"BOOLEAN"
+									}
+								}
+							},
+							"then":{
+								"properties":{
+									"createList":{
+										"type":"object",
+										"properties":{
+											"source":{
+												"type":"string",
+												"format":"ua:source",
+												"title":"List of Booleans"
+											},
+											"items":{
+												"type":"boolean"
+											}
+										}
+									}
+								}
+							}
+						}
+					],
+					"format":"ua:list",
+					"type":"object",
+					"properties":{
+						"ua:title":{
+							"type":"string"
+						},
+						"ua:list_type":{
+							"type":"string",
+							"title":"List Type",
+							"oneOf":[
+								{
+									"const":"OBJECT",
+									"title":"Object"
+								},
+								{
+									"const":"STRING",
+									"title":"String"
+								},
+								{
+									"const":"NUMBER",
+									"title":"Number"
+								},
+								{
+									"const":"INTEGER",
+									"title":"Integer"
+								},
+								{
+									"const":"BOOLEAN",
+									"title":"Boolean"
+								}
+							],
+							"default":"OBJECT"
+						},
+						"createList":{
+							"type":"object",
+							"properties":{
+								"ua:type":{
+									"type":"string",
+									"default":"mappedArray"
+								},
+								"source":{
+									"type":"string",
+									"format":"ua:source",
+									"title":"List Item Source"
+								},
+								"items":{
+									"additionalProperties":false,
+									"type":[
+										"object",
+										"string",
+										"number",
+										"boolean",
+										"integer"
+									],
+									"properties":{}
+								}
+							}
+						}
+					}
+				}
+			},
 			"inputs":{
-				"uploadPublic":true,
-				"fileName":"TEST",
-				"mimeType":"text/plain",
-				"url":"https://arxiv.org/pdf/2407.02987",
-				"option":"url"
+				"createList":{
+					"ua:type":"mappedArray"
+				},
+				"ua:list_type":"INTEGER"
+			},
+			"outputSchema":{
+				"dynamic":false,
+				"schema":{
+					"type":"object",
+					"properties":{
+						"items":{
+							"type":"array",
+							"title":"List",
+							"disableActions":true,
+							"items":{
+								"type":"integer"
+							}
+						}
+					}
+				}
 			},
 			"skip":false,
-			"subTitle":"Files by UnifyApps",
-			"title":"Upload file",
+			"subTitle":"Variable by UnifyApps",
+			"title":"Create list",
 			"type":"ACTION"
 		},
 		{
-			"additional":{
-				"visibleOptionalFields":[
-					"root.sortBy.items.order",
-					"root.sortBy.items.field"
-				]
-			},
 			"context":{
 				"appName":"utility_by_unifyapps",
-				"resourceVersion":1883,
-				"resourceName":"utility_by_unifyapps_create_unifyapps_path_for_file",
+				"resourceVersion":1851,
+				"resourceName":"utility_by_unifyapps_get_value_at_index_from_list",
 				"type":"APPLICATION"
 			},
 			"debug":false,
 			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_5vp7M-1",
-			"id":"n_eqL0a",
+			"id":"n_Yc7Wn",
 			"index":3,
 			"inputs":{
-				"file":"{{ n_wwWrk.outputs.fileDetails }}"
+				"positionFrom":"START",
+				"listSource":"{{ n_wuObS.outputs.list }}",
+				"elementPosition":2
 			},
 			"skip":false,
 			"subTitle":"Utility by UnifyApps",
-			"title":"Create UnifyApps path for file",
+			"title":"Get value at index from list",
 			"type":"ACTION"
 		},
 		{
@@ -120,7 +363,7 @@
 			"id":"n_WEKsf",
 			"index":4,
 			"inputs":{
-				"result":"{{ n_eqL0a.outputs.path }}"
+				"result":"{{ n_Yc7Wn.outputs.item }}"
 			},
 			"skip":false,
 			"subTitle":"Callable",
@@ -142,5 +385,5 @@
 		}
 	},
 	"standard":false,
-	"version":8
+	"version":9
 }
