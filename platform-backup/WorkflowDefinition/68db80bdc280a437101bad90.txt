@@ -4,27 +4,130 @@
 	],
 	"createdTime":1759215805367,
 	"deleted":false,
+	"deploymentState":{
+		"deployedAt":1759215807284,
+		"deployedBy":1,
+		"deployedDefinitionId":"68db80bf54a9fa09cfb9a5e4",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":1
+	},
 	"edges":[
-		
+		{
+			"fromNodeId":"_mN3ZW",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_pJTiu",
+			"type":"next"
+		}
 	],
 	"id":"68db80bdc280a437101bad90",
 	"lastModifiedBy":1,
 	"lcName":"backend_automationfa75nhskz9zk",
-	"modifiedTime":1759215805367,
+	"modifiedTime":1759216029251,
 	"name":"Backend_AutomationfA75nHskZ9Zk",
 	"nodes":[
-		
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.response.items.name",
+					"root.response.items.status"
+				]
+			},
+			"context":{
+				"appName":"callables",
+				"resourceVersion":12,
+				"resourceName":"callables_from_api"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_TuwCl-1",
+			"id":"_mN3ZW",
+			"index":0,
+			"inputs":{
+				"request":{
+					"contentType":"application/json",
+					"queryParams":{
+						"type":"object",
+						"properties":{
+							"num1":{
+								"type":"integer",
+								"title":"Num 1"
+							},
+							"num2":{
+								"type":"integer",
+								"title":"Num 2"
+							}
+						},
+						"additionalProperties":false,
+						"required":[]
+					}
+				},
+				"endpointType":"REST",
+				"response":[
+					{
+						"status":200,
+						"contentType":"application/json",
+						"body":{
+							"type":"object",
+							"properties":{
+								"result":{
+									"type":"string",
+									"title":"result"
+								}
+							},
+							"additionalProperties":false,
+							"required":[]
+						},
+						"name":"200"
+					}
+				]
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Trigger via API",
+			"trigger":{
+				"type":"CALLABLE"
+			},
+			"type":"START"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":12,
+				"resourceName":"callables_return_response_to_api",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_TuwCl-1",
+			"id":"_pJTiu",
+			"index":0,
+			"inputs":{
+				"responseName":"200_200",
+				"set_cookies":[],
+				"body":{
+					"result":"=PRODUCT({{ _mN3ZW.outputs.queryParams.num1 }},{{ _mN3ZW.outputs.queryParams.num2 }})"
+				},
+				"status":200
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to API request",
+			"type":"STOP"
+		}
 	],
 	"ownerUserId":1,
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
-		"enableVariableLogging":true,
-		"route":{
-			"default":false,
-			"tierName":"global"
-		}
+		"enableVariableLogging":true
 	},
 	"standard":false,
-	"version":0
+	"tags":[
+		
+	],
+	"version":2
 }
