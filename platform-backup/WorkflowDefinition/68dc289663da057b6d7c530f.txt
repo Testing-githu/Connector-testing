@@ -4,49 +4,184 @@
 	],
 	"createdTime":1759258774231,
 	"deleted":false,
+	"deploymentState":{
+		"deployedAt":1759258784395,
+		"deployedBy":1,
+		"deployedDefinitionId":"68dc28a08e7a196bc8e24c56",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":1
+	},
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_ROylS",
+			"fromNodeId":"n_9lDMx",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_rGWn5",
+			"toNodeId":"n_pOKqo",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_pOKqo",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_6FcjB",
+			"type":"scope"
+		},
+		{
+			"fromNodeId":"n_6FcjB",
+			"name":"scope-loopback",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_pOKqo",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_pOKqo",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_3ALl4",
 			"type":"next"
 		}
 	],
 	"id":"68dc289663da057b6d7c530f",
 	"lastModifiedBy":1,
 	"lcName":"scopewithratelimitpolicyfailwithcondition_11759257835102",
-	"modifiedTime":1759258774231,
+	"modifiedTime":1759258794030,
 	"name":"ScopeWithRateLimitPolicyFailWithCondition_11759257835102",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1579,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_ROylS-1",
-			"id":"_ROylS",
-			"index":0,
+			"id":"n_9lDMx",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"output_String"
+					],
+					"properties":{
+						"output_String":{
+							"type":"string",
+							"title":"output_String"
+						}
+					}
+				},
+				"setup":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"input_String"
+					],
+					"properties":{
+						"input_String":{
+							"type":"string",
+							"title":"input_String"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"scope",
+				"resourceVersion":120,
+				"resourceName":"scope_trigger_scope",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_ROylS-1",
-			"id":"_rGWn5",
-			"index":0,
+			"id":"n_pOKqo",
+			"index":2,
+			"inputs":{
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"property":"{{ n_9lDMx.outputs.input_String }}",
+							"filter":{
+								"operator":"EQUAL",
+								"value":"Unifyapps"
+							}
+						}
+					],
+					"operator":"AND"
+				}
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Scope",
+			"title":"Trigger Scope",
+			"type":"SCOPE"
+		},
+		{
+			"context":{
+				"appName":"test_http",
+				"resourceVersion":1625,
+				"connectionId":"66b0ee649c311126267a17b7",
+				"resourceName":"test_http_post_api",
+				"type":"APPLICATION",
+				"scopeNodeId":"n_pOKqo"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"n_pOKqo@_ROylS-1@s",
+			"id":"n_6FcjB",
+			"index":3,
+			"inputs":{
+				"field1":"workflow continues",
+				"field2":false
+			},
+			"skip":false,
+			"subTitle":"Test HTTP API",
+			"title":"Test HTTP Post API",
 			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1582,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_ROylS-1",
+			"id":"n_3ALl4",
+			"index":4,
+			"inputs":{
+				"result":{
+					"output_String":"{{ n_9lDMx.outputs.input_String }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +195,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":2
 }
