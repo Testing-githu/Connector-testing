@@ -5,12 +5,12 @@
 	"createdTime":1747000742753,
 	"deleted":false,
 	"deploymentState":{
-		"deployedAt":1759169765293,
-		"deployedBy":-1,
-		"deployedDefinitionId":"68dacce58b303f31c2308235",
+		"deployedAt":1759229709416,
+		"deployedBy":1,
+		"deployedDefinitionId":"68dbb70de1e9c51c83781b74",
 		"status":"DEPLOYED",
-		"version":78,
-		"workflowVersion":100
+		"version":79,
+		"workflowVersion":101
 	},
 	"edges":[
 		{
@@ -46,9 +46,9 @@
 		]
 	},
 	"id":"66ec7de9343dbb10068139e8",
-	"lastModifiedBy":1,
+	"lastModifiedBy":-1,
 	"lcName":"api to trigger ai agent",
-	"modifiedTime":1759229709345,
+	"modifiedTime":1759253846973,
 	"name":"API to Trigger AI Agent",
 	"nodes":[
 		{
@@ -62,7 +62,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"rPHaB-1",
 			"id":"yzZwd",
-			"index":0,
+			"index":1,
 			"inputs":{
 				"request":{
 					"contentType":"application/json",
@@ -119,7 +119,38 @@
 								"agentResponse":{
 									"type":"array",
 									"items":{
-										"type":"string"
+										"type":"object",
+										"properties":{
+											"text":{
+												"type":"string",
+												"title":"Text"
+											},
+											"choices":{
+												"type":"array",
+												"items":{
+													"type":"object",
+													"properties":{
+														"id":{
+															"type":"string",
+															"title":"Id"
+														},
+														"title":{
+															"type":"string",
+															"title":"Title"
+														},
+														"url":{
+															"type":"string",
+															"title":"Url"
+														}
+													},
+													"additionalProperties":false,
+													"required":[]
+												},
+												"title":"Choices"
+											}
+										},
+										"additionalProperties":false,
+										"required":[]
 									},
 									"title":"Agent Response"
 								},
@@ -179,7 +210,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"rPHaB-1",
 			"id":"_lQMD6",
-			"index":0,
+			"index":2,
 			"inputSchema":{
 				"type":"SCHEMA_AND_LAYOUT",
 				"dynamic":false,
@@ -266,7 +297,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"rPHaB-1",
 			"id":"8iqyU",
-			"index":0,
+			"index":3,
 			"inputs":{
 				"callableInterfaceId":"__ua__invoke_ai_agent_by_unifyapps",
 				"runtimeConnections":{},
@@ -278,12 +309,13 @@
 					"userQuery":"{{ yzZwd.outputs.body.userQuery }}",
 					"aiAgentId":"{{ yzZwd.outputs.body.aiAgentId }}",
 					"userEmailAddress":"{{ yzZwd.outputs.body.userEmailAddress }}",
+					"citations":"{{ yzZwd.outputs.body.citations }}",
+					"triggerWorkflowWithRuntimeType":"IN_MEMORY",
 					"externalKnowledgeSets":{
 						"source":"{{ yzZwd.outputs.body.externalKnowledgeSets }}",
 						"ua:type":"mappedArray",
 						"items":"{{ yzZwd.outputs.body.externalKnowledgeSets[0] }}"
 					},
-					"citations":"{{ yzZwd.outputs.body.citations }}",
 					"attachments":{
 						"source":"{{ yzZwd.outputs.body.attachments }}",
 						"ua:type":"mappedArray",
@@ -308,7 +340,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"rPHaB-1",
 			"id":"vxOzR",
-			"index":0,
+			"index":4,
 			"inputs":{
 				"streamingCompleted":true,
 				"responseName":"200_undefined",
@@ -320,15 +352,19 @@
 						"items":"{{ 8iqyU.outputs.citations[0] }}"
 					},
 					"agentResponse":{
-						"source":"{{ 8iqyU.outputs.agentResponse }}",
-						"ua:type":"mappedArray",
-						"items":"{{ 8iqyU.outputs.agentResponse[0] }}"
-					},
-					"listAttachments":{
-						"source":"{{ 8iqyU.outputs.listAttachments }}",
+						"source":"{{ 8iqyU.outputs.publicResponse }}",
 						"ua:type":"mappedArray",
 						"items":{
-							"url":"{{ 8iqyU.outputs.listAttachments[0].url }}"
+							"text":"{{ 8iqyU.outputs.publicResponse[0].text }}",
+							"choices":{
+								"source":"{{ 8iqyU.outputs.publicResponse[0].choices }}",
+								"ua:type":"mappedArray",
+								"items":{
+									"id":"{{ 8iqyU.outputs.publicResponse[0].choices[0].id }}",
+									"title":"{{ 8iqyU.outputs.publicResponse[0].choices[0].title }}",
+									"url":"{{ 8iqyU.outputs.publicResponse[0].choices[0].url }}"
+								}
+							}
 						}
 					}
 				},
@@ -345,9 +381,9 @@
 		
 	],
 	"settings":{
-		"enableNodeLevelLogging":false,
-		"enableRunLogging":false,
-		"enableVariableLogging":false,
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
 		"route":{
 			"default":false,
 			"tierName":"global"
@@ -357,5 +393,5 @@
 	"tags":[
 		
 	],
-	"version":101
+	"version":102
 }
