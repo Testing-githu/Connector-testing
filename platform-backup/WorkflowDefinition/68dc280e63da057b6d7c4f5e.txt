@@ -36,6 +36,13 @@
 		},
 		{
 			"fromNodeId":"n_s8uUZ",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_FfW1s",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_FfW1s",
 			"name":"loopback",
 			"priority":0,
 			"skip":false,
@@ -49,12 +56,26 @@
 			"skip":false,
 			"toNodeId":"n_Xdngk",
 			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Xdngk",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_vspZ2",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_vspZ2",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_WUix1",
+			"type":"next"
 		}
 	],
 	"id":"68dc280e63da057b6d7c4f5e",
 	"lastModifiedBy":1,
 	"lcName":"scopewithlooptrue_11759257835102",
-	"modifiedTime":1759258658605,
+	"modifiedTime":1759258674074,
 	"name":"ScopeWithLoopTrue_11759257835102",
 	"nodes":[
 		{
@@ -260,6 +281,82 @@
 			"subTitle":"Test HTTP API",
 			"title":"Test HTTP Post API",
 			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":1508,
+				"resourceName":"variable_by_unifyapps_update_variables",
+				"type":"APPLICATION",
+				"scopeNodeId":"n_Xdngk"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"n_UCmzG@n_Xdngk@_O6Poj-1@s@l",
+			"id":"n_FfW1s",
+			"index":6,
+			"inputs":{
+				"variables":[
+					{
+						"source":"{{ n_rv3qY.outputs.input_number }}",
+						"value":"=SUM({{ n_rv3qY.outputs.input_number }},+1)"
+					}
+				]
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Update variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":1508,
+				"resourceName":"variable_by_unifyapps_update_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_O6Poj-1",
+			"id":"n_vspZ2",
+			"index":7,
+			"inputs":{
+				"variables":[
+					{
+						"source":"{{ n_rv3qY.outputs.input_string }}",
+						"value":"Hi"
+					}
+				]
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Update variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1582,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_O6Poj-1",
+			"id":"n_WUix1",
+			"index":8,
+			"inputs":{
+				"result":{
+					"output":"{{ n_AoZBO.outputs.input_String }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
@@ -279,5 +376,5 @@
 	"tags":[
 		
 	],
-	"version":1
+	"version":2
 }
