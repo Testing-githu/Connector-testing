@@ -6,46 +6,158 @@
 	"deleted":false,
 	"edges":[
 		{
-			"fromNodeId":"_jiMfu",
+			"fromNodeId":"n_6tPzR",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_F4SdJ",
+			"toNodeId":"n_bhJAm",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_bhJAm",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_H1yUE",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_bhJAm",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_5Ms19",
 			"type":"next"
 		}
 	],
 	"id":"68dd2d6109f2e07953b6b37a",
 	"lastModifiedBy":1,
 	"lcName":"excelformulaslocalivsvtzmwmd",
-	"modifiedTime":1759325537293,
+	"modifiedTime":1759325558797,
 	"name":"ExcelFormulasLocalIvsvtzMWMD",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1642,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_jiMfu-1",
-			"id":"_jiMfu",
-			"index":0,
+			"id":"n_6tPzR",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"r":{
+							"type":"string",
+							"title":"r"
+						}
+					}
+				},
+				"setup":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"a":{
+							"type":"string",
+							"title":"a"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":119,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_jiMfu-1",
-			"id":"_F4SdJ",
-			"index":0,
+			"id":"n_bhJAm",
+			"index":2,
+			"inputs":{
+				"filters":[
+					{
+						"property":"=LEN({{ n_6tPzR.outputs.a }})",
+						"filter":{
+							"operator":"GT",
+							"value":"0"
+						}
+					}
+				],
+				"operator":"AND"
+			},
 			"skip":false,
-			"title":"Select an app and action",
-			"type":"ACTION"
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1645,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"n_bhJAm@_jiMfu-1@y",
+			"id":"n_H1yUE",
+			"index":3,
+			"inputs":{
+				"result":{
+					"r":"{{ n_bhJAm.outputs.result }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1645,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"n_bhJAm@_jiMfu-1@n",
+			"id":"n_5Ms19",
+			"index":4,
+			"inputs":{
+				"result":{
+					"r":"{{ n_bhJAm.outputs.result }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -59,5 +171,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
