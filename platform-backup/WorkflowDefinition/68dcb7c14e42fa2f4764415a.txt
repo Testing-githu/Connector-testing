@@ -7,46 +7,108 @@
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_WI21Z",
+			"fromNodeId":"n_gl5nz",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_xoRp7",
+			"toNodeId":"n_rUFKm",
 			"type":"next"
 		}
 	],
 	"id":"68dcb7c14e42fa2f4764415a",
 	"lastModifiedBy":1,
 	"lcName":"callablecondition_20_11759295329204",
-	"modifiedTime":1759295425348,
+	"modifiedTime":1759295439649,
 	"name":"CallableCondition_20_11759295329204",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1639,
+				"resourceName":"callables_from_automation_streaming"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_WI21Z-1",
-			"id":"_WI21Z",
-			"index":0,
+			"id":"n_gl5nz",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"output_Number"
+					],
+					"properties":{
+						"output_Number":{
+							"type":"number",
+							"title":"output_Number"
+						}
+					}
+				},
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"property":"{{ n_gl5nz.outputs.input_Number }}",
+							"filter":{
+								"operator":"IN",
+								"value":"3"
+							}
+						}
+					],
+					"operator":"AND"
+				},
+				"setup":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"input_Number"
+					],
+					"properties":{
+						"input_Number":{
+							"type":"number",
+							"title":"input_Number"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation (Streaming responses)",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1639,
+				"resourceName":"callables_return_to_automation_streaming",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_WI21Z-1",
-			"id":"_xoRp7",
-			"index":0,
+			"id":"n_rUFKm",
+			"index":2,
+			"inputs":{
+				"result":{
+					"output_Number":"{{ n_gl5nz.outputs.input_Number }}"
+				},
+				"completed":false
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Callable",
+			"title":"Add response to automation stream",
 			"type":"ACTION"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +122,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
