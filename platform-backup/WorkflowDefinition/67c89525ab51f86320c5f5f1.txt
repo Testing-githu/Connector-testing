@@ -5,12 +5,12 @@
 	"createdTime":1747000727148,
 	"deleted":false,
 	"deploymentState":{
-		"deployedAt":1759169898474,
-		"deployedBy":-1,
-		"deployedDefinitionId":"68dacd6a8b303f31c2308600",
+		"deployedAt":1759312669275,
+		"deployedBy":0,
+		"deployedDefinitionId":"68dcfb1d1edc480c9a44f973",
 		"status":"DEPLOYED",
-		"version":82,
-		"workflowVersion":92
+		"version":85,
+		"workflowVersion":95
 	},
 	"edges":[
 		{
@@ -69,7 +69,7 @@
 	"id":"67c89525ab51f86320c5f5f1",
 	"lastModifiedBy":1,
 	"lcName":"publish searching block",
-	"modifiedTime":1759229863160,
+	"modifiedTime":1759324066548,
 	"name":"Publish Searching Block",
 	"nodes":[
 		{
@@ -87,6 +87,8 @@
 			"inputs":{
 				"result":{
 					"type":"object",
+					"additionalProperties":false,
+					"required":[],
 					"properties":{
 						"coPilotBlocks":{
 							"type":"array",
@@ -97,12 +99,12 @@
 							},
 							"title":"Co Pilot Blocks"
 						}
-					},
-					"additionalProperties":false,
-					"required":[]
+					}
 				},
 				"setup":{
 					"type":"object",
+					"additionalProperties":false,
+					"required":[],
 					"properties":{
 						"queries":{
 							"type":"array",
@@ -114,10 +116,12 @@
 						"caseId":{
 							"type":"string",
 							"title":"Case Id"
+						},
+						"deepResearchEnabled":{
+							"type":"boolean",
+							"title":"Deep Research Enabled"
 						}
-					},
-					"additionalProperties":false,
-					"required":[]
+					}
 				}
 			},
 			"skip":false,
@@ -433,6 +437,7 @@
 					"publishToEndUser":true,
 					"temporaryMessage":true,
 					"async":false,
+					"deepResearchEnabled":"{{ 5eZmi.outputs.deepResearchEnabled }}",
 					"coPilotBlocks":{
 						"source":"{{ bXFKn.outputs.result.copilotBlocks }}",
 						"ua:type":"mappedArray",
@@ -490,5 +495,5 @@
 	"tags":[
 		"AI Agent"
 	],
-	"version":93
+	"version":96
 }
