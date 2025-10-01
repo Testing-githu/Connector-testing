@@ -5,12 +5,12 @@
 	"createdTime":1747000727658,
 	"deleted":false,
 	"deploymentState":{
-		"deployedAt":1759166608476,
-		"deployedBy":1,
-		"deployedDefinitionId":"68dac090d46b57677a979561",
+		"deployedAt":1759253975282,
+		"deployedBy":-1,
+		"deployedDefinitionId":"68dc15d78e7a196bc8e219a1",
 		"status":"DEPLOYED",
-		"version":80,
-		"workflowVersion":143
+		"version":83,
+		"workflowVersion":146
 	},
 	"edges":[
 		{
@@ -90,9 +90,9 @@
 		]
 	},
 	"id":"67f3fb6287fcc53cf63d4938",
-	"lastModifiedBy":-1,
+	"lastModifiedBy":0,
 	"lcName":"fetch few shot examples and instructions",
-	"modifiedTime":1759169896183,
+	"modifiedTime":1759312667598,
 	"name":"Fetch Few Shot Examples and Instructions",
 	"nodes":[
 		{
@@ -249,6 +249,8 @@
 			"inputs":{
 				"output":{
 					"type":"object",
+					"additionalProperties":false,
+					"required":[],
 					"properties":{
 						"filter":{
 							"type":"object",
@@ -256,12 +258,12 @@
 							"additionalProperties":false,
 							"title":"Filter"
 						}
-					},
-					"additionalProperties":false,
-					"required":[]
+					}
 				},
 				"input":{
 					"type":"object",
+					"additionalProperties":false,
+					"required":[],
 					"properties":{
 						"knowledgeIds":{
 							"type":"array",
@@ -274,20 +276,19 @@
 							"type":"string",
 							"title":"Agent Id"
 						}
-					},
-					"additionalProperties":false,
-					"required":[]
+					}
 				},
+				"code":"// def combinedFilter = [\n//     op: 'AND',\n//     values: []\n// ]\n\n// if(binding.hasVariable('knowledgeIds')) {\n//     def knowledgeFilter = null\n//     knowledgeIds << \"global\"\n//     knowledgeFilter = [\n//         field: 'properties.knowledgeId',\n//         op: 'IN',\n//         values: knowledgeIds\n//     ]    \n//     combinedFilter['values'].add(knowledgeFilter)\n// }\n\n// return ['filter': combinedFilter['values'].size() > 0 ? combinedFilter : null]\n\ndef filters = []\n\n// Knowledge ID filter\nif(binding.hasVariable('knowledgeIds')) {\n    knowledgeIds << \"global\"\n    filters << [\n        field: 'properties.knowledgeId',\n        op: 'IN',\n        values: knowledgeIds\n    ]\n}\n\n// Agent ID filter\nif(binding.hasVariable('agentId')) {\n    filters << [\n        field: 'properties.agentID',\n        op: 'EQUAL',\n        values: [agentId]\n    ]\n}\n\n// Combine with OR if both are present, otherwise just use single\ndef combinedFilter = filters.size() > 1 ?\n    [ op: 'OR', values: filters ] :\n    filters.size() == 1 ?\n        filters[0] : null\n\nreturn ['filter': combinedFilter ?: null]",
 				"compile_static":false,
-				"code":"// def combinedFilter = [\n//     op: 'AND',\n//     values: []\n// ]\n\n// if(binding.hasVariable('knowledgeIds')) {\n//     def knowledgeFilter = null\n//     knowledgeIds << \"global\"\n//     knowledgeFilter = [\n//         field: 'properties.knowledgeId',\n//         op: 'IN',\n//         values: knowledgeIds\n//     ]    \n//     combinedFilter['values'].add(knowledgeFilter)\n// }\n\n// return ['filter': combinedFilter['values'].size() > 0 ? combinedFilter : null]\n\ndef filters = []\n\n// Knowledge ID filter\nif(binding.hasVariable('knowledgeIds')) {\n    knowledgeIds << \"global\"\n    filters << [\n        field: 'properties.knowledgeId',\n        op: 'IN',\n        values: knowledgeIds\n    ]\n}\n\n// Agent ID filter\nif(binding.hasVariable('agentId')) {\n    filters << [\n        field: 'properties.agentId',\n        op: 'EQUAL',\n        values: [agentId]\n    ]\n}\n\n// Combine with OR if both are present, otherwise just use single\ndef combinedFilter = filters.size() > 1 ?\n    [ op: 'OR', values: filters ] :\n    filters.size() == 1 ?\n        filters[0] : null\n\nreturn ['filter': combinedFilter ?: null]",
 				"isAsync":false,
+				"captureStdOutput":false,
 				"parameters":{
+					"agentId":"{{ DK3BP.outputs.aiAgentId }}",
 					"knowledgeIds":{
 						"ua:type":"mappedArray",
 						"source":"{{ DK3BP.outputs.knowledges }}",
 						"items":"{{ DK3BP.outputs.knowledges[0].id }}"
-					},
-					"agentId":"{{ DK3BP.outputs.aiAgentId }}"
+					}
 				}
 			},
 			"options":{
@@ -595,5 +596,5 @@
 	"tags":[
 		"AI Agent"
 	],
-	"version":144
+	"version":147
 }
