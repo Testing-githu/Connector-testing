@@ -4,49 +4,164 @@
 	],
 	"createdTime":1759430840353,
 	"deleted":false,
+	"deploymentState":{
+		"deployedAt":1759430851827,
+		"deployedBy":1,
+		"deployedDefinitionId":"68dec8c30b18504fe61901b6",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":1
+	},
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_kbkFU",
+			"fromNodeId":"n_tTNHP",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_R3FaE",
+			"toNodeId":"n_78ifF",
 			"type":"next"
 		}
 	],
 	"id":"68dec8b80b18504fe619015c",
 	"lastModifiedBy":1,
 	"lcName":"change_webhook_code_snippet_117594305983290",
-	"modifiedTime":1759430840353,
+	"modifiedTime":1759430861907,
 	"name":"change_webhook_code_snippet_117594305983290",
 	"nodes":[
 		{
+			"context":{
+				"appName":"webhooks",
+				"resourceVersion":121,
+				"resourceName":"webhooks_default"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_kbkFU-1",
-			"id":"_kbkFU",
-			"index":0,
+			"id":"n_tTNHP",
+			"index":1,
+			"inputs":{
+				"request":{
+					"contentType":"application/json",
+					"body":{
+						"type":"object",
+						"properties":{
+							"user":{
+								"type":"object",
+								"properties":{
+									"name":{
+										"type":"string",
+										"title":"name"
+									},
+									"email":{
+										"type":"string",
+										"title":"email"
+									},
+									"address":{
+										"type":"object",
+										"properties":{
+											"street":{
+												"type":"string",
+												"title":"street"
+											},
+											"city":{
+												"type":"string",
+												"title":"city"
+											},
+											"zip":{
+												"type":"integer",
+												"title":"zip"
+											}
+										},
+										"title":"address",
+										"additionalProperties":false
+									},
+									"isActive":{
+										"type":"boolean",
+										"title":"isActive"
+									},
+									"roles":{
+										"type":"array",
+										"items":{
+											"type":"string"
+										},
+										"title":"roles"
+									}
+								},
+								"title":"user",
+								"additionalProperties":false
+							}
+						},
+						"additionalProperties":false
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Webhook",
+			"title":"New event",
 			"trigger":{
-				"type":"EVENT"
+				"type":"WEBHOOK"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":1588,
+				"resourceName":"variable_by_unifyapps_create_variables",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_kbkFU-1",
-			"id":"_R3FaE",
-			"index":0,
+			"id":"n_78ifF",
+			"index":2,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{},
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"inputField":{
+							"type":"string",
+							"title":"inputField"
+						}
+					},
+					"required":[
+						"inputField"
+					]
+				}
+			},
+			"inputs":{},
+			"outputSchema":{
+				"dynamic":false,
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"inputField":{
+							"type":"string",
+							"title":"inputField"
+						}
+					},
+					"required":[
+						"inputField"
+					]
+				}
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Variable by UnifyApps",
+			"title":"Create variables",
 			"type":"ACTION"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		"entity|e_code_snippet|e_68dec8ccaef36a3cb00e2ed0"
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +175,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":2
 }
