@@ -1,52 +1,423 @@
 {
 	"appsUsed":[
-		
+		"storage_by_unifyapps"
 	],
 	"createdTime":1759433203338,
 	"deleted":false,
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_mgbhv",
+			"fromNodeId":"n_66QWh",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_zaARo",
+			"toNodeId":"n_iKBPu",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_iKBPu",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_ema9G",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_ema9G",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_poeil",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_poeil",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_6hDeS",
 			"type":"next"
 		}
 	],
 	"id":"68ded1f31c55b7419377afff",
 	"lastModifiedBy":1,
 	"lcName":"storagebyunifyapps__117594306273950",
-	"modifiedTime":1759433203338,
+	"modifiedTime":1759433248360,
 	"name":"StorageByUnifyApps__117594306273950",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1673,
+				"resourceName":"callables_from_api"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_mgbhv-1",
-			"id":"_mgbhv",
-			"index":0,
+			"id":"n_66QWh",
+			"index":1,
+			"inputs":{
+				"request":{
+					"contentType":"application/json",
+					"body":{
+						"type":"object",
+						"properties":{
+							"content":{
+								"type":"string",
+								"title":"content"
+							}
+						},
+						"additionalProperties":false,
+						"required":[
+							"content"
+						]
+					}
+				},
+				"endpointType":"REST",
+				"response":[
+					{
+						"name":"OK",
+						"status":200,
+						"contentType":"application/json",
+						"textBody":{
+							"type":"string"
+						},
+						"body":{
+							"type":"object",
+							"properties":{
+								"status":{
+									"type":"string",
+									"title":"status"
+								}
+							},
+							"additionalProperties":false,
+							"required":[
+								"status"
+							]
+						}
+					}
+				],
+				"streamingResponse":false
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via API",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"custom_http_endpoint",
+				"resourceVersion":1559,
+				"resourceName":"custom_http_endpoint_execute",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_mgbhv-1",
-			"id":"_zaARo",
-			"index":0,
+			"id":"n_iKBPu",
+			"index":2,
+			"inputs":{
+				"isAsync":false,
+				"enableProxy":false,
+				"requestTimeoutInSecs":-1,
+				"httpMethod":"POST",
+				"body":{
+					"payloads":{
+						"items":{
+							"payloadId":"123",
+							"messages":{
+								"items":{
+									"role":"user",
+									"blocks":{
+										"items":{
+											"data":{
+												"text":"{{ n_66QWh.outputs.body.content }}"
+											},
+											"blockType":"Text"
+										},
+										"ua:type":"mappedArray"
+									}
+								},
+								"ua:type":"mappedArray"
+							}
+						},
+						"ua:type":"mappedArray"
+					}
+				},
+				"connectionType":"DIRECT",
+				"sslVerify":false,
+				"path":"/api/v1/nlp/predict",
+				"responseSchema":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"results":{
+							"type":"array",
+							"items":{
+								"type":"object",
+								"properties":{
+									"payloadId":{
+										"type":"string",
+										"title":"payloadId"
+									},
+									"messages":{
+										"type":"array",
+										"items":{
+											"type":"object",
+											"properties":{
+												"role":{
+													"type":"string",
+													"title":"role"
+												},
+												"blocks":{
+													"type":"array",
+													"items":{
+														"type":"object",
+														"properties":{
+															"data":{
+																"type":"object",
+																"properties":{
+																	"vector":{
+																		"type":"array",
+																		"items":{
+																			"type":"string"
+																		},
+																		"title":"vector"
+																	},
+																	"text":{
+																		"type":"string",
+																		"title":"text"
+																	}
+																},
+																"title":"data",
+																"additionalProperties":false
+															},
+															"blockType":{
+																"type":"string",
+																"title":"blockType"
+															}
+														},
+														"additionalProperties":false
+													},
+													"title":"blocks"
+												}
+											},
+											"additionalProperties":false
+										},
+										"title":"messages"
+									},
+									"payloadTags":{
+										"type":"object",
+										"title":"payloadTags"
+									}
+								},
+								"additionalProperties":false
+							},
+							"title":"results"
+						},
+						"Status":{
+							"type":"string",
+							"title":"Status"
+						}
+					}
+				},
+				"baseUrl":"https://ai-vectorizer-gte-global.int-alb.qa.unifyapps.com/",
+				"httpVersion":"HTTP_2",
+				"bodySchema":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"payloads":{
+							"type":"array",
+							"items":{
+								"type":"object",
+								"properties":{
+									"payloadId":{
+										"type":"string",
+										"title":"payloadId"
+									},
+									"messages":{
+										"type":"array",
+										"items":{
+											"type":"object",
+											"properties":{
+												"role":{
+													"type":"string",
+													"title":"role"
+												},
+												"blocks":{
+													"type":"array",
+													"items":{
+														"type":"object",
+														"properties":{
+															"data":{
+																"type":"object",
+																"properties":{
+																	"text":{
+																		"type":"string",
+																		"title":"text"
+																	}
+																},
+																"title":"data",
+																"additionalProperties":false
+															},
+															"blockType":{
+																"type":"string",
+																"title":"blockType"
+															}
+														},
+														"additionalProperties":false
+													},
+													"title":"blocks"
+												}
+											},
+											"additionalProperties":false
+										},
+										"title":"messages"
+									}
+								},
+								"additionalProperties":false
+							},
+							"title":"payloads"
+						}
+					}
+				},
+				"responseContentType":"application/json",
+				"authType":"CUSTOM",
+				"requestContentType":"application/json",
+				"ignoreTrailingSlashes":false,
+				"certificateType":"CERT_STRING"
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Custom HTTP Endpoint",
+			"title":"Execute REST request",
 			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":1586,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_mgbhv-1",
+			"id":"n_ema9G",
+			"index":3,
+			"inputs":{
+				"output":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"embeddings"
+					],
+					"properties":{
+						"embeddings":{
+							"type":"array",
+							"items":{
+								"type":"number"
+							},
+							"title":"embeddings"
+						}
+					}
+				},
+				"input":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"messages"
+					],
+					"properties":{
+						"messages":{
+							"type":"array",
+							"items":{
+								"type":"string"
+							},
+							"title":"messages"
+						}
+					}
+				},
+				"code":"def result = null\r\nmessages.each { message ->\r\nif (message.role == \"assistant\") {\r\nmessage.blocks.each { block ->\r\nif (block.blockType == \"embeddings\") {\r\nresult = [\"embeddings\": block.data.vector]\r\nreturn result\r\n}\r\n}\r\nif (result != null) {\r\n return result\r\n  }\r\n   }\r\n    }\r\n    return result;\r\n    ",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"messages":{
+						"source":"{{ n_iKBPu.outputs.result.results[0].messages }}",
+						"ua:type":"mappedArray",
+						"items":"{{ n_iKBPu.outputs.result.results[0].messages }}"
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":7339,
+				"resourceName":"storage_by_unifyapps_create_record",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_mgbhv-1",
+			"id":"n_poeil",
+			"index":4,
+			"inputs":{
+				"writeThroughSessionVariables":false,
+				"object_type":"almqf8q",
+				"skipIfBlank":false,
+				"record":{
+					"content":"{{ n_66QWh.outputs.body.content }}",
+					"embeddings":{
+						"source":"{{ n_ema9G.outputs.result.embeddings }}",
+						"ua:type":"mappedArray",
+						"items":"{{ n_ema9G.outputs.result.embeddings }}"
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Create record",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1675,
+				"resourceName":"callables_return_response_to_api",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_mgbhv-1",
+			"id":"n_6hDeS",
+			"index":5,
+			"inputs":{
+				"streamingCompleted":true,
+				"responseName":"200_OK",
+				"body":{
+					"status":"OK"
+				},
+				"status":200
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to API request",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +431,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
