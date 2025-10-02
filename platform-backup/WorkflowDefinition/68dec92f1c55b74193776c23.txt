@@ -7,46 +7,106 @@
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_BujPo",
+			"fromNodeId":"n_ayy0D",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_ihfSc",
+			"toNodeId":"n_gvzH5",
 			"type":"next"
 		}
 	],
 	"id":"68dec92f1c55b74193776c23",
 	"lastModifiedBy":1,
 	"lcName":"parent automation_117594305983290",
-	"modifiedTime":1759430959010,
+	"modifiedTime":1759430970713,
 	"name":"Parent automation_117594305983290",
 	"nodes":[
 		{
+			"context":{
+				"appName":"webhooks",
+				"resourceVersion":121,
+				"resourceName":"webhooks_default"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_BujPo-1",
-			"id":"_BujPo",
-			"index":0,
+			"id":"n_ayy0D",
+			"index":1,
+			"inputs":{
+				"request":{
+					"contentType":"application/json",
+					"body":{
+						"type":"object",
+						"properties":{
+							"StringBody":{
+								"type":"string",
+								"title":"StringBody"
+							},
+							"NumberBody":{
+								"type":"number",
+								"title":"NumberBody"
+							},
+							"IntegerBody":{
+								"type":"integer",
+								"title":"IntegerBody"
+							},
+							"BooleanBody":{
+								"type":"boolean",
+								"title":"BooleanBody"
+							}
+						},
+						"additionalProperties":false,
+						"required":[
+							"StringBody",
+							"NumberBody",
+							"IntegerBody",
+							"BooleanBody"
+						]
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Webhook",
+			"title":"New event",
 			"trigger":{
-				"type":"EVENT"
+				"type":"WEBHOOK"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1664,
+				"resourceName":"callables_call_automation_async",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_BujPo-1",
-			"id":"_ihfSc",
-			"index":0,
+			"id":"n_gvzH5",
+			"index":2,
+			"inputs":{
+				"automationId":"68dec91b1c55b7419377675e",
+				"runtimeConnections":{},
+				"version":"-1",
+				"parameters":{
+					"StringBody":"{{ n_ayy0D.outputs.body.StringBody }}",
+					"NumberBody":"{{ n_ayy0D.outputs.body.NumberBody }}",
+					"IntegerBody":"{{ n_ayy0D.outputs.body.IntegerBody }}",
+					"BooleanBody":"{{ n_ayy0D.outputs.body.BooleanBody }}"
+				}
+			},
 			"skip":false,
-			"title":"Select an app and action",
-			"type":"ACTION"
+			"subTitle":"Callable",
+			"title":"Call automation async",
+			"type":"CALL_WORKFLOW"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +120,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
