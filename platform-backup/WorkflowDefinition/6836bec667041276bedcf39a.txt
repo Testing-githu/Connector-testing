@@ -5,12 +5,12 @@
 	"createdTime":1751383765831,
 	"deleted":false,
 	"deploymentState":{
-		"deployedAt":1759253972993,
-		"deployedBy":-1,
-		"deployedDefinitionId":"68dc15d48e7a196bc8e21992",
+		"deployedAt":1759324091123,
+		"deployedBy":1,
+		"deployedDefinitionId":"68dd27bba15f9e7fa5e22a54",
 		"status":"DEPLOYED",
-		"version":84,
-		"workflowVersion":97
+		"version":86,
+		"workflowVersion":99
 	},
 	"edges":[
 		{
@@ -81,6 +81,20 @@
 			"fromNodeId":"P5enk",
 			"priority":0,
 			"skip":false,
+			"toNodeId":"n_40NgC",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_40NgC",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_P46DY",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_P46DY",
+			"priority":0,
+			"skip":false,
 			"toNodeId":"kQIV9",
 			"type":"next"
 		}
@@ -96,9 +110,9 @@
 		]
 	},
 	"id":"6836bec667041276bedcf39a",
-	"lastModifiedBy":0,
+	"lastModifiedBy":-1,
 	"lcName":"handle stream completion",
-	"modifiedTime":1759312665599,
+	"modifiedTime":1759425322149,
 	"name":"Handle Stream Completion",
 	"nodes":[
 		{
@@ -476,6 +490,7 @@
 				"recordId":"{{ rxnB9.outputs.caseId }}",
 				"writeThroughSessionVariables":false,
 				"object_type":"service_hub_case",
+				"skipIfBlank":false,
 				"skipPermissionCheck":false,
 				"updateFields":[
 					{
@@ -483,11 +498,72 @@
 						"actionType":"SET",
 						"setValue":"false"
 					}
-				]
+				],
+				"unsetIfNull":false
 			},
 			"skip":false,
 			"subTitle":"generatingResponse=false",
 			"title":"Update an existing record's fields",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":488,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"2bVVx-1",
+			"id":"n_40NgC",
+			"index":10,
+			"inputs":{
+				"output":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[],
+					"properties":{
+						"payload":{
+							"type":"object",
+							"properties":{},
+							"additionalProperties":false,
+							"title":"Payload"
+						}
+					}
+				},
+				"code":"return [ 'payload': [\n  \"responseGenerationCompleted\": true\n] ]",
+				"compile_static":false,
+				"captureStdOutput":false
+			},
+			"skip":false,
+			"subTitle":"mqtt payload",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"chat_by_unifyapps",
+				"resourceVersion":482,
+				"resourceName":"chat_by_unifyapps_send_message",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"2bVVx-1",
+			"id":"n_P46DY",
+			"index":11,
+			"inputs":{
+				"payload":{
+					"additional":"{{ n_40NgC.outputs.result.payload }}"
+				},
+				"topic":"case_{{ rxnB9.outputs.caseId }}"
+			},
+			"skip":false,
+			"subTitle":"Chat by UnifyApps",
+			"title":"Send message",
 			"type":"ACTION"
 		},
 		{
@@ -502,7 +578,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"2bVVx-1",
 			"id":"kQIV9",
-			"index":10,
+			"index":12,
 			"inputs":{
 				"result":{
 					"success":true
@@ -531,5 +607,5 @@
 	"tags":[
 		
 	],
-	"version":98
+	"version":100
 }
