@@ -7,46 +7,107 @@
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_Csfr2",
+			"fromNodeId":"n_ZaYkd",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_EQhRY",
+			"toNodeId":"n_F7uR4",
 			"type":"next"
 		}
 	],
 	"id":"68decb3d0b18504fe6191fa6",
 	"lastModifiedBy":1,
 	"lcName":"condition box|number input - does not equal 11759430589565",
-	"modifiedTime":1759431485981,
+	"modifiedTime":1759431496325,
 	"name":"Condition Box|Number Input - Does not equal 11759430589565",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1662,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_Csfr2-1",
-			"id":"_Csfr2",
-			"index":0,
+			"id":"n_ZaYkd",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"output_Number"
+					],
+					"properties":{
+						"output_Number":{
+							"type":"number",
+							"title":"output_Number"
+						}
+					}
+				},
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"property":"{{ n_ZaYkd.outputs.input_Number }}",
+							"filter":{
+								"operator":"NOT_EQUAL",
+								"value":"3"
+							}
+						}
+					],
+					"operator":"AND"
+				},
+				"setup":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"input_Number"
+					],
+					"properties":{
+						"input_Number":{
+							"type":"number",
+							"title":"input_Number"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1665,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_Csfr2-1",
-			"id":"_EQhRY",
-			"index":0,
+			"id":"n_F7uR4",
+			"index":2,
+			"inputs":{
+				"result":{
+					"output_Number":"{{ n_ZaYkd.outputs.input_Number }}"
+				}
+			},
 			"skip":false,
-			"title":"Select an app and action",
-			"type":"ACTION"
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +121,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
