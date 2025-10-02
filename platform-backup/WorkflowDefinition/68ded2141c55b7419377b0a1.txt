@@ -7,46 +7,80 @@
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_5tYk3",
+			"fromNodeId":"n_JdqHV",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_mJmdT",
+			"toNodeId":"n_DwlWX",
 			"type":"next"
 		}
 	],
 	"id":"68ded2141c55b7419377b0a1",
 	"lastModifiedBy":1,
 	"lcName":"parent callable empty schema check workflow 11759430590180",
-	"modifiedTime":1759433236812,
+	"modifiedTime":1759433245592,
 	"name":"parent callable empty schema check Workflow 11759430590180",
 	"nodes":[
 		{
+			"context":{
+				"appName":"webhooks",
+				"resourceVersion":121,
+				"resourceName":"webhooks_default"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_5tYk3-1",
-			"id":"_5tYk3",
-			"index":0,
+			"id":"n_JdqHV",
+			"index":1,
+			"inputs":{
+				"request":{
+					"contentType":"application/json"
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Webhook",
+			"title":"New event",
 			"trigger":{
-				"type":"EVENT"
+				"type":"WEBHOOK"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1674,
+				"resourceName":"callables_call_automation_batch",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_5tYk3-1",
-			"id":"_mJmdT",
-			"index":0,
+			"id":"n_DwlWX",
+			"index":2,
+			"inputs":{
+				"automationId":"68ded1ea0b18504fe6194b91",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"distributeWorkflowLoad":false,
+				"parametersList":{
+					"items":{
+						"Input_String":"input entered from parent workflow"
+					},
+					"ua:type":"mappedArray"
+				},
+				"version":"-1"
+			},
 			"skip":false,
-			"title":"Select an app and action",
-			"type":"ACTION"
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +94,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
