@@ -5,12 +5,12 @@
 	"createdTime":1747000723114,
 	"deleted":false,
 	"deploymentState":{
-		"deployedAt":1758820967786,
-		"deployedBy":-1,
-		"deployedDefinitionId":"68d57a67b57aa23969b950de",
+		"deployedAt":1759324067246,
+		"deployedBy":1,
+		"deployedDefinitionId":"68dd27a3a15f9e7fa5e22244",
 		"status":"DEPLOYED",
-		"version":71,
-		"workflowVersion":86
+		"version":83,
+		"workflowVersion":98
 	},
 	"edges":[
 		{
@@ -169,9 +169,9 @@
 		]
 	},
 	"id":"6761589c529264022c7d1650",
-	"lastModifiedBy":1,
+	"lastModifiedBy":-1,
 	"lcName":"signal trigger ",
-	"modifiedTime":1758874528116,
+	"modifiedTime":1759425310036,
 	"name":"Signal Trigger ",
 	"nodes":[
 		{
@@ -189,6 +189,10 @@
 			"inputs":{
 				"result":{
 					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"messageId"
+					],
 					"properties":{
 						"coPilotBlocks":{
 							"type":"array",
@@ -204,7 +208,37 @@
 						"listPublicResponse":{
 							"type":"array",
 							"items":{
-								"type":"string",
+								"type":"object",
+								"properties":{
+									"text":{
+										"type":"string",
+										"title":"Text"
+									},
+									"choices":{
+										"type":"array",
+										"items":{
+											"type":"object",
+											"properties":{
+												"id":{
+													"type":"string",
+													"title":"Id"
+												},
+												"title":{
+													"type":"string",
+													"title":"Title"
+												},
+												"url":{
+													"type":"string",
+													"title":"Url"
+												}
+											},
+											"additionalProperties":false,
+											"required":[]
+										},
+										"title":"Choices"
+									}
+								},
+								"additionalProperties":false,
 								"required":[]
 							},
 							"title":"List Public Response"
@@ -252,6 +286,29 @@
 									"messageCreatedTime":{
 										"type":"string",
 										"title":"Message Created Time"
+									},
+									"choices":{
+										"type":"array",
+										"items":{
+											"type":"object",
+											"properties":{
+												"id":{
+													"type":"string",
+													"title":"Id"
+												},
+												"title":{
+													"type":"string",
+													"title":"Title"
+												},
+												"url":{
+													"type":"string",
+													"title":"Url"
+												}
+											},
+											"additionalProperties":false,
+											"required":[]
+										},
+										"title":"Choices"
 									}
 								},
 								"additionalProperties":false,
@@ -259,14 +316,15 @@
 							},
 							"title":"Agent Responses"
 						}
-					},
-					"additionalProperties":false,
-					"required":[
-						"messageId"
-					]
+					}
 				},
 				"setup":{
 					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"caseId",
+						"aiAgentId"
+					],
 					"properties":{
 						"caseId":{
 							"type":"string",
@@ -299,12 +357,7 @@
 							"type":"boolean",
 							"title":"Citations"
 						}
-					},
-					"additionalProperties":false,
-					"required":[
-						"caseId",
-						"aiAgentId"
-					]
+					}
 				}
 			},
 			"skip":false,
@@ -1125,7 +1178,38 @@
 						"publicResponses":{
 							"type":"array",
 							"items":{
-								"type":"string"
+								"type":"object",
+								"properties":{
+									"text":{
+										"type":"string",
+										"title":"Text"
+									},
+									"choices":{
+										"type":"array",
+										"items":{
+											"type":"object",
+											"properties":{
+												"id":{
+													"type":"string",
+													"title":"Id"
+												},
+												"title":{
+													"type":"string",
+													"title":"Title"
+												},
+												"url":{
+													"type":"string",
+													"title":"Url"
+												}
+											},
+											"additionalProperties":false,
+											"required":[]
+										},
+										"title":"Choices"
+									}
+								},
+								"additionalProperties":false,
+								"required":[]
 							},
 							"title":"Public Responses"
 						},
@@ -1166,6 +1250,29 @@
 										"properties":{},
 										"additionalProperties":false,
 										"title":"Interface Details"
+									},
+									"choices":{
+										"type":"array",
+										"items":{
+											"type":"object",
+											"properties":{
+												"id":{
+													"type":"string",
+													"title":"Id"
+												},
+												"title":{
+													"type":"string",
+													"title":"Title"
+												},
+												"url":{
+													"type":"string",
+													"title":"Url"
+												}
+											},
+											"additionalProperties":false,
+											"required":[]
+										},
+										"title":"Choices"
 									}
 								},
 								"additionalProperties":false,
@@ -1191,7 +1298,7 @@
 						}
 					}
 				},
-				"code":"def publicResponses = []\ndef agentResponses = []\nfor(msg in messages) {\n  if(msg?.properties?.content?.text || msg?.properties?.interfaceDetails || msg?.properties?.content?.coPilotBlocks?.blocks) {\n    agentResponses.add([\"messageId\": msg.id, \"messageCreatedTime\": msg.createdTime, \"additional\": msg?.properties?.additional, \"text\": msg?.properties?.content?.text, \"coPilotBlocks\": msg?.properties?.content?.coPilotBlocks?.blocks, \"interfaceDetails\": msg?.properties?.interfaceDetails])\n  }\n\n  if(msg?.properties?.additional?.internalMessageType == \"THOUGHT\") {\n    continue;\n  }\n\n  if(msg?.properties?.additional?.internalMessageType == \"AGENT_INTERNAL_RESPONSE\") {\n    continue;\n  }\n\n  def textContent = msg?.properties?.content?.text;\n  if(textContent != null && !textContent.isBlank()) {\n  publicResponses.add(msg?.properties?.content?.text)\n  }\n\n} \n\n\nreturn [\"publicResponses\": publicResponses, \"agentResponses\": agentResponses];\n\n",
+				"code":"def publicResponses = []\ndef agentResponses = []\nfor(msg in messages) {\n\n  // compute agent responses\n  if(msg?.properties?.content?.text || msg?.properties?.interfaceDetails || msg?.properties?.content?.coPilotBlocks || msg?.properties?.content?.choiceList) {\n    agentResponses.add([\"messageId\": msg.id, \"messageCreatedTime\": msg.createdTime, \"additional\": msg?.properties?.additional, \"text\": msg?.properties?.content?.text, \"coPilotBlocks\": msg?.properties?.content?.coPilotBlocks, \"interfaceDetails\": msg?.properties?.interfaceDetails, \"choices\": msg?.properties?.content?.choiceList])\n  }\n\n  if(msg?.properties?.additional?.internalMessageType == \"THOUGHT\") {\n    continue;\n  }\n\n  if(msg?.properties?.additional?.internalMessageType == \"AGENT_INTERNAL_RESPONSE\") {\n    continue;\n  }\n\n\n  // compute public response\n  def textContent = msg?.properties?.content?.text\n  def choiceList = msg?.properties?.content?.choiceList\n\n  def responseObj = [:]  \n\n  if (textContent != null && !textContent.isBlank()) {\n      responseObj.text = textContent\n  }\n\n  if (choiceList != null && !choiceList.isEmpty()) {\n      responseObj.choices = choiceList\n  }\n\n  // Only add if we have something\n  if (!responseObj.isEmpty()) {\n      publicResponses.add(responseObj)\n  }\n\n} \n\n\nreturn [\"publicResponses\": publicResponses, \"agentResponses\": agentResponses];\n\n",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
@@ -1232,7 +1339,18 @@
 					"listPublicResponse":{
 						"ua:type":"mappedArray",
 						"source":"{{ n_82EqW.outputs.result.publicResponses }}",
-						"items":"{{ n_82EqW.outputs.result.publicResponses[0] }}"
+						"items":{
+							"text":"{{ n_82EqW.outputs.result.publicResponses[0].text }}",
+							"choices":{
+								"source":"{{ n_82EqW.outputs.result.publicResponses[0].choices }}",
+								"ua:type":"mappedArray",
+								"items":{
+									"id":"{{ n_82EqW.outputs.result.publicResponses[0].choices[0].id }}",
+									"title":"{{ n_82EqW.outputs.result.publicResponses[0].choices[0].title }}",
+									"url":"{{ n_82EqW.outputs.result.publicResponses[0].choices[0].url }}"
+								}
+							}
+						}
 					},
 					"agentResponses":{
 						"ua:type":"mappedArray",
@@ -1246,7 +1364,16 @@
 							"interfaceDetails":"{{ n_82EqW.outputs.result.agentResponses[0].interfaceDetails }}",
 							"messageId":"{{ n_82EqW.outputs.result.agentResponses[0].messageId }}",
 							"additional":"{{ n_82EqW.outputs.result.agentResponses[0].additional }}",
-							"messageCreatedTime":"{{ n_82EqW.outputs.result.agentResponses[0].messageCreatedTime }}"
+							"messageCreatedTime":"{{ n_82EqW.outputs.result.agentResponses[0].messageCreatedTime }}",
+							"choices":{
+								"source":"{{ n_82EqW.outputs.result.agentResponses[0].choices }}",
+								"ua:type":"mappedArray",
+								"items":{
+									"id":"{{ n_82EqW.outputs.result.agentResponses[0].choices[0].id }}",
+									"title":"{{ n_82EqW.outputs.result.agentResponses[0].choices[0].title }}",
+									"url":"{{ n_82EqW.outputs.result.agentResponses[0].choices[0].url }}"
+								}
+							}
 						},
 						"source":"{{ n_82EqW.outputs.result.agentResponses }}"
 					}
@@ -1263,9 +1390,9 @@
 		
 	],
 	"settings":{
-		"enableNodeLevelLogging":false,
-		"enableRunLogging":false,
-		"enableVariableLogging":false,
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
 		"route":{
 			"default":false,
 			"tierName":"global"
@@ -1276,5 +1403,5 @@
 		"AI Agent",
 		"Internal"
 	],
-	"version":87
+	"version":99
 }
