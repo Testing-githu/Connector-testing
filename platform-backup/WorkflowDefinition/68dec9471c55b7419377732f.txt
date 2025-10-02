@@ -4,6 +4,14 @@
 	],
 	"createdTime":1759430983704,
 	"deleted":false,
+	"deploymentState":{
+		"deployedAt":1759432150481,
+		"deployedBy":1,
+		"deployedDefinitionId":"68decdd60b18504fe61930d5",
+		"status":"DEPLOYED",
+		"version":2,
+		"workflowVersion":5
+	},
 	"edges":[
 		{
 			"fromNodeId":"n_UKcmu",
@@ -16,14 +24,44 @@
 			"fromNodeId":"n_SW2mN",
 			"priority":0,
 			"skip":false,
+			"toNodeId":"n_x0TT9",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_x0TT9",
+			"priority":0,
+			"skip":false,
 			"toNodeId":"n_9w0Q7",
 			"type":"next"
 		}
 	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"EXPORT_AS_TEMPLATE",
+					"C",
+					"S",
+					"VI",
+					"D",
+					"TEST",
+					"VIEW_RUNS",
+					"E",
+					"V",
+					"VS",
+					"DEP"
+				],
+				"principalIds":[
+					"231770"
+				],
+				"principalType":"USER"
+			}
+		]
+	},
 	"id":"68dec9471c55b7419377732f",
 	"lastModifiedBy":1,
 	"lcName":"rdqa callable",
-	"modifiedTime":1759431044517,
+	"modifiedTime":1759434452360,
 	"name":"RDQA Callable",
 	"nodes":[
 		{
@@ -33,7 +71,7 @@
 				"resourceName":"callables_from_automation"
 			},
 			"debug":false,
-			"dirty":true,
+			"dirty":false,
 			"fallbackMode":"STOP",
 			"groupId":"_iUQNE-1",
 			"id":"n_UKcmu",
@@ -82,7 +120,7 @@
 				"type":"APPLICATION"
 			},
 			"debug":false,
-			"dirty":true,
+			"dirty":false,
 			"fallbackMode":"STOP",
 			"groupId":"_iUQNE-1",
 			"id":"n_SW2mN",
@@ -132,16 +170,48 @@
 		{
 			"context":{
 				"appName":"callables",
-				"resourceVersion":1665,
-				"resourceName":"callables_return_to_automation",
+				"resourceVersion":1673,
+				"resourceName":"callables_schedule_a_callable",
 				"type":"APPLICATION"
 			},
 			"debug":false,
 			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_iUQNE-1",
-			"id":"n_9w0Q7",
+			"id":"n_x0TT9",
 			"index":3,
+			"inputs":{
+				"automation_id":"68ded6429b497028ab319d4d",
+				"start_time":"2025-10-02T19:46:41.997Z",
+				"unit":"MINUTES",
+				"runtimeConnections":{},
+				"schedule_type":"RECURRING",
+				"cancel_existing":true,
+				"interval":1,
+				"schedule_name":"{{ __RUN__.outputs.executionId }}_{{ n_SW2mN.outputs.user }}",
+				"version":"-1",
+				"parameters":{
+					"inp":"{{ n_UKcmu.outputs.inp }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Schedule callable",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1665,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_iUQNE-1",
+			"id":"n_9w0Q7",
+			"index":4,
 			"inputs":{
 				"result":{
 					"output":"called by user {{ n_SW2mN.outputs.user }}"
@@ -168,7 +238,7 @@
 	},
 	"standard":false,
 	"tags":[
-		
+		"RDQA"
 	],
-	"version":3
+	"version":11
 }
