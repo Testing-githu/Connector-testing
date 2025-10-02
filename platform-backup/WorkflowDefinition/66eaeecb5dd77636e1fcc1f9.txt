@@ -6,12 +6,12 @@
 	"createdTime":1747000738134,
 	"deleted":false,
 	"deploymentState":{
-		"deployedAt":1759169840139,
-		"deployedBy":-1,
-		"deployedDefinitionId":"68dacd308b303f31c230844c",
+		"deployedAt":1759324070918,
+		"deployedBy":1,
+		"deployedDefinitionId":"68dd27a6a15f9e7fa5e22493",
 		"status":"DEPLOYED",
-		"version":72,
-		"workflowVersion":118
+		"version":76,
+		"workflowVersion":122
 	},
 	"description":"",
 	"edges":[
@@ -257,9 +257,9 @@
 		]
 	},
 	"id":"66eaeecb5dd77636e1fcc1f9",
-	"lastModifiedBy":1,
+	"lastModifiedBy":-1,
 	"lcName":"get or create customerprofile",
-	"modifiedTime":1759229868501,
+	"modifiedTime":1759425265917,
 	"name":"Get Or Create CustomerProfile",
 	"nodes":[
 		{
@@ -1001,15 +1001,20 @@
 						"userIdWithCopilot":{
 							"type":"string",
 							"title":"User Id With Co Pilot"
+						},
+						"userName":{
+							"type":"string",
+							"title":"User Name"
 						}
 					}
 				},
-				"code":"def result = [:]\n\nif (binding.hasVariable('userIdWithCopilot') && userIdWithCopilot.contains(\"#\")) {\n    def variables = userIdWithCopilot.split(\"#\")\n    result = [\"userId\": userIdWithCopilot.split(\"#\").getAt(0), \"coPilotType\": userIdWithCopilot.split(\"#\").getAt(1)]\n    if(variables.size() > 2){\n    result.put(\"aiAgentId\", userIdWithCopilot.split(\"#\").getAt(2))\n    }\n}\nelse {\n    return [\"flag\": false]\n}\n\nreturn result\n",
+				"code":"def result = [:]\n\nif (binding.hasVariable('userIdWithCopilot') && userIdWithCopilot.contains(\"#\")) {\n    def variables = userIdWithCopilot.split(\"#\")\n    def userId = variables[0]\n\n    // If userId matches userName, set it to 0\n    if (userId == userName) {\n        userId = 0\n    }\n\n    result = [\n        \"userId\"      : userId,\n        \"coPilotType\" : variables[1]\n    ]\n\n    if (variables.size() > 2) {\n        result[\"aiAgentId\"] = variables[2]\n    }\n} else {\n    return [\"flag\": false]\n}\n\nreturn result\n",
 				"compile_static":false,
 				"isAsync":false,
 				"captureStdOutput":false,
 				"parameters":{
-					"userIdWithCopilot":"{{ 8GiDP.outputs.channelSpecificId }}"
+					"userIdWithCopilot":"{{ 8GiDP.outputs.channelSpecificId }}",
+					"userName":"{{ __USER__.outputs.username }}"
 				}
 			},
 			"options":{
@@ -1193,7 +1198,9 @@
 			"id":"oRGhe",
 			"index":26,
 			"inputs":{
+				"writeThroughSessionVariables":false,
 				"object_type":"customer_profile",
+				"skipIfBlank":false,
 				"record":{
 					"channelSpecificId":"{{ 8GiDP.outputs.channelSpecificId }}",
 					"channelName":"{{ 8GiDP.outputs.channelName }}",
@@ -1266,7 +1273,9 @@
 			"id":"KYCMw",
 			"index":29,
 			"inputs":{
+				"writeThroughSessionVariables":false,
 				"object_type":"customer_profile",
+				"skipIfBlank":false,
 				"record":{
 					"channelSpecificId":"{{ 8GiDP.outputs.channelSpecificId }}",
 					"channelName":"{{ 8GiDP.outputs.channelName }}",
@@ -1312,9 +1321,9 @@
 		
 	],
 	"settings":{
-		"enableNodeLevelLogging":false,
-		"enableRunLogging":false,
-		"enableVariableLogging":false,
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
 		"route":{
 			"default":false,
 			"headerValueTierMap":{},
@@ -1325,5 +1334,5 @@
 	"tags":[
 		"AI Agent"
 	],
-	"version":119
+	"version":123
 }
