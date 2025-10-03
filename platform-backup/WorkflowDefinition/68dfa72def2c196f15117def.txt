@@ -1,51 +1,106 @@
 {
 	"appsUsed":[
-		
+		"teamwork"
 	],
 	"createdTime":1759487789125,
 	"deleted":false,
 	"edges":[
 		{
-			"fromNodeId":"_eoHo7",
+			"fromNodeId":"n_hTCTk",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_AP3Yc",
+			"toNodeId":"n_KAsDL",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_KAsDL",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_li6IJ",
 			"type":"next"
 		}
 	],
 	"id":"68dfa72def2c196f15117def",
 	"lastModifiedBy":1,
 	"lcName":"test-connection-scheduler",
-	"modifiedTime":1759487789125,
+	"modifiedTime":1759487844175,
 	"name":"test-connection-scheduler",
 	"nodes":[
 		{
+			"context":{
+				"appName":"schedule",
+				"resourceVersion":122,
+				"resourceName":"schedule_default"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_eoHo7-1",
-			"id":"_eoHo7",
-			"index":0,
+			"id":"n_hTCTk",
+			"index":1,
+			"inputs":{
+				"cron":"INTERVAL",
+				"sequential":false,
+				"interval":30,
+				"frequency":"SECONDS"
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Schedule",
+			"title":"New recurring event",
 			"trigger":{
-				"type":"EVENT"
+				"type":"SCHEDULED"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"teamwork",
+				"resourceVersion":2541,
+				"connectionId":"68dfa75d37e6bb6440206e3f",
+				"resourceName":"teamwork_get_projects",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_eoHo7-1",
-			"id":"_AP3Yc",
-			"index":0,
+			"id":"n_KAsDL",
+			"index":2,
+			"inputs":{
+				"includeProjectOwner":false,
+				"onlyStarredProjects":false,
+				"orderMode":"asc",
+				"getDeleted":false,
+				"includeTags":false,
+				"orderby":"name",
+				"status":"active",
+				"includePeople":false
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Teamwork",
+			"title":"Get all projects",
 			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"stop"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_eoHo7-1",
+			"id":"n_li6IJ",
+			"index":3,
+			"skip":false,
+			"subTitle":"Stop",
+			"title":"Stop",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -59,5 +114,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
