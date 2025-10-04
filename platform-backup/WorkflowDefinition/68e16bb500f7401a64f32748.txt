@@ -7,46 +7,124 @@
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_ZiM4h",
+			"fromNodeId":"n_czG4M",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_EnPZB",
+			"toNodeId":"n_UNS4y",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_UNS4y",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_rf8YV",
 			"type":"next"
 		}
 	],
 	"id":"68e16bb500f7401a64f32748",
 	"lastModifiedBy":1,
 	"lcName":"callable_negativeretryerror117596033186220",
-	"modifiedTime":1759603637144,
+	"modifiedTime":1759603647317,
 	"name":"callable_negativeRetryError117596033186220",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1784,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_ZiM4h-1",
-			"id":"_ZiM4h",
-			"index":0,
+			"id":"n_czG4M",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"output_String"
+					],
+					"properties":{
+						"output_String":{
+							"type":"string",
+							"title":"output_String"
+						}
+					}
+				},
+				"setup":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"input_String"
+					],
+					"properties":{
+						"input_String":{
+							"type":"string",
+							"title":"input_String"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"test_http",
+				"resourceVersion":1821,
+				"connectionId":"66b0ee649c311126267a17b7",
+				"resourceName":"test_http_post_api",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_ZiM4h-1",
-			"id":"_EnPZB",
-			"index":0,
+			"id":"n_UNS4y",
+			"index":2,
+			"inputs":{
+				"field2":true
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Test HTTP API",
+			"title":"Test HTTP Post API",
 			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1787,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_ZiM4h-1",
+			"id":"n_rf8YV",
+			"index":3,
+			"inputs":{
+				"result":{
+					"output_String":"{{ n_czG4M.outputs.input_String }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +138,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
