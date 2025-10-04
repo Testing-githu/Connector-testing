@@ -5,12 +5,12 @@
 	"createdTime":1752764153689,
 	"deleted":false,
 	"deploymentState":{
-		"deployedAt":1759324038338,
+		"deployedAt":1759485525770,
 		"deployedBy":1,
-		"deployedDefinitionId":"68dd2786a15f9e7fa5e2109c",
+		"deployedDefinitionId":"68df9e55ef2c196f1510c416",
 		"status":"DEPLOYED",
-		"version":63,
-		"workflowVersion":117
+		"version":65,
+		"workflowVersion":119
 	},
 	"description":"Takes the input as the list of urls indexes them and extract the urls present in them and calls it self back for the next level of indexing.",
 	"edges":[
@@ -286,7 +286,7 @@
 	"id":"687657ea9f2cd2b4cd9ba5da",
 	"lastModifiedBy":-1,
 	"lcName":"recursive website crawler",
-	"modifiedTime":1759425123528,
+	"modifiedTime":1759607572331,
 	"name":"Recursive Website Crawler",
 	"nodes":[
 		{
@@ -1567,7 +1567,7 @@
 						}
 					}
 				},
-				"code":"List<String> signals = binding.hasVariable(\"signals\")?binding.getVariable(\"signals\"):[]\nList<String> visited = binding.hasVariable(\"visited_urls\")?binding.getVariable(\"visited_urls\"):[]\nList<String> present_urls = binding.hasVariable(\"present_urls\")?binding.getVariable(\"present_urls\"):[]\n\nList<String> updated_visited = visited + present_urls\n\nList<String> refined_urls = signals\n  .collectMany { it.signal_payload?.extracted_urls ?: [] }\n  .findAll { it?.trim() }\n  .collect { it.trim() }\n  .unique()\n\nrefined_urls = refined_urls.findAll { url -> \n  !updated_visited.contains(url)\n}\n\ndef success = true\nsignals.forEach{signal->\n  if(signal?.signal_payload?.status == \"FAILED\"){\n    success = false\n  }\n}\n\nreturn [refined_urls: refined_urls, updated_visited: updated_visited, success : success]",
+				"code":"List<String> signals = binding.hasVariable(\"signals\")?binding.getVariable(\"signals\"):[]\nList<String> visited = binding.hasVariable(\"visited_urls\")?binding.getVariable(\"visited_urls\"):[]\nList<String> present_urls = binding.hasVariable(\"present_urls\")?binding.getVariable(\"present_urls\"):[]\n\nList<String> updated_visited = visited + present_urls\n\nList<String> refined_urls = signals\n  .collectMany { it.signal_payload?.extracted_urls ?: [] }\n  .findAll { it?.trim() }\n  .collect { it.trim() }\n  .unique()\n\nrefined_urls = refined_urls.findAll { url -> \n  !updated_visited.contains(url)\n}\n\ndef success = true\nsignals.forEach{signal->\n  if(signal?.signal_payload?.success == \"FAILED\"){\n    success = false\n  }\n}\n\nreturn [refined_urls: refined_urls, updated_visited: updated_visited, success : success]",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
@@ -1878,5 +1878,5 @@
 	"tags":[
 		
 	],
-	"version":118
+	"version":120
 }
