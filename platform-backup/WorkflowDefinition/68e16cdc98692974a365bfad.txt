@@ -1,52 +1,223 @@
 {
 	"appsUsed":[
-		
+		"slack"
 	],
 	"createdTime":1759603932594,
 	"deleted":false,
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_Whj0u",
+			"fromNodeId":"n_8G75z",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_y7qhN",
+			"toNodeId":"n_jlita",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_jlita",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_WZUBg",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_WZUBg",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Gv9WC",
 			"type":"next"
 		}
 	],
 	"id":"68e16cdc98692974a365bfad",
 	"lastModifiedBy":1,
 	"lcName":"updatevariables_stopautomation_117596033234930",
-	"modifiedTime":1759603932594,
+	"modifiedTime":1759603952736,
 	"name":"updateVariables_stopAutomation_117596033234930",
 	"nodes":[
 		{
+			"context":{
+				"appName":"webhooks",
+				"resourceVersion":129,
+				"resourceName":"webhooks_default"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_Whj0u-1",
-			"id":"_Whj0u",
-			"index":0,
+			"id":"n_8G75z",
+			"index":1,
+			"inputs":{
+				"request":{
+					"contentType":"application/json"
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Webhook",
+			"title":"New event",
 			"trigger":{
-				"type":"EVENT"
+				"type":"WEBHOOK"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":1711,
+				"resourceName":"variable_by_unifyapps_create_variables",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_Whj0u-1",
-			"id":"_y7qhN",
-			"index":0,
+			"id":"n_jlita",
+			"index":2,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{},
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"input_field":{
+							"type":"number",
+							"title":"input_field"
+						}
+					},
+					"required":[
+						"input_field"
+					]
+				}
+			},
+			"inputs":{
+				"input_field":10
+			},
+			"outputSchema":{
+				"dynamic":false,
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"input_field":{
+							"type":"number",
+							"title":"input_field"
+						}
+					},
+					"required":[
+						"input_field"
+					]
+				}
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Variable by UnifyApps",
+			"title":"Create variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":1708,
+				"resourceName":"variable_by_unifyapps_update_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_Whj0u-1",
+			"id":"n_WZUBg",
+			"index":3,
+			"inputs":{
+				"variables":[
+					{
+						"source":"{{ n_jlita.outputs.input_field }}",
+						"value":"=(1/0)"
+					}
+				]
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"global":false
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS"
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"STOP",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				}
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Update variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"slack",
+				"resourceVersion":7515,
+				"connectionId":"662f8ddb91d8ba4394d0cce6",
+				"resourceName":"slack_post_message_in_channel",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_Whj0u-1",
+			"id":"n_Gv9WC",
+			"index":4,
+			"inputs":{
+				"link_names":true,
+				"mrkdwn":true
+			},
+			"skip":false,
+			"subTitle":"Slack",
+			"title":"Post message",
 			"type":"ACTION"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +231,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
