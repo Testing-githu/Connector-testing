@@ -7,46 +7,253 @@
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_ThO7K",
+			"fromNodeId":"n_jtXwP",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_uwbmR",
+			"toNodeId":"n_VHYqh",
 			"type":"next"
+		},
+		{
+			"fromNodeId":"n_VHYqh",
+			"name":"success",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_AssTc",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_VHYqh",
+			"name":"error",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_w5ui8",
+			"type":"error"
 		}
 	],
 	"id":"68e16bcc00f7401a64f3281e",
 	"lastModifiedBy":1,
 	"lcName":"callable_negativescenario117596033186220",
-	"modifiedTime":1759603660891,
+	"modifiedTime":1759603680946,
 	"name":"callable_negativeScenario117596033186220",
 	"nodes":[
 		{
+			"context":{
+				"appName":"webhooks",
+				"resourceVersion":129,
+				"resourceName":"webhooks_default"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_ThO7K-1",
-			"id":"_ThO7K",
-			"index":0,
+			"id":"n_jtXwP",
+			"index":1,
+			"inputs":{
+				"request":{
+					"contentType":"application/json"
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Webhook",
+			"title":"New event",
 			"trigger":{
-				"type":"EVENT"
+				"type":"WEBHOOK"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1,
+				"resourceName":"callables_call_automation_batch",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
-			"fallbackMode":"STOP",
+			"dirty":true,
+			"fallbackMode":"MANUAL",
 			"groupId":"_ThO7K-1",
-			"id":"_uwbmR",
-			"index":0,
+			"id":"n_VHYqh",
+			"index":2,
+			"inputs":{
+				"automationId":"68e16bb500f7401a64f32748",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"distributeWorkflowLoad":false,
+				"version":"-1"
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"global":false
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS"
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"MANUAL",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":1711,
+				"resourceName":"variable_by_unifyapps_create_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"n_VHYqh@_ThO7K-1@success",
+			"id":"n_AssTc",
+			"index":3,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{},
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"status":{
+							"type":"string",
+							"title":"status"
+						}
+					},
+					"required":[
+						"status"
+					]
+				}
+			},
+			"inputs":{
+				"status":"Successful"
+			},
+			"outputSchema":{
+				"dynamic":false,
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"status":{
+							"type":"string",
+							"title":"status"
+						}
+					},
+					"required":[
+						"status"
+					]
+				}
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Create variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":1711,
+				"resourceName":"variable_by_unifyapps_create_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"n_VHYqh@_ThO7K-1@error",
+			"id":"n_w5ui8",
+			"index":4,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{},
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"status":{
+							"type":"string",
+							"title":"status"
+						}
+					},
+					"required":[
+						"status"
+					]
+				}
+			},
+			"inputs":{
+				"status":"Failed"
+			},
+			"outputSchema":{
+				"dynamic":false,
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"status":{
+							"type":"string",
+							"title":"status"
+						}
+					},
+					"required":[
+						"status"
+					]
+				}
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Create variables",
 			"type":"ACTION"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +267,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
