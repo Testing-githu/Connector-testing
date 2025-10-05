@@ -6,46 +6,132 @@
 	"deleted":false,
 	"edges":[
 		{
-			"fromNodeId":"_syz8O",
+			"fromNodeId":"n_zLNBF",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_d3GiS",
+			"toNodeId":"n_0cbMv",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_0cbMv",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_RUYaQ",
 			"type":"next"
 		}
 	],
 	"id":"68e2bcbab6c78929d95dd629",
 	"lastModifiedBy":1,
 	"lcName":"interfacesqa2lgzdxisghv",
-	"modifiedTime":1759689914687,
+	"modifiedTime":1759689956739,
 	"name":"interfacesQA2lgZdXIsgHv",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1835,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_syz8O-1",
-			"id":"_syz8O",
-			"index":0,
+			"id":"n_zLNBF",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"c":{
+							"type":"string",
+							"title":"c"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1834,
+				"resourceName":"callables_call_interface",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_syz8O-1",
-			"id":"_d3GiS",
-			"index":0,
+			"id":"n_0cbMv",
+			"index":2,
+			"inputs":{
+				"callableInterfaceId":"68e2bc2fb6c78929d95dc85d",
+				"runtimeConnections":{},
+				"synchronous":false,
+				"triggerWorkflowWithRuntimeType":"DEFAULT",
+				"callableInterfaces":[
+					{
+						"workflowId":"68e2bc52b6c78929d95dccec",
+						"filter":{
+							"filters":[
+								{
+									"property":"street",
+									"filter":{
+										"operator":"NOT_EQUAL",
+										"value":"muralinagar"
+									}
+								}
+							],
+							"operator":"AND"
+						}
+					}
+				],
+				"fallbackWorkflowId":"68e2bc35c8c7895d79766af2",
+				"parameters":{
+					"a":23,
+					"b":72
+				}
+			},
 			"skip":false,
-			"title":"Select an app and action",
-			"type":"ACTION"
+			"subTitle":"Callable",
+			"title":"Call interface",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1838,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_syz8O-1",
+			"id":"n_RUYaQ",
+			"index":3,
+			"inputs":{
+				"result":{
+					"c":"{{ n_0cbMv.outputs.result }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -59,5 +145,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
