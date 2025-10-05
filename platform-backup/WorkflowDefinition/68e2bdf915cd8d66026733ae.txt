@@ -1,52 +1,81 @@
 {
 	"appsUsed":[
-		
+		"slack"
 	],
 	"createdTime":1759690233994,
 	"deleted":false,
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_MpmOV",
+			"fromNodeId":"n_T61wt",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_8dGqO",
+			"toNodeId":"n_Ezr2T",
 			"type":"next"
 		}
 	],
 	"id":"68e2bdf915cd8d66026733ae",
 	"lastModifiedBy":1,
 	"lcName":"check_citcuitbreakerlist_117596896916630",
-	"modifiedTime":1759690233994,
+	"modifiedTime":1759690242238,
 	"name":"Check_CitcuitBreakerList_117596896916630",
 	"nodes":[
 		{
+			"context":{
+				"appName":"webhooks",
+				"resourceVersion":130,
+				"resourceName":"webhooks_default"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_MpmOV-1",
-			"id":"_MpmOV",
-			"index":0,
+			"id":"n_T61wt",
+			"index":1,
+			"inputs":{
+				"request":{
+					"contentType":"application/json"
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Webhook",
+			"title":"New event",
 			"trigger":{
-				"type":"EVENT"
+				"type":"WEBHOOK"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"slack",
+				"resourceVersion":7571,
+				"connectionId":"662f8ddb91d8ba4394d0cce6",
+				"resourceName":"slack_post_message_in_channel",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_MpmOV-1",
-			"id":"_8dGqO",
-			"index":0,
+			"id":"n_Ezr2T",
+			"index":2,
+			"inputs":{
+				"link_names":true,
+				"messageType":"text",
+				"channel":"C07AKEPN1U3",
+				"text":"Check Circuit Breaker List",
+				"mrkdwn":true
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Slack",
+			"title":"Post message",
 			"type":"ACTION"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +89,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
