@@ -6,46 +6,150 @@
 	"deleted":false,
 	"edges":[
 		{
-			"fromNodeId":"_p2nGt",
+			"fromNodeId":"n_PV9BF",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_wf3kQ",
+			"toNodeId":"n_3qKYl",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_3qKYl",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_jnWoN",
 			"type":"next"
 		}
 	],
 	"id":"68e3582c884102285c203c03",
 	"lastModifiedBy":1,
 	"lcName":"cacheqa2cdyudzzmtb",
-	"modifiedTime":1759729708272,
+	"modifiedTime":1759729746199,
 	"name":"cacheQA2cdYUdZZmtb",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1897,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_p2nGt-1",
-			"id":"_p2nGt",
-			"index":0,
+			"id":"n_PV9BF",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"z":{
+							"type":"integer",
+							"title":"z"
+						}
+					}
+				},
+				"setup":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"x":{
+							"type":"integer",
+							"title":"x"
+						},
+						"y":{
+							"type":"integer",
+							"title":"y"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":1799,
+				"resourceName":"code_by_unifyapps_javascript",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_p2nGt-1",
-			"id":"_wf3kQ",
-			"index":0,
+			"id":"n_3qKYl",
+			"index":2,
+			"inputs":{
+				"output":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"z":{
+							"type":"integer",
+							"title":"z"
+						}
+					}
+				},
+				"input":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"x":{
+							"type":"integer",
+							"title":"x"
+						},
+						"y":{
+							"type":"integer",
+							"title":"y"
+						}
+					}
+				},
+				"code":"let ans={};\nans['z']=x+y;",
+				"isAsync":false,
+				"parameters":{
+					"x":"{{ n_PV9BF.outputs.x }}",
+					"y":"{{ n_PV9BF.outputs.y }}"
+				}
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Javascript",
 			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1900,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_p2nGt-1",
+			"id":"n_jnWoN",
+			"index":3,
+			"inputs":{
+				"result":{
+					"z":"{{ n_3qKYl.outputs.result }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -59,5 +163,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
