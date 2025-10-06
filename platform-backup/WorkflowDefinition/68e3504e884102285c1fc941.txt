@@ -30,7 +30,7 @@
 	"id":"68e3504e884102285c1fc941",
 	"lastModifiedBy":1,
 	"lcName":"filetourl",
-	"modifiedTime":1759727876628,
+	"modifiedTime":1759728105875,
 	"name":"filetourl",
 	"nodes":[
 		{
@@ -54,9 +54,7 @@
 					],
 					"properties":{
 						"r":{
-							"type":"object",
-							"properties":{},
-							"additionalProperties":false,
+							"type":"string",
 							"title":"R"
 						}
 					}
@@ -78,7 +76,7 @@
 				"type":"APPLICATION"
 			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_JhLuI-1",
 			"id":"n_wGUrA",
@@ -88,7 +86,7 @@
 				"url":"https://arxiv.org/pdf/2407.02987",
 				"option":"url"
 			},
-			"skip":true,
+			"skip":false,
 			"subTitle":"Files by UnifyApps",
 			"title":"Upload file",
 			"type":"ACTION"
@@ -96,22 +94,22 @@
 		{
 			"context":{
 				"appName":"utility_by_unifyapps",
-				"resourceVersion":2444,
-				"resourceName":"utility_by_unifyapps_create_unifyapps_file_from_url",
+				"resourceVersion":2447,
+				"resourceName":"utility_by_unifyapps_create_unifyapps_path_for_file",
 				"type":"APPLICATION"
 			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_JhLuI-1",
 			"id":"n_4JOZu",
 			"index":3,
 			"inputs":{
-				"url":"https://arxiv.org/pdf/2407.02987"
+				"file":"{{ n_wGUrA.outputs.fileDetails }}"
 			},
 			"skip":false,
 			"subTitle":"Utility by UnifyApps",
-			"title":"Create UnifyApps file from url",
+			"title":"Create UnifyApps path for file",
 			"type":"ACTION"
 		},
 		{
@@ -129,7 +127,7 @@
 			"index":4,
 			"inputs":{
 				"result":{
-					"r":"{{ n_4JOZu.outputs.file }}"
+					"r":"{{ n_4JOZu.outputs.path }}"
 				}
 			},
 			"skip":false,
@@ -155,5 +153,5 @@
 	"tags":[
 		
 	],
-	"version":2
+	"version":3
 }
