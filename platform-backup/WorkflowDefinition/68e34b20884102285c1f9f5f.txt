@@ -5,12 +5,12 @@
 	"createdTime":1759726368404,
 	"deleted":false,
 	"deploymentState":{
-		"deployedAt":1759727993342,
+		"deployedAt":1759728313025,
 		"deployedBy":1,
-		"deployedDefinitionId":"68e35179884102285c1ffad4",
+		"deployedDefinitionId":"68e352b8884102285c2003f4",
 		"status":"DEPLOYED",
-		"version":2,
-		"workflowVersion":2
+		"version":3,
+		"workflowVersion":3
 	},
 	"edges":[
 		{
@@ -31,8 +31,15 @@
 			"fromNodeId":"n_XUWxf",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"n_vsYYN",
+			"toNodeId":"n_ep9kO",
 			"type":"loop"
+		},
+		{
+			"fromNodeId":"n_ep9kO",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_vsYYN",
+			"type":"next"
 		},
 		{
 			"fromNodeId":"n_vsYYN",
@@ -85,7 +92,7 @@
 	"id":"68e34b20884102285c1f9f5f",
 	"lastModifiedBy":1,
 	"lcName":"loop-condition",
-	"modifiedTime":1759728311228,
+	"modifiedTime":1759728642657,
 	"name":"loop-condition",
 	"nodes":[
 		{
@@ -170,7 +177,7 @@
 				"type":"APPLICATION"
 			},
 			"debug":false,
-			"dirty":true,
+			"dirty":false,
 			"fallbackMode":"STOP",
 			"groupId":"n_oTV2Q@_aUTdu-1@l",
 			"id":"n_XUWxf",
@@ -197,6 +204,29 @@
 		},
 		{
 			"context":{
+				"appName":"utility_by_unifyapps",
+				"resourceVersion":2412,
+				"resourceName":"utility_by_unifyapps_get_value_at_index_from_list",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"n_XUWxf@n_oTV2Q@_aUTdu-1@l@l",
+			"id":"n_ep9kO",
+			"index":4,
+			"inputs":{
+				"positionFrom":"START",
+				"listSource":"{{ n_UEbu2.outputs.a }}",
+				"elementPosition":"={{ n_XUWxf.outputs.index }}+1"
+			},
+			"skip":false,
+			"subTitle":"Utility by UnifyApps",
+			"title":"Get value at index from list",
+			"type":"ACTION"
+		},
+		{
+			"context":{
 				"appName":"if_else",
 				"resourceVersion":131,
 				"resourceName":"if_else_condition",
@@ -207,11 +237,11 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_XUWxf@n_oTV2Q@_aUTdu-1@l@l",
 			"id":"n_vsYYN",
-			"index":4,
+			"index":5,
 			"inputs":{
 				"filters":[
 					{
-						"property":"=MOD({{ n_oTV2Q.outputs.item }},2)",
+						"property":"=MOD({{ n_ep9kO.outputs.item }},2)",
 						"filter":{
 							"operator":"NOT_EQUAL",
 							"value":"0"
@@ -237,7 +267,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_vsYYN@n_XUWxf@n_oTV2Q@_aUTdu-1@l@l@y",
 			"id":"n_ayRBZ",
-			"index":5,
+			"index":6,
 			"inputSchema":{
 				"type":"SCHEMA_AND_LAYOUT",
 				"dynamic":false,
@@ -257,7 +287,7 @@
 				}
 			},
 			"inputs":{
-				"result":"{{ n_oTV2Q.outputs.item }}"
+				"result":"{{ n_ep9kO.outputs.item }}"
 			},
 			"outputSchema":{
 				"dynamic":false,
@@ -288,11 +318,11 @@
 				"type":"APPLICATION"
 			},
 			"debug":false,
-			"dirty":true,
+			"dirty":false,
 			"fallbackMode":"STOP",
 			"groupId":"n_vsYYN@n_XUWxf@n_oTV2Q@_aUTdu-1@l@l@n",
 			"id":"n_4qNx4",
-			"index":6,
+			"index":7,
 			"inputs":{
 				"loop":"n_XUWxf"
 			},
@@ -313,7 +343,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_aUTdu-1",
 			"id":"n_znz3T",
-			"index":7,
+			"index":8,
 			"inputs":{
 				"result":{
 					"b":"{{ n_RMSiz.outputs.var }}"
@@ -342,5 +372,5 @@
 	"tags":[
 		
 	],
-	"version":3
+	"version":4
 }
