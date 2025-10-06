@@ -6,46 +6,123 @@
 	"deleted":false,
 	"edges":[
 		{
-			"fromNodeId":"_9TXdR",
+			"fromNodeId":"n_fqaTd",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_dra1s",
+			"toNodeId":"n_luEVA",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_luEVA",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_EKxTQ",
 			"type":"next"
 		}
 	],
 	"id":"68e350eb884102285c1fe447",
 	"lastModifiedBy":1,
 	"lcName":"utilitybyunifyappsqa2uyzfuibtzy",
-	"modifiedTime":1759727851210,
+	"modifiedTime":1759727890027,
 	"name":"UtilityByUnifyAppsQA2uYzFUIBtZy",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1897,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_9TXdR-1",
-			"id":"_9TXdR",
-			"index":0,
+			"id":"n_fqaTd",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"r":{
+							"type":"string",
+							"title":"r"
+						}
+					}
+				},
+				"setup":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"a":{
+							"type":"string",
+							"title":"a"
+						},
+						"b":{
+							"type":"string",
+							"title":"b"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"utility_by_unifyapps",
+				"resourceVersion":2445,
+				"resourceName":"utility_by_unifyapps_date_diff",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_9TXdR-1",
-			"id":"_dra1s",
-			"index":0,
+			"id":"n_luEVA",
+			"index":2,
+			"inputs":{
+				"outputUnit":"years",
+				"date2":"{{ n_fqaTd.outputs.b }}",
+				"date1":"{{ n_fqaTd.outputs.a }}"
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Utility by UnifyApps",
+			"title":"Date Difference Calculator",
 			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1900,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_9TXdR-1",
+			"id":"n_EKxTQ",
+			"index":3,
+			"inputs":{
+				"result":{
+					"r":"{{ n_luEVA.outputs.difference }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -59,5 +136,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
