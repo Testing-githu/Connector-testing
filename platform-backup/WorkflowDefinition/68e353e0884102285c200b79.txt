@@ -1,51 +1,133 @@
 {
 	"appsUsed":[
-		
+		"clickup"
 	],
 	"createdTime":1759728608374,
 	"deleted":false,
 	"edges":[
 		{
-			"fromNodeId":"_OjJVU",
+			"fromNodeId":"n_3ni4L",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_ePr9d",
+			"toNodeId":"n_wG09s",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_wG09s",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_vw34e",
 			"type":"next"
 		}
 	],
 	"id":"68e353e0884102285c200b79",
 	"lastModifiedBy":1,
 	"lcName":"cacheqa2iwwdrxjtkl",
-	"modifiedTime":1759728608374,
+	"modifiedTime":1759728644101,
 	"name":"cacheQA2iWWdrxJTKl",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1897,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_OjJVU-1",
-			"id":"_OjJVU",
-			"index":0,
+			"id":"n_3ni4L",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"result":{
+							"type":"string",
+							"title":"result"
+						}
+					}
+				},
+				"setup":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"team_id":{
+							"type":"string",
+							"title":"team_id"
+						},
+						"space_id":{
+							"type":"string",
+							"title":"space_id"
+						},
+						"folder_id":{
+							"type":"string",
+							"title":"folder_id"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"clickup",
+				"resourceVersion":10737,
+				"connectionId":"67b0442665d0907dc7f5d402",
+				"resourceName":"clickup_get_folder_details",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_OjJVU-1",
-			"id":"_ePr9d",
-			"index":0,
+			"id":"n_wG09s",
+			"index":2,
+			"inputs":{
+				"team_id":"{{ n_3ni4L.outputs.team_id }}",
+				"folder_id":"{{ n_3ni4L.outputs.folder_id }}",
+				"space_id":"{{ n_3ni4L.outputs.space_id }}"
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"ClickUp",
+			"title":"Get folder details",
 			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1900,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_OjJVU-1",
+			"id":"n_vw34e",
+			"index":3,
+			"inputs":{
+				"result":{
+					"result":"{{ n_wG09s.outputs.name }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -59,5 +141,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
