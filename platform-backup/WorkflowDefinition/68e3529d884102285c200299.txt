@@ -6,46 +6,118 @@
 	"deleted":false,
 	"edges":[
 		{
-			"fromNodeId":"_FM5A9",
+			"fromNodeId":"n_Xn2Dl",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_F6lFL",
+			"toNodeId":"n_Z61OB",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Z61OB",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_uTonC",
 			"type":"next"
 		}
 	],
 	"id":"68e3529d884102285c200299",
 	"lastModifiedBy":1,
 	"lcName":"utilitybyunifyappsqa2irptbfakcw",
-	"modifiedTime":1759728285891,
+	"modifiedTime":1759728322080,
 	"name":"UtilityByUnifyAppsQA2irPTbFAkcW",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1897,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_FM5A9-1",
-			"id":"_FM5A9",
-			"index":0,
+			"id":"n_Xn2Dl",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"r":{
+							"type":"string",
+							"title":"r"
+						}
+					}
+				},
+				"setup":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"r":{
+							"type":"string",
+							"title":"r"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"utility_by_unifyapps",
+				"resourceVersion":2447,
+				"resourceName":"utility_by_unifyapps_from_html_to_plain_text",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_FM5A9-1",
-			"id":"_F6lFL",
-			"index":0,
+			"id":"n_Z61OB",
+			"index":2,
+			"inputs":{
+				"conversionType":"markdown",
+				"htmlString":"<ol><li>Step 1</li><li>Step 2</li></ol>"
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Utility by UnifyApps",
+			"title":"Convert HTML to text",
 			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1900,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_FM5A9-1",
+			"id":"n_uTonC",
+			"index":3,
+			"inputs":{
+				"result":{
+					"r":"{{ n_Z61OB.outputs.convertedText }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -59,5 +131,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
