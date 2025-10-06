@@ -4,55 +4,54 @@
 	],
 	"createdTime":1759726368404,
 	"deleted":false,
+	"deploymentState":{
+		"deployedAt":1759727815362,
+		"deployedBy":1,
+		"deployedDefinitionId":"68e350c7884102285c1fd626",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":1
+	},
 	"edges":[
 		{
 			"fromNodeId":"n_UEbu2",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"n_VtjrJ",
+			"toNodeId":"n_oTV2Q",
 			"type":"next"
 		},
 		{
-			"fromNodeId":"n_VtjrJ",
+			"fromNodeId":"n_oTV2Q",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"n_u0ogv",
+			"toNodeId":"n_XUWxf",
 			"type":"loop"
 		},
 		{
-			"fromNodeId":"n_u0ogv",
-			"name":"yes",
+			"fromNodeId":"n_XUWxf",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"n_RMSiz",
-			"type":"if"
+			"toNodeId":"n_7PMw4",
+			"type":"loop"
 		},
 		{
-			"fromNodeId":"n_u0ogv",
-			"name":"no",
-			"priority":0,
-			"skip":false,
-			"toNodeId":"n_DMEnU",
-			"type":"next"
-		},
-		{
-			"fromNodeId":"n_RMSiz",
+			"fromNodeId":"n_7PMw4",
 			"name":"loopback",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"n_VtjrJ",
+			"toNodeId":"n_XUWxf",
 			"type":"next"
 		},
 		{
-			"fromNodeId":"n_DMEnU",
+			"fromNodeId":"n_XUWxf",
 			"name":"loopback",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"n_VtjrJ",
+			"toNodeId":"n_oTV2Q",
 			"type":"next"
 		},
 		{
-			"fromNodeId":"n_VtjrJ",
+			"fromNodeId":"n_oTV2Q",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_znz3T",
@@ -62,7 +61,7 @@
 	"id":"68e34b20884102285c1f9f5f",
 	"lastModifiedBy":1,
 	"lcName":"loop-condition",
-	"modifiedTime":1759727813334,
+	"modifiedTime":1759727991558,
 	"name":"loop-condition",
 	"nodes":[
 		{
@@ -99,7 +98,10 @@
 					],
 					"properties":{
 						"a":{
-							"type":"integer",
+							"type":"array",
+							"items":{
+								"type":"integer"
+							},
 							"title":"A"
 						}
 					}
@@ -116,6 +118,29 @@
 		{
 			"context":{
 				"appName":"loop",
+				"resourceVersion":134,
+				"resourceName":"loop_for_each",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_aUTdu-1",
+			"id":"n_oTV2Q",
+			"index":2,
+			"inputs":{
+				"repeatMode":"SINGLE",
+				"listSource":"{{ n_UEbu2.outputs.a }}",
+				"captureIterations":true
+			},
+			"skip":false,
+			"subTitle":"Loop",
+			"title":"For each loop",
+			"type":"LOOP"
+		},
+		{
+			"context":{
+				"appName":"loop",
 				"resourceVersion":135,
 				"resourceName":"loop_while",
 				"type":"APPLICATION"
@@ -123,17 +148,17 @@
 			"debug":false,
 			"dirty":true,
 			"fallbackMode":"STOP",
-			"groupId":"_aUTdu-1",
-			"id":"n_VtjrJ",
-			"index":2,
+			"groupId":"n_oTV2Q@_aUTdu-1@l",
+			"id":"n_XUWxf",
+			"index":3,
 			"inputs":{
 				"condition":{
 					"filters":[
 						{
-							"property":"{{ n_UEbu2.outputs.a }}",
+							"property":"=MOD({{ n_oTV2Q.outputs.item }},2)",
 							"filter":{
-								"operator":"LT",
-								"value":"10"
+								"operator":"NOT_EQUAL",
+								"value":"0"
 							}
 						}
 					],
@@ -148,36 +173,6 @@
 		},
 		{
 			"context":{
-				"appName":"if_else",
-				"resourceVersion":131,
-				"resourceName":"if_else_condition",
-				"type":"APPLICATION"
-			},
-			"debug":false,
-			"dirty":true,
-			"fallbackMode":"STOP",
-			"groupId":"n_VtjrJ@_aUTdu-1@l",
-			"id":"n_u0ogv",
-			"index":3,
-			"inputs":{
-				"filters":[
-					{
-						"property":"=MOD({{ n_UEbu2.outputs.a }},0)",
-						"filter":{
-							"operator":"NOT_EQUAL",
-							"value":"0"
-						}
-					}
-				],
-				"operator":"AND"
-			},
-			"skip":false,
-			"subTitle":"Condition",
-			"title":"Condition",
-			"type":"IF_ELSE"
-		},
-		{
-			"context":{
 				"appName":"variable_by_unifyapps",
 				"resourceVersion":1836,
 				"resourceName":"variable_by_unifyapps_create_variables",
@@ -186,8 +181,8 @@
 			"debug":false,
 			"dirty":true,
 			"fallbackMode":"STOP",
-			"groupId":"n_u0ogv@n_VtjrJ@_aUTdu-1@l@y",
-			"id":"n_RMSiz",
+			"groupId":"n_XUWxf@n_oTV2Q@_aUTdu-1@l@l",
+			"id":"n_7PMw4",
 			"index":4,
 			"inputSchema":{
 				"type":"SCHEMA_AND_LAYOUT",
@@ -197,18 +192,18 @@
 					"additionalProperties":false,
 					"type":"object",
 					"properties":{
-						"var":{
+						"result":{
 							"type":"integer",
-							"title":"Var"
+							"title":"Result"
 						}
 					},
 					"required":[
-						"var"
+						"result"
 					]
 				}
 			},
 			"inputs":{
-				"var":"{{ n_UEbu2.outputs.a }}"
+				"result":"{{ n_oTV2Q.outputs.item }}"
 			},
 			"outputSchema":{
 				"dynamic":false,
@@ -216,13 +211,13 @@
 					"additionalProperties":false,
 					"type":"object",
 					"properties":{
-						"var":{
+						"result":{
 							"type":"integer",
-							"title":"Var"
+							"title":"Result"
 						}
 					},
 					"required":[
-						"var"
+						"result"
 					]
 				}
 			},
@@ -230,27 +225,6 @@
 			"subTitle":"Variable by UnifyApps",
 			"title":"Create variables",
 			"type":"ACTION"
-		},
-		{
-			"context":{
-				"appName":"break",
-				"resourceVersion":134,
-				"resourceName":"break",
-				"type":"APPLICATION"
-			},
-			"debug":false,
-			"dirty":true,
-			"fallbackMode":"STOP",
-			"groupId":"n_u0ogv@n_VtjrJ@_aUTdu-1@l@n",
-			"id":"n_DMEnU",
-			"index":5,
-			"inputs":{
-				"loop":"n_VtjrJ"
-			},
-			"skip":false,
-			"subTitle":"Break",
-			"title":"Break",
-			"type":"BREAK"
 		},
 		{
 			"context":{
@@ -264,7 +238,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_aUTdu-1",
 			"id":"n_znz3T",
-			"index":6,
+			"index":5,
 			"inputs":{
 				"result":{
 					"b":"{{ n_RMSiz.outputs.var }}"
@@ -293,5 +267,5 @@
 	"tags":[
 		
 	],
-	"version":1
+	"version":2
 }
