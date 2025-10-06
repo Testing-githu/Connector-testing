@@ -7,46 +7,107 @@
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_BllXP",
+			"fromNodeId":"n_aSIQY",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_QUgCH",
+			"toNodeId":"n_ePb0c",
 			"type":"next"
 		}
 	],
 	"id":"68e410be884102285c2b9d38",
 	"lastModifiedBy":1,
 	"lcName":"condition box|string input - greater than 11759776246463",
-	"modifiedTime":1759776958172,
+	"modifiedTime":1759776968217,
 	"name":"Condition Box|String Input - Greater than 11759776246463",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1899,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_BllXP-1",
-			"id":"_BllXP",
-			"index":0,
+			"id":"n_aSIQY",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"output_String"
+					],
+					"properties":{
+						"output_String":{
+							"type":"string",
+							"title":"output_String"
+						}
+					}
+				},
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"property":"{{ n_aSIQY.outputs.input_String }}",
+							"filter":{
+								"operator":"GT",
+								"value":"cool"
+							}
+						}
+					],
+					"operator":"AND"
+				},
+				"setup":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"input_String"
+					],
+					"properties":{
+						"input_String":{
+							"type":"string",
+							"title":"input_String"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1902,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_BllXP-1",
-			"id":"_QUgCH",
-			"index":0,
+			"id":"n_ePb0c",
+			"index":2,
+			"inputs":{
+				"result":{
+					"output_String":"{{ n_aSIQY.outputs.input_String }}"
+				}
+			},
 			"skip":false,
-			"title":"Select an app and action",
-			"type":"ACTION"
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +121,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
