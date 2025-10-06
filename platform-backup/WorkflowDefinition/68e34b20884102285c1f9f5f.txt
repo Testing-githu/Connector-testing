@@ -5,12 +5,12 @@
 	"createdTime":1759726368404,
 	"deleted":false,
 	"deploymentState":{
-		"deployedAt":1759728644302,
+		"deployedAt":1759728658858,
 		"deployedBy":1,
-		"deployedDefinitionId":"68e35404884102285c200c5f",
+		"deployedDefinitionId":"68e35412884102285c200d23",
 		"status":"DEPLOYED",
-		"version":4,
-		"workflowVersion":4
+		"version":5,
+		"workflowVersion":5
 	},
 	"edges":[
 		{
@@ -59,14 +59,20 @@
 		},
 		{
 			"fromNodeId":"n_ayRBZ",
-			"name":"loopback",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"n_XUWxf",
+			"toNodeId":"n_wasK1",
 			"type":"next"
 		},
 		{
 			"fromNodeId":"n_4qNx4",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_wasK1",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_wasK1",
 			"name":"loopback",
 			"priority":0,
 			"skip":false,
@@ -92,7 +98,7 @@
 	"id":"68e34b20884102285c1f9f5f",
 	"lastModifiedBy":1,
 	"lcName":"loop-condition",
-	"modifiedTime":1759728657186,
+	"modifiedTime":1759729084176,
 	"name":"loop-condition",
 	"nodes":[
 		{
@@ -177,7 +183,7 @@
 				"type":"APPLICATION"
 			},
 			"debug":false,
-			"dirty":true,
+			"dirty":false,
 			"fallbackMode":"STOP",
 			"groupId":"n_oTV2Q@_aUTdu-1@l",
 			"id":"n_XUWxf",
@@ -210,7 +216,7 @@
 				"type":"APPLICATION"
 			},
 			"debug":false,
-			"dirty":true,
+			"dirty":false,
 			"fallbackMode":"STOP",
 			"groupId":"n_XUWxf@n_oTV2Q@_aUTdu-1@l@l",
 			"id":"n_ep9kO",
@@ -220,7 +226,7 @@
 				"listSource":"{{ n_UEbu2.outputs.a }}",
 				"elementPosition":"={{ n_XUWxf.outputs.index }}+1"
 			},
-			"skip":false,
+			"skip":true,
 			"subTitle":"Utility by UnifyApps",
 			"title":"Get value at index from list",
 			"type":"ACTION"
@@ -233,7 +239,7 @@
 				"type":"APPLICATION"
 			},
 			"debug":false,
-			"dirty":true,
+			"dirty":false,
 			"fallbackMode":"STOP",
 			"groupId":"n_XUWxf@n_oTV2Q@_aUTdu-1@l@l",
 			"id":"n_vsYYN",
@@ -241,7 +247,7 @@
 			"inputs":{
 				"filters":[
 					{
-						"property":"=MOD({{ n_ep9kO.outputs.item }},2)",
+						"property":"=MOD({{ n_oTV2Q.outputs.item }},2)",
 						"filter":{
 							"operator":"NOT_EQUAL",
 							"value":"0"
@@ -263,7 +269,7 @@
 				"type":"APPLICATION"
 			},
 			"debug":false,
-			"dirty":true,
+			"dirty":false,
 			"fallbackMode":"STOP",
 			"groupId":"n_vsYYN@n_XUWxf@n_oTV2Q@_aUTdu-1@l@l@y",
 			"id":"n_ayRBZ",
@@ -287,7 +293,7 @@
 				}
 			},
 			"inputs":{
-				"result":"{{ n_ep9kO.outputs.item }}"
+				"result":"{{ n_oTV2Q.outputs.item }}"
 			},
 			"outputSchema":{
 				"dynamic":false,
@@ -333,6 +339,27 @@
 		},
 		{
 			"context":{
+				"appName":"break",
+				"resourceVersion":134,
+				"resourceName":"break",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"n_XUWxf@n_oTV2Q@_aUTdu-1@l@l",
+			"id":"n_wasK1",
+			"index":8,
+			"inputs":{
+				"loop":"n_XUWxf"
+			},
+			"skip":false,
+			"subTitle":"Break",
+			"title":"Break",
+			"type":"BREAK"
+		},
+		{
+			"context":{
 				"appName":"callables",
 				"resourceVersion":1900,
 				"resourceName":"callables_return_to_automation",
@@ -343,7 +370,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_aUTdu-1",
 			"id":"n_znz3T",
-			"index":8,
+			"index":9,
 			"inputs":{
 				"result":{
 					"b":"{{ n_RMSiz.outputs.var }}"
@@ -372,5 +399,5 @@
 	"tags":[
 		
 	],
-	"version":5
+	"version":7
 }
