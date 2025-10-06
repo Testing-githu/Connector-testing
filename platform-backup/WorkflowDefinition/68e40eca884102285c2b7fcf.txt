@@ -1,52 +1,203 @@
 {
 	"appsUsed":[
-		
+		"shopify",
+		"slack"
 	],
 	"createdTime":1759776458119,
 	"deleted":false,
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_PvIxS",
+			"fromNodeId":"n_7yvd6",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_RDiMe",
+			"toNodeId":"n_v4A5x",
 			"type":"next"
+		},
+		{
+			"fromNodeId":"n_v4A5x",
+			"name":"success",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_vQM6u",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_v4A5x",
+			"name":"error",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_mv7iy",
+			"type":"error"
 		}
 	],
 	"id":"68e40eca884102285c2b7fcf",
 	"lastModifiedBy":1,
 	"lcName":"app node with complete config  - 117597762545110",
-	"modifiedTime":1759776458119,
+	"modifiedTime":1759776476302,
 	"name":"App node with complete config  - 117597762545110",
 	"nodes":[
 		{
+			"context":{
+				"appName":"shopify",
+				"resourceVersion":10830,
+				"resourceName":"shopify_on_order_create"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_PvIxS-1",
-			"id":"_PvIxS",
-			"index":0,
+			"id":"n_7yvd6",
+			"index":1,
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Shopify",
+			"title":"Order created",
 			"trigger":{
 				"type":"EVENT"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"slack",
+				"resourceVersion":7648,
+				"resourceName":"slack_post_message_in_channel",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
-			"fallbackMode":"STOP",
+			"dirty":true,
+			"fallbackMode":"MANUAL",
 			"groupId":"_PvIxS-1",
-			"id":"_RDiMe",
-			"index":0,
+			"id":"n_v4A5x",
+			"index":2,
+			"inputs":{
+				"link_names":true,
+				"mrkdwn":true
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"global":false
+				},
+				"businessHoursConfig":{
+					"businessHoursId":"7-8",
+					"enabled":true,
+					"waitForNextWindow":true
+				},
+				"cacheConfig":{
+					"cacheKey":"fields_cache",
+					"enabled":true,
+					"filter":{
+						"filters":[
+							{
+								"filter":{
+									"operator":"EXISTS"
+								},
+								"property":"{{ n_7yvd6.outputs.id }}"
+							}
+						],
+						"operator":"AND"
+					},
+					"timeToLive":"300",
+					"usagePolicy":"ON_ERROR"
+				},
+				"circuitBreakerConfig":{
+					"automaticTransitionFromOpenToHalfOpen":true,
+					"enabled":true,
+					"failureRateThreshold":11.0,
+					"maxWaitDurationInHalfOpenState":16,
+					"minimumNumberOfCalls":17,
+					"permittedNumberOfCallsInHalfOpenState":15,
+					"slidingWindowSize":14,
+					"slidingWindowType":"TIME_BASED",
+					"slowCallDurationThresholdMillis":13,
+					"slowCallRateThreshold":12.0,
+					"waitDurationInOpenState":18
+				},
+				"disableLogging":true,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"duration":"1",
+					"enabled":true,
+					"threshold":"10",
+					"unit":"MINUTES",
+					"waitForNextWindow":true
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"count":5,
+					"enabled":true,
+					"filter":{
+						"filters":[
+							{
+								"filter":{
+									"operator":"EXISTS"
+								},
+								"property":"{{ n_7yvd6.outputs.shipping_address.zip }}"
+							}
+						],
+						"operator":"AND"
+					}
+				},
+				"stepError":"MANUAL",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
+			},
+			"skip":false,
+			"subTitle":"Slack",
+			"title":"Post message",
+			"type":"ACTION"
+		},
+		{
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"n_v4A5x@_PvIxS-1@success",
+			"id":"n_vQM6u",
+			"index":3,
+			"skip":false,
+			"title":"Select an app and action",
+			"type":"ACTION"
+		},
+		{
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"n_v4A5x@_PvIxS-1@error",
+			"id":"n_mv7iy",
+			"index":4,
 			"skip":false,
 			"title":"Select an app and action",
 			"type":"ACTION"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +211,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
