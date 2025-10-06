@@ -1,6 +1,6 @@
 {
 	"appsUsed":[
-		
+		"15five"
 	],
 	"createdTime":1759726368404,
 	"deleted":false,
@@ -31,15 +31,8 @@
 			"fromNodeId":"n_XUWxf",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"n_ep9kO",
-			"type":"loop"
-		},
-		{
-			"fromNodeId":"n_ep9kO",
-			"priority":0,
-			"skip":false,
 			"toNodeId":"n_vsYYN",
-			"type":"next"
+			"type":"loop"
 		},
 		{
 			"fromNodeId":"n_vsYYN",
@@ -61,18 +54,42 @@
 			"fromNodeId":"n_ayRBZ",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"n_wasK1",
+			"toNodeId":"n_vyRGx",
 			"type":"next"
 		},
 		{
 			"fromNodeId":"n_4qNx4",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"n_wasK1",
+			"toNodeId":"n_vyRGx",
 			"type":"next"
 		},
 		{
-			"fromNodeId":"n_wasK1",
+			"fromNodeId":"n_vyRGx",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_geWCv",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_vyRGx",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_f1AX0",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_geWCv",
+			"name":"loopback",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_XUWxf",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_f1AX0",
 			"name":"loopback",
 			"priority":0,
 			"skip":false,
@@ -98,17 +115,22 @@
 	"id":"68e34b20884102285c1f9f5f",
 	"lastModifiedBy":1,
 	"lcName":"loop-condition",
-	"modifiedTime":1759729084176,
+	"modifiedTime":1759735504016,
 	"name":"loop-condition",
 	"nodes":[
 		{
+			"additional":{
+				"xsdSchemaConfig":{
+					"root":{}
+				}
+			},
 			"context":{
 				"appName":"callables",
 				"resourceVersion":1897,
 				"resourceName":"callables_from_automation"
 			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_aUTdu-1",
 			"id":"n_UEbu2",
@@ -117,29 +139,23 @@
 				"result":{
 					"type":"object",
 					"additionalProperties":false,
-					"required":[
-						"b"
-					],
 					"properties":{
-						"b":{
+						"output":{
 							"type":"integer",
-							"title":"B"
+							"title":"output"
 						}
 					}
 				},
 				"setup":{
 					"type":"object",
 					"additionalProperties":false,
-					"required":[
-						"a"
-					],
 					"properties":{
-						"a":{
+						"input":{
 							"type":"array",
 							"items":{
 								"type":"integer"
 							},
-							"title":"A"
+							"title":"input"
 						}
 					}
 				}
@@ -160,14 +176,14 @@
 				"type":"APPLICATION"
 			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_aUTdu-1",
 			"id":"n_oTV2Q",
 			"index":2,
 			"inputs":{
 				"repeatMode":"SINGLE",
-				"listSource":"{{ n_UEbu2.outputs.a }}",
+				"listSource":"{{ n_UEbu2.outputs.input }}",
 				"captureIterations":true
 			},
 			"skip":false,
@@ -183,7 +199,7 @@
 				"type":"APPLICATION"
 			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"n_oTV2Q@_aUTdu-1@l",
 			"id":"n_XUWxf",
@@ -210,40 +226,17 @@
 		},
 		{
 			"context":{
-				"appName":"utility_by_unifyapps",
-				"resourceVersion":2412,
-				"resourceName":"utility_by_unifyapps_get_value_at_index_from_list",
-				"type":"APPLICATION"
-			},
-			"debug":false,
-			"dirty":false,
-			"fallbackMode":"STOP",
-			"groupId":"n_XUWxf@n_oTV2Q@_aUTdu-1@l@l",
-			"id":"n_ep9kO",
-			"index":4,
-			"inputs":{
-				"positionFrom":"START",
-				"listSource":"{{ n_UEbu2.outputs.a }}",
-				"elementPosition":"={{ n_XUWxf.outputs.index }}+1"
-			},
-			"skip":true,
-			"subTitle":"Utility by UnifyApps",
-			"title":"Get value at index from list",
-			"type":"ACTION"
-		},
-		{
-			"context":{
 				"appName":"if_else",
 				"resourceVersion":131,
 				"resourceName":"if_else_condition",
 				"type":"APPLICATION"
 			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"n_XUWxf@n_oTV2Q@_aUTdu-1@l@l",
 			"id":"n_vsYYN",
-			"index":5,
+			"index":4,
 			"inputs":{
 				"filters":[
 					{
@@ -269,11 +262,11 @@
 				"type":"APPLICATION"
 			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"n_vsYYN@n_XUWxf@n_oTV2Q@_aUTdu-1@l@l@y",
 			"id":"n_ayRBZ",
-			"index":6,
+			"index":5,
 			"inputSchema":{
 				"type":"SCHEMA_AND_LAYOUT",
 				"dynamic":false,
@@ -324,11 +317,11 @@
 				"type":"APPLICATION"
 			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"n_vsYYN@n_XUWxf@n_oTV2Q@_aUTdu-1@l@l@n",
 			"id":"n_4qNx4",
-			"index":7,
+			"index":6,
 			"inputs":{
 				"loop":"n_XUWxf"
 			},
@@ -339,24 +332,49 @@
 		},
 		{
 			"context":{
-				"appName":"break",
-				"resourceVersion":134,
-				"resourceName":"break",
+				"appName":"if_else",
+				"resourceVersion":131,
+				"resourceName":"if_else_condition",
 				"type":"APPLICATION"
 			},
 			"debug":false,
 			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"n_XUWxf@n_oTV2Q@_aUTdu-1@l@l",
-			"id":"n_wasK1",
-			"index":8,
-			"inputs":{
-				"loop":"n_XUWxf"
-			},
+			"id":"n_vyRGx",
+			"index":7,
+			"inputs":{},
 			"skip":false,
-			"subTitle":"Break",
-			"title":"Break",
-			"type":"BREAK"
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"15five",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"n_vyRGx@n_XUWxf@n_oTV2Q@_aUTdu-1@l@l@y",
+			"id":"n_geWCv",
+			"index":8,
+			"skip":false,
+			"subTitle":"15five",
+			"title":"Select an action",
+			"type":"ACTION"
+		},
+		{
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"n_vyRGx@n_XUWxf@n_oTV2Q@_aUTdu-1@l@l@n",
+			"id":"n_f1AX0",
+			"index":9,
+			"skip":false,
+			"title":"Select an app and action",
+			"type":"ACTION"
 		},
 		{
 			"context":{
@@ -366,14 +384,14 @@
 				"type":"APPLICATION"
 			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_aUTdu-1",
 			"id":"n_znz3T",
-			"index":9,
+			"index":10,
 			"inputs":{
 				"result":{
-					"b":"{{ n_RMSiz.outputs.var }}"
+					"output":"{{ n_ayRBZ.outputs.result }}"
 				}
 			},
 			"skip":false,
@@ -399,5 +417,5 @@
 	"tags":[
 		
 	],
-	"version":7
+	"version":8
 }
