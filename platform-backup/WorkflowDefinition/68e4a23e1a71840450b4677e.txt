@@ -6,46 +6,190 @@
 	"deleted":false,
 	"edges":[
 		{
-			"fromNodeId":"_vlh8T",
+			"fromNodeId":"n_P4DSL",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_c94wO",
+			"toNodeId":"n_b5JVZ",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_b5JVZ",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_ZlecB",
 			"type":"next"
 		}
 	],
 	"id":"68e4a23e1a71840450b4677e",
 	"lastModifiedBy":1,
 	"lcName":"cacheqa2giexnlcssw",
-	"modifiedTime":1759814206905,
+	"modifiedTime":1759814247923,
 	"name":"cacheQA2giexNlcSsw",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1949,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_vlh8T-1",
-			"id":"_vlh8T",
-			"index":0,
+			"id":"n_P4DSL",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"d":{
+							"type":"integer",
+							"title":"d"
+						}
+					}
+				},
+				"setup":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"a":{
+							"type":"integer",
+							"title":"a"
+						},
+						"b":{
+							"type":"integer",
+							"title":"b"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":166,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_vlh8T-1",
-			"id":"_c94wO",
-			"index":0,
+			"id":"n_b5JVZ",
+			"index":2,
+			"inputs":{
+				"automationId":"68e4a1d91a71840450b46281",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"version":"-1",
+				"parameters":{
+					"a":"{{ n_P4DSL.outputs.a }}",
+					"b":"{{ n_P4DSL.outputs.b }}"
+				}
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"global":false
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"cacheKey":"{{ n_P4DSL.outputs.a }}",
+					"enabled":true,
+					"timeToLive":"60",
+					"usagePolicy":"ALWAYS"
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":true,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						{
+							"continueOnFailure":false,
+							"parameters":{
+								"x":"{{ n_P4DSL.outputs.a }}",
+								"y":"{{ n_P4DSL.outputs.b }}"
+							},
+							"workflowId":"68e4a2081a71840450b4649f"
+						}
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"STOP",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
+			},
 			"skip":false,
-			"title":"Select an app and action",
-			"type":"ACTION"
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1952,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_vlh8T-1",
+			"id":"n_ZlecB",
+			"index":3,
+			"inputs":{
+				"result":{
+					"d":"{{ n_b5JVZ.outputs.c }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -59,5 +203,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
