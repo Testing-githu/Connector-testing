@@ -5,12 +5,12 @@
 	"createdTime":1747000721647,
 	"deleted":false,
 	"deploymentState":{
-		"deployedAt":1759756111956,
-		"deployedBy":1,
-		"deployedDefinitionId":"68e3bf4f884102285c28303c",
+		"deployedAt":1759781131392,
+		"deployedBy":-1,
+		"deployedDefinitionId":"68e4210b1a71840450af539c",
 		"status":"DEPLOYED",
-		"version":97,
-		"workflowVersion":217
+		"version":99,
+		"workflowVersion":219
 	},
 	"edges":[
 		{
@@ -1206,7 +1206,7 @@
 	"id":"67b7748b4372d31da7c2e130",
 	"lastModifiedBy":1,
 	"lcName":"streaming accumulator",
-	"modifiedTime":1759756852619,
+	"modifiedTime":1759813530707,
 	"name":"Streaming Accumulator",
 	"nodes":[
 		{
@@ -6273,7 +6273,7 @@
 						}
 					}
 				},
-				"code":"if(!binding.hasVariable(\"messageContent\"))\n    return [toStream:true]\n\ndef openBracketIdx = messageContent.lastIndexOf('[')\ndef closeBracketIdx = messageContent.lastIndexOf(']')\ndef openBraceIdx = messageContent.lastIndexOf('{')\ndef closeBraceIdx = messageContent.lastIndexOf('}')\n\ndef insideIncompleteLink = false\ndef citationPresent = false\ndef chunkNumber = []\ndef citations = []\n\ndef fullPattern       = ~/\\$\\$\\[([\\d,]+)\\]\\$\\$/\ndef incompletePattern = ~/\\$\\$\\[[\\d,]*\\]?\\$?/\n\n// pause on any ‘$’ not followed by a digit (i.e. non‐currency), until we see a full $$n]$$\nif ((messageContent =~ /\\$(?!\\d)/) && !(messageContent =~ fullPattern)) {\n    return [toStream: false, citationPresent: citationPresent, chunkNumber: chunkNumber]\n}\n\n// Check for properly closed citations $$n]$$or $$n1,n2,…]$$\ndef citationMatcher = messageContent =~ fullPattern\nif (citationMatcher) {\n    citationPresent = true\n    citationMatcher.each { m ->\n        m[1].split(',').each { chunkNumber.add(it.trim()) }\n    }\n}\n\n// also pause if there’s an incomplete citation at the end\nif ((messageContent =~ incompletePattern) && !(messageContent =~ fullPattern)) {\n    return [toStream: false, citationPresent: citationPresent, chunkNumber: chunkNumber]\n}\n\n\n// Check for an incomplete [title]{url} at the end\nif (openBracketIdx > closeBracketIdx || openBraceIdx > closeBraceIdx) {\n    // There is an unmatched [ or { after the last ] or }\n    // This means an incomplete link at the end\n    if (openBracketIdx > closeBracketIdx && (openBracketIdx > openBraceIdx || openBraceIdx == -1)) {\n        insideIncompleteLink = true\n    } else if (openBraceIdx > closeBraceIdx && (openBraceIdx > openBracketIdx || openBracketIdx == -1)) {\n        insideIncompleteLink = true\n    }\n}\n\ndef filterCitations(allCitations, chunkNumbers) {\n    if (!allCitations || !chunkNumbers) {\n        return []\n    }\n\n    // normalize to String, drop nulls/empties\n    def numberSet = chunkNumbers.findAll { it != null }\n                                .collect { it.toString().trim() } as Set\n    if (numberSet.isEmpty()) {\n        return []\n    }\n\n    return allCitations.findAll { citation ->\n        def topLevelMatch = citation?.chunkNumber?.toString() in numberSet\n        def detailMatch   = citation?.chunkDetails?.any { it?.chunkNumber?.toString() in numberSet }\n        return topLevelMatch || detailMatch\n    }\n}\n\ndef toStream = !insideIncompleteLink\nif(binding.hasVariable(\"allCitations\"))\ncitations = filterCitations(allCitations, chunkNumber)\nreturn [toStream: toStream, citationPresent: citationPresent, chunkNumber: chunkNumber, citations:citations]",
+				"code":"if(!binding.hasVariable(\"messageContent\"))\n    return [toStream:true]\n\ndef openBracketIdx = messageContent.lastIndexOf('[')\ndef closeBracketIdx = messageContent.lastIndexOf(']')\ndef openBraceIdx = messageContent.lastIndexOf('{')\ndef closeBraceIdx = messageContent.lastIndexOf('}')\n\ndef insideIncompleteLink = false\ndef citationPresent = false\ndef chunkNumber = []\ndef citations = []\n\ndef fullPattern       = ~/\\$\\$\\[([\\d,]+)\\]\\$\\$/\ndef incompletePattern = ~/\\$\\$\\[[\\d,]*\\]?\\$?$/\n\n// pause on any ‘$’ not followed by a digit (i.e. non‐currency), until we see a full $$[n]$$\nif ((messageContent =~ /\\$(?!\\d)/) && !(messageContent =~ fullPattern)) {\n    return [toStream: false, citationPresent: citationPresent, chunkNumber: chunkNumber]\n}\n\n// Check for properly closed citations $$[n]$$ or $$[n1,n2,…]$$\ndef citationMatcher = messageContent =~ fullPattern\nif (citationMatcher) {\n    citationPresent = true\n    citationMatcher.each { m ->\n        m[1].split(',').each { chunkNumber.add(it.trim()) }\n    }\n}\n\n// also pause if there’s an incomplete citation at the end\nif ((messageContent =~ incompletePattern) && !(messageContent =~ fullPattern)) {\n    return [toStream: false, citationPresent: citationPresent, chunkNumber: chunkNumber]\n}\n\n\n// Check for an incomplete [title]{url} at the end\nif (openBracketIdx > closeBracketIdx || openBraceIdx > closeBraceIdx) {\n    // There is an unmatched [ or { after the last ] or }\n    // This means an incomplete link at the end\n    if (openBracketIdx > closeBracketIdx && (openBracketIdx > openBraceIdx || openBraceIdx == -1)) {\n        insideIncompleteLink = true\n    } else if (openBraceIdx > closeBraceIdx && (openBraceIdx > openBracketIdx || openBracketIdx == -1)) {\n        insideIncompleteLink = true\n    }\n}\n\ndef filterCitations(allCitations, chunkNumbers) {\n    if (!allCitations || !chunkNumbers) {\n        return []\n    }\n\n    // normalize to String, drop nulls/empties\n    def numberSet = chunkNumbers.findAll { it != null }\n                                .collect { it.toString().trim() } as Set\n    if (numberSet.isEmpty()) {\n        return []\n    }\n\n    return allCitations.findAll { citation ->\n        def topLevelMatch = citation?.chunkNumber?.toString() in numberSet\n        def detailMatch   = citation?.chunkDetails?.any { it?.chunkNumber?.toString() in numberSet }\n        return topLevelMatch || detailMatch\n    }\n}\n\ndef toStream = !insideIncompleteLink\nif(binding.hasVariable(\"allCitations\"))\ncitations = filterCitations(allCitations, chunkNumber)\nreturn [toStream: toStream, citationPresent: citationPresent, chunkNumber: chunkNumber, citations:citations]",
 				"compile_static":false,
 				"parameters":{
 					"messageContent":"{{ du6pK.outputs.accumulatedChunkContent }}",
@@ -6475,7 +6475,7 @@
 				"type":"APPLICATION"
 			},
 			"debug":false,
-			"dirty":true,
+			"dirty":false,
 			"fallbackMode":"STOP",
 			"groupId":"n_4kZmP@20c3j@wonjF@L5wao-1@l@y@y",
 			"id":"n_x8Doj",
@@ -6492,56 +6492,6 @@
 						"ua:type":"mappedArray",
 						"items":"{{ n_O0hVb.outputs.result.chunkNumber[0] }}"
 					}
-				}
-			},
-			"options":{
-				"bulkheadConfig":{
-					"enabled":false,
-					"global":false
-				},
-				"businessHoursConfig":{
-					"enabled":false,
-					"waitForNextWindow":false
-				},
-				"cacheConfig":{
-					"enabled":false,
-					"usagePolicy":"ALWAYS"
-				},
-				"circuitBreakerConfig":{
-					"enabled":false
-				},
-				"disableLogging":false,
-				"enabledForReExecution":false,
-				"hookConfig":{
-					"enabled":false,
-					"postHooks":[
-						
-					],
-					"preHooks":[
-						
-					]
-				},
-				"logConfig":{
-					"enabled":false,
-					"logPolicies":[
-						
-					]
-				},
-				"rateLimitConfig":{
-					"enabled":false,
-					"waitForNextWindow":false
-				},
-				"retryConfig":{
-					"backOffFactor":null,
-					"captureRetries":false,
-					"enabled":false
-				},
-				"stepError":"STOP",
-				"telemetryConfig":{
-					"enableTelemetry":false,
-					"metricConfigs":[
-						
-					]
 				}
 			},
 			"skip":true,
@@ -7256,5 +7206,5 @@
 		"AI Agent",
 		"Internal"
 	],
-	"version":218
+	"version":220
 }
