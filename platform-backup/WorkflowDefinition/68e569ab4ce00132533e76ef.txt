@@ -1,52 +1,139 @@
 {
 	"appsUsed":[
-		
+		"slack"
 	],
 	"createdTime":1759865259056,
 	"deleted":false,
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_A1doK",
+			"fromNodeId":"n_cOlmZ",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_QKhxX",
+			"toNodeId":"n_2mJYs",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_2mJYs",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_HLIXd",
 			"type":"next"
 		}
 	],
 	"id":"68e569ab4ce00132533e76ef",
 	"lastModifiedBy":1,
 	"lcName":"logging_addatsettting_11759862692068",
-	"modifiedTime":1759865259056,
+	"modifiedTime":1759865275013,
 	"name":"logging_addAtSettting_11759862692068",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1961,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_A1doK-1",
-			"id":"_A1doK",
-			"index":0,
+			"id":"n_cOlmZ",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"output"
+					],
+					"properties":{
+						"output":{
+							"type":"string",
+							"title":"output"
+						}
+					}
+				},
+				"setup":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"Input1":{
+							"type":"integer",
+							"title":"Input1"
+						},
+						"Input2":{
+							"type":"integer",
+							"title":"Input2"
+						},
+						"Input3":{
+							"type":"integer",
+							"title":"Input3"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"slack",
+				"resourceVersion":7723,
+				"connectionId":"662f8ddb91d8ba4394d0cce6",
+				"resourceName":"slack_post_message_in_channel",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_A1doK-1",
-			"id":"_QKhxX",
-			"index":0,
+			"id":"n_2mJYs",
+			"index":2,
+			"inputs":{
+				"link_names":true,
+				"messageType":"text",
+				"channel":"unify-apps",
+				"text":"Test message",
+				"mrkdwn":true
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Slack",
+			"title":"Post message",
 			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1964,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_A1doK-1",
+			"id":"n_HLIXd",
+			"index":3,
+			"inputs":{
+				"result":{
+					"output":"{{ n_2mJYs.outputs.ok }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +147,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
