@@ -7,46 +7,124 @@
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_XkJEu",
+			"fromNodeId":"n_JHYD4",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_CaKiv",
+			"toNodeId":"n_tPEHI",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_tPEHI",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_7tZqS",
 			"type":"next"
 		}
 	],
 	"id":"68e561a74ce00132533e3e55",
 	"lastModifiedBy":1,
 	"lcName":"fetchnotifications_117598627200260",
-	"modifiedTime":1759863207411,
+	"modifiedTime":1759863220236,
 	"name":"fetchNotifications_117598627200260",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1953,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_XkJEu-1",
-			"id":"_XkJEu",
-			"index":0,
+			"id":"n_JHYD4",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"Output"
+					],
+					"properties":{
+						"Output":{
+							"type":"string",
+							"title":"Output"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"notification_by_unifyapps",
+				"resourceVersion":1826,
+				"resourceName":"notification_by_unifyapps_fetch_notifications",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_XkJEu-1",
-			"id":"_CaKiv",
-			"index":0,
+			"id":"n_tPEHI",
+			"index":2,
+			"inputs":{
+				"filter":{
+					"filters":[
+						{
+							"property":"id",
+							"filter":{
+								"operator":"EXISTS"
+							}
+						}
+					],
+					"operator":"AND"
+				},
+				"page":{
+					"offset":1,
+					"limit":10
+				}
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Notification by UnifyApps",
+			"title":"Fetch notifications",
 			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1956,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_XkJEu-1",
+			"id":"n_7tZqS",
+			"index":3,
+			"inputs":{
+				"result":{
+					"Output":"{{ n_tPEHI.outputs.objects }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +138,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
