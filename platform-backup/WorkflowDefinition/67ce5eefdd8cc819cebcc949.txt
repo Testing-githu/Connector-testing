@@ -5,12 +5,12 @@
 	"createdTime":1747000719388,
 	"deleted":false,
 	"deploymentState":{
-		"deployedAt":1759781156319,
-		"deployedBy":-1,
-		"deployedDefinitionId":"68e421241a71840450af5484",
+		"deployedAt":1759854421094,
+		"deployedBy":0,
+		"deployedDefinitionId":"68e53f55cb47412c05543e70",
 		"status":"DEPLOYED",
-		"version":94,
-		"workflowVersion":98
+		"version":96,
+		"workflowVersion":100
 	},
 	"edges":[
 		{
@@ -275,6 +275,13 @@
 			"fromNodeId":"A6B1S",
 			"priority":0,
 			"skip":false,
+			"toNodeId":"n_s3iXW",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_s3iXW",
+			"priority":0,
+			"skip":false,
 			"toNodeId":"VrXFO",
 			"type":"next"
 		},
@@ -290,6 +297,7 @@
 		"configs":[
 			{
 				"permissions":[
+					"VIEW_RUNS",
 					"V"
 				],
 				"principalType":"GLOBAL"
@@ -299,7 +307,7 @@
 	"id":"67ce5eefdd8cc819cebcc949",
 	"lastModifiedBy":1,
 	"lcName":"add default tools",
-	"modifiedTime":1759813477733,
+	"modifiedTime":1759865249904,
 	"name":"Add Default Tools",
 	"nodes":[
 		{
@@ -1037,6 +1045,12 @@
 							"properties":{},
 							"additionalProperties":false,
 							"title":"Generate And Publish PDF File"
+						},
+						"generateAndPublishExcelFile":{
+							"type":"object",
+							"properties":{},
+							"additionalProperties":false,
+							"title":"Generate And Publish Excel File"
 						}
 					}
 				},
@@ -1051,7 +1065,7 @@
 						}
 					}
 				},
-				"code":"def clarifyQueryInputDescription = \"A string containing the message that requests clarification from the user regarding their query.\"\nif(binding.hasVariable('preferredMarkupLanguage')){\n    clarifyQueryInputDescription += (\" This query can be only in \" + preferredMarkupLanguage + \" Format \")\n}\nreturn [\n        \"clarifyToolInputSchema\": [\n                'type': 'object',\n                'properties': [\n                        'query': [\n                                'type': 'string',\n                                'description':  clarifyQueryInputDescription\n                        ]\n                ],\n                'required': [\n                        'query'\n                ]\n        ],\n        \"answerWithRefToolInputSchema\": [\n                'type': 'object',\n                'properties': [\n                        'chunkIds': [\n                                'type': 'array',\n                                'items': [\n                                        'type': 'integer',\n                                        'description': 'An integer representing a chunk ID from which the final answer is generated.'\n                                ],\n                                'description': 'An array of reference chunk IDs from which answer is generated (Only If you have used `ReferFromKnowledge` tool before)'\n                        ]\n                ],\n                'required': [\n                        'chunkIds'\n                ]\n        ],\n\n        \"generateChartsToolInputSchema\": [\n                'type': 'object',\n                'properties': [\n                        'chartId': [\n                                'type': 'string',\n                                \"description\":\"Id of the Chart that needs to be published , these charts would be from the output of referFromKnowledge tool\"\n                        ],\n                        'chartName': [\n                                'type': 'string',\n                                \"description\":\"Name of the Chart that needs to be published, if not specified choose a suitable name\"\n                        ],\n                        'chartType': [\n                                'type': 'array',\n                                'items': [\n                                        'type': 'string',\n                                        \"description\": \"Type of the Chart that needs to be published , supported formats are TABLE, PIE, BAR, COLUMN, LINE, DUAL_AXES. A TABLE is used when we need to show data as Tables, Stat Card or Key Value without any charts/ trends. A PIE chart can be used to represent data as proportions or percentages of parts to a whole. A BAR chart can be used to compare multiple data sets across different categories, allowing for direct comparison of groups within the same context, additionally there is a groupBy field based on which multiple bars are generated. A COLUMN chart (vertical columns) can be used to visually compare and contrast multiple sets of data across different categories, use groupBy field for an effective side-by-side comparison. A LINE chart displays information as a series of data points joint by straight line segment, primarily to show trends. There is a groupBy field based on which multiple lines are generated. A DUAL_AXES chart can be used whenever two different metrics with different types of values and distinct value ranges or different units and scales, need to be plotted on the same chart, at least 3 columns with one of them being an independent variable is required. Ensure that you use DUAL_AXES when 2 different metrics with different scales need to be plotted against an independent variable (eg. dates). If user requested for different chart type not mentioned in the supported format, politely deny the request.\"\n                                ]\n                        ]\n                        // ,\n                        // \"columnData\": [\n                        //         \"type\": \"array\",\n                        //         \"items\": [\n                        //                 \"type\":\"string\",\n                        //                 \"description\": \"name of the column in the table\"\n                        //         ]\n                        // ],\n                        // \"rowData\": [\n                        //         \"type\": \"array\",\n                        //         \"items\": [\n                        //                 \"type\":\"object\",\n                        //                 \"description\": \"This contains the key value pair for each column name defined in the columnData\"\n                        //         ]\n                        // ]\n                ],\n        ],\n\n        \"ingestKnowledgeToolSchema\": [\n                'type': 'object',\n                'properties': [\n                        'fileDetails': [\n                                'type': 'object',\n                                'description': 'A file details custom object which will have all the required details to access the file',\n                                'properties': [\n                                        'sourceType':['type':'string',\"description\":\"value of this field can be either URL OR CLOUD_STORAGE\"],\n                                        'source': ['type':'string', \"description\":\"if sourceType is URL , then this will be the url of the file or if sourceType is CLOUD_STORAGE then this will be the key in s3\"],\n                                        'name':['type':'string'],\n                                        'fileType':['type':'string', 'description':'mimeType of the file that needs to be ingested'],\n                                        'fileSize':['type':'number']]\n                        ]\n                ],\n                'required': [\n                        'fileDetails'\n                ]\n        ],\n        \"analyzeFileToolSchema\": [\n                'type': 'object',\n                'properties': [\n                        'fileDetails': [\n                                'type': 'array',\n                                'description': 'An array of file detail objects, each containing the required metadata to analyze the file.',\n                                'items': [\n                                        'type': 'object',\n                                        'properties': [\n                                                'sourceType':['type':'string',\"description\":\"value of this field can be either URL OR CLOUD_STORAGE\"],\n                                                'source': ['type':'string', \"description\":\"if sourceType is URL , then this will be the url of the file or if sourceType is CLOUD_STORAGE then this will be the key in s3\"],\n                                                'name':['type':'string'],\n                                                'fileType':['type':'string', 'description':'mimeType of the file that needs to be analyzed'],\n                                                'fileSize':['type':'number']\n                                        ]\n                                ]\n                        ]\n                ],\n                'required': [\n                        'fileDetails'\n                ]\n        ],\n        \"generateAndPublishPDFFile\": [\n                \"type\": \"object\",\n                \"properties\": [\n                        \"htmlContent\": [\n                                \"type\": \"string\",\n                                \"description\": \"Content of the PDF File in HTML format you need to generate and publish to user.\"\n                        ]\n                ]\n        ]\n]",
+				"code":"def clarifyQueryInputDescription = \"A string containing the message that requests clarification from the user regarding their query.\"\nif(binding.hasVariable('preferredMarkupLanguage')){\n    clarifyQueryInputDescription += (\" This query can be only in \" + preferredMarkupLanguage + \" Format \")\n}\nreturn [\n        \"clarifyToolInputSchema\": [\n                'type': 'object',\n                'properties': [\n                        'query': [\n                                'type': 'string',\n                                'description':  clarifyQueryInputDescription\n                        ]\n                ],\n                'required': [\n                        'query'\n                ]\n        ],\n        \"answerWithRefToolInputSchema\": [\n                'type': 'object',\n                'properties': [\n                        'chunkIds': [\n                                'type': 'array',\n                                'items': [\n                                        'type': 'integer',\n                                        'description': 'An integer representing a chunk ID from which the final answer is generated.'\n                                ],\n                                'description': 'An array of reference chunk IDs from which answer is generated (Only If you have used `ReferFromKnowledge` tool before)'\n                        ]\n                ],\n                'required': [\n                        'chunkIds'\n                ]\n        ],\n\n        \"generateChartsToolInputSchema\": [\n                'type': 'object',\n                'properties': [\n                        'chartId': [\n                                'type': 'string',\n                                \"description\":\"Id of the Chart that needs to be published , these charts would be from the output of referFromKnowledge tool\"\n                        ],\n                        'chartName': [\n                                'type': 'string',\n                                \"description\":\"Name of the Chart that needs to be published, if not specified choose a suitable name\"\n                        ],\n                        'chartType': [\n                                'type': 'array',\n                                'items': [\n                                        'type': 'string',\n                                        \"description\": \"Type of the Chart that needs to be published , supported formats are TABLE, PIE, BAR, COLUMN, LINE, DUAL_AXES. A TABLE is used when we need to show data as Tables, Stat Card or Key Value without any charts/ trends. A PIE chart can be used to represent data as proportions or percentages of parts to a whole. A BAR chart can be used to compare multiple data sets across different categories, allowing for direct comparison of groups within the same context, additionally there is a groupBy field based on which multiple bars are generated. A COLUMN chart (vertical columns) can be used to visually compare and contrast multiple sets of data across different categories, use groupBy field for an effective side-by-side comparison. A LINE chart displays information as a series of data points joint by straight line segment, primarily to show trends. There is a groupBy field based on which multiple lines are generated. A DUAL_AXES chart can be used whenever two different metrics with different types of values and distinct value ranges or different units and scales, need to be plotted on the same chart, at least 3 columns with one of them being an independent variable is required. Ensure that you use DUAL_AXES when 2 different metrics with different scales need to be plotted against an independent variable (eg. dates). If user requested for different chart type not mentioned in the supported format, politely deny the request.\"\n                                ]\n                        ]\n                        // ,\n                        // \"columnData\": [\n                        //         \"type\": \"array\",\n                        //         \"items\": [\n                        //                 \"type\":\"string\",\n                        //                 \"description\": \"name of the column in the table\"\n                        //         ]\n                        // ],\n                        // \"rowData\": [\n                        //         \"type\": \"array\",\n                        //         \"items\": [\n                        //                 \"type\":\"object\",\n                        //                 \"description\": \"This contains the key value pair for each column name defined in the columnData\"\n                        //         ]\n                        // ]\n                ],\n        ],\n\n        \"ingestKnowledgeToolSchema\": [\n                'type': 'object',\n                'properties': [\n                        'fileDetails': [\n                                'type': 'object',\n                                'description': 'A file details custom object which will have all the required details to access the file',\n                                'properties': [\n                                        'sourceType':['type':'string',\"description\":\"value of this field can be either URL OR CLOUD_STORAGE\"],\n                                        'source': ['type':'string', \"description\":\"if sourceType is URL , then this will be the url of the file or if sourceType is CLOUD_STORAGE then this will be the key in s3\"],\n                                        'name':['type':'string'],\n                                        'fileType':['type':'string', 'description':'mimeType of the file that needs to be ingested'],\n                                        'fileSize':['type':'number']]\n                        ]\n                ],\n                'required': [\n                        'fileDetails'\n                ]\n        ],\n        \"analyzeFileToolSchema\": [\n                'type': 'object',\n                'properties': [\n                        'fileDetails': [\n                                'type': 'array',\n                                'description': 'An array of file detail objects, each containing the required metadata to analyze the file.',\n                                'items': [\n                                        'type': 'object',\n                                        'properties': [\n                                                'sourceType':['type':'string',\"description\":\"value of this field can be either URL OR CLOUD_STORAGE\"],\n                                                'source': ['type':'string', \"description\":\"if sourceType is URL , then this will be the url of the file or if sourceType is CLOUD_STORAGE then this will be the key in s3\"],\n                                                'name':['type':'string'],\n                                                'fileType':['type':'string', 'description':'mimeType of the file that needs to be analyzed'],\n                                                'fileSize':['type':'number']\n                                        ]\n                                ]\n                        ]\n                ],\n                'required': [\n                        'fileDetails'\n                ]\n        ],\n        \"generateAndPublishPDFFile\": [\n                \"type\": \"object\",\n                \"properties\": [\n                        \"htmlContent\": [\n                                \"type\": \"string\",\n                                \"description\": \"Content of the PDF File in HTML format you need to generate and publish to user.\"\n                        ]\n                ]\n        ],\n        \"generateAndPublishExcelFile\": [\n        \"type\": \"object\",\n        \"properties\": [\n                \"columns\": [\n                \"type\": \"array\",\n                \"description\": \"List of column headers for the Excel sheet.\",\n                \"items\": [\n                        \"type\": \"string\"\n                ]\n                ],\n                \"rows\": [\n                \"type\": \"array\",\n                \"description\": \"List of row data where each row is an array of values matching the column order.\",\n                \"items\": [\n                        \"type\": \"object\"\n                ]\n                ],\n                \"fileName\": [\n                \"type\": \"string\",\n                \"description\": \"Name of the Excel file to generate (without extension).\"\n                ]\n        ]\n        ]\n\n]",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
@@ -1308,7 +1322,7 @@
 				"itemToAdd":{
 					"id":"AnalyseFile",
 					"name":"AnalyseFile",
-					"description":"File Analysis Tool - Analyzes uploaded files and extracts their content, metadata, and insights.\nSUPPORTED FILE TYPES:\nDocuments: TXT, RTF, MD (always use tool)\nDocuments: DOCX, PDF (only use tool if file size > 500KB)\nSpreadsheets: XLSX, CSV, XLS, ODS\nPresentations: PPTX, PPT, ODP\nAudio: MP3, WAV, FLAC, AAC\nUSAGE REQUIREMENTS:\nOnly use when complete file metadata is available (name, type, source, sourceType, size)\nFor DOCX and PDF files: Only use tool if file size > 500KB, otherwise analyze directly\nDO NOT guess or hallucinate missing file details\nPrefer this tool over IngestKnowledge for supported file types (when size requirements are met)\nDO NOT USE FOR:\nImage files (PNG, JPG, JPEG, GIF, SVG, etc.) - answer directly without tools\nVideo files - use IngestKnowledge instead\nFiles with incomplete metadata\nDOCX and PDF files ≤ 500KB - analyze directly without tools\nFALLBACK STRATEGY:\nIf this tool fails → use IngestKnowledge\nIf unsupported file type → use IngestKnowledge\nIf image file → no tool needed, analyze directly\nIf DOCX/PDF ≤ 500KB → analyze directly without tools\nEXAMPLE USAGE:\nUser uploads 'report.pdf' (800KB) → Use AnalyseFile\nUser uploads 'document.docx' (300KB) → Analyze directly, no tool\nUser uploads 'data.txt' (any size) → Use AnalyseFile\nUser uploads 'presentation.pptx' (any size) → Use AnalyseFile\nUser uploads 'image.png' → Answer directly, no tool\nUser uploads 'video.mp4' → Use IngestKnowledge\nUser uploads 'presentation.pptx' with complete metadata → Use AnalyseFile \nUser uploads 'audio.wav' with complete metadata → Use AnalyseFile \nUser uploads 'data.xlsx' with complete metadata → Use AnalyseFile",
+					"description":"File Analysis Tool - Analyzes uploaded files and extracts their content, metadata, and insights.\nSUPPORTED FILE TYPES:\nDocuments: TXT, RTF, MD (always use tool)\nDocuments: DOCX, PDF (only use tool if file size > 500KB)\nSpreadsheets: XLSX, CSV, XLS, ODS\nPresentations: PPTX, PPT, ODP\nAudio: MP3, WAV, FLAC, AAC\nUSAGE REQUIREMENTS:\nOnly use when complete file metadata is available (name, type, source, sourceType, size)\nFor DOCX and PDF files: Only use tool if file size > 500KB, otherwise analyze directly\nDO NOT guess or hallucinate missing file details\nPrefer this tool over IngestKnowledge for supported file types (when size requirements are met)\nDO NOT USE FOR:\nImage files (PNG, JPG, JPEG, GIF, SVG, etc.) - answer directly without tools\nVideo files - use IngestKnowledge instead\nFiles with incomplete metadata\nDOCX and PDF files ≤ 500KB - analyze directly without tools\nFALLBACK STRATEGY:\nIf this tool fails → use IngestKnowledge\nIf unsupported file type → use IngestKnowledge\nIf image file → no tool needed, analyze directly\nIf DOCX/PDF ≤ 500KB → analyze directly without tools\nEXAMPLE USAGE:\nUser uploads 'report.pdf' (800KB) → Use AnalyseFile\nUser uploads 'document.docx' (300KB) → Analyze directly, no tool\nUser uploads 'data.txt' (any size) → Use AnalyseFile\nUser uploads 'presentation.pptx' (any size) → Use AnalyseFile\nUser uploads 'image.png' → Answer directly, no tool\nUser uploads 'video.mp4' → Use IngestKnowledge\nUser uploads 'presentation.pptx' with complete metadata → Use AnalyseFile \nUser uploads 'audio.wav' with complete metadata → Use AnalyseFile \nUser uploads 'data.xlsx' with complete metadata → Use AnalyseFile\nIf the user explicitly asks to *upload* a file, DO NOT call this tool. \nInstead, first check if a dedicated upload tool (e.g., sharepoint_upload_a_file) is available and use that. \nIf the upload tool requires a path or folder location, you MUST ask the user to provide it before calling the tool. \nOnly use AnalyseFile when the user explicitly wants a file analysed (not uploaded). \nIf no suitable upload tool exists, ask the user for clarification instead of directly using AnalyseFile.",
 					"toolInputSchema":"{{ GpwdU.outputs.result.analyzeFileToolSchema }}"
 				},
 				"insertLocation":"END",
@@ -1347,9 +1361,27 @@
 							"operator":"NOT_EQUAL",
 							"value":"true"
 						}
+					},
+					{
+						"filters":[
+							{
+								"property":"{{ n_WI3dW.outputs.properties.defaultTools.generateChartTool }}",
+								"filter":{
+									"operator":"MISSING"
+								}
+							},
+							{
+								"property":"{{ n_WI3dW.outputs.properties.defaultTools.generateChartTool }}",
+								"filter":{
+									"operator":"EQUAL",
+									"value":"true"
+								}
+							}
+						],
+						"operator":"OR"
 					}
 				],
-				"operator":"OR"
+				"operator":"AND"
 			},
 			"skip":false,
 			"subTitle":"Condition",
@@ -1714,6 +1746,34 @@
 			"type":"ACTION"
 		},
 		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":478,
+				"resourceName":"variable_by_unifyapps_add_item_to_list",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"m6DdW-1",
+			"id":"n_s3iXW",
+			"index":30,
+			"inputs":{
+				"itemToAdd":{
+					"id":"generate_and_publish_excel_file",
+					"name":"generate_and_publish_excel_file",
+					"description":"This tool creates a new Excel file from tabular data provided by the user. Follow these steps precisely:\n1. Data Processing Requirements:\na. **IMPORTANT**: Both columns AND rows data must be generated\nb. **IMPORTANT**: Row data is absolutely required - do not generate empty rows\n2. Required Output Format\n```json\n{ \"columns\": [\"column1\", \"column2\", \"column3\"], \"rows\": [ { \"column1\": \"value1\", \"column2\": \"value2\", \"column3\": \"value3\" }, { \"column1\": \"value4\", \"column2\": \"value5\", \"column3\": \"value6\" } ], \"fileName\": \"filename\" }\n```\n3. Data Structure Rules:\na. columns: Array of column header names (strings)\nb. rows: Array of objects where each object represents one row\nc. Each row object must contain key-value pairs matching the column names\nd. fileName: String for the output file name (without extension)\n4. Example Implementation:\nInput data: name|age|state\\nJake|40|MP\\nBob|21|MP\\nJoy|30|TS\nOutput:\n```json\n{ \"columns\": [\"name\", \"age\", \"state\"], \"rows\": [ { \"name\": \"Jake\", \"age\": 40, \"state\": \"MP\" }, { \"name\": \"Bob\", \"age\": 21, \"state\": \"MP\" }, { \"name\": \"Joy\", \"age\": 30, \"state\": \"TS\" } ], \"fileName\": \"demo\" }\n```\n**IMPORTANT** No Matter what you need to generate rows data, without rows that this tool can't be used.\nAfter successful generation, provide only this neutral message: \"You can refer to the generated output above for [user query].\"",
+					"toolInputSchema":"{{ GpwdU.outputs.result.generateAndPublishExcelFile }}"
+				},
+				"insertLocation":"END",
+				"listName":"{{ iNEXV.outputs.items[0] }}"
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Add item to list",
+			"type":"ACTION"
+		},
+		{
 			"additional":{
 				"visibleOptionalFields":[
 					"root.itemToAdd.toolInputs.items.possibleValues.items",
@@ -1734,7 +1794,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"m6DdW-1",
 			"id":"VrXFO",
-			"index":30,
+			"index":31,
 			"inputs":{
 				"itemToAdd":{
 					"toolInputs":[
@@ -1792,7 +1852,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"m6DdW-1",
 			"id":"Yxde1",
-			"index":31,
+			"index":32,
 			"inputs":{
 				"result":{
 					"tools":{
@@ -1832,5 +1892,5 @@
 	"tags":[
 		"AI Agent"
 	],
-	"version":99
+	"version":102
 }
