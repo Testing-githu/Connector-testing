@@ -5,12 +5,12 @@
 	"createdTime":1747000722234,
 	"deleted":false,
 	"deploymentState":{
-		"deployedAt":1759854481710,
-		"deployedBy":0,
-		"deployedDefinitionId":"68e53f91cb47412c05544285",
+		"deployedAt":1759865256270,
+		"deployedBy":1,
+		"deployedDefinitionId":"68e569a84ce00132533e76c5",
 		"status":"DEPLOYED",
-		"version":104,
-		"workflowVersion":140
+		"version":105,
+		"workflowVersion":142
 	},
 	"edges":[
 		{
@@ -222,7 +222,7 @@
 	"id":"67a31b86addac8605df79166",
 	"lastModifiedBy":1,
 	"lcName":"add context to agent",
-	"modifiedTime":1759865256200,
+	"modifiedTime":1759867319407,
 	"name":"Add Context To Agent",
 	"nodes":[
 		{
@@ -639,8 +639,8 @@
 				"type":"APPLICATION"
 			},
 			"debug":false,
-			"dirty":false,
-			"fallbackMode":"STOP",
+			"dirty":true,
+			"fallbackMode":"CONTINUE",
 			"groupId":"Pki0l@O1Yki-1@y",
 			"id":"grr6j",
 			"index":9,
@@ -648,24 +648,79 @@
 				"recordId":"{{ FTC3Q.outputs.messageId }}",
 				"writeThroughSessionVariables":false,
 				"object_type":"service_hub_message",
+				"skipIfBlank":false,
 				"skipPermissionCheck":false,
 				"updateFields":[
 					{
+						"setValue":"{{ FTC3Q.outputs.rawLLMResponse }}",
 						"fieldName":"properties.content.agentResponse.rawLLMResponse",
-						"actionType":"SET",
-						"setValue":"{{ FTC3Q.outputs.rawLLMResponse }}"
+						"actionType":"SET"
 					},
 					{
-						"actionType":"SET",
 						"setValue":"{{ FTC3Q.outputs.executionOutput }}",
+						"actionType":"SET",
 						"fieldName":"properties.content.agentResponse.observation"
 					},
 					{
+						"setValue":"{{ aAK6V.outputs.result.toolUseDetailsModified }}",
 						"fieldName":"properties.content.agentResponse.toolUseDetails",
-						"actionType":"SET",
-						"setValue":"{{ aAK6V.outputs.result.toolUseDetailsModified }}"
+						"actionType":"SET"
 					}
-				]
+				],
+				"unsetIfNull":false
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"global":false
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS"
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"CONTINUE",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
 			},
 			"skip":false,
 			"subTitle":"tool failure feedback",
@@ -1176,5 +1231,5 @@
 		"AI Agent",
 		"Team"
 	],
-	"version":142
+	"version":143
 }
