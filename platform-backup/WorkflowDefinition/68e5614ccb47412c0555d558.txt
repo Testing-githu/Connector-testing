@@ -7,46 +7,166 @@
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_MelDZ",
+			"fromNodeId":"n_K9Vtm",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_T1Cn7",
+			"toNodeId":"n_xjKsC",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_xjKsC",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_apAHB",
 			"type":"next"
 		}
 	],
 	"id":"68e5614ccb47412c0555d558",
 	"lastModifiedBy":1,
 	"lcName":"variablebyunifyapps_mapobject_117598627095900",
-	"modifiedTime":1759863116030,
+	"modifiedTime":1759863130114,
 	"name":"variableByUnifyApps_mapObject_117598627095900",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1953,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_MelDZ-1",
-			"id":"_MelDZ",
-			"index":0,
+			"id":"n_K9Vtm",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"output_String"
+					],
+					"properties":{
+						"output_String":{
+							"type":"string",
+							"title":"output_String"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":1895,
+				"resourceName":"variable_by_unifyapps_create_variables",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_MelDZ-1",
-			"id":"_T1Cn7",
-			"index":0,
+			"id":"n_xjKsC",
+			"index":2,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{},
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"object_input":{
+							"type":"object",
+							"properties":{
+								"key":{
+									"type":"string",
+									"title":"key"
+								}
+							},
+							"additionalProperties":false,
+							"title":"object_input",
+							"required":[
+								"key"
+							]
+						}
+					},
+					"required":[
+						"object_input"
+					]
+				}
+			},
+			"inputs":{
+				"object_input":{
+					"key":"cool"
+				}
+			},
+			"outputSchema":{
+				"dynamic":false,
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"object_input":{
+							"type":"object",
+							"properties":{
+								"key":{
+									"type":"string",
+									"title":"key"
+								}
+							},
+							"additionalProperties":false,
+							"title":"object_input",
+							"required":[
+								"key"
+							]
+						}
+					},
+					"required":[
+						"object_input"
+					]
+				}
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Variable by UnifyApps",
+			"title":"Create variables",
 			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1956,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_MelDZ-1",
+			"id":"n_apAHB",
+			"index":3,
+			"inputs":{
+				"result":{
+					"output_String":"{{ n_xjKsC.outputs.object_input }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +180,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
