@@ -7,46 +7,182 @@
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_maNFl",
+			"fromNodeId":"n_Dzm2Y",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_35a2A",
+			"toNodeId":"n_Ubprh",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Ubprh",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_E640E",
+			"type":"loop"
+		},
+		{
+			"fromNodeId":"n_E640E",
+			"name":"loopback",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Ubprh",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Ubprh",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_FOnms",
 			"type":"next"
 		}
 	],
 	"id":"68e56d1acb47412c05562083",
 	"lastModifiedBy":1,
 	"lcName":"foreachloopcaptureiterations11759862692068",
-	"modifiedTime":1759866138252,
+	"modifiedTime":1759866161516,
 	"name":"forEachLoopCaptureIterations11759862692068",
 	"nodes":[
 		{
+			"context":{
+				"appName":"webhooks",
+				"resourceVersion":132,
+				"resourceName":"webhooks_default"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_maNFl-1",
-			"id":"_maNFl",
-			"index":0,
+			"id":"n_Dzm2Y",
+			"index":1,
+			"inputs":{
+				"request":{
+					"contentType":"application/json",
+					"body":{
+						"type":"object",
+						"properties":{
+							"name":{
+								"type":"array",
+								"items":{
+									"type":"object",
+									"properties":{},
+									"additionalProperties":false
+								},
+								"title":"name"
+							}
+						},
+						"additionalProperties":false,
+						"required":[
+							"name"
+						]
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Webhook",
+			"title":"New event",
 			"trigger":{
-				"type":"EVENT"
+				"type":"WEBHOOK"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"loop",
+				"resourceVersion":135,
+				"resourceName":"loop_for_each",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_maNFl-1",
-			"id":"_35a2A",
-			"index":0,
+			"id":"n_Ubprh",
+			"index":2,
+			"inputs":{
+				"repeatMode":"SINGLE",
+				"listSource":"{{ n_Dzm2Y.outputs.body.name }}",
+				"captureIterations":true
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Loop",
+			"title":"For each loop",
+			"type":"LOOP"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":1903,
+				"resourceName":"variable_by_unifyapps_create_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"n_Ubprh@_maNFl-1@l",
+			"id":"n_E640E",
+			"index":3,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{},
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"a":{
+							"type":"number",
+							"title":"a"
+						}
+					},
+					"required":[
+						"a"
+					]
+				}
+			},
+			"inputs":{
+				"a":"{{ n_Ubprh.outputs.item }}"
+			},
+			"outputSchema":{
+				"dynamic":false,
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"a":{
+							"type":"number",
+							"title":"a"
+						}
+					},
+					"required":[
+						"a"
+					]
+				}
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Create variables",
 			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"stop"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_maNFl-1",
+			"id":"n_FOnms",
+			"index":4,
+			"skip":false,
+			"subTitle":"Stop",
+			"title":"Stop",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +196,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
