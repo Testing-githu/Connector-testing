@@ -6,46 +6,118 @@
 	"deleted":false,
 	"edges":[
 		{
-			"fromNodeId":"_0Szvl",
+			"fromNodeId":"n_HXwUD",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_F8QJE",
+			"toNodeId":"n_WrHX7",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_WrHX7",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_d3vn0",
 			"type":"next"
 		}
 	],
 	"id":"68e5443dcb47412c05546c3c",
 	"lastModifiedBy":1,
 	"lcName":"utilitybyunifyappsqa2kgrdungvwu",
-	"modifiedTime":1759855677202,
+	"modifiedTime":1759855713402,
 	"name":"UtilityByUnifyAppsQA2kgRDuNgvWU",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1953,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_0Szvl-1",
-			"id":"_0Szvl",
-			"index":0,
+			"id":"n_HXwUD",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"r":{
+							"type":"string",
+							"title":"r"
+						}
+					}
+				},
+				"setup":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"a":{
+							"type":"string",
+							"title":"a"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"utility_by_unifyapps",
+				"resourceVersion":2553,
+				"resourceName":"utility_by_unifyapps_decode_base64_text",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_0Szvl-1",
-			"id":"_F8QJE",
-			"index":0,
+			"id":"n_WrHX7",
+			"index":2,
+			"inputs":{
+				"charset":"Windows-1252",
+				"encodedText":"{{ n_HXwUD.outputs.a }}"
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Utility by UnifyApps",
+			"title":"Decode base64 text",
 			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1956,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_0Szvl-1",
+			"id":"n_d3vn0",
+			"index":3,
+			"inputs":{
+				"result":{
+					"r":"{{ n_WrHX7.outputs.decodedText }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -59,5 +131,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
