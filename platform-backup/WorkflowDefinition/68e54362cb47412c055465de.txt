@@ -6,46 +6,118 @@
 	"deleted":false,
 	"edges":[
 		{
-			"fromNodeId":"_g8n0D",
+			"fromNodeId":"n_qonEW",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_o90cA",
+			"toNodeId":"n_fBgev",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_fBgev",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_7bj8O",
 			"type":"next"
 		}
 	],
 	"id":"68e54362cb47412c055465de",
 	"lastModifiedBy":1,
 	"lcName":"utilitybyunifyappsqa2okcuwwrmjc",
-	"modifiedTime":1759855458740,
+	"modifiedTime":1759855493120,
 	"name":"UtilityByUnifyAppsQA2OkcuwWRMJC",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1953,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_g8n0D-1",
-			"id":"_g8n0D",
-			"index":0,
+			"id":"n_qonEW",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"output":{
+							"type":"string",
+							"title":"output"
+						}
+					}
+				},
+				"setup":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"a":{
+							"type":"string",
+							"title":"a"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"utility_by_unifyapps",
+				"resourceVersion":2583,
+				"resourceName":"utility_by_unifyapps_from_xml_to_json_object",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_g8n0D-1",
-			"id":"_o90cA",
-			"index":0,
+			"id":"n_fBgev",
+			"index":2,
+			"inputs":{
+				"serializeEmptyElementAsNull":false,
+				"xmlString":"{{ n_qonEW.outputs.a }}"
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Utility by UnifyApps",
+			"title":"Deserialise XML string to JSON object",
 			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1956,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_g8n0D-1",
+			"id":"n_7bj8O",
+			"index":3,
+			"inputs":{
+				"result":{
+					"output":"{{ n_fBgev.outputs.result }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -59,5 +131,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
