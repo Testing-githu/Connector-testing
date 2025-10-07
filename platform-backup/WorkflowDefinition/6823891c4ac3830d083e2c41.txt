@@ -5,12 +5,12 @@
 	"createdTime":1751383823356,
 	"deleted":false,
 	"deploymentState":{
-		"deployedAt":1759781091755,
-		"deployedBy":-1,
-		"deployedDefinitionId":"68e420e31a71840450af5227",
+		"deployedAt":1759854352061,
+		"deployedBy":0,
+		"deployedDefinitionId":"68e53f10cb47412c05543ad0",
 		"status":"DEPLOYED",
-		"version":91,
-		"workflowVersion":109
+		"version":93,
+		"workflowVersion":111
 	},
 	"edges":[
 		{
@@ -89,6 +89,21 @@
 		},
 		{
 			"fromNodeId":"htKBO",
+			"name":"5",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"htKBO@5",
+			"type":"branch"
+		},
+		{
+			"fromNodeId":"htKBO@5",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_ksXcW",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"htKBO",
 			"name":"default",
 			"priority":0,
 			"skip":false,
@@ -124,6 +139,13 @@
 			"type":"next"
 		},
 		{
+			"fromNodeId":"_ksXcW",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"3gPQF",
+			"type":"next"
+		},
+		{
 			"fromNodeId":"MEY3K",
 			"priority":0,
 			"skip":false,
@@ -135,6 +157,7 @@
 		"configs":[
 			{
 				"permissions":[
+					"VIEW_RUNS",
 					"V"
 				],
 				"principalType":"GLOBAL"
@@ -144,7 +167,7 @@
 	"id":"6823891c4ac3830d083e2c41",
 	"lastModifiedBy":1,
 	"lcName":"knowledge metadata indexer",
-	"modifiedTime":1759813380424,
+	"modifiedTime":1759865229998,
 	"name":"Knowledge Metadata Indexer",
 	"nodes":[
 		{
@@ -161,7 +184,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"FFUnJ-1",
 			"id":"hqkdg",
-			"index":0,
+			"index":1,
 			"inputs":{
 				"result":{
 					"type":"object",
@@ -277,7 +300,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"FFUnJ-1",
 			"id":"yRZyK",
-			"index":0,
+			"index":2,
 			"inputSchema":{
 				"type":"SCHEMA_AND_LAYOUT",
 				"dynamic":false,
@@ -330,7 +353,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"FFUnJ-1",
 			"id":"htKBO",
-			"index":0,
+			"index":3,
 			"inputs":{
 				"branches":[
 					{
@@ -406,6 +429,24 @@
 						}
 					},
 					{
+						"id":"5",
+						"inputs":{
+							"name":"Branch 5",
+							"conditions":{
+								"filters":[
+									{
+										"property":"{{ yRZyK.outputs.embeddingsLength }}",
+										"filter":{
+											"operator":"EQUAL",
+											"value":"4096"
+										}
+									}
+								],
+								"operator":"AND"
+							}
+						}
+					},
+					{
 						"id":"default"
 					}
 				]
@@ -427,7 +468,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"htKBO@FFUnJ-1@1",
 			"id":"htKBO@1",
-			"index":0,
+			"index":4,
 			"inputs":{
 				"name":"1024",
 				"conditions":{
@@ -478,7 +519,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"htKBO@FFUnJ-1@1",
 			"id":"sLbxk",
-			"index":0,
+			"index":5,
 			"inputs":{
 				"object_type":"knowledge_metadata_store_1024",
 				"record":{
@@ -556,7 +597,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"htKBO@FFUnJ-1@2",
 			"id":"htKBO@2",
-			"index":0,
+			"index":6,
 			"inputs":{
 				"name":"1536",
 				"conditions":{
@@ -607,7 +648,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"htKBO@FFUnJ-1@2",
 			"id":"Slpie",
-			"index":0,
+			"index":7,
 			"inputs":{
 				"object_type":"knowledge_metadata_store_1536",
 				"record":{
@@ -685,7 +726,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"htKBO@FFUnJ-1@3",
 			"id":"htKBO@3",
-			"index":0,
+			"index":8,
 			"inputs":{
 				"name":"3072",
 				"conditions":{
@@ -736,7 +777,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"htKBO@FFUnJ-1@3",
 			"id":"qApBx",
-			"index":0,
+			"index":9,
 			"inputs":{
 				"object_type":"e_knowledge_metadata_store",
 				"record":{
@@ -824,7 +865,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"htKBO@FFUnJ-1@4",
 			"id":"htKBO@4",
-			"index":0,
+			"index":10,
 			"inputs":{
 				"name":"768",
 				"conditions":{
@@ -875,9 +916,140 @@
 			"fallbackMode":"STOP",
 			"groupId":"htKBO@FFUnJ-1@4",
 			"id":"tZqBL",
-			"index":0,
+			"index":11,
 			"inputs":{
 				"object_type":"knowledge_metadata_store_768_embedding_length",
+				"record":{
+					"embeddings":{
+						"source":"{{ hqkdg.outputs.embeddings }}",
+						"ua:type":"mappedArray",
+						"items":"{{ hqkdg.outputs.embeddings[0] }}"
+					},
+					"knowledgeId":"{{ hqkdg.outputs.knowledgeId }}",
+					"tableName":"{{ hqkdg.outputs.tableName }}",
+					"columnName":"{{ hqkdg.outputs.columnName }}",
+					"metadata":"{{ hqkdg.outputs.metadata }}",
+					"description":"{{ hqkdg.outputs.description }}",
+					"label":"{{ hqkdg.outputs.Label }}",
+					"type":"{{ hqkdg.outputs.Type }}",
+					"tableId":"{{ hqkdg.outputs.tableId }}",
+					"metadataSource":"{{ hqkdg.outputs.metadataSource }}",
+					"tableDescription":"{{ hqkdg.outputs.tableDescription }}",
+					"tablePrimaryKey":"{{ hqkdg.outputs.tablePrimaryKey }}",
+					"tableNameUI":"{{ hqkdg.outputs.tableNameUI }}"
+				}
+			},
+			"options":{
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false
+				},
+				"logConfig":{
+					"enabled":false
+				},
+				"rateLimitConfig":{
+					"duration":"1",
+					"enabled":false,
+					"threshold":"10",
+					"unit":"MINUTES",
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"count":5,
+					"enabled":true,
+					"initialDelay":100
+				},
+				"stepError":"STOP",
+				"telemetryConfig":{
+					"enableTelemetry":false
+				}
+			},
+			"skip":false,
+			"subTitle":"768 embeddings",
+			"title":"Create record",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"branch_condition",
+				"resourceVersion":0,
+				"resourceName":"branch_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"htKBO@FFUnJ-1@5",
+			"id":"htKBO@5",
+			"index":12,
+			"inputs":{
+				"name":"Branch 5",
+				"conditions":{
+					"filters":[
+						{
+							"property":"{{ yRZyK.outputs.embeddingsLength }}",
+							"filter":{
+								"operator":"EQUAL",
+								"value":"4096"
+							}
+						}
+					],
+					"operator":"AND"
+				}
+			},
+			"skip":false,
+			"title":"",
+			"type":"BRANCH_CONDITION"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.record.sharedWithIds.items",
+					"root.record.embeddings.source",
+					"root.record.embeddings.ua:type",
+					"root.record.embeddings.items",
+					"root.record.knowledgeId",
+					"root.record.tableName",
+					"root.record.columnName",
+					"root.record.metadata",
+					"root.record.description",
+					"root.record.label",
+					"root.record.type",
+					"root.record.tableId",
+					"root.record.metadataSource",
+					"root.record.tableDescription",
+					"root.record.tablePrimaryKey"
+				]
+			},
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":1448,
+				"resourceName":"storage_by_unifyapps_create_record",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"htKBO@FFUnJ-1@5",
+			"id":"_ksXcW",
+			"index":13,
+			"inputs":{
+				"writeThroughSessionVariables":false,
+				"object_type":"knowledge_metadata_store_768_embedding_length",
+				"skipIfBlank":false,
 				"record":{
 					"embeddings":{
 						"source":"{{ hqkdg.outputs.embeddings }}",
@@ -953,7 +1125,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"htKBO@FFUnJ-1@default",
 			"id":"MEY3K",
-			"index":0,
+			"index":14,
 			"inputs":{
 				"result":{
 					"success":false
@@ -976,7 +1148,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"FFUnJ-1",
 			"id":"3gPQF",
-			"index":0,
+			"index":15,
 			"inputs":{
 				"result":{
 					"success":true
@@ -1005,5 +1177,5 @@
 	"tags":[
 		
 	],
-	"version":110
+	"version":113
 }
