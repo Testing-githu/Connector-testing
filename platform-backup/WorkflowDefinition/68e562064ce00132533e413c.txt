@@ -7,46 +7,175 @@
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_jw88I",
+			"fromNodeId":"n_VaCMF",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_mIIb0",
+			"toNodeId":"n_VWY1Z",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_VWY1Z",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_v6lXX",
 			"type":"next"
 		}
 	],
 	"id":"68e562064ce00132533e413c",
 	"lastModifiedBy":1,
 	"lcName":"import_soapapigroupcustom_ 117598626920680",
-	"modifiedTime":1759863302935,
+	"modifiedTime":1759863315931,
 	"name":"import_SoapAPIGroupCustom_ 117598626920680",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1953,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_jw88I-1",
-			"id":"_jw88I",
-			"index":0,
+			"id":"n_VaCMF",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"output_String"
+					],
+					"properties":{
+						"output_String":{
+							"type":"string",
+							"title":"output_String"
+						}
+					}
+				},
+				"setup":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"input_String"
+					],
+					"properties":{
+						"input_String":{
+							"type":"string",
+							"title":"input_String"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"custom_http_endpoint",
+				"resourceVersion":1812,
+				"resourceName":"custom_http_endpoint_execute_soap",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_jw88I-1",
-			"id":"_mIIb0",
-			"index":0,
+			"id":"n_VWY1Z",
+			"index":2,
+			"inputs":{
+				"isAsync":false,
+				"enableProxy":false,
+				"requestTimeoutInSecs":-1,
+				"httpMethod":"POST",
+				"body":{
+					"tns:input":"cool"
+				},
+				"version":"v1.1",
+				"connectionType":"DIRECT",
+				"sslVerify":false,
+				"path":"/api-endpoint/ayzun9d/a2i7jc",
+				"responseSchema":{
+					"type":"object",
+					"properties":{
+						"output":{
+							"type":"string"
+						}
+					}
+				},
+				"baseUrl":"https://qa-automation.qa2.unifyapps.com",
+				"password":"UnifyAppsfh6t2q",
+				"bodySchema":{
+					"type":"object",
+					"properties":{
+						"tns:input":{
+							"type":"string"
+						}
+					}
+				},
+				"targetNamespace":"http://www.example.com/",
+				"responseContentType":"text/xml",
+				"authType":"BASIC_AUTH",
+				"requestContentType":"text/xml",
+				"isNestedHeaders":false,
+				"namespaces":[
+					{
+						"key":"wsdl",
+						"value":"http://schemas.xmlsoap.org/wsdl/"
+					},
+					{
+						"key":"tns",
+						"value":"http://www.example.com/"
+					},
+					{
+						"key":"xsd",
+						"value":"http://www.w3.org/2001/XMLSchema"
+					},
+					{
+						"key":"soap",
+						"value":"http://schemas.xmlsoap.org/wsdl/soap/"
+					}
+				],
+				"username":"unifyapps"
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Custom HTTP Endpoint",
+			"title":"Execute SOAP request",
 			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1956,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_jw88I-1",
+			"id":"n_v6lXX",
+			"index":3,
+			"inputs":{
+				"result":{
+					"output_String":"{{ n_VWY1Z.outputs.result }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +189,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
