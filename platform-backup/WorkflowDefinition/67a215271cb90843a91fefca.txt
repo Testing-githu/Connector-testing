@@ -5,12 +5,12 @@
 	"createdTime":1753422208570,
 	"deleted":false,
 	"deploymentState":{
-		"deployedAt":1759781193217,
-		"deployedBy":-1,
-		"deployedDefinitionId":"68e421491a71840450af55f1",
+		"deployedAt":1759854463008,
+		"deployedBy":0,
+		"deployedDefinitionId":"68e53f7ecb47412c055440ed",
 		"status":"DEPLOYED",
-		"version":88,
-		"workflowVersion":127
+		"version":90,
+		"workflowVersion":129
 	},
 	"edges":[
 		{
@@ -136,6 +136,7 @@
 		"configs":[
 			{
 				"permissions":[
+					"VIEW_RUNS",
 					"V"
 				],
 				"principalType":"GLOBAL"
@@ -145,7 +146,7 @@
 	"id":"67a215271cb90843a91fefca",
 	"lastModifiedBy":1,
 	"lcName":"test agent ",
-	"modifiedTime":1759813115305,
+	"modifiedTime":1759865179769,
 	"name":"Test Agent ",
 	"nodes":[
 		{
@@ -163,6 +164,8 @@
 			"inputs":{
 				"result":{
 					"type":"object",
+					"additionalProperties":false,
+					"required":[],
 					"properties":{
 						"messageId":{
 							"type":"string",
@@ -175,13 +178,19 @@
 						"messageCreatedTime":{
 							"type":"string",
 							"title":"Message Created Time"
+						},
+						"fromCustomerUserId":{
+							"type":"string",
+							"title":"From Customer User Id"
 						}
-					},
-					"additionalProperties":false,
-					"required":[]
+					}
 				},
 				"setup":{
 					"type":"object",
+					"$comment":"agent_Test",
+					"required":[
+						"formData"
+					],
 					"properties":{
 						"aiAgentId":{
 							"type":"string"
@@ -368,11 +377,7 @@
 							"type":"string",
 							"title":"Message Id"
 						}
-					},
-					"$comment":"agent_Test",
-					"required":[
-						"formData"
-					]
+					}
 				}
 			},
 			"skip":false,
@@ -1205,9 +1210,10 @@
 			"index":14,
 			"inputs":{
 				"result":{
-					"caseId":"{{ Z9PMm.outputs.caseId }}",
 					"messageId":"{{ Z9PMm.outputs.messageId }}",
-					"messageCreatedTime":"{{ Z9PMm.outputs.messageCreatedTime }}"
+					"caseId":"{{ Z9PMm.outputs.caseId }}",
+					"messageCreatedTime":"{{ Z9PMm.outputs.messageCreatedTime }}",
+					"fromCustomerUserId":"{{ Z9PMm.outputs.fromCustomerUserId }}"
 				}
 			},
 			"skip":false,
@@ -1233,5 +1239,5 @@
 	"tags":[
 		"AI Agent"
 	],
-	"version":128
+	"version":131
 }
