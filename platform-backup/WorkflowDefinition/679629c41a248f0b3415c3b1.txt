@@ -5,12 +5,12 @@
 	"createdTime":1747000727432,
 	"deleted":false,
 	"deploymentState":{
-		"deployedAt":1759813472416,
+		"deployedAt":1759920976025,
 		"deployedBy":1,
-		"deployedDefinitionId":"68e49f5f1a71840450b43d64",
+		"deployedDefinitionId":"68e6434f3b62b9403f74c526",
 		"status":"DEPLOYED",
-		"version":92,
-		"workflowVersion":174
+		"version":96,
+		"workflowVersion":179
 	},
 	"edges":[
 		{
@@ -301,21 +301,6 @@
 		},
 		{
 			"fromNodeId":"7jEcB",
-			"name":"5",
-			"priority":0,
-			"skip":false,
-			"toNodeId":"7jEcB@5",
-			"type":"branch"
-		},
-		{
-			"fromNodeId":"7jEcB@5",
-			"priority":0,
-			"skip":false,
-			"toNodeId":"n_Y9j4D",
-			"type":"next"
-		},
-		{
-			"fromNodeId":"7jEcB",
 			"name":"default",
 			"priority":0,
 			"skip":false,
@@ -348,14 +333,6 @@
 		},
 		{
 			"fromNodeId":"wd839",
-			"name":"loopback",
-			"priority":0,
-			"skip":false,
-			"toNodeId":"8wBWX",
-			"type":"next"
-		},
-		{
-			"fromNodeId":"n_Y9j4D",
 			"name":"loopback",
 			"priority":0,
 			"skip":false,
@@ -531,9 +508,9 @@
 		]
 	},
 	"id":"679629c41a248f0b3415c3b1",
-	"lastModifiedBy":0,
+	"lastModifiedBy":-1,
 	"lcName":"user/assistant prompt builder",
-	"modifiedTime":1759854480224,
+	"modifiedTime":1759948639854,
 	"name":"User/Assistant Prompt Builder",
 	"nodes":[
 		{
@@ -1645,10 +1622,6 @@
 											"size":{
 												"type":"string",
 												"title":"Size"
-											},
-											"documentExtractedData":{
-												"type":"string",
-												"title":"Document Extracted Data"
 											}
 										},
 										"additionalProperties":false,
@@ -1694,7 +1667,7 @@
 						}
 					}
 				},
-				"code":"def toReturn = [:]\ndef fileList = []\ndef inputModalities = []\n\nif (binding.hasVariable(\"inputModality\")) {\n    def im = binding.getVariable(\"inputModality\")\n    // Ensure inputModalities is a list\n    inputModalities = im instanceof List ? im : [im]\n}\n\ndef addToFileList = { attachment, modalities ->\n    def mimeType = attachment?.mimeType?.toLowerCase()\n    try {\n        if (attachment?.fileDetails?.size?.toInteger() > 4000000) return false\n    } catch (Exception e) {\n        return false\n    }\n    if (!mimeType) return false\n    for (modality in modalities) {\n        if (mimeType.contains(modality?.toLowerCase())) {\n            return true\n        }\n    }\n    return false\n}\n\ndef msg = message?.additional?.rephrasedUserMessage\ntoReturn['messageContent'] = msg ?: message?.content?.text\n\nif (binding.hasVariable('attachments')) {\n    def attachments = binding.getVariable('attachments')\n    def attachmentsList = []\n\n    def hasImages = false\n    for (attachment in attachments) {\n        if (attachment?.images) {\n            for (imageItem in attachment.images) {\n                def imageFileObj = imageItem?.file ?: imageItem?.fileObj\n                if (imageFileObj && imageItem?.mimeType) {\n                    if (addToFileList(imageItem, inputModalities)){\n                        hasImages = true\n                        fileList.add([\n                            \"mimeType\": imageItem.mimeType,\n                            \"fileObj\": [\n                                \"name\": imageFileObj.name,\n                                \"fileType\": imageFileObj.type,\n                                \"source\": imageFileObj.source,\n                                \"sourceType\": imageFileObj.sourceType,\n                                \"size\": null\n                            ]\n                        ])\n                    }\n                }\n            }\n        }\n        \n        def attMap = [\n            \"name\": attachment?.name,\n            \"fileType\": attachment?.fileType,\n            \"fileDetailsSource\": attachment?.fileDetails?.source,\n            \"fileDetailsSourceType\": attachment?.fileDetails?.sourceType,\n            \"size\": attachment?.fileDetails?.size\n        ]\n        if(!hasImages && attachment.containsKey(\"data\"))\n        {\n            fileList.add([\n                \"fileObj\": [\n                    \"name\": attachment?.name,\n                    \"fileType\": attachment?.fileType,\n                    \"source\": attachment?.fileDetails?.source,\n                    \"sourceType\": attachment?.fileDetails?.sourceType,\n                    \"size\": attachment?.fileDetails?.size,\n                    \"documentExtractedData\":attachment?.data\n                ]\n            ])\n\n        }\n        if (!hasImages && addToFileList(attachment, inputModalities)) {\n            fileList.add([\n                \"mimeType\": attachment?.mimeType,\n                \"fileObj\": [\n                    \"name\": attachment?.name,\n                    \"fileType\": attachment?.fileType,\n                    \"source\": attachment?.fileDetails?.source,\n                    \"sourceType\": attachment?.fileDetails?.sourceType,\n                    \"size\": attachment?.fileDetails?.size\n                ]\n            ])\n        \n        }\n        attachmentsList.add(attMap)\n    }\n    \n    toReturn['attachmentsList'] = attachmentsList\n}\n\ntoReturn['fileList'] = fileList\nreturn toReturn",
+				"code":"def toReturn = [:]\ndef fileList = []\ndef inputModalities = []\n\nif (binding.hasVariable(\"inputModality\")) {\n    def im = binding.getVariable(\"inputModality\")\n    // Ensure inputModalities is a list\n    inputModalities = im instanceof List ? im : [im]\n}\n\ndef addToFileList = { attachment, modalities ->\n    def mimeType = attachment?.mimeType?.toLowerCase()\n    try {\n        if (attachment?.fileDetails?.size?.toInteger() > 4000000) return false\n    } catch (Exception e) {\n        return false\n    }\n    if (!mimeType) return false\n    for (modality in modalities) {\n        if (mimeType.contains(modality?.toLowerCase())) {\n            return true\n        }\n    }\n    return false\n}\n\ndef msg = message?.additional?.rephrasedUserMessage\ntoReturn['messageContent'] = msg ?: message?.content?.text\n\nif (binding.hasVariable('attachments')) {\n    def attachments = binding.getVariable('attachments')\n    def attachmentsList = []\n\n    def hasImages = false\n    for (attachment in attachments) {\n        if (attachment?.images) {\n            for (imageItem in attachment.images) {\n                def imageFileObj = imageItem?.file ?: imageItem?.fileObj\n                if (imageFileObj && imageItem?.mimeType) {\n                    if (addToFileList(imageItem, inputModalities)){\n                        hasImages = true\n                        fileList.add([\n                            \"mimeType\": imageItem.mimeType,\n                            \"fileObj\": [\n                                \"name\": imageFileObj.name,\n                                \"fileType\": imageFileObj.type,\n                                \"source\": imageFileObj.source,\n                                \"sourceType\": imageFileObj.sourceType,\n                                \"size\": null\n                            ]\n                        ])\n                    }\n                }\n            }\n        }\n        \n        def attMap = [\n            \"name\": attachment?.name,\n            \"fileType\": attachment?.fileType,\n            \"fileDetailsSource\": attachment?.fileDetails?.source,\n            \"fileDetailsSourceType\": attachment?.fileDetails?.sourceType,\n            \"size\": attachment?.fileDetails?.size\n        ]\n        \n        if (!hasImages && addToFileList(attachment, inputModalities)) {\n            fileList.add([\n                \"mimeType\": attachment?.mimeType,\n                \"fileObj\": [\n                    \"name\": attachment?.name,\n                    \"fileType\": attachment?.fileType,\n                    \"source\": attachment?.fileDetails?.source,\n                    \"sourceType\": attachment?.fileDetails?.sourceType,\n                    \"size\": attachment?.fileDetails?.size\n                ]\n            ])\n        }\n        attachmentsList.add(attMap)\n    }\n    \n    toReturn['attachmentsList'] = attachmentsList\n}\n\ntoReturn['fileList'] = fileList\nreturn toReturn",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
@@ -2346,30 +2319,6 @@
 						}
 					},
 					{
-						"id":"5",
-						"inputs":{
-							"name":"text",
-							"conditions":{
-								"filters":[
-									{
-										"property":"{{ 8wBWX.outputs.item.fileObj.documentExtractedData }}",
-										"filter":{
-											"operator":"EXISTS"
-										}
-									},
-									{
-										"property":"=LEN({{ 8wBWX.outputs.item.fileObj.documentExtractedData }})",
-										"filter":{
-											"operator":"GT",
-											"value":"0"
-										}
-									}
-								],
-								"operator":"AND"
-							}
-						}
-					},
-					{
 						"id":"default"
 					}
 				]
@@ -2657,77 +2606,6 @@
 		},
 		{
 			"context":{
-				"appName":"branch_condition",
-				"resourceVersion":0,
-				"resourceName":"branch_condition",
-				"type":"APPLICATION"
-			},
-			"debug":false,
-			"dirty":false,
-			"fallbackMode":"STOP",
-			"groupId":"7jEcB@8wBWX@3A1nC@kgcmN@VnH37-1@l@y@l@5",
-			"id":"7jEcB@5",
-			"index":34,
-			"inputs":{
-				"name":"text",
-				"conditions":{
-					"filters":[
-						{
-							"property":"{{ 8wBWX.outputs.item.fileObj.documentExtractedData }}",
-							"filter":{
-								"operator":"EXISTS"
-							}
-						},
-						{
-							"property":"=LEN({{ 8wBWX.outputs.item.fileObj.documentExtractedData }})",
-							"filter":{
-								"operator":"GT",
-								"value":"0"
-							}
-						}
-					],
-					"operator":"AND"
-				}
-			},
-			"skip":false,
-			"title":"",
-			"type":"BRANCH_CONDITION"
-		},
-		{
-			"additional":{
-				"visibleOptionalFields":[
-					"root.itemToAdd.source.media_type",
-					"root.itemToAdd.source.image_data",
-					"root.itemToAdd.source.image_type"
-				]
-			},
-			"context":{
-				"appName":"variable_by_unifyapps",
-				"resourceVersion":515,
-				"resourceName":"variable_by_unifyapps_add_item_to_list",
-				"type":"APPLICATION"
-			},
-			"debug":false,
-			"dirty":false,
-			"fallbackMode":"STOP",
-			"groupId":"7jEcB@8wBWX@3A1nC@kgcmN@VnH37-1@l@y@l@5",
-			"id":"n_Y9j4D",
-			"index":35,
-			"inputs":{
-				"itemToAdd":{
-					"text":"{{ 8wBWX.outputs.item.fileObj.documentExtractedData }}",
-					"type":"text"
-				},
-				"insertLocation":"END",
-				"listName":"{{ _lPykW.outputs.items[0] }}"
-			},
-			"skip":false,
-			"subTitle":"Variable by UnifyApps",
-			"title":"Add item to list",
-			"type":"ACTION"
-		},
-		{
-			"context":{
 				"appName":"variable_by_unifyapps",
 				"resourceVersion":457,
 				"resourceName":"variable_by_unifyapps_create_variables",
@@ -2738,7 +2616,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"7jEcB@8wBWX@3A1nC@kgcmN@VnH37-1@l@y@l@default",
 			"id":"n_zTX2C",
-			"index":36,
+			"index":34,
 			"inputSchema":{
 				"type":"SCHEMA_AND_LAYOUT",
 				"dynamic":false,
@@ -2791,7 +2669,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"3A1nC@kgcmN@VnH37-1@l@y",
 			"id":"n_Z3tMw",
-			"index":37,
+			"index":35,
 			"inputs":{
 				"output":{
 					"type":"object",
@@ -2839,7 +2717,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"3A1nC@kgcmN@VnH37-1@l@y",
 			"id":"0Cbyc",
-			"index":38,
+			"index":36,
 			"inputs":{
 				"filters":[
 					{
@@ -2869,7 +2747,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"0Cbyc@3A1nC@kgcmN@VnH37-1@l@y@y",
 			"id":"Sh4mp",
-			"index":39,
+			"index":37,
 			"inputs":{
 				"itemToAdd":{
 					"type":"text",
@@ -2895,7 +2773,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"3A1nC@kgcmN@VnH37-1@l@y",
 			"id":"lEf1N",
-			"index":40,
+			"index":38,
 			"inputs":{
 				"filters":[
 					{
@@ -2925,7 +2803,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"lEf1N@3A1nC@kgcmN@VnH37-1@l@y@y",
 			"id":"xjLwT",
-			"index":41,
+			"index":39,
 			"inputs":{
 				"itemToAdd":{
 					"role":"user",
@@ -2957,7 +2835,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"3A1nC@kgcmN@VnH37-1@l@n",
 			"id":"n_gFnr2",
-			"index":42,
+			"index":40,
 			"inputSchema":{
 				"type":"SCHEMA_AND_LAYOUT",
 				"dynamic":false,
@@ -3258,7 +3136,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"3A1nC@kgcmN@VnH37-1@l@n",
 			"id":"n_lJJJt",
-			"index":43,
+			"index":41,
 			"inputs":{
 				"filters":[
 					{
@@ -3288,7 +3166,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_lJJJt@3A1nC@kgcmN@VnH37-1@l@n@y",
 			"id":"n_c1XL9",
-			"index":44,
+			"index":42,
 			"inputs":{
 				"triggerInputCondition":{
 					"filters":[
@@ -3340,7 +3218,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_lJJJt@3A1nC@kgcmN@VnH37-1@l@n@y",
 			"id":"n_ecTJc",
-			"index":45,
+			"index":43,
 			"inputs":{
 				"insertLocation":"END",
 				"itemsToAdd":{
@@ -3382,7 +3260,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"3A1nC@kgcmN@VnH37-1@l@n",
 			"id":"zFyPX",
-			"index":46,
+			"index":44,
 			"inputs":{
 				"output":{
 					"type":"object",
@@ -3471,7 +3349,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"3A1nC@kgcmN@VnH37-1@l@n",
 			"id":"IKgYH",
-			"index":47,
+			"index":45,
 			"inputs":{
 				"filters":[
 					{
@@ -3501,7 +3379,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"IKgYH@3A1nC@kgcmN@VnH37-1@l@n@y",
 			"id":"n_s0LcK",
-			"index":48,
+			"index":46,
 			"inputs":{
 				"itemToAdd":{
 					"role":"assistant",
@@ -3533,7 +3411,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"3A1nC@kgcmN@VnH37-1@l@n",
 			"id":"GAKwj",
-			"index":49,
+			"index":47,
 			"inputs":{
 				"filters":[
 					{
@@ -3563,7 +3441,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"GAKwj@3A1nC@kgcmN@VnH37-1@l@n@y",
 			"id":"n_KfFB4",
-			"index":50,
+			"index":48,
 			"inputs":{
 				"itemToAdd":{
 					"content":{
@@ -3600,7 +3478,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"VnH37-1",
 			"id":"DMb2V",
-			"index":51,
+			"index":49,
 			"inputs":{
 				"output":{
 					"type":"object",
@@ -3661,7 +3539,7 @@
 						}
 					}
 				},
-				"code":"if (!binding.hasVariable('messages')) {\n  return [:]\n}\ndef lastMessageRole = \"\";\n\ndef messagesClone = com.unifyapps.infra.utils.JsonUtils.fromJson(com.unifyapps.infra.utils.JsonUtils.toJson(messages),List.class)\n\nfor(message in messages) {\n  if(message?.content != null && message.content.size() > 0) {\n     for(contentBlock in message.content) {\n      if(contentBlock?.text != null) {\n        contentBlock.text = contentBlock.text.trim()\n      }\n     }\n  }\n  lastMessageRole = message.role\n}\n\ndef sortField = messages.every { it.channelCreatedTime != null } ? 'channelCreatedTime' : 'timestamp'\nmessages = messages.sort { it[sortField] }\n\n// Context window management - get dynamic context window size\ndef contextWindowSize = binding.hasVariable('contextWindowSize') ? contextWindowSize : 40000 // default 40000 words\ndef truncatedMessageSize = binding.hasVariable('truncatedMessageSize') ? truncatedMessageSize : 100 // default 40000 words\n\n\n// Function to count words in a message - only count actual text content\ndef countWordsInMessage = { message ->\n    def wordCount = 0\n    if (message?.content != null) {\n        for (contentBlock in message.content) {\n            def txt = null\n            if (contentBlock?.text != null) {\n                txt = contentBlock.text\n            } else if (contentBlock?.content != null && contentBlock.content instanceof String) {\n                txt = contentBlock.content\n            } else if (contentBlock?.final_answer != null && contentBlock.final_answer instanceof String) {\n                txt = contentBlock.final_answer\n            }\n\n            if (txt != null) {\n                txt = txt.trim()\n                if (txt) {\n                    // Generic tokenizer: split into word-like tokens\n                    def tokens = (txt =~ /\\b[\\p{L}\\p{N}_]+\\b/)\n                    wordCount += tokens.count\n                }\n            }\n        }\n    }\n    return wordCount\n}\n// quick binary detector (minimal heuristic)\ndef looksBinary = { s ->\n    if (!(s instanceof String)) return true\n    // check for lots of non-printable or high ASCII chars\n    def nonPrintable = s.count { ch -> ch < 0x20 || ch > 0x7E }\n    // if more than 20% chars are non-printable or string looks like base64\n    return (nonPrintable > (s.size() * 0.2)) || s =~ /^[A-Za-z0-9+\\/=]{100,}$/\n}\n\n// Function to truncate text to first 10 words\ndef truncateText = { txt ->\n    if (looksBinary(txt)) {\n        return \"[binary content truncated]\"\n    }\n    def matcher = (txt =~ /\\b[\\p{L}\\p{N}_]+\\b/)\n    def tokens = matcher.collect { it.toString() }\n    if (tokens.size() > truncatedMessageSize) {\n        return tokens[0..(truncatedMessageSize-1)].join(\" \") + \" ... [truncated]\"\n    }\n    return txt\n}\n\n\n// Filter messages to fit context window (with truncation instead of dropping)\ndef filteredMessages = []\ndef totalWords = 0\nfor (int i = messages.size() - 1; i >= 0; i--) {\n    def msg = messages[i]\n    def messageWordCount = countWordsInMessage(msg)\n\n    if (totalWords + messageWordCount <= contextWindowSize) {\n        // fits normally, add as is\n        filteredMessages.add(0, msg)\n        totalWords += messageWordCount\n    } else {\n        // truncate the content but still keep the message\n        def truncatedMsg = [:]\n        truncatedMsg.putAll(msg) // shallow copy\n        if (msg?.content != null) {\n            truncatedMsg.content = msg.content.collect { cb ->\n                def newBlock = [:]\n                newBlock.putAll(cb)\n                if (cb?.text instanceof String) {\n                    newBlock.text = truncateText(cb.text)\n                }\n                if (cb?.content instanceof String) {\n                    newBlock.content = truncateText(cb.content)\n                }\n                if (cb?.final_answer instanceof String) {\n                    newBlock.final_answer = truncateText(cb.final_answer)\n                }\n                return newBlock\n            }\n        }\n        filteredMessages.add(0, truncatedMsg)\n        // no need to add full word count, just pretend we used the window fully\n        totalWords = contextWindowSize\n    }\n}\n\n\n// Added all conversation in tool_result\ndef modifiedMessages = []\ndef toolMessage = \"\"\nString toolUseId = null\nboolean toolUsed = false\nfor (message in filteredMessages) { // Use filteredMessages directly\n    for (contentBlock in message.content) {\n        if (contentBlock.type == \"tool_use\") {\n            // ignoring tool use inside another tool use blocks\n            if(toolUseId != null) {\n                continue;\n            }\n            toolUseId = contentBlock.id\n            toolUsed = true\n        } else if (contentBlock.type == \"tool_result\" && contentBlock.tool_use_id == toolUseId) {\n            contentBlock.content = toolMessage + contentBlock.content\n            toolUseId = null\n            toolMessage = \"\"\n        } else {\n            if (toolUseId != null && contentBlock.type == \"text\") {\n                toolMessage += message.role + \":\" + contentBlock.text  + \", \"\n            } \n        }\n   } \n    if (toolUseId == null || toolUsed) {\n        modifiedMessages << message\n    }\n    toolUsed = false\n}\nmessages = messagesClone // actual input retain \n\nif(modifiedMessages.size() > 0 && modifiedMessages[-1].role == \"assistant\") {\n  modifiedMessages.add([\"role\":\"user\", \"content\":[[\"type\":\"text\", \"text\": \"Lets continue..\"]]])\n}\nreturn ['sortedMessages': modifiedMessages]",
+				"code":"if (!binding.hasVariable('messages')) {\n  return [:]\n}\ndef lastMessageRole = \"\";\n\ndef messagesClone = com.unifyapps.infra.utils.JsonUtils.fromJson(com.unifyapps.infra.utils.JsonUtils.toJson(messages),List.class)\n\nfor(message in messages) {\n  if(message?.content != null && message.content.size() > 0) {\n     for(contentBlock in message.content) {\n      if(contentBlock?.text != null) {\n        contentBlock.text = contentBlock.text.trim()\n      }\n     }\n  }\n  lastMessageRole = message.role\n}\n\ndef sortField = messages.every { it.channelCreatedTime != null } ? 'channelCreatedTime' : 'timestamp'\nmessages = messages.sort { it[sortField] }\n\n// Context window management - get dynamic context window size\ndef contextWindowSize = binding.hasVariable('contextWindowSize') ? contextWindowSize : 40000 // default 40000 words\ndef truncatedMessageSize = binding.hasVariable('truncatedMessageSize') ? truncatedMessageSize : 100 // default 40000 words\n\n\n// Function to count words in a message - only count actual text content\ndef countWordsInMessage = { message ->\n    def wordCount = 0\n    if (message?.content != null) {\n        for (contentBlock in message.content) {\n            def txt = null\n            if (contentBlock?.text != null) {\n                txt = contentBlock.text\n            } else if (contentBlock?.content != null && contentBlock.content instanceof String) {\n                txt = contentBlock.content\n            } else if (contentBlock?.final_answer != null && contentBlock.final_answer instanceof String) {\n                txt = contentBlock.final_answer\n            }\n\n            if (txt != null) {\n                txt = txt.trim()\n                if (txt) {\n                    // Generic tokenizer: split into word-like tokens\n                    def tokens = (txt =~ /\\b[\\p{L}\\p{N}_]+\\b/)\n                    wordCount += tokens.count\n                }\n            }\n        }\n    }\n    return wordCount\n}\n\n// Function to truncate text to first 10 words\ndef truncateText = { txt ->\n    def matcher = (txt =~ /\\b[\\p{L}\\p{N}_]+\\b/)\n    def tokens = matcher.collect { it.toString() }\n    if (tokens.size() > truncatedMessageSize) {\n        return tokens[0..(truncatedMessageSize-1)].join(\" \") + \" ... [truncated]\"\n    }\n    return txt\n}\n\n\n// Filter messages to fit context window (with truncation instead of dropping)\ndef filteredMessages = []\ndef totalWords = 0\nfor (int i = messages.size() - 1; i >= 0; i--) {\n    def msg = messages[i]\n    def messageWordCount = countWordsInMessage(msg)\n\n    if (totalWords + messageWordCount <= contextWindowSize) {\n        // fits normally, add as is\n        filteredMessages.add(0, msg)\n        totalWords += messageWordCount\n    } else {\n        // truncate the content but still keep the message\n        def truncatedMsg = [:]\n        truncatedMsg.putAll(msg) // shallow copy\n        if (msg?.content != null) {\n            truncatedMsg.content = msg.content.collect { cb ->\n                def newBlock = [:]\n                newBlock.putAll(cb)\n                if (cb?.text instanceof String) {\n                    newBlock.text = truncateText(cb.text)\n                }\n                if (cb?.content instanceof String) {\n                    newBlock.content = truncateText(cb.content)\n                }\n                if (cb?.final_answer instanceof String) {\n                    newBlock.final_answer = truncateText(cb.final_answer)\n                }\n                return newBlock\n            }\n        }\n        filteredMessages.add(0, truncatedMsg)\n        // no need to add full word count, just pretend we used the window fully\n        totalWords = contextWindowSize\n    }\n}\n\n\n// Added all conversation in tool_result\ndef modifiedMessages = []\ndef toolMessage = \"\"\nString toolUseId = null\nboolean toolUsed = false\nfor (message in filteredMessages) { // Use filteredMessages directly\n    for (contentBlock in message.content) {\n        if (contentBlock.type == \"tool_use\") {\n            // ignoring tool use inside another tool use blocks\n            if(toolUseId != null) {\n                continue;\n            }\n            toolUseId = contentBlock.id\n            toolUsed = true\n        } else if (contentBlock.type == \"tool_result\" && contentBlock.tool_use_id == toolUseId) {\n            contentBlock.content = toolMessage + contentBlock.content\n            toolUseId = null\n            toolMessage = \"\"\n        } else {\n            if (toolUseId != null && contentBlock.type == \"text\") {\n                toolMessage += message.role + \":\" + contentBlock.text  + \", \"\n            } \n        }\n   } \n    if (toolUseId == null || toolUsed) {\n        modifiedMessages << message\n    }\n    toolUsed = false\n}\nmessages = messagesClone // actual input retain \n\nif(modifiedMessages.size() > 0 && modifiedMessages[-1].role == \"assistant\") {\n  modifiedMessages.add([\"role\":\"user\", \"content\":[[\"type\":\"text\", \"text\": \"Lets continue..\"]]])\n}\nreturn ['sortedMessages': modifiedMessages]",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
@@ -3691,7 +3569,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"VnH37-1",
 			"id":"n_jTzvF",
-			"index":52,
+			"index":50,
 			"inputSchema":{
 				"type":"SCHEMA_AND_LAYOUT",
 				"dynamic":false,
@@ -3754,7 +3632,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"VnH37-1",
 			"id":"78rsa",
-			"index":53,
+			"index":51,
 			"inputs":{
 				"result":{
 					"messages":{
@@ -3797,5 +3675,5 @@
 		"AI Agent",
 		"Team"
 	],
-	"version":175
+	"version":180
 }
