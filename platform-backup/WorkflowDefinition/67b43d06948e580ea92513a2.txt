@@ -5,12 +5,12 @@
 	"createdTime":1747000717556,
 	"deleted":false,
 	"deploymentState":{
-		"deployedAt":1759854360838,
-		"deployedBy":0,
-		"deployedDefinitionId":"68e53f18cb47412c05543b44",
+		"deployedAt":1759920980586,
+		"deployedBy":1,
+		"deployedDefinitionId":"68e643543b62b9403f74c54e",
 		"status":"DEPLOYED",
-		"version":95,
-		"workflowVersion":100
+		"version":98,
+		"workflowVersion":104
 	},
 	"edges":[
 		{
@@ -99,6 +99,13 @@
 			"fromNodeId":"n_SnGay",
 			"priority":0,
 			"skip":false,
+			"toNodeId":"n_uXgXj",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_uXgXj",
+			"priority":0,
+			"skip":false,
 			"toNodeId":"n_oIhCG",
 			"type":"next"
 		},
@@ -182,7 +189,6 @@
 		"configs":[
 			{
 				"permissions":[
-					"VIEW_RUNS",
 					"V"
 				],
 				"principalType":"GLOBAL"
@@ -190,9 +196,9 @@
 		]
 	},
 	"id":"67b43d06948e580ea92513a2",
-	"lastModifiedBy":1,
+	"lastModifiedBy":-1,
 	"lcName":"retrigger agent executor",
-	"modifiedTime":1759865252409,
+	"modifiedTime":1759948474570,
 	"name":"Retrigger Agent Executor",
 	"nodes":[
 		{
@@ -371,9 +377,8 @@
 				"object_type":"service_hub_case",
 				"includeRoleMappings":false,
 				"includeCurrentUserPermissions":false,
-				"translationsOption":"DEFAULT",
 				"id":"{{ od8bl.outputs.caseId }}",
-				"readThroughSessionVariables":false
+				"readThroughSessionVariables":true
 			},
 			"skip":false,
 			"subTitle":"Storage by UnifyApps",
@@ -523,6 +528,13 @@
 							"operator":"EQUAL",
 							"value":"true"
 						}
+					},
+					{
+						"property":"{{ od8bl.outputs.aiAgentId }}",
+						"filter":{
+							"operator":"EQUAL",
+							"value":"{{ vUdEi.outputs.properties.toCustomerUserId }}"
+						}
 					}
 				],
 				"operator":"AND"
@@ -563,6 +575,52 @@
 		},
 		{
 			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":132,
+				"resourceName":"storage_by_unifyapps_update_records",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_FQ70w@AdoDF-1@y",
+			"id":"n_uXgXj",
+			"index":11,
+			"inputs":{
+				"numberOfRecordsToUpdate":"SINGLE",
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"property":"properties_caseId",
+							"filter":{
+								"operator":"EQUAL",
+								"value":"{{ od8bl.outputs.caseId }}"
+							}
+						}
+					],
+					"operator":"AND"
+				},
+				"object_type":"e_ai_agent_conversation_state",
+				"updateFields":[
+					{
+						"fieldName":"properties.skipAgentNextIteration",
+						"actionType":"SET",
+						"setValue":"false"
+					}
+				],
+				"skipIfEmpty":false,
+				"page":{
+					"offset":0,
+					"limit":20
+				}
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Update records by query",
+			"type":"ACTION"
+		},
+		{
+			"context":{
 				"appName":"if_else",
 				"resourceVersion":438,
 				"resourceName":"if_else_condition",
@@ -573,7 +631,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_FQ70w@AdoDF-1@y",
 			"id":"n_oIhCG",
-			"index":11,
+			"index":12,
 			"inputs":{
 				"filters":[
 					{
@@ -603,7 +661,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_oIhCG@n_FQ70w@AdoDF-1@y@y",
 			"id":"n_Ca7SS",
-			"index":12,
+			"index":13,
 			"inputs":{
 				"automationId":"68b827559a4a9d0149caa07d",
 				"runtimeConnections":{},
@@ -631,7 +689,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_oIhCG@n_FQ70w@AdoDF-1@y@n",
 			"id":"n_qxBeC",
-			"index":13,
+			"index":14,
 			"inputs":{
 				"result":{
 					"success":"true"
@@ -654,7 +712,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"AdoDF-1",
 			"id":"ijYGr",
-			"index":14,
+			"index":15,
 			"inputs":{
 				"filters":[
 					{
@@ -691,7 +749,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"ijYGr@AdoDF-1@y",
 			"id":"1BTuQ",
-			"index":15,
+			"index":16,
 			"inputs":{
 				"automationId":"67850d225384a9541846f5b9",
 				"runtimeConnections":{},
@@ -722,7 +780,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"ijYGr@AdoDF-1@y",
 			"id":"_pcctL",
-			"index":16,
+			"index":17,
 			"inputs":{
 				"automationId":"68b827559a4a9d0149caa07d",
 				"runtimeConnections":{},
@@ -750,7 +808,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"ijYGr@AdoDF-1@n",
 			"id":"68DWy",
-			"index":17,
+			"index":18,
 			"inputs":{
 				"automationId":"67850d225384a9541846f5b9",
 				"runtimeConnections":{},
@@ -781,7 +839,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"AdoDF-1",
 			"id":"R73tS",
-			"index":18,
+			"index":19,
 			"inputs":{
 				"result":{
 					"success":"200"
@@ -798,9 +856,9 @@
 		
 	],
 	"settings":{
-		"enableNodeLevelLogging":false,
-		"enableRunLogging":false,
-		"enableVariableLogging":false,
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
 		"route":{
 			"default":false,
 			"tierName":"global"
@@ -811,5 +869,5 @@
 		"AI Agent",
 		"Internal"
 	],
-	"version":102
+	"version":105
 }
