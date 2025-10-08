@@ -5,12 +5,12 @@
 	"createdTime":1755674323600,
 	"deleted":false,
 	"deploymentState":{
-		"deployedAt":1759899170119,
+		"deployedAt":1759920848619,
 		"deployedBy":1,
-		"deployedDefinitionId":"68e5ee21c3590c5f32da5f30",
+		"deployedDefinitionId":"68e642d0dfe75258e837f808",
 		"status":"DEPLOYED",
-		"version":75,
-		"workflowVersion":97
+		"version":76,
+		"workflowVersion":98
 	},
 	"edges":[
 		{
@@ -60,9 +60,9 @@
 		]
 	},
 	"id":"6856aa8cf4fbf54cd856d9a1",
-	"lastModifiedBy":1,
+	"lastModifiedBy":-1,
 	"lcName":"autocomplete filter builder",
-	"modifiedTime":1759920848508,
+	"modifiedTime":1759948627463,
 	"name":"Autocomplete filter builder",
 	"nodes":[
 		{
@@ -282,17 +282,12 @@
 				"synchronous":true,
 				"version":"-1",
 				"parameters":{
-					"userEmailAddress":"{{ BIZ1U.outputs.customProperties.emailAddressForRBAC }}",
 					"knowledgeIds":{
 						"ua:type":"mappedArray",
 						"items":"=MAPGET({{ n_Khwzg.outputs.knowledges[0] }},\"id\")",
 						"source":"{{ n_Khwzg.outputs.knowledges }}"
 					},
-					"knowledgeSetId":{
-						"source":"{{ n_Khwzg.outputs.knowledgeSets }}",
-						"ua:type":"mappedArray",
-						"items":"{{ n_Khwzg.outputs.knowledgeSets[0] }}"
-					}
+					"userEmailAddress":"{{ BIZ1U.outputs.customProperties.emailAddressForRBAC }}"
 				}
 			},
 			"options":{
@@ -356,8 +351,7 @@
 					"root.parameters.sharedWithIds.items",
 					"root.parameters.knowledgeList.items.id",
 					"root.parameters.knowledgeList.items.version",
-					"root.parameters.knowledgeList.items.sourceType",
-					"root.parameters.knowledgeSetList.items.id"
+					"root.parameters.knowledgeList.items.sourceType"
 				]
 			},
 			"context":{
@@ -375,18 +369,16 @@
 			"inputs":{
 				"output":{
 					"type":"object",
-					"additionalProperties":false,
 					"properties":{
 						"filter":{
 							"type":"object",
 							"title":"filter"
 						}
-					}
+					},
+					"additionalProperties":false
 				},
 				"input":{
 					"type":"object",
-					"additionalProperties":false,
-					"required":[],
 					"properties":{
 						"sharedWithIds":{
 							"type":"array",
@@ -423,28 +415,14 @@
 							"properties":{},
 							"additionalProperties":false,
 							"title":"Additional Filter"
-						},
-						"knowledgeSetList":{
-							"type":"array",
-							"items":{
-								"type":"object",
-								"properties":{
-									"id":{
-										"type":"string",
-										"title":"Id"
-									}
-								},
-								"additionalProperties":false,
-								"required":[]
-							},
-							"title":"Knowledge Set List"
 						}
-					}
+					},
+					"additionalProperties":false,
+					"required":[]
 				},
-				"code":"def combinedFilter = [\n    op: 'AND',\n    values: []\n]\n\ndef sharedFilter = null\nif (binding.hasVariable('sharedWithIds')) {\n    sharedFilter = [\n        field: 'properties.sharedWithIds',\n        op: 'IN',\n        values: sharedWithIds\n    ]    \n    combinedFilter['values'].add(sharedFilter)\n}\n\ndef knowledgeLevelFilter = [\n    op: 'OR',\n    values: []\n]\n\ndef knowledgeFilter = null\nif (binding.hasVariable('knowledgeList')) {\n    knowledgeFilter = [\n        op: 'OR',\n        values: [\n            [\n                field: 'properties.knowledgeId',\n                op: 'IN',\n                values: knowledgeList.collect { it.id }\n            ],\n            [\n                field: 'properties.knowledgeId.__raw__',\n                op: 'EQUAL',\n                values: knowledgeList.collect { it.id }\n            ]\n        ]\n    ]\n    knowledgeLevelFilter['values'].add(knowledgeFilter)\n}\n\ndef knowledgeSetFilter = null\nif (binding.hasVariable('knowledgeSetList')) {\n    knowledgeSetFilter = [\n        op: 'OR',\n        values: [\n            [\n                field: 'properties.knowledgeSetId',\n                op: 'IN',\n                values: knowledgeSetList.collect { it.id }\n            ],\n            [\n                field: 'properties.knowledgeSetId.__raw__',\n                op: 'EQUAL',\n                values: knowledgeSetList.collect { it.id }\n            ]\n        ]\n    ]\n    knowledgeLevelFilter['values'].add(knowledgeSetFilter)\n}\n\nif(knowledgeLevelFilter != null && knowledgeLevelFilter.values.size() > 0){\n    combinedFilter['values'].add(knowledgeLevelFilter)\n}\n\nif(binding.hasVariable('additionalFilter') && additionalFilter != null){\n   combinedFilter['values'].add(additionalFilter)\n}\n\nreturn ['filter': combinedFilter['values'].size() > 0 ? combinedFilter : null]\n",
 				"compile_static":false,
+				"code":"def combinedFilter = [\n    op: 'AND',\n    values: []\n]\n\ndef sharedFilter = null\nif (binding.hasVariable('sharedWithIds')) {\n    sharedFilter = [\n        field: 'properties.sharedWithIds',\n        op: 'IN',\n        values: sharedWithIds\n    ]    \n    combinedFilter['values'].add(sharedFilter)\n}\n\ndef knowledgeFilter = null\nif (binding.hasVariable('knowledgeList')) {\n    knowledgeFilter = [\n        field: 'properties.knowledgeId',\n        op: 'IN',\n        values: knowledgeList.collect { it.id }\n    ]\n    combinedFilter['values'].add(knowledgeFilter)\n}\n\nif(binding.hasVariable('additionalFilter') && additionalFilter != null){\n   combinedFilter['values'].add(additionalFilter)\n}\n\nreturn ['filter': combinedFilter['values'].size() > 0 ? combinedFilter : null]\n",
 				"isAsync":false,
-				"captureStdOutput":false,
 				"parameters":{
 					"sharedWithIds":{
 						"ua:type":"mappedArray",
@@ -457,13 +435,6 @@
 							"id":"{{ n_Khwzg.outputs.knowledges[0].id }}"
 						},
 						"source":"{{ n_Khwzg.outputs.knowledges }}"
-					},
-					"knowledgeSetList":{
-						"source":"{{ n_Khwzg.outputs.knowledgeSets }}",
-						"ua:type":"mappedArray",
-						"items":{
-							"id":"{{ n_Khwzg.outputs.knowledgeSets[0].id }}"
-						}
 					}
 				}
 			},
@@ -501,9 +472,9 @@
 		
 	],
 	"settings":{
-		"enableNodeLevelLogging":false,
-		"enableRunLogging":false,
-		"enableVariableLogging":false,
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
 		"route":{
 			"default":false,
 			"tierName":"global"
@@ -513,5 +484,5 @@
 	"tags":[
 		
 	],
-	"version":98
+	"version":99
 }
