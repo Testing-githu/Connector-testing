@@ -5,12 +5,12 @@
 	"createdTime":1757705814214,
 	"deleted":false,
 	"deploymentState":{
-		"deployedAt":1759904365860,
+		"deployedAt":1759920780951,
 		"deployedBy":1,
-		"deployedDefinitionId":"68e6026dc3590c5f32db8729",
+		"deployedDefinitionId":"68e6428cdfe75258e837f4c8",
 		"status":"DEPLOYED",
-		"version":37,
-		"workflowVersion":85
+		"version":38,
+		"workflowVersion":86
 	},
 	"edges":[
 		{
@@ -118,9 +118,9 @@
 		]
 	},
 	"id":"68bef57db2d57b3b8f063b3b",
-	"lastModifiedBy":1,
+	"lastModifiedBy":-1,
 	"lcName":"knowledge downloader | onedrive | file",
-	"modifiedTime":1759920780817,
+	"modifiedTime":1759948483809,
 	"name":"Knowledge Downloader | OneDrive | File",
 	"nodes":[
 		{
@@ -608,13 +608,17 @@
 							"type":"string",
 							"title":"Modified Time"
 						},
+						"authorEmail":{
+							"type":"string",
+							"title":"Author Email"
+						},
 						"folder":{
 							"type":"string",
 							"title":"Folder"
 						}
 					}
 				},
-				"code":"def chunkMetadata = [:]\n\nchunkMetadata << (binding.hasVariable('name') && name ? [\"name\": name] : [:])\nchunkMetadata << (binding.hasVariable('mimetype') && mimetype ? [\"mimetype\": mimetype] : [:])\nchunkMetadata << (binding.hasVariable('webViewLink') && webViewLink ? [\"referenceUrl\": webViewLink] : [:])\nchunkMetadata << (binding.hasVariable('size') && size ? [\"size\": size] : [:])\nchunkMetadata << [\"appName\" : \"microsoft_onedrive\"]\nchunkMetadata << (binding.hasVariable('folder') && folder ? [\"folderName\": folder] : [:])\nchunkMetadata << (binding.hasVariable('author') && author ? [\"author\": author] : [:])\nchunkMetadata << (binding.hasVariable('creationDateTime') && creationDateTime ? [\"createdTime\": java.time.Instant.parse(creationDateTime).toEpochMilli()] : [:])\nchunkMetadata << (binding.hasVariable('modifiedTime') && modifiedTime ? [\"modifiedTime\": java.time.Instant.parse(modifiedTime).toEpochMilli()] : [:])\n\nreturn [\"chunkMetadata\": chunkMetadata]\n",
+				"code":"def chunkMetadata = [:]\n\nchunkMetadata << (binding.hasVariable('name') && name ? [\"name\": name] : [:])\nchunkMetadata << (binding.hasVariable('mimetype') && mimetype ? [\"mimetype\": mimetype] : [:])\nchunkMetadata << (binding.hasVariable('webViewLink') && webViewLink ? [\"referenceUrl\": webViewLink] : [:])\nchunkMetadata << (binding.hasVariable('size') && size ? [\"size\": size] : [:])\nchunkMetadata << [\"appName\" : \"microsoft_onedrive\"]\nchunkMetadata << (binding.hasVariable('folder') && folder ? [\"folderName\": folder] : [:])\nchunkMetadata << (binding.hasVariable('author') && author ? [\"author\": author] : [:])\nchunkMetadata << (binding.hasVariable('authorEmail') && authorEmail ? [\"authorEmail\": authorEmail] : [:])\nchunkMetadata << (binding.hasVariable('creationDateTime') && creationDateTime ? [\"createdTime\": java.time.Instant.parse(creationDateTime).toEpochMilli()] : [:])\nchunkMetadata << (binding.hasVariable('modifiedTime') && modifiedTime ? [\"modifiedTime\": java.time.Instant.parse(modifiedTime).toEpochMilli()] : [:])\n\nreturn [\"chunkMetadata\": chunkMetadata]\n",
 				"compile_static":false,
 				"isAsync":false,
 				"captureStdOutput":false,
@@ -623,9 +627,10 @@
 					"mimetype":"{{ k3HVL.outputs.file.mimeType }}",
 					"webViewLink":"{{ _sTbGo.outputs.path }}",
 					"size":"{{ k3HVL.outputs.size }}",
-					"author":"{{ k3HVL.outputs.createdBy.user.email }}",
+					"author":"{{ k3HVL.outputs.createdBy.user.displayName }}",
 					"creationDateTime":"{{ k3HVL.outputs.createdDateTime }}",
 					"modifiedTime":"{{ k3HVL.outputs.lastModifiedDateTime }}",
+					"authorEmail":"{{ k3HVL.outputs.createdBy.user.email }}",
 					"folder":"{{ k3HVL.outputs.parentReference.path }}"
 				}
 			},
@@ -846,18 +851,18 @@
 		
 	],
 	"settings":{
-		"enableNodeLevelLogging":false,
-		"enableRunLogging":false,
-		"enableVariableLogging":false,
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
 		"route":{
 			"default":false,
 			"headerValueTierMap":{},
 			"tierName":"global"
 		}
 	},
-	"standard":false,
+	"standard":true,
 	"tags":[
 		"knowledge_v2"
 	],
-	"version":86
+	"version":87
 }
