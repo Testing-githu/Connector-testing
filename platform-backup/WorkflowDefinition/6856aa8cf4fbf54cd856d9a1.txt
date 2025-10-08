@@ -5,12 +5,12 @@
 	"createdTime":1755674323600,
 	"deleted":false,
 	"deploymentState":{
-		"deployedAt":1759866704063,
-		"deployedBy":1,
-		"deployedDefinitionId":"68e56f50cb47412c055628e6",
+		"deployedAt":1759868482926,
+		"deployedBy":-1,
+		"deployedDefinitionId":"68e57642c3590c5f32d44d84",
 		"status":"DEPLOYED",
-		"version":73,
-		"workflowVersion":94
+		"version":74,
+		"workflowVersion":95
 	},
 	"edges":[
 		{
@@ -60,9 +60,9 @@
 		]
 	},
 	"id":"6856aa8cf4fbf54cd856d9a1",
-	"lastModifiedBy":-1,
+	"lastModifiedBy":1,
 	"lcName":"autocomplete filter builder",
-	"modifiedTime":1759868482336,
+	"modifiedTime":1759899165114,
 	"name":"Autocomplete filter builder",
 	"nodes":[
 		{
@@ -123,7 +123,7 @@
 				"type":"APPLICATION"
 			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_6Is2k-1",
 			"id":"BIZ1U",
@@ -194,7 +194,7 @@
 				"type":"APPLICATION"
 			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_6Is2k-1",
 			"id":"n_Khwzg",
@@ -271,7 +271,7 @@
 				"type":"APPLICATION"
 			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_6Is2k-1",
 			"id":"_FYo6S",
@@ -282,12 +282,17 @@
 				"synchronous":true,
 				"version":"-1",
 				"parameters":{
+					"userEmailAddress":"{{ BIZ1U.outputs.customProperties.emailAddressForRBAC }}",
 					"knowledgeIds":{
 						"ua:type":"mappedArray",
 						"items":"=MAPGET({{ n_Khwzg.outputs.knowledges[0] }},\"id\")",
 						"source":"{{ n_Khwzg.outputs.knowledges }}"
 					},
-					"userEmailAddress":"{{ BIZ1U.outputs.customProperties.emailAddressForRBAC }}"
+					"knowledgeSetId":{
+						"source":"{{ n_Khwzg.outputs.knowledgeSets }}",
+						"ua:type":"mappedArray",
+						"items":"{{ n_Khwzg.outputs.knowledgeSets[0] }}"
+					}
 				}
 			},
 			"options":{
@@ -351,7 +356,8 @@
 					"root.parameters.sharedWithIds.items",
 					"root.parameters.knowledgeList.items.id",
 					"root.parameters.knowledgeList.items.version",
-					"root.parameters.knowledgeList.items.sourceType"
+					"root.parameters.knowledgeList.items.sourceType",
+					"root.parameters.knowledgeSetList.items.id"
 				]
 			},
 			"context":{
@@ -361,7 +367,7 @@
 				"type":"APPLICATION"
 			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_6Is2k-1",
 			"id":"PXUiF",
@@ -369,16 +375,18 @@
 			"inputs":{
 				"output":{
 					"type":"object",
+					"additionalProperties":false,
 					"properties":{
 						"filter":{
 							"type":"object",
 							"title":"filter"
 						}
-					},
-					"additionalProperties":false
+					}
 				},
 				"input":{
 					"type":"object",
+					"additionalProperties":false,
+					"required":[],
 					"properties":{
 						"sharedWithIds":{
 							"type":"array",
@@ -415,14 +423,28 @@
 							"properties":{},
 							"additionalProperties":false,
 							"title":"Additional Filter"
+						},
+						"knowledgeSetList":{
+							"type":"array",
+							"items":{
+								"type":"object",
+								"properties":{
+									"id":{
+										"type":"string",
+										"title":"Id"
+									}
+								},
+								"additionalProperties":false,
+								"required":[]
+							},
+							"title":"Knowledge Set List"
 						}
-					},
-					"additionalProperties":false,
-					"required":[]
+					}
 				},
+				"code":"def combinedFilter = [\n    op: 'AND',\n    values: []\n]\n\ndef sharedFilter = null\nif (binding.hasVariable('sharedWithIds')) {\n    sharedFilter = [\n        field: 'properties.sharedWithIds',\n        op: 'IN',\n        values: sharedWithIds\n    ]    \n    combinedFilter['values'].add(sharedFilter)\n}\n\ndef knowledgeLevelFilter = [\n    op: 'OR',\n    values: []\n]\n\ndef knowledgeFilter = null\nif (binding.hasVariable('knowledgeList')) {\n    knowledgeFilter = [\n        op: 'OR',\n        values: [\n            [\n                field: 'properties.knowledgeId',\n                op: 'IN',\n                values: knowledgeList.collect { it.id }\n            ],\n            [\n                field: 'properties.knowledgeId.__raw__',\n                op: 'EQUAL',\n                values: knowledgeList.collect { it.id }\n            ]\n        ]\n    ]\n    knowledgeLevelFilter['values'].add(knowledgeFilter)\n}\n\ndef knowledgeSetFilter = null\nif (binding.hasVariable('knowledgeSetList')) {\n    knowledgeSetFilter = [\n        op: 'OR',\n        values: [\n            [\n                field: 'properties.knowledgeSetId',\n                op: 'IN',\n                values: knowledgeSetList.collect { it.id }\n            ],\n            [\n                field: 'properties.knowledgeSetId.__raw__',\n                op: 'EQUAL',\n                values: knowledgeSetList.collect { it.id }\n            ]\n        ]\n    ]\n    knowledgeLevelFilter['values'].add(knowledgeSetFilter)\n}\n\nif(knowledgeLevelFilter != null && knowledgeLevelFilter.values.size() > 0){\n    combinedFilter['values'].add(knowledgeLevelFilter)\n}\n\nif(binding.hasVariable('additionalFilter') && additionalFilter != null){\n   combinedFilter['values'].add(additionalFilter)\n}\n\nreturn ['filter': combinedFilter['values'].size() > 0 ? combinedFilter : null]\n",
 				"compile_static":false,
-				"code":"def combinedFilter = [\n    op: 'AND',\n    values: []\n]\n\ndef sharedFilter = null\nif (binding.hasVariable('sharedWithIds')) {\n    sharedFilter = [\n        field: 'properties.sharedWithIds',\n        op: 'IN',\n        values: sharedWithIds\n    ]    \n    combinedFilter['values'].add(sharedFilter)\n}\n\ndef knowledgeFilter = null\nif (binding.hasVariable('knowledgeList')) {\n    knowledgeFilter = [\n        field: 'properties.knowledgeId',\n        op: 'IN',\n        values: knowledgeList.collect { it.id }\n    ]\n    combinedFilter['values'].add(knowledgeFilter)\n}\n\nif(binding.hasVariable('additionalFilter') && additionalFilter != null){\n   combinedFilter['values'].add(additionalFilter)\n}\n\nreturn ['filter': combinedFilter['values'].size() > 0 ? combinedFilter : null]\n",
 				"isAsync":false,
+				"captureStdOutput":false,
 				"parameters":{
 					"sharedWithIds":{
 						"ua:type":"mappedArray",
@@ -435,6 +457,13 @@
 							"id":"{{ n_Khwzg.outputs.knowledges[0].id }}"
 						},
 						"source":"{{ n_Khwzg.outputs.knowledges }}"
+					},
+					"knowledgeSetList":{
+						"source":"{{ n_Khwzg.outputs.knowledgeSets }}",
+						"ua:type":"mappedArray",
+						"items":{
+							"id":"{{ n_Khwzg.outputs.knowledgeSets[0].id }}"
+						}
 					}
 				}
 			},
@@ -451,7 +480,7 @@
 				"type":"APPLICATION"
 			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_6Is2k-1",
 			"id":"n_RgFWu",
@@ -484,5 +513,5 @@
 	"tags":[
 		
 	],
-	"version":95
+	"version":96
 }
