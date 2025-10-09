@@ -6,46 +6,135 @@
 	"deleted":false,
 	"edges":[
 		{
-			"fromNodeId":"_f15zh",
+			"fromNodeId":"n_x1sJo",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_5LjPZ",
+			"toNodeId":"n_FPrVR",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_FPrVR",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_pO3eK",
 			"type":"next"
 		}
 	],
 	"id":"68e7ffc2e4155b0b0f31b829",
 	"lastModifiedBy":1,
 	"lcName":"tmqa2wfsstxhzfu",
-	"modifiedTime":1760034754186,
+	"modifiedTime":1760034798923,
 	"name":"tmQA2wfSsTXHzfu",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2111,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_f15zh-1",
-			"id":"_f15zh",
-			"index":0,
+			"id":"n_x1sJo",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"c":{
+							"type":"string",
+							"title":"c"
+						}
+					}
+				},
+				"setup":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"by_name":{
+							"type":"string",
+							"title":"by_name"
+						},
+						"to_name":{
+							"type":"string",
+							"title":"to_name"
+						},
+						"date":{
+							"type":"string",
+							"title":"date"
+						},
+						"phno":{
+							"type":"integer",
+							"title":"phno"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"template_by_unifyapps",
+				"resourceVersion":1845,
+				"resourceName":"template_by_unifyapps_compile_template",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_f15zh-1",
-			"id":"_5LjPZ",
-			"index":0,
+			"id":"n_FPrVR",
+			"index":2,
+			"inputs":{
+				"input_schema":{
+					"date":"{{ n_x1sJo.outputs.date }}",
+					"name":"{{ n_x1sJo.outputs.to_name }}",
+					"by_name":"{{ n_x1sJo.outputs.by_name }}",
+					"phno":"{{ n_x1sJo.outputs.phno }}"
+				},
+				"template_id":"e_6891d8ff6340cd7af6a1a8d6"
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Template by UnifyApps",
+			"title":"Compile template",
 			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2114,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_f15zh-1",
+			"id":"n_pO3eK",
+			"index":3,
+			"inputs":{
+				"result":{
+					"c":"{{ n_FPrVR.outputs.output }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -59,5 +148,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
