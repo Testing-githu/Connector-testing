@@ -6,46 +6,261 @@
 	"deleted":false,
 	"edges":[
 		{
-			"fromNodeId":"_i7GL6",
+			"fromNodeId":"n_lS7ez",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_vTD2t",
+			"toNodeId":"n_8MSGy",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_8MSGy",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_hTZsT",
+			"type":"loop"
+		},
+		{
+			"fromNodeId":"n_hTZsT",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Araem",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_hTZsT",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_pzyjK",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Araem",
+			"name":"loopback",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_8MSGy",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_pzyjK",
+			"name":"loopback",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_8MSGy",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_8MSGy",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_X4BBm",
 			"type":"next"
 		}
 	],
 	"id":"68e80ed6e4155b0b0f322174",
 	"lastModifiedBy":1,
 	"lcName":"loopsqa2zgjpkreanf",
-	"modifiedTime":1760038614078,
+	"modifiedTime":1760038665040,
 	"name":"loopsQA2zgjpKREaNF",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2134,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_i7GL6-1",
-			"id":"_i7GL6",
-			"index":0,
+			"id":"n_lS7ez",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"output":{
+							"type":"integer",
+							"title":"output"
+						}
+					}
+				},
+				"setup":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"input":{
+							"type":"array",
+							"items":{
+								"type":"integer"
+							},
+							"title":"input"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"loop",
+				"resourceVersion":139,
+				"resourceName":"loop_for_each",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_i7GL6-1",
-			"id":"_vTD2t",
-			"index":0,
+			"id":"n_8MSGy",
+			"index":2,
+			"inputs":{
+				"repeatMode":"SINGLE",
+				"listSource":"{{ n_lS7ez.outputs.input }}",
+				"captureIterations":false
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Loop",
+			"title":"For each loop",
+			"type":"LOOP"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":136,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"n_8MSGy@_i7GL6-1@l",
+			"id":"n_hTZsT",
+			"index":3,
+			"inputs":{
+				"filters":[
+					{
+						"property":"=MOD({{ n_8MSGy.outputs.item }},2)",
+						"filter":{
+							"operator":"EQUAL",
+							"value":"0"
+						}
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":2052,
+				"resourceName":"variable_by_unifyapps_create_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"n_hTZsT@n_8MSGy@_i7GL6-1@l@y",
+			"id":"n_Araem",
+			"index":4,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{},
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"result":{
+							"type":"integer",
+							"title":"result"
+						}
+					}
+				}
+			},
+			"inputs":{
+				"result":"{{ n_8MSGy.outputs.item }}"
+			},
+			"outputSchema":{
+				"dynamic":false,
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"result":{
+							"type":"integer",
+							"title":"result"
+						}
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Create variables",
 			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"continue",
+				"resourceVersion":136,
+				"resourceName":"continue",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"n_hTZsT@n_8MSGy@_i7GL6-1@l@n",
+			"id":"n_pzyjK",
+			"index":5,
+			"inputs":{
+				"loop":"n_8MSGy"
+			},
+			"skip":false,
+			"subTitle":"Continue",
+			"title":"Continue",
+			"type":"CONTINUE"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2137,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_i7GL6-1",
+			"id":"n_X4BBm",
+			"index":6,
+			"inputs":{
+				"result":{
+					"output":"{{ n_Araem.outputs.result }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -59,5 +274,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
