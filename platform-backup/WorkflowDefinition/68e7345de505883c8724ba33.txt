@@ -6,46 +6,119 @@
 	"deleted":false,
 	"edges":[
 		{
-			"fromNodeId":"_dNTey",
+			"fromNodeId":"n_ABHCP",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_w3Tnz",
+			"toNodeId":"n_OHE3s",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_OHE3s",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_CAmS5",
 			"type":"next"
 		}
 	],
 	"id":"68e7345de505883c8724ba33",
 	"lastModifiedBy":1,
 	"lcName":"utilitybyunifyappsqa2lxwdwyhxyn",
-	"modifiedTime":1759982685333,
+	"modifiedTime":1759982724713,
 	"name":"UtilityByUnifyAppsQA2LXWdwyHxyn",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2092,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_dNTey-1",
-			"id":"_dNTey",
-			"index":0,
+			"id":"n_ABHCP",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"r":{
+							"type":"string",
+							"title":"r"
+						}
+					}
+				},
+				"setup":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"a":{
+							"type":"string",
+							"title":"a"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"utility_by_unifyapps",
+				"resourceVersion":2780,
+				"resourceName":"utility_by_unifyapps_generate_uuid",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_dNTey-1",
-			"id":"_w3Tnz",
-			"index":0,
+			"id":"n_OHE3s",
+			"index":2,
+			"inputs":{
+				"uuidVersion":"time_based",
+				"namespace":"unifyapps.com",
+				"noOfUUIDs":1
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Utility by UnifyApps",
+			"title":"Generate UUID of different versions",
 			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2095,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_dNTey-1",
+			"id":"n_CAmS5",
+			"index":3,
+			"inputs":{
+				"result":{
+					"r":"{{ n_OHE3s.outputs.uuids }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -59,5 +132,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
