@@ -6,46 +6,511 @@
 	"deleted":false,
 	"edges":[
 		{
-			"fromNodeId":"_Qv4gu",
+			"fromNodeId":"n_t68oD",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_3Vk4c",
+			"toNodeId":"n_AypX0",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_AypX0",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_uty5R",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_uty5R",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_mLU3V",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_mLU3V",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_6JXlT",
+			"type":"loop"
+		},
+		{
+			"fromNodeId":"n_6JXlT",
+			"name":"loopback",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_mLU3V",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_mLU3V",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_6rNJA",
 			"type":"next"
 		}
 	],
 	"id":"68e80d1157e08f192dbe2f57",
 	"lastModifiedBy":1,
 	"lcName":"loopsqa2zxasgsawxz",
-	"modifiedTime":1760038161454,
+	"modifiedTime":1760038226558,
 	"name":"loopsQA2ZXASGsawxz",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2134,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_Qv4gu-1",
-			"id":"_Qv4gu",
-			"index":0,
+			"id":"n_t68oD",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"name":{
+							"type":"string",
+							"title":"name"
+						},
+						"id":{
+							"type":"integer",
+							"title":"id"
+						},
+						"position":{
+							"type":"integer",
+							"title":"position"
+						},
+						"email":{
+							"type":"string",
+							"title":"email"
+						}
+					}
+				},
+				"setup":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"name":{
+							"type":"string",
+							"title":"name"
+						},
+						"id":{
+							"type":"integer",
+							"title":"id"
+						},
+						"position":{
+							"type":"integer",
+							"title":"position"
+						},
+						"email":{
+							"type":"string",
+							"title":"email"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":2049,
+				"resourceName":"variable_by_unifyapps_create_list",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_Qv4gu-1",
-			"id":"_3Vk4c",
-			"index":0,
+			"id":"n_AypX0",
+			"index":2,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{
+					"createList":{
+						"ui:title":"",
+						"ua:type":{
+							"ui:widget":"hidden"
+						},
+						"items":{
+							"ui:title":"Initial list items",
+							"ui:description":"Set the initial values of the list (defaults to empty)"
+						},
+						"ui:order":[
+							"*",
+							"items"
+						]
+					},
+					"ua:title":{
+						"ui:widget":"hidden"
+					},
+					"ua:list_type":{
+						"ui:widget":"hidden"
+					}
+				},
+				"schema":{
+					"allOf":[
+						{
+							"if":{
+								"properties":{
+									"ua:list_type":{
+										"const":"OBJECT"
+									}
+								}
+							},
+							"then":{
+								"properties":{
+									"createList":{
+										"type":"object",
+										"properties":{
+											"items":{
+												"type":"object",
+												"properties":{}
+											}
+										}
+									}
+								}
+							}
+						},
+						{
+							"if":{
+								"properties":{
+									"ua:list_type":{
+										"const":"STRING"
+									}
+								}
+							},
+							"then":{
+								"properties":{
+									"createList":{
+										"type":"object",
+										"properties":{
+											"source":{
+												"type":"string",
+												"format":"ua:source",
+												"title":"List of String"
+											},
+											"items":{
+												"type":"string"
+											}
+										}
+									}
+								}
+							}
+						},
+						{
+							"if":{
+								"properties":{
+									"ua:list_type":{
+										"const":"INTEGER"
+									}
+								}
+							},
+							"then":{
+								"properties":{
+									"createList":{
+										"type":"object",
+										"properties":{
+											"source":{
+												"type":"string",
+												"format":"ua:source",
+												"title":"List of Integers"
+											},
+											"items":{
+												"type":"integer"
+											}
+										}
+									}
+								}
+							}
+						},
+						{
+							"if":{
+								"properties":{
+									"ua:list_type":{
+										"const":"NUMBER"
+									}
+								}
+							},
+							"then":{
+								"properties":{
+									"createList":{
+										"type":"object",
+										"properties":{
+											"source":{
+												"type":"string",
+												"format":"ua:source",
+												"title":"List of Numbers"
+											},
+											"items":{
+												"type":"number"
+											}
+										}
+									}
+								}
+							}
+						},
+						{
+							"if":{
+								"properties":{
+									"ua:list_type":{
+										"const":"BOOLEAN"
+									}
+								}
+							},
+							"then":{
+								"properties":{
+									"createList":{
+										"type":"object",
+										"properties":{
+											"source":{
+												"type":"string",
+												"format":"ua:source",
+												"title":"List of Booleans"
+											},
+											"items":{
+												"type":"boolean"
+											}
+										}
+									}
+								}
+							}
+						}
+					],
+					"format":"ua:list",
+					"type":"object",
+					"properties":{
+						"ua:title":{
+							"type":"string"
+						},
+						"ua:list_type":{
+							"type":"string",
+							"title":"List Type",
+							"oneOf":[
+								{
+									"const":"OBJECT",
+									"title":"Object"
+								},
+								{
+									"const":"STRING",
+									"title":"String"
+								},
+								{
+									"const":"NUMBER",
+									"title":"Number"
+								},
+								{
+									"const":"INTEGER",
+									"title":"Integer"
+								},
+								{
+									"const":"BOOLEAN",
+									"title":"Boolean"
+								}
+							],
+							"default":"OBJECT"
+						},
+						"createList":{
+							"type":"object",
+							"properties":{
+								"ua:type":{
+									"type":"string",
+									"default":"mappedArray"
+								},
+								"source":{
+									"type":"string",
+									"format":"ua:source",
+									"title":"List Item Source"
+								},
+								"items":{
+									"type":"object",
+									"properties":{
+										"name":{
+											"type":"string",
+											"title":"name"
+										},
+										"id":{
+											"type":"integer",
+											"title":"id"
+										},
+										"position":{
+											"type":"integer",
+											"title":"position"
+										},
+										"email":{
+											"type":"string",
+											"title":"email"
+										}
+									},
+									"additionalProperties":false
+								}
+							}
+						}
+					}
+				}
+			},
+			"inputs":{
+				"createList":{
+					"ua:type":"mappedArray"
+				},
+				"ua:title":"List",
+				"ua:list_type":"OBJECT"
+			},
+			"outputSchema":{
+				"dynamic":false,
+				"schema":{
+					"type":"object",
+					"properties":{
+						"items":{
+							"type":"array",
+							"title":"List",
+							"disableActions":true,
+							"items":{
+								"type":"object",
+								"properties":{
+									"name":{
+										"type":"string",
+										"title":"name"
+									},
+									"id":{
+										"type":"integer",
+										"title":"id"
+									},
+									"position":{
+										"type":"integer",
+										"title":"position"
+									},
+									"email":{
+										"type":"string",
+										"title":"email"
+									}
+								}
+							}
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Variable by UnifyApps",
+			"title":"Create list",
 			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":2050,
+				"resourceName":"variable_by_unifyapps_add_item_to_list",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_Qv4gu-1",
+			"id":"n_uty5R",
+			"index":3,
+			"inputs":{
+				"itemToAdd":{
+					"name":"{{ n_t68oD.outputs.name }}",
+					"id":"{{ n_t68oD.outputs.id }}",
+					"position":"{{ n_t68oD.outputs.position }}",
+					"email":"{{ n_t68oD.outputs.email }}"
+				},
+				"insertLocation":"START",
+				"listName":"{{ n_AypX0.outputs.items[0] }}"
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Add item to list",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"loop",
+				"resourceVersion":139,
+				"resourceName":"loop_for_each",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_Qv4gu-1",
+			"id":"n_mLU3V",
+			"index":4,
+			"inputs":{
+				"repeatMode":"SINGLE",
+				"listSource":"{{ n_AypX0.outputs.items }}",
+				"captureIterations":true
+			},
+			"skip":false,
+			"subTitle":"Loop",
+			"title":"For each loop",
+			"type":"LOOP"
+		},
+		{
+			"context":{
+				"appName":"test_http",
+				"resourceVersion":2105,
+				"connectionId":"66b0ee649c311126267a17b7",
+				"resourceName":"test_http_post_api",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"n_mLU3V@_Qv4gu-1@l",
+			"id":"n_6JXlT",
+			"index":5,
+			"inputs":{
+				"field1":"{{ n_mLU3V.outputs.item }}",
+				"field2":false
+			},
+			"skip":false,
+			"subTitle":"Test HTTP API",
+			"title":"Test HTTP Post API",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2137,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_Qv4gu-1",
+			"id":"n_6rNJA",
+			"index":6,
+			"inputs":{
+				"result":{
+					"name":"{{ n_AypX0.outputs.items[0].name }}",
+					"id":"{{ n_AypX0.outputs.items[0].id }}",
+					"position":"{{ n_AypX0.outputs.items[0].position }}",
+					"email":"{{ n_AypX0.outputs.items[0].email }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -59,5 +524,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
