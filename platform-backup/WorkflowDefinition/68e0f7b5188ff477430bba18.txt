@@ -5,12 +5,12 @@
 	"createdTime":1759910419914,
 	"deleted":false,
 	"deploymentState":{
-		"deployedAt":1759927587139,
+		"deployedAt":1760012206683,
 		"deployedBy":1,
-		"deployedDefinitionId":"68e65d223b62b9403f77d253",
+		"deployedDefinitionId":"68e7a7ae2821d8204eb332dd",
 		"status":"DEPLOYED",
-		"version":3,
-		"workflowVersion":43
+		"version":4,
+		"workflowVersion":45
 	},
 	"edges":[
 		{
@@ -71,10 +71,20 @@
 			"type":"next"
 		}
 	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
 	"id":"68e0f7b5188ff477430bba18",
-	"lastModifiedBy":1,
+	"lastModifiedBy":0,
 	"lcName":"chat question suggestions",
-	"modifiedTime":1759927639909,
+	"modifiedTime":1760034479790,
 	"name":"Chat Question Suggestions",
 	"nodes":[
 		{
@@ -91,27 +101,25 @@
 				"resourceName":"callables_from_api"
 			},
 			"debug":false,
-			"dirty":true,
+			"dirty":false,
 			"fallbackMode":"STOP",
 			"groupId":"_6S6Hm-1",
 			"id":"n_pIJZx",
 			"index":1,
 			"inputs":{
 				"request":{
-					"contentType":"application/json",
-					"body":{
+					"pathParams":{
 						"type":"object",
+						"additionalProperties":false,
+						"required":[],
 						"properties":{
 							"caseId":{
 								"type":"string",
 								"title":"Case Id"
 							}
-						},
-						"additionalProperties":false,
-						"required":[
-							"caseId"
-						]
-					}
+						}
+					},
+					"contentType":"application/json"
 				},
 				"endpointType":"REST",
 				"response":[
@@ -175,7 +183,7 @@
 				"type":"APPLICATION"
 			},
 			"debug":false,
-			"dirty":true,
+			"dirty":false,
 			"fallbackMode":"STOP",
 			"groupId":"_6S6Hm-1",
 			"id":"n_5YaIn",
@@ -187,7 +195,7 @@
 							"property":"properties_caseId",
 							"filter":{
 								"operator":"EQUAL",
-								"value":"{{ n_pIJZx.outputs.body.caseId }}"
+								"value":"{{ n_pIJZx.outputs.pathParams.caseId }}"
 							}
 						},
 						{
@@ -236,7 +244,7 @@
 				"type":"APPLICATION"
 			},
 			"debug":false,
-			"dirty":true,
+			"dirty":false,
 			"fallbackMode":"STOP",
 			"groupId":"_6S6Hm-1",
 			"id":"zYY3n",
@@ -291,7 +299,7 @@
 				"type":"APPLICATION"
 			},
 			"debug":false,
-			"dirty":true,
+			"dirty":false,
 			"fallbackMode":"MANUAL",
 			"groupId":"_6S6Hm-1",
 			"id":"bzG2R",
@@ -302,11 +310,9 @@
 				"synchronous":true,
 				"version":"-1",
 				"parameters":{
-					"content":"{{ zYY3n.outputs.result.prompt }}",
 					"type":"text",
 					"response_format":"text",
-					"maxTokens":"4096",
-					"temperature":"0.1"
+					"content":"{{ zYY3n.outputs.result.prompt }}"
 				}
 			},
 			"options":{
@@ -375,7 +381,7 @@
 				"type":"APPLICATION"
 			},
 			"debug":false,
-			"dirty":true,
+			"dirty":false,
 			"fallbackMode":"STOP",
 			"groupId":"bzG2R@_6S6Hm-1@error",
 			"id":"n_teVn9",
@@ -406,7 +412,7 @@
 				"type":"APPLICATION"
 			},
 			"debug":false,
-			"dirty":true,
+			"dirty":false,
 			"fallbackMode":"STOP",
 			"groupId":"_6S6Hm-1",
 			"id":"n_cRxGc",
@@ -432,7 +438,7 @@
 				"type":"APPLICATION"
 			},
 			"debug":false,
-			"dirty":true,
+			"dirty":false,
 			"fallbackMode":"STOP",
 			"groupId":"_6S6Hm-1",
 			"id":"n_CHAWP",
@@ -489,7 +495,7 @@
 				"type":"APPLICATION"
 			},
 			"debug":false,
-			"dirty":true,
+			"dirty":false,
 			"fallbackMode":"STOP",
 			"groupId":"_6S6Hm-1",
 			"id":"n_7NT3h",
@@ -525,9 +531,9 @@
 			"tierName":"global"
 		}
 	},
-	"standard":false,
+	"standard":true,
 	"tags":[
 		
 	],
-	"version":44
+	"version":46
 }
