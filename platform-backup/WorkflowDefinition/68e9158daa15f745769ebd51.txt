@@ -7,46 +7,136 @@
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_5f5vG",
+			"fromNodeId":"n_e4xBj",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_ObrEl",
+			"toNodeId":"n_xLWh9",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_xLWh9",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_O3McK",
+			"type":"scope"
+		},
+		{
+			"fromNodeId":"n_O3McK",
+			"name":"scope-loopback",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_xLWh9",
 			"type":"next"
 		}
 	],
 	"id":"68e9158daa15f745769ebd51",
 	"lastModifiedBy":1,
 	"lcName":"alloperatorsscopefalse_9_11760103270995",
-	"modifiedTime":1760105869604,
+	"modifiedTime":1760105882320,
 	"name":"allOperatorsScopeFalse_9_11760103270995",
 	"nodes":[
 		{
+			"context":{
+				"appName":"webhooks",
+				"resourceVersion":137,
+				"resourceName":"webhooks_default"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_5f5vG-1",
-			"id":"_5f5vG",
-			"index":0,
+			"id":"n_e4xBj",
+			"index":1,
+			"inputs":{
+				"request":{
+					"contentType":"application/json",
+					"body":{
+						"type":"object",
+						"properties":{
+							"ArrayString":{
+								"type":"array",
+								"items":{
+									"type":"string"
+								},
+								"title":"ArrayString"
+							}
+						},
+						"additionalProperties":false,
+						"required":[
+							"ArrayString"
+						]
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Webhook",
+			"title":"New event",
 			"trigger":{
-				"type":"EVENT"
+				"type":"WEBHOOK"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"scope",
+				"resourceVersion":138,
+				"resourceName":"scope_trigger_scope",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_5f5vG-1",
-			"id":"_ObrEl",
-			"index":0,
+			"id":"n_xLWh9",
+			"index":2,
+			"inputs":{
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"property":"efg",
+							"filter":{
+								"operator":"ENDS_WITH",
+								"value":"c"
+							}
+						}
+					],
+					"operator":"AND"
+				}
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Scope",
+			"title":"Trigger Scope",
+			"type":"SCOPE"
+		},
+		{
+			"context":{
+				"appName":"test_http",
+				"resourceVersion":2166,
+				"connectionId":"66b0ee649c311126267a17b7",
+				"resourceName":"test_http_post_api",
+				"type":"APPLICATION",
+				"scopeNodeId":"n_xLWh9"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"n_xLWh9@_5f5vG-1@s",
+			"id":"n_O3McK",
+			"index":3,
+			"inputs":{
+				"field1":"workflow continues",
+				"field2":false
+			},
+			"skip":false,
+			"subTitle":"Test HTTP API",
+			"title":"Test HTTP Post API",
 			"type":"ACTION"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +150,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
