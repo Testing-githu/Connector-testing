@@ -4,10 +4,40 @@
 	],
 	"createdTime":1760105122127,
 	"deleted":false,
+	"deploymentState":{
+		"deployedAt":1760105134621,
+		"deployedBy":1,
+		"deployedDefinitionId":"68e912aeaa15f745769e99db",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":1
+	},
 	"description":"description",
 	"edges":[
 		{
 			"fromNodeId":"n_p8BYd",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_vEodC",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_vEodC",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_jrB9w",
+			"type":"scope"
+		},
+		{
+			"fromNodeId":"n_jrB9w",
+			"name":"scope-loopback",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_vEodC",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_vEodC",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_5Neyd",
@@ -17,7 +47,7 @@
 	"id":"68e912a2aa15f745769e993c",
 	"lastModifiedBy":1,
 	"lcName":"scopewithincasesteperrorfollowerrorpath_11760103270995",
-	"modifiedTime":1760105131522,
+	"modifiedTime":1760105145514,
 	"name":"ScopeWithInCaseStepErrorFollowErrorPath_11760103270995",
 	"nodes":[
 		{
@@ -70,6 +100,62 @@
 		},
 		{
 			"context":{
+				"appName":"scope",
+				"resourceVersion":138,
+				"resourceName":"scope_trigger_scope",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_l284u-1",
+			"id":"n_vEodC",
+			"index":2,
+			"inputs":{
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"property":"{{ n_p8BYd.outputs.input_String }}",
+							"filter":{
+								"operator":"EQUAL",
+								"value":"Unifyapps"
+							}
+						}
+					],
+					"operator":"AND"
+				}
+			},
+			"skip":false,
+			"subTitle":"Scope",
+			"title":"Trigger Scope",
+			"type":"SCOPE"
+		},
+		{
+			"context":{
+				"appName":"test_http",
+				"resourceVersion":2166,
+				"connectionId":"66b0ee649c311126267a17b7",
+				"resourceName":"test_http_post_api",
+				"type":"APPLICATION",
+				"scopeNodeId":"n_vEodC"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"n_vEodC@_l284u-1@s",
+			"id":"n_jrB9w",
+			"index":3,
+			"inputs":{
+				"field1":"workflow continues",
+				"field2":false
+			},
+			"skip":false,
+			"subTitle":"Test HTTP API",
+			"title":"Test HTTP Post API",
+			"type":"ACTION"
+		},
+		{
+			"context":{
 				"appName":"callables",
 				"resourceVersion":2208,
 				"resourceName":"callables_return_to_automation",
@@ -80,7 +166,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_l284u-1",
 			"id":"n_5Neyd",
-			"index":2,
+			"index":4,
 			"inputs":{
 				"result":{
 					"output_String":"{{ n_p8BYd.outputs.input_String }}"
@@ -109,5 +195,5 @@
 	"tags":[
 		
 	],
-	"version":1
+	"version":2
 }
