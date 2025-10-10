@@ -7,46 +7,392 @@
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_CDqyF",
+			"fromNodeId":"n_pvaf9",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_N319d",
+			"toNodeId":"n_ZWQAR",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_ZWQAR",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_xMGZD",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_xMGZD",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_anM7p",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_anM7p",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_fUqCT",
 			"type":"next"
 		}
 	],
 	"id":"68e95f7d64af142a5db3ab5e",
 	"lastModifiedBy":1,
 	"lcName":"mapdatacallableworkflow_117601218591620",
-	"modifiedTime":1760124797637,
+	"modifiedTime":1760124832325,
 	"name":"MapdataCallableWorkflow_117601218591620",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2235,
+				"resourceName":"callables_from_api"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_CDqyF-1",
-			"id":"_CDqyF",
-			"index":0,
+			"id":"n_pvaf9",
+			"index":1,
+			"inputs":{
+				"request":{
+					"contentType":"application/json",
+					"body":{
+						"type":"object",
+						"properties":{
+							"id":{
+								"type":"integer",
+								"title":"id"
+							},
+							"name":{
+								"type":"string",
+								"title":"name"
+							},
+							"age":{
+								"type":"integer",
+								"title":"age"
+							},
+							"gender":{
+								"type":"string",
+								"title":"gender"
+							},
+							"designation":{
+								"type":"string",
+								"title":"designation"
+							},
+							"department":{
+								"type":"string",
+								"title":"department"
+							},
+							"salary":{
+								"type":"integer",
+								"title":"salary"
+							},
+							"city":{
+								"type":"string",
+								"title":"city"
+							},
+							"state":{
+								"type":"string",
+								"title":"state"
+							}
+						},
+						"additionalProperties":false
+					}
+				},
+				"endpointType":"REST",
+				"response":[
+					{
+						"name":"success",
+						"status":200,
+						"contentType":"application/json",
+						"textBody":{
+							"type":"string"
+						},
+						"body":{
+							"type":"object",
+							"properties":{
+								"output":{
+									"type":"string",
+									"title":"output"
+								}
+							},
+							"additionalProperties":false,
+							"required":[
+								"output"
+							]
+						}
+					}
+				],
+				"streamingResponse":false
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via API",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":2139,
+				"resourceName":"variable_by_unifyapps_create_variables",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_CDqyF-1",
-			"id":"_N319d",
-			"index":0,
+			"id":"n_ZWQAR",
+			"index":2,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{},
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"VarString":{
+							"type":"string",
+							"title":"VarString"
+						},
+						"VarNumber":{
+							"type":"number",
+							"title":"VarNumber"
+						},
+						"VarInteger":{
+							"type":"integer",
+							"title":"VarInteger"
+						},
+						"VarBoolean":{
+							"type":"boolean",
+							"title":"VarBoolean"
+						}
+					},
+					"required":[
+						"VarString",
+						"VarNumber",
+						"VarInteger",
+						"VarBoolean"
+					]
+				}
+			},
+			"inputs":{
+				"VarNumber":221,
+				"VarBoolean":true,
+				"VarString":"string2",
+				"VarInteger":222
+			},
+			"outputSchema":{
+				"dynamic":false,
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"VarString":{
+							"type":"string",
+							"title":"VarString"
+						},
+						"VarNumber":{
+							"type":"number",
+							"title":"VarNumber"
+						},
+						"VarInteger":{
+							"type":"integer",
+							"title":"VarInteger"
+						},
+						"VarBoolean":{
+							"type":"boolean",
+							"title":"VarBoolean"
+						}
+					},
+					"required":[
+						"VarString",
+						"VarNumber",
+						"VarInteger",
+						"VarBoolean"
+					]
+				}
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Variable by UnifyApps",
+			"title":"Create variables",
 			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":2094,
+				"resourceName":"code_by_unifyapps_python",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_CDqyF-1",
+			"id":"n_xMGZD",
+			"index":3,
+			"inputs":{
+				"output":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"ans"
+					],
+					"properties":{
+						"ans":{
+							"type":"string",
+							"title":"ans"
+						}
+					}
+				},
+				"input":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"num1",
+						"num2"
+					],
+					"properties":{
+						"num1":{
+							"type":"integer",
+							"title":"num1"
+						},
+						"num2":{
+							"type":"integer",
+							"title":"num2"
+						}
+					}
+				},
+				"configurationMode":"DEFAULT",
+				"code":"num1 =10\r\nnum2 =20\r\nresult ={}\r\nresult['ans'] = num1+num2",
+				"isAsync":false,
+				"python_version":"3.12",
+				"captureStdOutput":false
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Python script",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"comments_by_unifyapps",
+				"resourceVersion":2081,
+				"resourceName":"comments_by_unifyapps_add_comment",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_CDqyF-1",
+			"id":"n_anM7p",
+			"index":4,
+			"inputs":{
+				"assetId":"7",
+				"synchronous":false,
+				"assetClass":"Demo",
+				"userId":948,
+				"content":"Text"
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"global":false
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS"
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":true,
+					"logPolicies":[
+						{
+							"level":"INFO",
+							"maskedFields":[
+								
+							],
+							"message":"{{ n_pvaf9.outputs.body.designation }} {{ n_pvaf9.outputs.body.city }} {{ n_pvaf9.outputs.body.salary }} {{ n_ZWQAR.outputs.VarNumber }} {{ n_ZWQAR.outputs.VarString }} {{ n_anM7p.inputs.assetId }} {{ n_anM7p.inputs.assetClass }} ",
+							"onlyOnFailure":false
+						}
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"STOP",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
+			},
+			"skip":false,
+			"subTitle":"Comments by UnifyApps",
+			"title":"Add Comment",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2237,
+				"resourceName":"callables_return_response_to_api",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_CDqyF-1",
+			"id":"n_fUqCT",
+			"index":5,
+			"inputs":{
+				"streamingCompleted":true,
+				"responseName":"200_success",
+				"body":{
+					"output":"Success"
+				},
+				"status":200
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to API request",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +406,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
