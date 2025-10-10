@@ -1,7 +1,7 @@
 {
 	"appsUsed":[
-		"servicenow",
-		"shopify"
+		"shopify",
+		"slack"
 	],
 	"createdTime":1760105987507,
 	"deleted":false,
@@ -11,14 +11,14 @@
 			"fromNodeId":"n_MjwXp",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"n_zBQO5",
+			"toNodeId":"n_7OUPr",
 			"type":"next"
 		}
 	],
 	"id":"68e91603aa15f745769ec31f",
 	"lastModifiedBy":1,
 	"lcName":"test with mock data 11760103243949",
-	"modifiedTime":1760106004825,
+	"modifiedTime":1760106019720,
 	"name":"Test with mock data 11760103243949",
 	"nodes":[
 		{
@@ -29,7 +29,7 @@
 				"resourceName":"shopify_on_order_create"
 			},
 			"debug":false,
-			"dirty":true,
+			"dirty":false,
 			"fallbackMode":"STOP",
 			"groupId":"_ugwYz-1",
 			"id":"n_MjwXp",
@@ -45,24 +45,28 @@
 		},
 		{
 			"context":{
-				"appName":"servicenow",
-				"resourceVersion":7950,
-				"connectionId":"6708ab5fb01e392a8f978345",
-				"resourceName":"servicenow_create_record",
+				"appName":"slack",
+				"resourceVersion":8033,
+				"connectionId":"662f8ddb91d8ba4394d0cce6",
+				"resourceName":"slack_post_message_in_channel",
 				"type":"APPLICATION"
 			},
 			"debug":false,
 			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_ugwYz-1",
-			"id":"n_zBQO5",
+			"id":"n_7OUPr",
 			"index":2,
 			"inputs":{
-				"objectSourceResourceName":"servicenow_fetch_object"
+				"link_names":true,
+				"messageType":"text",
+				"channel":"slack-msg-automation",
+				"text":"{{ n_MjwXp.outputs.id }}",
+				"mrkdwn":true
 			},
 			"skip":false,
-			"subTitle":"ServiceNow",
-			"title":"Create record",
+			"subTitle":"Slack",
+			"title":"Post message",
 			"type":"ACTION"
 		}
 	],
@@ -83,5 +87,5 @@
 	"tags":[
 		
 	],
-	"version":1
+	"version":2
 }
