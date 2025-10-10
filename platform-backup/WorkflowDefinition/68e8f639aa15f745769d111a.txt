@@ -7,46 +7,107 @@
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_mkf1N",
+			"fromNodeId":"n_QJFf3",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_IGO0h",
+			"toNodeId":"n_gMMxc",
 			"type":"next"
 		}
 	],
 	"id":"68e8f639aa15f745769d111a",
 	"lastModifiedBy":1,
 	"lcName":"condition box|number input - greater than 11760096322198",
-	"modifiedTime":1760097849404,
+	"modifiedTime":1760097867320,
 	"name":"Condition Box|Number Input - Greater than 11760096322198",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2201,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_mkf1N-1",
-			"id":"_mkf1N",
-			"index":0,
+			"id":"n_QJFf3",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"output_Number"
+					],
+					"properties":{
+						"output_Number":{
+							"type":"number",
+							"title":"output_Number"
+						}
+					}
+				},
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"property":"{{ n_QJFf3.outputs.input_Number }}",
+							"filter":{
+								"operator":"GT",
+								"value":"3"
+							}
+						}
+					],
+					"operator":"AND"
+				},
+				"setup":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"input_Number"
+					],
+					"properties":{
+						"input_Number":{
+							"type":"number",
+							"title":"input_Number"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2204,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_mkf1N-1",
-			"id":"_IGO0h",
-			"index":0,
+			"id":"n_gMMxc",
+			"index":2,
+			"inputs":{
+				"result":{
+					"output_Number":"{{ n_QJFf3.outputs.input_Number }}"
+				}
+			},
 			"skip":false,
-			"title":"Select an app and action",
-			"type":"ACTION"
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +121,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
