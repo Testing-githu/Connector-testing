@@ -7,46 +7,96 @@
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_qUPlr",
+			"fromNodeId":"n_wjMQr",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_lgoQ7",
+			"toNodeId":"n_ugjY1",
 			"type":"next"
 		}
 	],
 	"id":"68e8fa84aa15f745769d4470",
 	"lastModifiedBy":1,
 	"lcName":"verify_the_default_value-hello-117600963221980",
-	"modifiedTime":1760098948604,
+	"modifiedTime":1760098966525,
 	"name":"verify_the_default_value-hello-117600963221980",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2201,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_qUPlr-1",
-			"id":"_qUPlr",
-			"index":0,
+			"id":"n_wjMQr",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"output_String"
+					],
+					"properties":{
+						"output_String":{
+							"type":"string",
+							"title":"output_String"
+						}
+					}
+				},
+				"setup":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"input_String"
+					],
+					"properties":{
+						"input_String":{
+							"type":"string",
+							"title":"input_String",
+							"default":"cool"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2204,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_qUPlr-1",
-			"id":"_lgoQ7",
-			"index":0,
+			"id":"n_ugjY1",
+			"index":2,
+			"inputs":{
+				"result":{
+					"output_String":"{{ n_wjMQr.outputs.input_String }}"
+				}
+			},
 			"skip":false,
-			"title":"Select an app and action",
-			"type":"ACTION"
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +110,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
