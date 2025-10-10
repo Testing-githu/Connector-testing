@@ -1,52 +1,119 @@
 {
 	"appsUsed":[
-		
+		"shopify"
 	],
 	"createdTime":1760106457810,
 	"deleted":false,
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_LTakk",
+			"fromNodeId":"n_NdFDU",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_xWAAA",
+			"toNodeId":"n_YiQKp",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_YiQKp",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Ls1Db",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_YiQKp",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_GaqYA",
 			"type":"next"
 		}
 	],
 	"id":"68e917d9aa15f745769ed749",
 	"lastModifiedBy":1,
 	"lcName":"single action node with complete input  - 11760103243949",
-	"modifiedTime":1760106457810,
+	"modifiedTime":1760106468516,
 	"name":"Single action node with complete input  - 11760103243949",
 	"nodes":[
 		{
+			"context":{
+				"appName":"shopify",
+				"resourceVersion":11468,
+				"connectionId":"6798bc9b219ec7180823c4e5",
+				"resourceName":"shopify_on_order_create"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_LTakk-1",
-			"id":"_LTakk",
-			"index":0,
+			"id":"n_NdFDU",
+			"index":1,
+			"inputs":{},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Shopify",
+			"title":"Order created",
 			"trigger":{
 				"type":"EVENT"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":137,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_LTakk-1",
-			"id":"_xWAAA",
-			"index":0,
+			"id":"n_YiQKp",
+			"index":2,
+			"inputs":{
+				"filters":[
+					{
+						"property":"Condition field",
+						"filter":{
+							"operator":"EQUAL"
+						}
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"n_YiQKp@_LTakk-1@y",
+			"id":"n_Ls1Db",
+			"index":3,
+			"skip":false,
+			"title":"Select an app and action",
+			"type":"ACTION"
+		},
+		{
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"n_YiQKp@_LTakk-1@n",
+			"id":"n_GaqYA",
+			"index":4,
 			"skip":false,
 			"title":"Select an app and action",
 			"type":"ACTION"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +127,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
