@@ -4,61 +4,154 @@
 	],
 	"createdTime":1760124833489,
 	"deleted":false,
+	"deploymentState":{
+		"deployedAt":1760124845089,
+		"deployedBy":1,
+		"deployedDefinitionId":"68e95fad64af142a5db3ad1e",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":1
+	},
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_JoH94",
+			"fromNodeId":"n_kZjCA",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_ULzFZ",
+			"toNodeId":"n_RZXx6",
 			"type":"next"
 		}
 	],
 	"id":"68e95fa164af142a5db3acbf",
 	"lastModifiedBy":1,
 	"lcName":"telemetry_addmultiplekeyvalues_117601218499650",
-	"modifiedTime":1760124833489,
+	"modifiedTime":1760124851790,
 	"name":"telemetry_addMultipleKeyValues_117601218499650",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2233,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
 			"dirty":false,
 			"fallbackMode":"STOP",
 			"groupId":"_JoH94-1",
-			"id":"_JoH94",
-			"index":0,
+			"id":"n_kZjCA",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"output_String"
+					],
+					"properties":{
+						"output_String":{
+							"type":"string",
+							"title":"output_String"
+						}
+					}
+				},
+				"setup":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"input_String"
+					],
+					"properties":{
+						"input_String":{
+							"type":"string",
+							"title":"input_String"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2236,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
 			"debug":false,
 			"dirty":false,
 			"fallbackMode":"STOP",
 			"groupId":"_JoH94-1",
-			"id":"_ULzFZ",
-			"index":0,
+			"id":"n_RZXx6",
+			"index":2,
+			"inputs":{
+				"result":{
+					"output_String":"{{ n_kZjCA.outputs.input_String }}"
+				}
+			},
 			"skip":false,
-			"title":"Select an app and action",
-			"type":"ACTION"
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
 		"enableVariableLogging":true,
 		"route":{
 			"default":false,
+			"headerValueTierMap":{},
 			"tierName":"global"
+		},
+		"telemetryConfig":{
+			"enableTelemetry":true,
+			"metricConfigs":[
+				{
+					"buckets":[
+						
+					],
+					"eventType":"ALWAYS_END",
+					"metricType":"WORKFLOW_EXECUTION_DURATION",
+					"name":"metric1",
+					"tags":[
+						{
+							"key":"key0",
+							"value":"value0"
+						},
+						{
+							"key":"key1",
+							"value":"value1"
+						},
+						{
+							"key":"key2",
+							"value":"value2"
+						},
+						{
+							"key":"key3",
+							"value":"value3"
+						},
+						{
+							"key":"key4",
+							"value":"value4"
+						}
+					]
+				}
+			]
 		}
 	},
 	"standard":false,
 	"tags":[
 		
 	],
-	"version":0
+	"version":2
 }
