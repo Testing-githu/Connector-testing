@@ -4,6 +4,14 @@
 	],
 	"createdTime":1760105094731,
 	"deleted":false,
+	"deploymentState":{
+		"deployedAt":1760105105816,
+		"deployedBy":1,
+		"deployedDefinitionId":"68e91291aa15f745769e98d1",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":1
+	},
 	"description":"description",
 	"edges":[
 		{
@@ -17,7 +25,7 @@
 	"id":"68e91286aa15f745769e987e",
 	"lastModifiedBy":1,
 	"lcName":"automation-trigger condition with where group conditions 11760103265790",
-	"modifiedTime":1760105103013,
+	"modifiedTime":1760105123016,
 	"name":"Automation-trigger condition with Where group conditions 11760103265790",
 	"nodes":[
 		{
@@ -46,16 +54,45 @@
 						}
 					}
 				},
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"filters":[
+								{
+									"property":"{{ n_VRNfd.outputs.input_String }}",
+									"filter":{
+										"operator":"ENDS_WITH",
+										"value":"apps"
+									}
+								},
+								{
+									"property":"{{ n_VRNfd.outputs.input_Integer }}",
+									"filter":{
+										"operator":"EQUAL",
+										"value":"-22"
+									}
+								}
+							],
+							"operator":"AND"
+						}
+					],
+					"operator":"AND"
+				},
 				"setup":{
 					"type":"object",
 					"additionalProperties":false,
 					"required":[
-						"input_String"
+						"input_String",
+						"input_Integer"
 					],
 					"properties":{
 						"input_String":{
 							"type":"string",
 							"title":"input_String"
+						},
+						"input_Integer":{
+							"type":"number",
+							"title":"input_Integer"
 						}
 					}
 				}
@@ -109,5 +146,5 @@
 	"tags":[
 		
 	],
-	"version":1
+	"version":2
 }
