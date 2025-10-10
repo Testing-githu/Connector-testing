@@ -1,52 +1,102 @@
 {
 	"appsUsed":[
-		
+		"storage_by_unifyapps"
 	],
 	"createdTime":1760106504705,
 	"deleted":false,
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_G5e6O",
+			"fromNodeId":"n_EyqhV",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_O6vG2",
+			"toNodeId":"n_zHrVM",
 			"type":"next"
 		}
 	],
 	"id":"68e91808aa15f745769ed9d9",
 	"lastModifiedBy":1,
 	"lcName":"storage_by_updaterecordsbyquery_invalid_filters117601032709950",
-	"modifiedTime":1760106504705,
+	"modifiedTime":1760106515811,
 	"name":"Storage_by_UpdateRecordsByQuery_invalid_filters117601032709950",
 	"nodes":[
 		{
+			"context":{
+				"appName":"webhooks",
+				"resourceVersion":137,
+				"resourceName":"webhooks_default"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_G5e6O-1",
-			"id":"_G5e6O",
-			"index":0,
+			"id":"n_EyqhV",
+			"index":1,
+			"inputs":{
+				"request":{
+					"contentType":"application/json"
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Webhook",
+			"title":"New event",
 			"trigger":{
-				"type":"EVENT"
+				"type":"WEBHOOK"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":8035,
+				"resourceName":"storage_by_unifyapps_update_records",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_G5e6O-1",
-			"id":"_O6vG2",
-			"index":0,
+			"id":"n_zHrVM",
+			"index":2,
+			"inputs":{
+				"numberOfRecordsToUpdate":"SINGLE",
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"property":"properties_number_field",
+							"filter":{
+								"operator":"EQUAL",
+								"value":"cool"
+							}
+						}
+					],
+					"operator":"AND"
+				},
+				"object_type":"ayazdxp",
+				"skipIfBlank":false,
+				"updateFields":[
+					{
+						"fieldName":"properties.number_field",
+						"actionType":"SET",
+						"setValue":"100"
+					}
+				],
+				"page":{
+					"offset":0,
+					"limit":20
+				},
+				"unsetIfNull":false
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Storage by UnifyApps",
+			"title":"Update records by query",
 			"type":"ACTION"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +110,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
