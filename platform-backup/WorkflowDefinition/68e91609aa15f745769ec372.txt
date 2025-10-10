@@ -1,52 +1,381 @@
 {
 	"appsUsed":[
-		
+		"storage_by_unifyapps"
 	],
 	"createdTime":1760105993927,
 	"deleted":false,
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_NlNkH",
+			"fromNodeId":"n_YcxhU",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_sGpaN",
+			"toNodeId":"n_LSTZn",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_LSTZn",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Plrgp",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Plrgp",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_LQ6Rn",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_LQ6Rn",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_A1UxU",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_LQ6Rn",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_l5Tkm",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_A1UxU",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_cpsnW",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_l5Tkm",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_cpsnW",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_cpsnW",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_aPseg",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_cpsnW",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_ACeR3",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_aPseg",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_727DO",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_ACeR3",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_727DO",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_727DO",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_FRMpT",
 			"type":"next"
 		}
 	],
 	"id":"68e91609aa15f745769ec372",
 	"lastModifiedBy":1,
 	"lcName":"build to preview 11760103243949",
-	"modifiedTime":1760105993927,
+	"modifiedTime":1760106041420,
 	"name":"build to preview 11760103243949",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2208,
+				"resourceName":"callables_from_api"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_NlNkH-1",
-			"id":"_NlNkH",
-			"index":0,
+			"id":"n_YcxhU",
+			"index":1,
+			"inputs":{
+				"request":{
+					"contentType":"application/json",
+					"body":{
+						"type":"object",
+						"properties":{
+							"ZIPCode":{
+								"type":"string",
+								"title":"ZIPCode"
+							},
+							"Phone":{
+								"type":"string",
+								"title":"Phone"
+							}
+						},
+						"additionalProperties":false,
+						"required":[
+							"ZIPCode",
+							"Phone"
+						]
+					}
+				},
+				"endpointType":"REST",
+				"streamingResponse":false
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via API",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":8033,
+				"resourceName":"storage_by_unifyapps_create_record",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_NlNkH-1",
-			"id":"_sGpaN",
-			"index":0,
+			"id":"n_LSTZn",
+			"index":2,
+			"inputs":{
+				"writeThroughSessionVariables":false,
+				"skipIfBlank":false
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Storage by UnifyApps",
+			"title":"Create record",
 			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":8033,
+				"resourceName":"storage_by_unifyapps_create_record",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_NlNkH-1",
+			"id":"n_Plrgp",
+			"index":3,
+			"inputs":{
+				"writeThroughSessionVariables":false,
+				"skipIfBlank":false
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Create record",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":137,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_NlNkH-1",
+			"id":"n_LQ6Rn",
+			"index":4,
+			"inputs":{
+				"filters":[
+					{
+						"property":"=LEN({{ n_YcxhU.outputs.body.ZIPCode }})",
+						"filter":{
+							"operator":"NOT_EQUAL",
+							"value":"6"
+						}
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":8033,
+				"resourceName":"storage_by_unifyapps_create_record",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"n_LQ6Rn@_NlNkH-1@y",
+			"id":"n_A1UxU",
+			"index":5,
+			"inputs":{
+				"writeThroughSessionVariables":false,
+				"skipIfBlank":false
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Create record",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"stop"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"n_LQ6Rn@_NlNkH-1@n",
+			"id":"n_l5Tkm",
+			"index":6,
+			"skip":false,
+			"subTitle":"Stop",
+			"title":"Stop",
+			"type":"STOP"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":137,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_NlNkH-1",
+			"id":"n_cpsnW",
+			"index":7,
+			"inputs":{
+				"filters":[
+					{
+						"property":"=LEN({{ n_YcxhU.outputs.body.Phone }})",
+						"filter":{
+							"operator":"NOT_EQUAL",
+							"value":"13"
+						}
+					},
+					{
+						"property":"=LEN({{ n_YcxhU.outputs.body.Phone }})",
+						"filter":{
+							"operator":"NOT_EQUAL",
+							"value":"10"
+						}
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":8033,
+				"resourceName":"storage_by_unifyapps_create_record",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"n_cpsnW@_NlNkH-1@y",
+			"id":"n_aPseg",
+			"index":8,
+			"inputs":{
+				"writeThroughSessionVariables":false,
+				"skipIfBlank":false
+			},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Create record",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"stop"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"n_cpsnW@_NlNkH-1@n",
+			"id":"n_ACeR3",
+			"index":9,
+			"skip":false,
+			"subTitle":"Stop",
+			"title":"Stop",
+			"type":"STOP"
+		},
+		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":8034,
+				"resourceName":"storage_by_unifyapps_count_records",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_NlNkH-1",
+			"id":"n_727DO",
+			"index":10,
+			"inputs":{},
+			"skip":false,
+			"subTitle":"Storage by UnifyApps",
+			"title":"Count records",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2210,
+				"resourceName":"callables_return_response_to_api",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_NlNkH-1",
+			"id":"n_FRMpT",
+			"index":11,
+			"inputs":{
+				"streamingCompleted":true
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to API request",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +389,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
