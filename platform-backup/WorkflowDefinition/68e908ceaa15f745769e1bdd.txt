@@ -7,46 +7,124 @@
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_rll6C",
+			"fromNodeId":"n_lvCrE",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_SMQ9p",
+			"toNodeId":"n_9XIkE",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_9XIkE",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_LN3mS",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_9XIkE",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Hz5OU",
 			"type":"next"
 		}
 	],
 	"id":"68e908ceaa15f745769e1bdd",
 	"lastModifiedBy":1,
 	"lcName":"condition_and_117600963093380",
-	"modifiedTime":1760102606324,
+	"modifiedTime":1760102619514,
 	"name":"condition_and_117600963093380",
 	"nodes":[
 		{
+			"context":{
+				"appName":"webhooks",
+				"resourceVersion":137,
+				"resourceName":"webhooks_default"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_rll6C-1",
-			"id":"_rll6C",
-			"index":0,
+			"id":"n_lvCrE",
+			"index":1,
+			"inputs":{
+				"request":{
+					"contentType":"application/json"
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Webhook",
+			"title":"New event",
 			"trigger":{
-				"type":"EVENT"
+				"type":"WEBHOOK"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":137,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_rll6C-1",
-			"id":"_SMQ9p",
-			"index":0,
+			"id":"n_9XIkE",
+			"index":2,
+			"inputs":{
+				"filters":[
+					{
+						"property":"1",
+						"filter":{
+							"operator":"EQUAL",
+							"value":"1"
+						}
+					},
+					{
+						"property":"1",
+						"filter":{
+							"operator":"NOT_EQUAL",
+							"value":"2"
+						}
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"n_9XIkE@_rll6C-1@y",
+			"id":"n_LN3mS",
+			"index":3,
+			"skip":false,
+			"title":"Select an app and action",
+			"type":"ACTION"
+		},
+		{
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"n_9XIkE@_rll6C-1@n",
+			"id":"n_Hz5OU",
+			"index":4,
 			"skip":false,
 			"title":"Select an app and action",
 			"type":"ACTION"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +138,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
