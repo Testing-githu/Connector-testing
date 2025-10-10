@@ -7,46 +7,211 @@
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_aByCq",
+			"fromNodeId":"n_kBeTk",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_3HFtw",
+			"toNodeId":"n_9SSjO",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_9SSjO",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_oVliw",
+			"type":"loop"
+		},
+		{
+			"fromNodeId":"n_oVliw",
+			"name":"loopback",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_9SSjO",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_9SSjO",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_rpETJ",
 			"type":"next"
 		}
 	],
 	"id":"68e90baeaa15f745769e4531",
 	"lastModifiedBy":1,
 	"lcName":"parentnode-workflow-117600963093380",
-	"modifiedTime":1760103342417,
+	"modifiedTime":1760103365642,
 	"name":"parentnode-workflow-117600963093380",
 	"nodes":[
 		{
+			"context":{
+				"appName":"webhooks",
+				"resourceVersion":137,
+				"resourceName":"webhooks_default"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_aByCq-1",
-			"id":"_aByCq",
-			"index":0,
+			"id":"n_kBeTk",
+			"index":1,
+			"inputs":{
+				"request":{
+					"contentType":"application/json",
+					"body":{
+						"type":"object",
+						"properties":{
+							"name":{
+								"type":"array",
+								"items":{
+									"type":"object",
+									"properties":{
+										"n1":{
+											"type":"integer",
+											"title":"n1"
+										}
+									},
+									"additionalProperties":false
+								},
+								"title":"name"
+							}
+						},
+						"additionalProperties":false
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Webhook",
+			"title":"New event",
 			"trigger":{
-				"type":"EVENT"
+				"type":"WEBHOOK"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"loop",
+				"resourceVersion":140,
+				"resourceName":"loop_for_each",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_aByCq-1",
-			"id":"_3HFtw",
-			"index":0,
+			"id":"n_9SSjO",
+			"index":2,
+			"inputs":{
+				"repeatMode":"SINGLE",
+				"listSource":"{{ n_kBeTk.outputs.body.name }}",
+				"captureIterations":true
+			},
 			"skip":false,
-			"title":"Select an app and action",
-			"type":"ACTION"
+			"subTitle":"Loop",
+			"title":"For each loop",
+			"type":"LOOP"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":421,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"n_9SSjO@_aByCq-1@l",
+			"id":"n_oVliw",
+			"index":3,
+			"inputs":{
+				"automationId":"68e90b91aa15f745769e43ac",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"version":"-1",
+				"parameters":{
+					"Field_input":"1"
+				}
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"global":false
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"cacheKey":"{{ n_9SSjO.outputs.item.n1 }}",
+					"enabled":true,
+					"timeToLive":"5",
+					"usagePolicy":"ALWAYS"
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"STOP",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"stop"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_aByCq-1",
+			"id":"n_rpETJ",
+			"index":4,
+			"skip":false,
+			"subTitle":"Stop",
+			"title":"Stop",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +225,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
