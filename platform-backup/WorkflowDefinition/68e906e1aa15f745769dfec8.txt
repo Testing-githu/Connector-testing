@@ -7,46 +7,215 @@
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_LqAzY",
+			"fromNodeId":"n_qQm7G",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_07pO6",
+			"toNodeId":"n_VCHAm",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_VCHAm",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_lOoRq",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_lOoRq",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_mHWbK",
+			"type":"loop"
+		},
+		{
+			"fromNodeId":"n_mHWbK",
+			"name":"loopback",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_lOoRq",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_lOoRq",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_bTmr5",
 			"type":"next"
 		}
 	],
 	"id":"68e906e1aa15f745769dfec8",
 	"lastModifiedBy":1,
 	"lcName":"findandupdatevariables_foreachloop_11760096299459",
-	"modifiedTime":1760102113104,
+	"modifiedTime":1760102159111,
 	"name":"findAndUpdateVariables_forEachLoop_11760096299459",
 	"nodes":[
 		{
+			"context":{
+				"appName":"webhooks",
+				"resourceVersion":137,
+				"resourceName":"webhooks_default"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_LqAzY-1",
-			"id":"_LqAzY",
-			"index":0,
+			"id":"n_qQm7G",
+			"index":1,
+			"inputs":{
+				"request":{
+					"contentType":"application/json",
+					"body":{
+						"type":"object",
+						"properties":{
+							"List_items":{
+								"type":"array",
+								"items":{
+									"type":"object",
+									"properties":{},
+									"additionalProperties":false
+								},
+								"title":"List_items"
+							}
+						},
+						"additionalProperties":false,
+						"required":[
+							"List_items"
+						]
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Webhook",
+			"title":"New event",
 			"trigger":{
-				"type":"EVENT"
+				"type":"WEBHOOK"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":2115,
+				"resourceName":"variable_by_unifyapps_create_variables",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_LqAzY-1",
-			"id":"_07pO6",
-			"index":0,
+			"id":"n_VCHAm",
+			"index":2,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{},
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"i":{
+							"type":"number",
+							"title":"i"
+						}
+					},
+					"required":[
+						"i"
+					]
+				}
+			},
+			"inputs":{
+				"i":0
+			},
+			"outputSchema":{
+				"dynamic":false,
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"i":{
+							"type":"number",
+							"title":"i"
+						}
+					},
+					"required":[
+						"i"
+					]
+				}
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Variable by UnifyApps",
+			"title":"Create variables",
 			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"loop",
+				"resourceVersion":140,
+				"resourceName":"loop_for_each",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_LqAzY-1",
+			"id":"n_lOoRq",
+			"index":3,
+			"inputs":{
+				"repeatMode":"SINGLE",
+				"listSource":"{{ n_qQm7G.outputs.body.List_items }}",
+				"captureIterations":true
+			},
+			"skip":false,
+			"subTitle":"Loop",
+			"title":"For each loop",
+			"type":"LOOP"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":2110,
+				"resourceName":"variable_by_unifyapps_find_and_update_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"n_lOoRq@_LqAzY-1@l",
+			"id":"n_mHWbK",
+			"index":4,
+			"inputs":{
+				"variables":[
+					{
+						"source":"i",
+						"value":"=sum({{ n_VCHAm.outputs.i }},1)"
+					}
+				]
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Find and update variable",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"stop"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_LqAzY-1",
+			"id":"n_bTmr5",
+			"index":5,
+			"skip":false,
+			"subTitle":"Stop",
+			"title":"Stop",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +229,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
