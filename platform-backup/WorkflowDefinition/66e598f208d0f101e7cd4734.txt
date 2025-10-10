@@ -5,12 +5,12 @@
 	"createdTime":1747000713436,
 	"deleted":false,
 	"deploymentState":{
-		"deployedAt":1760035021588,
-		"deployedBy":-1,
-		"deployedDefinitionId":"68e800cde4155b0b0f31c157",
+		"deployedAt":1760039713486,
+		"deployedBy":0,
+		"deployedDefinitionId":"68e81321e4155b0b0f323a4f",
 		"status":"DEPLOYED",
-		"version":81,
-		"workflowVersion":104
+		"version":84,
+		"workflowVersion":108
 	},
 	"edges":[
 		{
@@ -83,38 +83,8 @@
 			"fromNodeId":"tauXu",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"n_7bKIw",
+			"toNodeId":"cWnYk",
 			"type":"loop"
-		},
-		{
-			"fromNodeId":"n_7bKIw",
-			"name":"yes",
-			"priority":0,
-			"skip":false,
-			"toNodeId":"n_nOwAt",
-			"type":"if"
-		},
-		{
-			"fromNodeId":"n_nOwAt",
-			"priority":0,
-			"skip":false,
-			"toNodeId":"n_YCc7W",
-			"type":"next"
-		},
-		{
-			"fromNodeId":"n_YCc7W",
-			"priority":0,
-			"skip":false,
-			"toNodeId":"cWnYk",
-			"type":"next"
-		},
-		{
-			"fromNodeId":"n_7bKIw",
-			"name":"no",
-			"priority":0,
-			"skip":false,
-			"toNodeId":"cWnYk",
-			"type":"next"
 		},
 		{
 			"fromNodeId":"cWnYk",
@@ -189,9 +159,9 @@
 		]
 	},
 	"id":"66e598f208d0f101e7cd4734",
-	"lastModifiedBy":0,
+	"lastModifiedBy":-1,
 	"lcName":"get message attachments",
-	"modifiedTime":1760038963460,
+	"modifiedTime":1760098168341,
 	"name":"Get Message Attachments",
 	"nodes":[
 		{
@@ -928,104 +898,6 @@
 		{
 			"context":{
 				"appName":"if_else",
-				"resourceVersion":446,
-				"resourceName":"if_else_condition",
-				"type":"APPLICATION"
-			},
-			"debug":false,
-			"dirty":false,
-			"fallbackMode":"STOP",
-			"groupId":"tauXu@CemZV@xLrrq-1@y@l",
-			"id":"n_7bKIw",
-			"index":10,
-			"inputs":{
-				"filters":[
-					{
-						"property":"{{ tauXu.outputs.item.properties.documentExtractedText }}",
-						"filter":{
-							"operator":"EXISTS"
-						}
-					},
-					{
-						"property":"=LEN({{ tauXu.outputs.item.properties.documentExtractedText }})",
-						"filter":{
-							"operator":"GT",
-							"value":"0"
-						}
-					}
-				],
-				"operator":"AND"
-			},
-			"skip":false,
-			"subTitle":"Condition",
-			"title":"Condition",
-			"type":"IF_ELSE"
-		},
-		{
-			"additional":{
-				"visibleOptionalFields":[
-					"root.itemToAdd.fileDetails.size",
-					"root.itemToAdd.fileDetails.source",
-					"root.itemToAdd.fileDetails.sourceType"
-				]
-			},
-			"context":{
-				"appName":"variable_by_unifyapps",
-				"resourceVersion":515,
-				"resourceName":"variable_by_unifyapps_add_item_to_list",
-				"type":"APPLICATION"
-			},
-			"debug":false,
-			"dirty":false,
-			"fallbackMode":"STOP",
-			"groupId":"n_7bKIw@tauXu@CemZV@xLrrq-1@y@l@y",
-			"id":"n_nOwAt",
-			"index":11,
-			"inputs":{
-				"itemToAdd":{
-					"name":"{{ tauXu.outputs.item.properties.name }}",
-					"id":"{{ tauXu.outputs.item.id }}",
-					"fileType":"{{ tauXu.outputs.item.properties.fileType }}",
-					"data":"{{ tauXu.outputs.item.properties.documentExtractedText }}",
-					"mimeType":"{{ tauXu.outputs.item.properties.mimeType }}",
-					"fileDetails":{
-						"size":"{{ tauXu.outputs.item.properties.fileDetails.size }}",
-						"source":"{{ tauXu.outputs.item.properties.fileDetails.source }}",
-						"sourceType":"{{ tauXu.outputs.item.properties.fileDetails.sourceType }}"
-					}
-				},
-				"insertLocation":"END",
-				"listName":"{{ nc8ru.outputs.items[0] }}"
-			},
-			"skip":false,
-			"subTitle":"Variable by UnifyApps",
-			"title":"Add item to list",
-			"type":"ACTION"
-		},
-		{
-			"context":{
-				"appName":"continue",
-				"resourceVersion":0,
-				"resourceName":"continue",
-				"type":"APPLICATION"
-			},
-			"debug":false,
-			"dirty":false,
-			"fallbackMode":"STOP",
-			"groupId":"n_7bKIw@tauXu@CemZV@xLrrq-1@y@l@y",
-			"id":"n_YCc7W",
-			"index":12,
-			"inputs":{
-				"loop":"tauXu"
-			},
-			"skip":false,
-			"subTitle":"Continue",
-			"title":"Continue",
-			"type":"CONTINUE"
-		},
-		{
-			"context":{
-				"appName":"if_else",
 				"resourceVersion":50,
 				"resourceName":"if_else_condition",
 				"type":"APPLICATION"
@@ -1035,7 +907,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"tauXu@CemZV@xLrrq-1@y@l",
 			"id":"cWnYk",
-			"index":13,
+			"index":10,
 			"inputs":{
 				"filters":[
 					{
@@ -1065,7 +937,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"cWnYk@tauXu@CemZV@xLrrq-1@y@l@y",
 			"id":"BQEcT",
-			"index":14,
+			"index":11,
 			"inputs":{
 				"file":"{{ tauXu.outputs.item.properties.url }}",
 				"encoding":"base64"
@@ -1094,7 +966,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"cWnYk@tauXu@CemZV@xLrrq-1@y@l@y",
 			"id":"fHutN",
-			"index":15,
+			"index":12,
 			"inputs":{
 				"itemToAdd":{
 					"name":"{{ tauXu.outputs.item.properties.name }}",
@@ -1136,7 +1008,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"cWnYk@tauXu@CemZV@xLrrq-1@y@l@n",
 			"id":"I8h8M",
-			"index":16,
+			"index":13,
 			"inputs":{
 				"itemToAdd":{
 					"name":"{{ tauXu.outputs.item.properties.name }}",
@@ -1171,7 +1043,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"CemZV@xLrrq-1@n",
 			"id":"_SLIOg",
-			"index":17,
+			"index":14,
 			"inputs":{
 				"variables":[
 					{
@@ -1197,7 +1069,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"xLrrq-1",
 			"id":"XTYvx",
-			"index":18,
+			"index":15,
 			"inputs":{
 				"result":{
 					"attachmentsFound":"{{ _BpHk6.outputs.attachmentsFound }}",
@@ -1256,5 +1128,5 @@
 	"tags":[
 		"AI Agent"
 	],
-	"version":105
+	"version":110
 }
