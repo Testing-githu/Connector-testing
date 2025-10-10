@@ -7,46 +7,123 @@
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_ePHOP",
+			"fromNodeId":"n_nQDmk",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_yqCuy",
+			"toNodeId":"n_ZdqeA",
 			"type":"next"
 		}
 	],
 	"id":"68e95f4764af142a5db3aa19",
 	"lastModifiedBy":1,
 	"lcName":"hidden_cookie_columns_117601218383290",
-	"modifiedTime":1760124743210,
+	"modifiedTime":1760124753145,
 	"name":"hidden_cookie_columns_117601218383290",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2235,
+				"resourceName":"callables_from_api"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_ePHOP-1",
-			"id":"_ePHOP",
-			"index":0,
+			"id":"n_nQDmk",
+			"index":1,
+			"inputs":{
+				"request":{
+					"cookies":{
+						"type":"object",
+						"additionalProperties":false,
+						"required":[],
+						"properties":{
+							"StringCookie":{
+								"type":"string",
+								"title":"StringCookie"
+							},
+							"IntegerCookie":{
+								"type":"integer",
+								"title":"IntegerCookie"
+							},
+							"NumberCookie":{
+								"type":"number",
+								"title":"NumberCookie"
+							},
+							"BooleanCookie":{
+								"type":"boolean",
+								"title":"BooleanCookie"
+							}
+						}
+					},
+					"contentType":"application/json"
+				},
+				"endpointType":"REST",
+				"response":[
+					{
+						"name":"response",
+						"status":200,
+						"contentType":"application/json",
+						"textBody":{
+							"type":"string"
+						},
+						"body":{
+							"type":"object",
+							"properties":{
+								"response":{
+									"type":"string",
+									"title":"response"
+								}
+							},
+							"additionalProperties":false,
+							"required":[
+								"response"
+							]
+						}
+					}
+				],
+				"streamingResponse":false
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via API",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2237,
+				"resourceName":"callables_return_response_to_api",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_ePHOP-1",
-			"id":"_yqCuy",
-			"index":0,
+			"id":"n_ZdqeA",
+			"index":2,
+			"inputs":{
+				"streamingCompleted":true,
+				"responseName":"200_response",
+				"body":{
+					"response":"cool"
+				},
+				"status":200
+			},
 			"skip":false,
-			"title":"Select an app and action",
-			"type":"ACTION"
+			"subTitle":"Callable",
+			"title":"Respond to API request",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +137,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
