@@ -7,46 +7,198 @@
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_XPrBR",
+			"fromNodeId":"n_8OsUa",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_7MACy",
+			"toNodeId":"n_3btfe",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_3btfe",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_0Y9fc",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_0Y9fc",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Jnh1F",
+			"type":"loop"
+		},
+		{
+			"fromNodeId":"n_Jnh1F",
+			"name":"loopback",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_0Y9fc",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_0Y9fc",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_DO0n7",
 			"type":"next"
 		}
 	],
 	"id":"68e906dfaa15f745769dfec2",
 	"lastModifiedBy":1,
 	"lcName":"findandupdatevariables_forloop_11760096299459",
-	"modifiedTime":1760102111711,
+	"modifiedTime":1760102158017,
 	"name":"findAndUpdateVariables_forLoop_11760096299459",
 	"nodes":[
 		{
+			"context":{
+				"appName":"webhooks",
+				"resourceVersion":137,
+				"resourceName":"webhooks_default"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_XPrBR-1",
-			"id":"_XPrBR",
-			"index":0,
+			"id":"n_8OsUa",
+			"index":1,
+			"inputs":{
+				"request":{
+					"contentType":"application/json"
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Webhook",
+			"title":"New event",
 			"trigger":{
-				"type":"EVENT"
+				"type":"WEBHOOK"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":2115,
+				"resourceName":"variable_by_unifyapps_create_variables",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_XPrBR-1",
-			"id":"_7MACy",
-			"index":0,
+			"id":"n_3btfe",
+			"index":2,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{},
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"i":{
+							"type":"number",
+							"title":"i"
+						}
+					},
+					"required":[
+						"i"
+					]
+				}
+			},
+			"inputs":{
+				"i":0
+			},
+			"outputSchema":{
+				"dynamic":false,
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"i":{
+							"type":"number",
+							"title":"i"
+						}
+					},
+					"required":[
+						"i"
+					]
+				}
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Variable by UnifyApps",
+			"title":"Create variables",
 			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"loop",
+				"resourceVersion":97,
+				"resourceName":"loop_for",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_XPrBR-1",
+			"id":"n_0Y9fc",
+			"index":3,
+			"inputs":{
+				"start":0,
+				"limit":10,
+				"step":1,
+				"captureIterations":true
+			},
+			"skip":false,
+			"subTitle":"Loop",
+			"title":"For loop",
+			"type":"LOOP"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":2110,
+				"resourceName":"variable_by_unifyapps_find_and_update_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"n_0Y9fc@_XPrBR-1@l",
+			"id":"n_Jnh1F",
+			"index":4,
+			"inputs":{
+				"variables":[
+					{
+						"source":"i",
+						"value":"=sum({{ n_3btfe.outputs.i }},1)"
+					}
+				]
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Find and update variable",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"stop"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_XPrBR-1",
+			"id":"n_DO0n7",
+			"index":5,
+			"skip":false,
+			"subTitle":"Stop",
+			"title":"Stop",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +212,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
