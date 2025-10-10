@@ -4,10 +4,40 @@
 	],
 	"createdTime":1760105107209,
 	"deleted":false,
+	"deploymentState":{
+		"deployedAt":1760105119038,
+		"deployedBy":1,
+		"deployedDefinitionId":"68e9129eaa15f745769e9925",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":1
+	},
 	"description":"description",
 	"edges":[
 		{
 			"fromNodeId":"n_lPPrE",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_bltGL",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_bltGL",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_DjuXx",
+			"type":"scope"
+		},
+		{
+			"fromNodeId":"n_DjuXx",
+			"name":"scope-loopback",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_bltGL",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_bltGL",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_sPfl3",
@@ -17,7 +47,7 @@
 	"id":"68e91293aa15f745769e98d9",
 	"lastModifiedBy":1,
 	"lcName":"scopewithincasesteperrorcontinueautomation_11760103270995",
-	"modifiedTime":1760105116409,
+	"modifiedTime":1760105135918,
 	"name":"ScopeWithInCaseStepErrorContinueAutomation_11760103270995",
 	"nodes":[
 		{
@@ -70,6 +100,62 @@
 		},
 		{
 			"context":{
+				"appName":"scope",
+				"resourceVersion":138,
+				"resourceName":"scope_trigger_scope",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_AJBBz-1",
+			"id":"n_bltGL",
+			"index":2,
+			"inputs":{
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"property":"{{ n_lPPrE.outputs.input_String }}",
+							"filter":{
+								"operator":"EQUAL",
+								"value":"Unifyapps"
+							}
+						}
+					],
+					"operator":"AND"
+				}
+			},
+			"skip":false,
+			"subTitle":"Scope",
+			"title":"Trigger Scope",
+			"type":"SCOPE"
+		},
+		{
+			"context":{
+				"appName":"test_http",
+				"resourceVersion":2166,
+				"connectionId":"66b0ee649c311126267a17b7",
+				"resourceName":"test_http_post_api",
+				"type":"APPLICATION",
+				"scopeNodeId":"n_bltGL"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"n_bltGL@_AJBBz-1@s",
+			"id":"n_DjuXx",
+			"index":3,
+			"inputs":{
+				"field1":"workflow continues",
+				"field2":false
+			},
+			"skip":false,
+			"subTitle":"Test HTTP API",
+			"title":"Test HTTP Post API",
+			"type":"ACTION"
+		},
+		{
+			"context":{
 				"appName":"callables",
 				"resourceVersion":2208,
 				"resourceName":"callables_return_to_automation",
@@ -80,7 +166,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_AJBBz-1",
 			"id":"n_sPfl3",
-			"index":2,
+			"index":4,
 			"inputs":{
 				"result":{
 					"output_String":"{{ n_lPPrE.outputs.input_String }}"
@@ -109,5 +195,5 @@
 	"tags":[
 		
 	],
-	"version":1
+	"version":2
 }
