@@ -4,49 +4,135 @@
 	],
 	"createdTime":1760098437630,
 	"deleted":false,
+	"deploymentState":{
+		"deployedAt":1760098458336,
+		"deployedBy":1,
+		"deployedDefinitionId":"68e8f899aa15f745769d2a9a",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":1
+	},
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_3Wz1s",
+			"fromNodeId":"n_jEFS5",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_9cH4H",
+			"toNodeId":"n_6hwfm",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_6hwfm",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_XxhXv",
 			"type":"next"
 		}
 	],
 	"id":"68e8f885aa15f745769d29da",
 	"lastModifiedBy":1,
 	"lcName":"child automation with delay 11760096322198",
-	"modifiedTime":1760098437630,
+	"modifiedTime":1760098464819,
 	"name":"Child automation with delay 11760096322198",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2201,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_3Wz1s-1",
-			"id":"_3Wz1s",
-			"index":0,
+			"id":"n_jEFS5",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"output_String"
+					],
+					"properties":{
+						"output_String":{
+							"type":"string",
+							"title":"output_String"
+						}
+					}
+				},
+				"setup":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"input_String"
+					],
+					"properties":{
+						"input_String":{
+							"type":"string",
+							"title":"input_String"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"delay",
+				"resourceVersion":140,
+				"resourceName":"delay_for",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_3Wz1s-1",
-			"id":"_9cH4H",
-			"index":0,
+			"id":"n_6hwfm",
+			"index":2,
+			"inputs":{
+				"duration":5,
+				"unit":"MINUTES"
+			},
 			"skip":false,
-			"title":"Select an app and action",
-			"type":"ACTION"
+			"subTitle":"Delay",
+			"title":"Set delay duration",
+			"type":"DELAY"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2204,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_3Wz1s-1",
+			"id":"n_XxhXv",
+			"index":3,
+			"inputs":{
+				"result":{
+					"output_String":"{{ n_jEFS5.outputs.input_String }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +146,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":2
 }
