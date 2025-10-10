@@ -5,12 +5,12 @@
 	"createdTime":1756901133760,
 	"deleted":false,
 	"deploymentState":{
-		"deployedAt":1760035160229,
-		"deployedBy":-1,
-		"deployedDefinitionId":"68e80158e4155b0b0f31c934",
+		"deployedAt":1760040084212,
+		"deployedBy":1,
+		"deployedDefinitionId":"68e81494e4155b0b0f32475e",
 		"status":"DEPLOYED",
-		"version":58,
-		"workflowVersion":75
+		"version":62,
+		"workflowVersion":80
 	},
 	"edges":[
 		{
@@ -399,9 +399,9 @@
 		]
 	},
 	"id":"68b0148974e2bb27bbdcee15",
-	"lastModifiedBy":0,
+	"lastModifiedBy":-1,
 	"lcName":"convert action to tool (batch)",
-	"modifiedTime":1760039093134,
+	"modifiedTime":1760099311108,
 	"name":"Convert Action to Tool (Batch)",
 	"nodes":[
 		{
@@ -2216,7 +2216,7 @@
 						}
 					}
 				},
-				"code":"import com.unifyapps.infra.utils.JsonUtils\n\nboolean isAccessible = false\nString inAccessibleReason = \"\"\n\n// Context Map\nMap<String, Object> context = (binding.hasVariable(\"context\") && binding.getVariable(\"context\") instanceof Map) ? \n    (Map<String, Object>) binding.getVariable(\"context\") : [:]\nString appName = context.containsKey(\"appName\") && context[\"appName\"] != null ? context[\"appName\"].toString() : null\nString resourceName = context.containsKey(\"resourceName\") && context[\"resourceName\"] != null ? context[\"resourceName\"].toString() : null\nString connectionId = context.containsKey(\"connectionId\") && context[\"connectionId\"] != null ? context[\"connectionId\"].toString() : null\n\n// Action Lookup Response\ndef actionLookupResponseNew = binding.hasVariable(\"actionLookupResponseNew\") ? binding.getVariable(\"actionLookupResponseNew\") : [:]\nMap<String, Object> objects = [:]\n\nif (actionLookupResponseNew instanceof com.unifyapps.infra.utils.response.MappedHits) {\n    def removedReference = JsonUtils.copy(actionLookupResponseNew)\n    objects = removedReference.getObjects() ?: [:]\n} else if (actionLookupResponseNew instanceof Map) {\n    objects = actionLookupResponseNew.containsKey(\"objects\") && actionLookupResponseNew[\"objects\"] instanceof Map ?\n        (Map<String, Object>) actionLookupResponseNew[\"objects\"] : [:]\n}\n\nMap<String, Object> appDetails = objects.containsKey(appName) && objects[appName] instanceof Map ?\n    (Map<String, Object>) objects[appName] : [:]\n\nList actions = appDetails.containsKey(\"actions\") && appDetails[\"actions\"] instanceof List ?\n    (List) appDetails[\"actions\"] : []\n\nboolean runTimeConnectionEnabled = binding.hasVariable(\"runTimeConnectionEnabled\") && binding.getVariable(\"runTimeConnectionEnabled\") ? true : false\n// Map<String, Object> connectionLookupResponseNew = (binding.hasVariable(\"connectionLookupResponseNew\") && binding.getVariable(\"connectionLookupResponseNew\") instanceof Map) ? \n//     (Map<String, Object>) binding.getVariable(\"connectionLookupResponseNew\") : [:]\n// def connectionLookupResponseNew = binding.hasVariable(\"connectionLookupResponseNew\")?binding.getVariable(\"connectionLookupResponseNew\"):[:]\n// Map<String, Object> connectionObjects = connectionLookupResponseNew.containsKey(\"objects\") && connectionLookupResponseNew[\"objects\"] instanceof Map ? \n//     (Map<String, Object>) connectionLookupResponseNew[\"objects\"] : [:]\n\n//---\ndef connectionLookupResponseNew = binding.hasVariable(\"connectionLookupResponseNew\") ? binding.getVariable(\"connectionLookupResponseNew\") : [:]\nMap<String, Object> connectionObjects = [:]\nif (connectionLookupResponseNew instanceof com.unifyapps.infra.utils.response.MappedHits) {\n    def removedReference = JsonUtils.copy(connectionLookupResponseNew)\n    connectionObjects = removedReference.getObjects() ?: [:]\n} else if (connectionLookupResponseNew instanceof Map) {\n    connectionObjects = connectionLookupResponseNew.containsKey(\"objects\") && connectionLookupResponseNew[\"objects\"] instanceof Map ? \n        (Map<String, Object>) connectionLookupResponseNew[\"objects\"] : [:]\n}\n//---\n\n// Use a robust string matching for 'resourceName'\nList<String> actionNames = actions.collect { it != null ? it.toString() : null }\n\nif (resourceName != null && actionNames.contains(resourceName)) {\n    boolean connectionOk =\n            runTimeConnectionEnabled ||\n            connectionId == null ||\n            connectionObjects.containsKey(connectionId)\n    if (connectionOk) {\n        isAccessible = true\n    } else {\n        isAccessible = true\n        inAccessibleReason = \"Connection InAccessible\"\n    }\n} else {\n    inAccessibleReason = \"resourceName Not Present\"\n}\n\nreturn [\"isAccessible\": isAccessible, \"resourceName\": resourceName, \"appDetails\": appDetails, \"inAccessibleReason\": inAccessibleReason, \"connectionId\":connectionId, \"connectionObjects\":connectionObjects, \"connectionLookupResponseNew\":connectionLookupResponseNew]",
+				"code":"import com.unifyapps.infra.utils.JsonUtils\n\nboolean isAccessible = false\nString inAccessibleReason = \"\"\n\n// Context Map\nMap<String, Object> context = (binding.hasVariable(\"context\") && binding.getVariable(\"context\") instanceof Map) ? \n    (Map<String, Object>) binding.getVariable(\"context\") : [:]\nString appName = context.containsKey(\"appName\") && context[\"appName\"] != null ? context[\"appName\"].toString() : null\nString resourceName = context.containsKey(\"resourceName\") && context[\"resourceName\"] != null ? context[\"resourceName\"].toString() : null\nString connectionId = context.containsKey(\"connectionId\") && context[\"connectionId\"] != null ? context[\"connectionId\"].toString() : null\n\n// Action Lookup Response\ndef actionLookupResponseNew = binding.hasVariable(\"actionLookupResponseNew\") ? binding.getVariable(\"actionLookupResponseNew\") : [:]\nMap<String, Object> objects = [:]\n\nif (actionLookupResponseNew instanceof com.unifyapps.infra.utils.response.MappedHits) {\n    objects = actionLookupResponseNew.getObjects() ?: [:]\n} else if (actionLookupResponseNew instanceof Map) {\n    objects = actionLookupResponseNew.containsKey(\"objects\") && actionLookupResponseNew[\"objects\"] instanceof Map ?\n        (Map<String, Object>) actionLookupResponseNew[\"objects\"] : [:]\n}\n\nMap<String, Object> appDetails = objects.containsKey(appName) && objects[appName] instanceof Map ?\n    (Map<String, Object>) objects[appName] : [:]\n\nList actions = appDetails.containsKey(\"actions\") && appDetails[\"actions\"] instanceof List ?\n    (List) appDetails[\"actions\"] : []\n\nboolean runTimeConnectionEnabled = binding.hasVariable(\"runTimeConnectionEnabled\") && binding.getVariable(\"runTimeConnectionEnabled\") ? true : false\n// Map<String, Object> connectionLookupResponseNew = (binding.hasVariable(\"connectionLookupResponseNew\") && binding.getVariable(\"connectionLookupResponseNew\") instanceof Map) ? \n//     (Map<String, Object>) binding.getVariable(\"connectionLookupResponseNew\") : [:]\n// def connectionLookupResponseNew = binding.hasVariable(\"connectionLookupResponseNew\")?binding.getVariable(\"connectionLookupResponseNew\"):[:]\n// Map<String, Object> connectionObjects = connectionLookupResponseNew.containsKey(\"objects\") && connectionLookupResponseNew[\"objects\"] instanceof Map ? \n//     (Map<String, Object>) connectionLookupResponseNew[\"objects\"] : [:]\n\n//---\ndef connectionLookupResponseNew = binding.hasVariable(\"connectionLookupResponseNew\") ? binding.getVariable(\"connectionLookupResponseNew\") : [:]\nMap<String, Object> connectionObjects = [:]\nif (connectionLookupResponseNew instanceof com.unifyapps.infra.utils.response.MappedHits) {\n    connectionObjects = connectionLookupResponseNew.getObjects() ?: [:]\n} else if (connectionLookupResponseNew instanceof Map) {\n    connectionObjects = connectionLookupResponseNew.containsKey(\"objects\") && connectionLookupResponseNew[\"objects\"] instanceof Map ? \n        (Map<String, Object>) connectionLookupResponseNew[\"objects\"] : [:]\n}\n//---\n\n// Use a robust string matching for 'resourceName'\nList<String> actionNames = actions.collect { it != null ? it.toString() : null }\n\nif (resourceName != null && actionNames.contains(resourceName)) {\n    boolean connectionOk =\n            runTimeConnectionEnabled ||\n            connectionId == null ||\n            connectionObjects.containsKey(connectionId)\n    if (connectionOk) {\n        isAccessible = true\n    } else {\n        inAccessibleReason = \"Connection InAccessible\"\n    }\n} else {\n    inAccessibleReason = \"resourceName Not Present\"\n}\n\nreturn [\"isAccessible\": isAccessible, \"inAccessibleReason\": inAccessibleReason, \"connectionId\":connectionId, \"connectionObjects\":connectionObjects, \"connectionLookupResponseNew\":connectionLookupResponseNew]",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
@@ -4016,5 +4016,5 @@
 	"tags":[
 		"AI Agent"
 	],
-	"version":76
+	"version":82
 }
