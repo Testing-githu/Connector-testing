@@ -1,52 +1,80 @@
 {
 	"appsUsed":[
-		
+		"slack",
+		"storage_by_unifyapps"
 	],
 	"createdTime":1760106530708,
 	"deleted":false,
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_Njufv",
+			"fromNodeId":"n_GTncM",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_IIXOf",
+			"toNodeId":"n_ggktw",
 			"type":"next"
 		}
 	],
 	"id":"68e91822aa15f745769edaef",
 	"lastModifiedBy":1,
 	"lcName":"triggerworkflow_117601032709950",
-	"modifiedTime":1760106530708,
+	"modifiedTime":1760106541319,
 	"name":"triggerWorkflow_117601032709950",
 	"nodes":[
 		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":8035,
+				"resourceName":"storage_by_unifyapps_on_create_record"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_Njufv-1",
-			"id":"_Njufv",
-			"index":0,
+			"id":"n_GTncM",
+			"index":1,
+			"inputs":{
+				"object_type":"awz6c6v"
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Storage by UnifyApps",
+			"title":"New record",
 			"trigger":{
 				"type":"EVENT"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"slack",
+				"resourceVersion":8034,
+				"connectionId":"662f8ddb91d8ba4394d0cce6",
+				"resourceName":"slack_post_message_in_channel",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_Njufv-1",
-			"id":"_IIXOf",
-			"index":0,
+			"id":"n_ggktw",
+			"index":2,
+			"inputs":{
+				"link_names":true,
+				"messageType":"text",
+				"channel":"C07AKEPN1U3",
+				"text":"{{ n_GTncM.outputs.id }}{{ n_GTncM.outputs.properties }}",
+				"mrkdwn":true
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Slack",
+			"title":"Post message",
 			"type":"ACTION"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +88,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
