@@ -38,6 +38,29 @@
 		},
 		{
 			"fromNodeId":"n_vEodC",
+			"name":"success",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_s05mv",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_vEodC",
+			"name":"error",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_DLKZc",
+			"type":"error"
+		},
+		{
+			"fromNodeId":"n_s05mv",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_5Neyd",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_DLKZc",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_5Neyd",
@@ -47,7 +70,7 @@
 	"id":"68e912a2aa15f745769e993c",
 	"lastModifiedBy":1,
 	"lcName":"scopewithincasesteperrorfollowerrorpath_11760103270995",
-	"modifiedTime":1760105145514,
+	"modifiedTime":1760105157085,
 	"name":"ScopeWithInCaseStepErrorFollowErrorPath_11760103270995",
 	"nodes":[
 		{
@@ -107,7 +130,7 @@
 			},
 			"debug":false,
 			"dirty":true,
-			"fallbackMode":"STOP",
+			"fallbackMode":"MANUAL",
 			"groupId":"_l284u-1",
 			"id":"n_vEodC",
 			"index":2,
@@ -123,6 +146,62 @@
 						}
 					],
 					"operator":"AND"
+				}
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"global":false
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS"
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"duration":"1",
+					"enabled":true,
+					"threshold":"0",
+					"unit":"MINUTES",
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"MANUAL",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
 				}
 			},
 			"skip":false,
@@ -176,6 +255,40 @@
 			"subTitle":"Callable",
 			"title":"Respond to automation",
 			"type":"STOP"
+		},
+		{
+			"context":{
+				"appName":"test_http",
+				"resourceVersion":2166,
+				"connectionId":"66b0ee649c311126267a17b7",
+				"resourceName":"test_http_post_api",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"n_vEodC@_l284u-1@success",
+			"id":"n_s05mv",
+			"index":5,
+			"inputs":{
+				"field1":"workflow continues",
+				"field2":false
+			},
+			"skip":false,
+			"subTitle":"Test HTTP API",
+			"title":"Test HTTP Post API",
+			"type":"ACTION"
+		},
+		{
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"n_vEodC@_l284u-1@error",
+			"id":"n_DLKZc",
+			"index":6,
+			"skip":false,
+			"title":"Select an app and action",
+			"type":"ACTION"
 		}
 	],
 	"ownerUserId":1,
@@ -195,5 +308,5 @@
 	"tags":[
 		
 	],
-	"version":2
+	"version":3
 }
