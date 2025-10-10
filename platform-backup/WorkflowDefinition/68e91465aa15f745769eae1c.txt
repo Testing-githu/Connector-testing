@@ -7,46 +7,145 @@
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_pZAYU",
+			"fromNodeId":"n_txrw3",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_udWLf",
+			"toNodeId":"n_zUeXI",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_zUeXI",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_eBWg0",
 			"type":"next"
 		}
 	],
 	"id":"68e91465aa15f745769eae1c",
 	"lastModifiedBy":1,
 	"lcName":"codetestinglogicaleroors_117601032657900",
-	"modifiedTime":1760105573423,
+	"modifiedTime":1760105588420,
 	"name":"codeTestingLogicalEroors_117601032657900",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2205,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_pZAYU-1",
-			"id":"_pZAYU",
-			"index":0,
+			"id":"n_txrw3",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"output_String"
+					],
+					"properties":{
+						"output_String":{
+							"type":"string",
+							"title":"output_String"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":2072,
+				"resourceName":"code_by_unifyapps_python",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_pZAYU-1",
-			"id":"_udWLf",
-			"index":0,
+			"id":"n_zUeXI",
+			"index":2,
+			"inputs":{
+				"output":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"ans"
+					],
+					"properties":{
+						"ans":{
+							"type":"string",
+							"title":"ans"
+						}
+					}
+				},
+				"input":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"num1",
+						"num2"
+					],
+					"properties":{
+						"num1":{
+							"type":"integer",
+							"title":"num1"
+						},
+						"num2":{
+							"type":"integer",
+							"title":"num2"
+						}
+					}
+				},
+				"configurationMode":"DEFAULT",
+				"code":"num1 =10\r\nnum2 =20\r\nresult['ans'] = num1+num2",
+				"isAsync":false,
+				"python_version":"3.12",
+				"captureStdOutput":false
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Python script",
 			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2208,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_pZAYU-1",
+			"id":"n_eBWg0",
+			"index":3,
+			"inputs":{
+				"result":{
+					"output_String":"{{ n_zUeXI.outputs.result.ans }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +159,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
