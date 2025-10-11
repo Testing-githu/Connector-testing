@@ -7,46 +7,142 @@
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_V92sW",
+			"fromNodeId":"n_vYgks",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_JNchh",
+			"toNodeId":"n_f6nnh",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_f6nnh",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_KuRcm",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_KuRcm",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_YvNJH",
 			"type":"next"
 		}
 	],
 	"id":"68eaaaebfaa162369990b062",
 	"lastModifiedBy":1,
 	"lcName":"filesbyunifyapps_uploadcsvfileandgeneratepublicurl_117602080135680",
-	"modifiedTime":1760209643505,
+	"modifiedTime":1760209656709,
 	"name":"FilesByUnifyApps_UploadCsvFileAndGeneratePublicURL_117602080135680",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2281,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_V92sW-1",
-			"id":"_V92sW",
-			"index":0,
+			"id":"n_vYgks",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"Result"
+					],
+					"properties":{
+						"Result":{
+							"type":"string",
+							"title":"Result"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"files_by_unifyapps",
+				"resourceVersion":2130,
+				"resourceName":"files_by_unifyapps_upload_file",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_V92sW-1",
-			"id":"_JNchh",
-			"index":0,
+			"id":"n_f6nnh",
+			"index":2,
+			"inputs":{
+				"fileName":"sampleFile",
+				"mimeType":"csv",
+				"url":"https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/001/428/original/bike_sharing.csv?1642089089",
+				"option":"url"
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Files by UnifyApps",
+			"title":"Upload file",
 			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"utility_by_unifyapps",
+				"resourceVersion":3096,
+				"resourceName":"utility_by_unifyapps_generate_public_url",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_V92sW-1",
+			"id":"n_KuRcm",
+			"index":3,
+			"inputs":{
+				"file":"{{ n_f6nnh.outputs.fileDetails }}",
+				"expiryTime":1
+			},
+			"skip":false,
+			"subTitle":"Utility by UnifyApps",
+			"title":"Generate public file URL",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2284,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_V92sW-1",
+			"id":"n_YvNJH",
+			"index":4,
+			"inputs":{
+				"result":{
+					"Result":"{{ n_KuRcm.outputs.url }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +156,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
