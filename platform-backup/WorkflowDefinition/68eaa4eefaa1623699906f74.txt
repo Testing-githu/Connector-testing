@@ -6,46 +6,101 @@
 	"deleted":false,
 	"edges":[
 		{
-			"fromNodeId":"_O67eU",
+			"fromNodeId":"n_4QSb4",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_9w3bu",
+			"toNodeId":"n_WE1Qm",
 			"type":"next"
 		}
 	],
 	"id":"68eaa4eefaa1623699906f74",
 	"lastModifiedBy":1,
 	"lcName":"excelformulasqa2ykmnjwngim",
-	"modifiedTime":1760208110416,
+	"modifiedTime":1760208143717,
 	"name":"ExcelFormulasQA2YkmNjwnGIM",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2279,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_O67eU-1",
-			"id":"_O67eU",
-			"index":0,
+			"id":"n_4QSb4",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"r":{
+							"type":"string",
+							"title":"r"
+						}
+					}
+				},
+				"setup":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"a":{
+							"type":"integer",
+							"title":"a"
+						},
+						"b":{
+							"type":"string",
+							"title":"b"
+						},
+						"c":{
+							"type":"string",
+							"title":"c"
+						},
+						"d":{
+							"type":"string",
+							"title":"d"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2282,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_O67eU-1",
-			"id":"_9w3bu",
-			"index":0,
+			"id":"n_WE1Qm",
+			"index":2,
+			"inputs":{
+				"result":{
+					"r":"=CHOOSE({{ n_4QSb4.outputs.a }},{{ n_4QSb4.outputs.b }},{{ n_4QSb4.outputs.c }},{{ n_4QSb4.outputs.d }})"
+				}
+			},
 			"skip":false,
-			"title":"Select an app and action",
-			"type":"ACTION"
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -59,5 +114,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
