@@ -1,52 +1,104 @@
 {
 	"appsUsed":[
-		
+		"slack"
 	],
 	"createdTime":1760209614726,
 	"deleted":false,
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_m82NF",
+			"fromNodeId":"n_NDXCk",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_eWrq3",
+			"toNodeId":"n_wqVTo",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_wqVTo",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_F7PE0",
 			"type":"next"
 		}
 	],
 	"id":"68eaaace9f73933dcccf46b8",
 	"lastModifiedBy":1,
 	"lcName":"verify_node_panel_opens_on_errorstep_selection_117602080184950",
-	"modifiedTime":1760209614726,
+	"modifiedTime":1760209624057,
 	"name":"Verify_Node_Panel_Opens_on_ErrorStep_Selection_117602080184950",
 	"nodes":[
 		{
+			"context":{
+				"appName":"webhooks",
+				"resourceVersion":138,
+				"resourceName":"webhooks_default"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_m82NF-1",
-			"id":"_m82NF",
-			"index":0,
+			"id":"n_NDXCk",
+			"index":1,
+			"inputs":{
+				"request":{
+					"contentType":"application/json"
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Webhook",
+			"title":"New event",
 			"trigger":{
-				"type":"EVENT"
+				"type":"WEBHOOK"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"slack",
+				"resourceVersion":8121,
+				"resourceName":"slack_post_message_in_channel",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_m82NF-1",
-			"id":"_eWrq3",
-			"index":0,
+			"id":"n_wqVTo",
+			"index":2,
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Slack",
+			"title":"Post message",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":2141,
+				"resourceName":"code_by_unifyapps_python",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_m82NF-1",
+			"id":"n_F7PE0",
+			"index":3,
+			"inputs":{
+				"configurationMode":"DEFAULT",
+				"isAsync":false,
+				"python_version":"3.12",
+				"captureStdOutput":false
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Python script",
 			"type":"ACTION"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +112,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
