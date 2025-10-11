@@ -7,46 +7,173 @@
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_AIaMj",
+			"fromNodeId":"n_Yvaa3",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_2ObIT",
+			"toNodeId":"n_6ZX7j",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_6ZX7j",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_K7PXO",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_K7PXO",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_4lsVP",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_4lsVP",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_eJzVe",
 			"type":"next"
 		}
 	],
 	"id":"68eaab11faa162369990bb33",
 	"lastModifiedBy":1,
 	"lcName":"temporaryfileaction_textfilecreation_117602080135680",
-	"modifiedTime":1760209681116,
+	"modifiedTime":1760209695045,
 	"name":"TemporaryfileAction_TextFileCreation_117602080135680",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2282,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_AIaMj-1",
-			"id":"_AIaMj",
-			"index":0,
+			"id":"n_Yvaa3",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"Result"
+					],
+					"properties":{
+						"Result":{
+							"type":"string",
+							"title":"Result"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"files_by_unifyapps",
+				"resourceVersion":2132,
+				"resourceName":"files_by_unifyapps_create_temp_file",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_AIaMj-1",
-			"id":"_2ObIT",
-			"index":0,
+			"id":"n_6ZX7j",
+			"index":2,
+			"inputs":{
+				"isTmp":true,
+				"initialContentType":"plainText",
+				"type":"SINGLE",
+				"fileType":"txt"
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Files by UnifyApps",
+			"title":"Create a file",
 			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"files_by_unifyapps",
+				"resourceVersion":2128,
+				"resourceName":"files_by_unifyapps_append_line_to_file",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_AIaMj-1",
+			"id":"n_K7PXO",
+			"index":3,
+			"inputs":{
+				"file":"{{ n_6ZX7j.outputs.fileDetails }}",
+				"type":"SINGLE",
+				"contentType":"plainText",
+				"content":"Automation Cool"
+			},
+			"skip":false,
+			"subTitle":"Files by UnifyApps",
+			"title":"Append line(s) to file",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"utility_by_unifyapps",
+				"resourceVersion":3096,
+				"resourceName":"utility_by_unifyapps_generate_public_url",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_AIaMj-1",
+			"id":"n_4lsVP",
+			"index":4,
+			"inputs":{
+				"file":"{{ n_6ZX7j.outputs.fileDetails }}",
+				"expiryTime":1
+			},
+			"skip":false,
+			"subTitle":"Utility by UnifyApps",
+			"title":"Generate public file URL",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2285,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_AIaMj-1",
+			"id":"n_eJzVe",
+			"index":5,
+			"inputs":{
+				"result":{
+					"Result":"{{ n_4lsVP.outputs.url }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +187,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
