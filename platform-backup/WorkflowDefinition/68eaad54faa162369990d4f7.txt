@@ -1,9 +1,17 @@
 {
 	"appsUsed":[
-		
+		"slack"
 	],
 	"createdTime":1760210260790,
 	"deleted":false,
+	"deploymentState":{
+		"deployedAt":1760210286776,
+		"deployedBy":1,
+		"deployedDefinitionId":"68eaad6efaa162369990d574",
+		"status":"DEPLOYED",
+		"version":2,
+		"workflowVersion":2
+	},
 	"description":"description",
 	"edges":[
 		{
@@ -12,12 +20,26 @@
 			"skip":false,
 			"toNodeId":"n_X2MLe",
 			"type":"next"
+		},
+		{
+			"fromNodeId":"n_X2MLe",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_twrLv",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_twrLv",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_osUvU",
+			"type":"next"
 		}
 	],
 	"id":"68eaad54faa162369990d4f7",
 	"lastModifiedBy":1,
 	"lcName":"changeversionswhilecomparingtootherversion_117602080256320",
-	"modifiedTime":1760210268968,
+	"modifiedTime":1760210298029,
 	"name":"changeVersionsWhileComparingToOtherVersion_117602080256320",
 	"nodes":[
 		{
@@ -110,6 +132,82 @@
 			"subTitle":"Variable by UnifyApps",
 			"title":"Create variables",
 			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"slack",
+				"resourceVersion":8126,
+				"connectionId":"662f8ddb91d8ba4394d0cce6",
+				"resourceName":"slack_post_message_in_channel",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_VG0lq-1",
+			"id":"n_twrLv",
+			"index":3,
+			"inputs":{
+				"link_names":true,
+				"mrkdwn":true
+			},
+			"skip":false,
+			"subTitle":"Slack",
+			"title":"Post message",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":2192,
+				"resourceName":"variable_by_unifyapps_create_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_VG0lq-1",
+			"id":"n_osUvU",
+			"index":4,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{},
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"VariableName":{
+							"type":"string",
+							"title":"VariableName"
+						}
+					},
+					"required":[
+						"VariableName"
+					]
+				}
+			},
+			"inputs":{},
+			"outputSchema":{
+				"dynamic":false,
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"VariableName":{
+							"type":"string",
+							"title":"VariableName"
+						}
+					},
+					"required":[
+						"VariableName"
+					]
+				}
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Create variables",
+			"type":"ACTION"
 		}
 	],
 	"ownerUserId":1,
@@ -129,5 +227,5 @@
 	"tags":[
 		
 	],
-	"version":1
+	"version":3
 }
