@@ -6,46 +6,93 @@
 	"deleted":false,
 	"edges":[
 		{
-			"fromNodeId":"_KKI5l",
+			"fromNodeId":"n_IRUOl",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_1sjK1",
+			"toNodeId":"n_brD8m",
 			"type":"next"
 		}
 	],
 	"id":"68ea89eafaa16236999008e3",
 	"lastModifiedBy":1,
 	"lcName":"excelformulasqa2ydtcrjzlir",
-	"modifiedTime":1760201194733,
+	"modifiedTime":1760201237244,
 	"name":"ExcelFormulasQA2YDtCRjzlir",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2279,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_KKI5l-1",
-			"id":"_KKI5l",
-			"index":0,
+			"id":"n_IRUOl",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"r":{
+							"type":"string",
+							"title":"r"
+						}
+					}
+				},
+				"setup":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"a":{
+							"type":"integer",
+							"title":"a"
+						},
+						"b":{
+							"type":"integer",
+							"title":"b"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2282,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_KKI5l-1",
-			"id":"_1sjK1",
-			"index":0,
+			"id":"n_brD8m",
+			"index":2,
+			"inputs":{
+				"result":{
+					"r":"=RATE({{ n_IRUOl.outputs.a }}, {{ n_IRUOl.outputs.b }}, -10000, 15000)"
+				}
+			},
 			"skip":false,
-			"title":"Select an app and action",
-			"type":"ACTION"
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -59,5 +106,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
