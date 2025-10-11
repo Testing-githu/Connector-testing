@@ -7,46 +7,107 @@
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_ttvih",
+			"fromNodeId":"n_o5dPs",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_OLd1R",
+			"toNodeId":"n_OrUoc",
 			"type":"next"
 		}
 	],
 	"id":"68eaa73efaa1623699909ae3",
 	"lastModifiedBy":1,
 	"lcName":"condition box|string input - does not equal 11760208007820",
-	"modifiedTime":1760208702191,
+	"modifiedTime":1760208712728,
 	"name":"Condition Box|String Input - Does not equal 11760208007820",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2279,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_ttvih-1",
-			"id":"_ttvih",
-			"index":0,
+			"id":"n_o5dPs",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"output_String"
+					],
+					"properties":{
+						"output_String":{
+							"type":"string",
+							"title":"output_String"
+						}
+					}
+				},
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"property":"{{ n_o5dPs.outputs.input_String }}",
+							"filter":{
+								"operator":"NOT_EQUAL",
+								"value":"cool"
+							}
+						}
+					],
+					"operator":"AND"
+				},
+				"setup":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"input_String"
+					],
+					"properties":{
+						"input_String":{
+							"type":"string",
+							"title":"input_String"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2282,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_ttvih-1",
-			"id":"_OLd1R",
-			"index":0,
+			"id":"n_OrUoc",
+			"index":2,
+			"inputs":{
+				"result":{
+					"output_String":"{{ n_o5dPs.outputs.input_String }}"
+				}
+			},
 			"skip":false,
-			"title":"Select an app and action",
-			"type":"ACTION"
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +121,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
