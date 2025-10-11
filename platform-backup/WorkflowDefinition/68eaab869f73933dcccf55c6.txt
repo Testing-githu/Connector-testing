@@ -7,46 +7,90 @@
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_COmZU",
+			"fromNodeId":"n_x4JaC",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_iMx6j",
+			"toNodeId":"n_xsq86",
 			"type":"next"
 		}
 	],
 	"id":"68eaab869f73933dcccf55c6",
 	"lastModifiedBy":1,
 	"lcName":"standard_entities_with_get_connections_using_inactive_and_appname_filters_with_pagelimit_and_offset_117602080135680",
-	"modifiedTime":1760209798690,
+	"modifiedTime":1760209806906,
 	"name":"Standard_Entities_With_Get_Connections_Using_InActive_And_AppName_Filters_With_PageLimit_And_Offset_117602080135680",
 	"nodes":[
 		{
+			"context":{
+				"appName":"webhooks",
+				"resourceVersion":138,
+				"resourceName":"webhooks_default"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_COmZU-1",
-			"id":"_COmZU",
-			"index":0,
+			"id":"n_x4JaC",
+			"index":1,
+			"inputs":{
+				"request":{
+					"contentType":"application/json"
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Webhook",
+			"title":"New event",
 			"trigger":{
-				"type":"EVENT"
+				"type":"WEBHOOK"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"standard_entities",
+				"resourceVersion":4355,
+				"resourceName":"standard_entities_get_connections",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_COmZU-1",
-			"id":"_iMx6j",
-			"index":0,
+			"id":"n_xsq86",
+			"index":2,
+			"inputs":{
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"property":"appName",
+							"filter":{
+								"operator":"STARTS_WITH",
+								"value":"a"
+							}
+						},
+						{
+							"property":"active",
+							"filter":{
+								"operator":"NOT_EQUAL",
+								"value":"True"
+							}
+						}
+					],
+					"operator":"AND"
+				},
+				"offset":0,
+				"size":20
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Standard entities by UnifyApps",
+			"title":"Get connections",
 			"type":"ACTION"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +104,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
