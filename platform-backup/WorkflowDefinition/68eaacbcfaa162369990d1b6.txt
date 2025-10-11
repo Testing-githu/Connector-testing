@@ -7,46 +7,223 @@
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_kQfn0",
+			"fromNodeId":"n_ILH9L",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_1vaBx",
+			"toNodeId":"n_bDjxg",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_bDjxg",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_h2Tfr",
+			"type":"loop"
+		},
+		{
+			"fromNodeId":"n_h2Tfr",
+			"name":"loopback",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_bDjxg",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_bDjxg",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_GLMkp",
 			"type":"next"
 		}
 	],
 	"id":"68eaacbcfaa162369990d1b6",
 	"lastModifiedBy":1,
 	"lcName":"parentnode-condition-117602080256320",
-	"modifiedTime":1760210108135,
+	"modifiedTime":1760210122074,
 	"name":"parentnode-condition-117602080256320",
 	"nodes":[
 		{
+			"context":{
+				"appName":"webhooks",
+				"resourceVersion":138,
+				"resourceName":"webhooks_default"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_kQfn0-1",
-			"id":"_kQfn0",
-			"index":0,
+			"id":"n_ILH9L",
+			"index":1,
+			"inputs":{
+				"request":{
+					"contentType":"application/json",
+					"body":{
+						"type":"object",
+						"properties":{
+							"name":{
+								"type":"array",
+								"items":{
+									"type":"object",
+									"properties":{
+										"n1":{
+											"type":"integer",
+											"title":"n1"
+										}
+									},
+									"additionalProperties":false
+								},
+								"title":"name"
+							}
+						},
+						"additionalProperties":false
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Webhook",
+			"title":"New event",
 			"trigger":{
-				"type":"EVENT"
+				"type":"WEBHOOK"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"loop",
+				"resourceVersion":141,
+				"resourceName":"loop_for_each",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_kQfn0-1",
-			"id":"_1vaBx",
-			"index":0,
+			"id":"n_bDjxg",
+			"index":2,
+			"inputs":{
+				"repeatMode":"SINGLE",
+				"listSource":"{{ n_ILH9L.outputs.body.name }}",
+				"captureIterations":true
+			},
 			"skip":false,
-			"title":"Select an app and action",
-			"type":"ACTION"
+			"subTitle":"Loop",
+			"title":"For each loop",
+			"type":"LOOP"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":501,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"n_bDjxg@_kQfn0-1@l",
+			"id":"n_h2Tfr",
+			"index":3,
+			"inputs":{
+				"automationId":"68eaacacfaa162369990d16a",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"version":"-1",
+				"parameters":{
+					"Field_input":"1"
+				}
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"global":false
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"cacheKey":"{{ n_bDjxg.outputs.item.n1 }}",
+					"enabled":true,
+					"filter":{
+						"filters":[
+							{
+								"filter":{
+									"operator":"EQUAL",
+									"value":"1"
+								},
+								"property":"{{ n_bDjxg.outputs.item.n1 }}"
+							}
+						],
+						"operator":"AND"
+					},
+					"timeToLive":"5",
+					"usagePolicy":"ALWAYS"
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"STOP",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
+		},
+		{
+			"context":{
+				"appName":"stop"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_kQfn0-1",
+			"id":"n_GLMkp",
+			"index":4,
+			"skip":false,
+			"subTitle":"Stop",
+			"title":"Stop",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +237,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
