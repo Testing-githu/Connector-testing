@@ -7,46 +7,576 @@
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_Qyu4B",
+			"fromNodeId":"n_qR3oG",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_uJELF",
+			"toNodeId":"n_y5VZp",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_y5VZp",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_lU7J5",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_lU7J5",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_sZg8J",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_sZg8J",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_CHhhb",
+			"type":"loop"
+		},
+		{
+			"fromNodeId":"n_CHhhb",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_5oZOB",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_5oZOB",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_RmuiA",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_5oZOB",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_gSR6P",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_RmuiA",
+			"name":"loopback",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_sZg8J",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_gSR6P",
+			"name":"loopback",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_sZg8J",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_sZg8J",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_ubrQ6",
 			"type":"next"
 		}
 	],
 	"id":"68eaaac79f73933dcccf467f",
 	"lastModifiedBy":1,
 	"lcName":"delay_nodes_loop_delay_workflow_117602080135680",
-	"modifiedTime":1760209607516,
+	"modifiedTime":1760209639312,
 	"name":"Delay_Nodes_Loop_Delay_Workflow_117602080135680",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2280,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_Qyu4B-1",
-			"id":"_Qyu4B",
-			"index":0,
+			"id":"n_qR3oG",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"Output"
+					],
+					"properties":{
+						"Output":{
+							"type":"string",
+							"title":"Output"
+						}
+					}
+				},
+				"setup":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"Input"
+					],
+					"properties":{
+						"Input":{
+							"type":"array",
+							"items":{
+								"type":"string"
+							},
+							"title":"Input"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"delay",
+				"resourceVersion":141,
+				"resourceName":"delay_for",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_Qyu4B-1",
-			"id":"_uJELF",
-			"index":0,
+			"id":"n_y5VZp",
+			"index":2,
+			"inputs":{
+				"duration":2,
+				"unit":"SECONDS"
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Delay",
+			"title":"Set delay duration",
+			"type":"DELAY"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":2183,
+				"resourceName":"variable_by_unifyapps_create_list",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_Qyu4B-1",
+			"id":"n_lU7J5",
+			"index":3,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{
+					"createList":{
+						"ui:title":"",
+						"ua:type":{
+							"ui:widget":"hidden"
+						},
+						"items":{
+							"ui:title":"Initial list items",
+							"ui:description":"Set the initial values of the list (defaults to empty)"
+						},
+						"ui:order":[
+							"*",
+							"items"
+						]
+					},
+					"ua:title":{
+						"ui:widget":"hidden"
+					},
+					"ua:list_type":{
+						"ui:widget":"hidden"
+					}
+				},
+				"schema":{
+					"allOf":[
+						{
+							"if":{
+								"properties":{
+									"ua:list_type":{
+										"const":"OBJECT"
+									}
+								}
+							},
+							"then":{
+								"properties":{
+									"createList":{
+										"type":"object",
+										"properties":{
+											"items":{
+												"type":"object",
+												"properties":{}
+											}
+										}
+									}
+								}
+							}
+						},
+						{
+							"if":{
+								"properties":{
+									"ua:list_type":{
+										"const":"STRING"
+									}
+								}
+							},
+							"then":{
+								"properties":{
+									"createList":{
+										"type":"object",
+										"properties":{
+											"source":{
+												"type":"string",
+												"format":"ua:source",
+												"title":"List of String"
+											},
+											"items":{
+												"type":"string"
+											}
+										}
+									}
+								}
+							}
+						},
+						{
+							"if":{
+								"properties":{
+									"ua:list_type":{
+										"const":"INTEGER"
+									}
+								}
+							},
+							"then":{
+								"properties":{
+									"createList":{
+										"type":"object",
+										"properties":{
+											"source":{
+												"type":"string",
+												"format":"ua:source",
+												"title":"List of Integers"
+											},
+											"items":{
+												"type":"integer"
+											}
+										}
+									}
+								}
+							}
+						},
+						{
+							"if":{
+								"properties":{
+									"ua:list_type":{
+										"const":"NUMBER"
+									}
+								}
+							},
+							"then":{
+								"properties":{
+									"createList":{
+										"type":"object",
+										"properties":{
+											"source":{
+												"type":"string",
+												"format":"ua:source",
+												"title":"List of Numbers"
+											},
+											"items":{
+												"type":"number"
+											}
+										}
+									}
+								}
+							}
+						},
+						{
+							"if":{
+								"properties":{
+									"ua:list_type":{
+										"const":"BOOLEAN"
+									}
+								}
+							},
+							"then":{
+								"properties":{
+									"createList":{
+										"type":"object",
+										"properties":{
+											"source":{
+												"type":"string",
+												"format":"ua:source",
+												"title":"List of Booleans"
+											},
+											"items":{
+												"type":"boolean"
+											}
+										}
+									}
+								}
+							}
+						}
+					],
+					"format":"ua:list",
+					"type":"object",
+					"properties":{
+						"ua:title":{
+							"type":"string"
+						},
+						"ua:list_type":{
+							"type":"string",
+							"title":"List Type",
+							"oneOf":[
+								{
+									"const":"OBJECT",
+									"title":"Object"
+								},
+								{
+									"const":"STRING",
+									"title":"String"
+								},
+								{
+									"const":"NUMBER",
+									"title":"Number"
+								},
+								{
+									"const":"INTEGER",
+									"title":"Integer"
+								},
+								{
+									"const":"BOOLEAN",
+									"title":"Boolean"
+								}
+							],
+							"default":"OBJECT"
+						},
+						"createList":{
+							"type":"object",
+							"properties":{
+								"ua:type":{
+									"type":"string",
+									"default":"mappedArray"
+								},
+								"source":{
+									"type":"string",
+									"format":"ua:source",
+									"title":"List Item Source"
+								},
+								"items":{
+									"additionalProperties":false,
+									"type":[
+										"object",
+										"string",
+										"number",
+										"boolean",
+										"integer"
+									],
+									"properties":{}
+								}
+							}
+						}
+					}
+				}
+			},
+			"inputs":{
+				"createList":{
+					"ua:type":"mappedArray",
+					"source":"{{ n_qR3oG.outputs.Input }}",
+					"items":"{{ n_qR3oG.outputs.Input }}"
+				},
+				"ua:title":"List_Name",
+				"ua:list_type":"STRING"
+			},
+			"outputSchema":{
+				"dynamic":false,
+				"schema":{
+					"type":"object",
+					"properties":{
+						"items":{
+							"type":"array",
+							"title":"List_Name",
+							"disableActions":true,
+							"items":{
+								"type":"string"
+							}
+						}
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Create list",
 			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"loop",
+				"resourceVersion":141,
+				"resourceName":"loop_for_each",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_Qyu4B-1",
+			"id":"n_sZg8J",
+			"index":4,
+			"inputs":{
+				"repeatMode":"SINGLE",
+				"listSource":"{{ n_lU7J5.outputs.items }}",
+				"captureIterations":false
+			},
+			"skip":false,
+			"subTitle":"Loop",
+			"title":"For each loop",
+			"type":"LOOP"
+		},
+		{
+			"context":{
+				"appName":"delay",
+				"resourceVersion":141,
+				"resourceName":"delay_for",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"n_sZg8J@_Qyu4B-1@l",
+			"id":"n_CHhhb",
+			"index":5,
+			"inputs":{
+				"duration":5,
+				"unit":"SECONDS"
+			},
+			"skip":false,
+			"subTitle":"Delay",
+			"title":"Set delay duration",
+			"type":"DELAY"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":138,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"n_sZg8J@_Qyu4B-1@l",
+			"id":"n_5oZOB",
+			"index":6,
+			"inputs":{
+				"filters":[
+					{
+						"property":"=LEN({{ n_sZg8J.outputs.item }})",
+						"filter":{
+							"operator":"EQUAL",
+							"value":"3"
+						}
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"break",
+				"resourceVersion":141,
+				"resourceName":"break",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"n_5oZOB@n_sZg8J@_Qyu4B-1@l@y",
+			"id":"n_RmuiA",
+			"index":7,
+			"inputs":{
+				"loop":"n_sZg8J",
+				"conditions":{
+					"filters":[
+						{
+							"property":"{{ n_5oZOB.outputs.result }}",
+							"filter":{
+								"operator":"EQUAL",
+								"value":"3"
+							}
+						}
+					],
+					"operator":"AND"
+				}
+			},
+			"skip":false,
+			"subTitle":"Break",
+			"title":"Break",
+			"type":"BREAK"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2284,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"n_5oZOB@n_sZg8J@_Qyu4B-1@l@n",
+			"id":"n_gSR6P",
+			"index":8,
+			"inputs":{
+				"result":{
+					"Output":"Length of the text is short"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2284,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_Qyu4B-1",
+			"id":"n_ubrQ6",
+			"index":9,
+			"inputs":{
+				"result":{
+					"Output":"{{ n_RmuiA.outputs.result }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +590,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
