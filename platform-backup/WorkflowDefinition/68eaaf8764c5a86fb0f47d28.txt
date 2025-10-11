@@ -1,52 +1,183 @@
 {
 	"appsUsed":[
-		
+		"custom_http_application"
 	],
 	"createdTime":1760210823789,
 	"deleted":false,
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_gxcgc",
+			"fromNodeId":"n_LvBzB",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_GK1pV",
+			"toNodeId":"n_L9Aeq",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_L9Aeq",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_pbh5s",
 			"type":"next"
 		}
 	],
 	"id":"68eaaf8764c5a86fb0f47d28",
 	"lastModifiedBy":1,
 	"lcName":"httpcustomvalueworkflow1_117602080078200",
-	"modifiedTime":1760210823789,
+	"modifiedTime":1760210836788,
 	"name":"HTTPCustomValueWorkflow1_117602080078200",
 	"nodes":[
 		{
+			"context":{
+				"appName":"webhooks",
+				"resourceVersion":138,
+				"resourceName":"webhooks_default"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_gxcgc-1",
-			"id":"_gxcgc",
-			"index":0,
+			"id":"n_LvBzB",
+			"index":1,
+			"inputs":{
+				"request":{
+					"contentType":"application/json"
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Webhook",
+			"title":"New event",
 			"trigger":{
-				"type":"EVENT"
+				"type":"WEBHOOK"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":2193,
+				"resourceName":"variable_by_unifyapps_create_variables",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_gxcgc-1",
-			"id":"_GK1pV",
-			"index":0,
+			"id":"n_L9Aeq",
+			"index":2,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{},
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"Method":{
+							"type":"string",
+							"title":"Method"
+						}
+					},
+					"required":[
+						"Method"
+					]
+				}
+			},
+			"inputs":{
+				"Method":"PUT"
+			},
+			"outputSchema":{
+				"dynamic":false,
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"Method":{
+							"type":"string",
+							"title":"Method"
+						}
+					},
+					"required":[
+						"Method"
+					]
+				}
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Variable by UnifyApps",
+			"title":"Create variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"custom_http_application",
+				"resourceVersion":6280,
+				"connectionId":"6878d77aae286a785bd91456",
+				"resourceName":"custom_http_application_execute",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_gxcgc-1",
+			"id":"n_pbh5s",
+			"index":3,
+			"inputs":{
+				"isAsync":false,
+				"requestTimeoutInSecs":-1,
+				"httpMethod":"{{ n_L9Aeq.outputs.Method }}",
+				"body":{
+					"input":"random"
+				},
+				"sslVerify":true,
+				"path":"/api-endpoint/aj9pfes/awv5lh",
+				"responseSchema":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"output"
+					],
+					"properties":{
+						"output":{
+							"type":"string",
+							"title":"output"
+						}
+					}
+				},
+				"baseUrl":"https://qa-automation.qa2.unifyapps.com",
+				"httpVersion":"HTTP_2",
+				"bodySchema":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"input"
+					],
+					"properties":{
+						"input":{
+							"type":"string",
+							"title":"input"
+						}
+					}
+				},
+				"responseContentType":"application/json",
+				"headersList":[
+					{
+						"key":"api-token",
+						"value":"1/68eaaf80dcc39c386eea55f6"
+					}
+				],
+				"authType":"CUSTOM",
+				"requestContentType":"application/json"
+			},
+			"skip":false,
+			"subTitle":"Custom HTTP Application",
+			"title":"Execute REST Request",
 			"type":"ACTION"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +191,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
