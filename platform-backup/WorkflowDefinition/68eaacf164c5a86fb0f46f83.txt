@@ -7,46 +7,139 @@
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_Ec6xu",
+			"fromNodeId":"n_K6z63",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_FEF9j",
+			"toNodeId":"n_257gL",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_257gL",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_JaWIS",
 			"type":"next"
 		}
 	],
 	"id":"68eaacf164c5a86fb0f46f83",
 	"lastModifiedBy":1,
 	"lcName":"stepscolorworkflow-step added-11760208025494",
-	"modifiedTime":1760210161470,
+	"modifiedTime":1760210181648,
 	"name":"stepsColorWorkflow-step added-11760208025494",
 	"nodes":[
 		{
+			"context":{
+				"appName":"webhooks",
+				"resourceVersion":138,
+				"resourceName":"webhooks_default"
+			},
 			"debug":false,
 			"dirty":false,
 			"fallbackMode":"STOP",
 			"groupId":"_Ec6xu-1",
-			"id":"_Ec6xu",
-			"index":0,
+			"id":"n_K6z63",
+			"index":1,
+			"inputs":{
+				"request":{
+					"contentType":"application/json",
+					"body":{
+						"type":"object",
+						"properties":{
+							"input":{
+								"type":"string",
+								"title":"input"
+							}
+						},
+						"additionalProperties":false,
+						"required":[
+							"input"
+						]
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Webhook",
+			"title":"New event",
 			"trigger":{
-				"type":"EVENT"
+				"type":"WEBHOOK"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":2191,
+				"resourceName":"variable_by_unifyapps_create_variables",
+				"type":"APPLICATION"
+			},
 			"debug":false,
 			"dirty":false,
 			"fallbackMode":"STOP",
 			"groupId":"_Ec6xu-1",
-			"id":"_FEF9j",
-			"index":0,
+			"id":"n_257gL",
+			"index":2,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{},
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"inputField":{
+							"type":"string",
+							"title":"inputField"
+						}
+					},
+					"required":[
+						"inputField"
+					]
+				}
+			},
+			"inputs":{},
+			"outputSchema":{
+				"dynamic":false,
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"inputField":{
+							"type":"string",
+							"title":"inputField"
+						}
+					},
+					"required":[
+						"inputField"
+					]
+				}
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Variable by UnifyApps",
+			"title":"Create variables",
 			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"stop",
+				"resourceVersion":0,
+				"resourceName":"stop"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_Ec6xu-1",
+			"id":"n_JaWIS",
+			"index":3,
+			"skip":false,
+			"subTitle":"Stop",
+			"title":"Stop",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +153,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":2
 }
