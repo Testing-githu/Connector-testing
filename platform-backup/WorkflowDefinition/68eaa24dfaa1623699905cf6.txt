@@ -6,46 +6,89 @@
 	"deleted":false,
 	"edges":[
 		{
-			"fromNodeId":"_sPTmS",
+			"fromNodeId":"n_mAOxw",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_TESKf",
+			"toNodeId":"n_SDy7W",
 			"type":"next"
 		}
 	],
 	"id":"68eaa24dfaa1623699905cf6",
 	"lastModifiedBy":1,
 	"lcName":"excelformulasqa2qctdibohtl",
-	"modifiedTime":1760207437974,
+	"modifiedTime":1760207464632,
 	"name":"ExcelFormulasQA2qcTDIbohtL",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2279,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_sPTmS-1",
-			"id":"_sPTmS",
-			"index":0,
+			"id":"n_mAOxw",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"r":{
+							"type":"string",
+							"title":"r"
+						}
+					}
+				},
+				"setup":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"a":{
+							"type":"string",
+							"title":"a"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2282,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_sPTmS-1",
-			"id":"_TESKf",
-			"index":0,
+			"id":"n_SDy7W",
+			"index":2,
+			"inputs":{
+				"result":{
+					"r":"=INDIRECT({{ n_mAOxw.outputs.a }})"
+				}
+			},
 			"skip":false,
-			"title":"Select an app and action",
-			"type":"ACTION"
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -59,5 +102,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
