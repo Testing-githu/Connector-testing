@@ -4,49 +4,106 @@
 	],
 	"createdTime":1760210033070,
 	"deleted":false,
+	"deploymentState":{
+		"deployedAt":1760210044072,
+		"deployedBy":1,
+		"deployedDefinitionId":"68eaac7c64c5a86fb0f46cae",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":1
+	},
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_YXRJf",
+			"fromNodeId":"n_1UCGA",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_VGOtf",
+			"toNodeId":"n_wFaHt",
 			"type":"next"
 		}
 	],
 	"id":"68eaac71faa162369990d09a",
 	"lastModifiedBy":1,
 	"lcName":"appears_setanddeletevariable117602080160030",
-	"modifiedTime":1760210033070,
+	"modifiedTime":1760210048121,
 	"name":"appears_setAndDeleteVariable117602080160030",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2283,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_YXRJf-1",
-			"id":"_YXRJf",
-			"index":0,
+			"id":"n_1UCGA",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"output_String"
+					],
+					"properties":{
+						"output_String":{
+							"type":"string",
+							"title":"output_String"
+						}
+					}
+				},
+				"setup":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"input_String"
+					],
+					"properties":{
+						"input_String":{
+							"type":"string",
+							"title":"input_String"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2286,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_YXRJf-1",
-			"id":"_VGOtf",
-			"index":0,
+			"id":"n_wFaHt",
+			"index":2,
+			"inputs":{
+				"result":{
+					"output_String":"{{ n_1UCGA.outputs.input_String }}"
+				}
+			},
 			"skip":false,
-			"title":"Select an app and action",
-			"type":"ACTION"
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +117,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":2
 }
