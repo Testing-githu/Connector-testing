@@ -7,46 +7,151 @@
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_i2jyW",
+			"fromNodeId":"n_HJmRl",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_9xueZ",
+			"toNodeId":"n_zxMV2",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_zxMV2",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_aaaf6",
 			"type":"next"
 		}
 	],
 	"id":"68ebf8e07cbff43ccfca9b75",
 	"lastModifiedBy":1,
 	"lcName":"workflow_execution_with_filter_by_workflow_endswith_and_status_equalsto_117602944965790",
-	"modifiedTime":1760295136852,
+	"modifiedTime":1760295160473,
 	"name":"Workflow_Execution_With_Filter_by_Workflow_EndsWith_and_Status_Equalsto_117602944965790",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2363,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_i2jyW-1",
-			"id":"_i2jyW",
-			"index":0,
+			"id":"n_HJmRl",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"output",
+						"total"
+					],
+					"properties":{
+						"output":{
+							"type":"string",
+							"title":"output"
+						},
+						"total":{
+							"type":"integer",
+							"title":"total"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"analytics_by_unifyapps",
+				"resourceVersion":2172,
+				"resourceName":"analytics_by_unifyapps_query_reports",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_i2jyW-1",
-			"id":"_9xueZ",
-			"index":0,
+			"id":"n_zxMV2",
+			"index":2,
+			"inputs":{
+				"projections":[
+					{
+						"name":"PARENT_EXECUTION_INSTANCE_ID",
+						"aggregationFunction":"GROUP",
+						"alias":"Parent_Instance_ID",
+						"includePercentageChange":false
+					},
+					{
+						"name":"ROOT_EXECUTION_INSTANCE_ID",
+						"aggregationFunction":"GROUP",
+						"alias":"Root_Instance_ID",
+						"includePercentageChange":false
+					}
+				],
+				"filter":{
+					"filters":[
+						{
+							"property":"AI_AGENT_ID",
+							"filter":{
+								"operator":"ENDS_WITH",
+								"value":"00"
+							}
+						},
+						{
+							"property":"STATUS",
+							"filter":{
+								"operator":"EQUAL",
+								"value":"ACTIVE"
+							}
+						}
+					],
+					"operator":"OR"
+				},
+				"entityType":"WORKFLOW_EXECUTION",
+				"includeTotalHits":true,
+				"group":"PLATFORM"
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Analytics by UnifyApps",
+			"title":"Analytics Query",
 			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2366,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_i2jyW-1",
+			"id":"n_aaaf6",
+			"index":3,
+			"inputs":{
+				"result":{
+					"output":"{{ n_zxMV2.outputs.objects }}",
+					"total":"{{ n_zxMV2.outputs.total }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +165,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
