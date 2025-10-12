@@ -7,46 +7,112 @@
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_0njPi",
+			"fromNodeId":"n_6kuSp",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_jcEx9",
+			"toNodeId":"n_y87AW",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_y87AW",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_UvbAV",
 			"type":"next"
 		}
 	],
 	"id":"68ec28bb7cbff43ccfcb7f67",
 	"lastModifiedBy":1,
 	"lcName":"childnode-retryerror-117603073832790",
-	"modifiedTime":1760307387720,
+	"modifiedTime":1760307399203,
 	"name":"childnode-retryerror-117603073832790",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2408,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_0njPi-1",
-			"id":"_0njPi",
-			"index":0,
+			"id":"n_6kuSp",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"input_String"
+					],
+					"properties":{
+						"input_String":{
+							"type":"string",
+							"title":"input_String"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"test_http",
+				"resourceVersion":2339,
+				"connectionId":"66b0ee649c311126267a17b7",
+				"resourceName":"test_http_post_api",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_0njPi-1",
-			"id":"_jcEx9",
-			"index":0,
+			"id":"n_y87AW",
+			"index":2,
+			"inputs":{
+				"field1":"success",
+				"field2":true
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Test HTTP API",
+			"title":"Test HTTP Post API",
 			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2411,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_0njPi-1",
+			"id":"n_UvbAV",
+			"index":3,
+			"inputs":{
+				"result":{
+					"input_String":"2"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +126,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
