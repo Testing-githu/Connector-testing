@@ -7,46 +7,95 @@
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_PX49m",
+			"fromNodeId":"n_t3Hjp",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_OMTg5",
+			"toNodeId":"n_OoWhl",
 			"type":"next"
 		}
 	],
 	"id":"68ec01a8fdbf5b0baebbe41d",
 	"lastModifiedBy":1,
 	"lcName":"telemetry_createtwometrics_117602944870470",
-	"modifiedTime":1760297384879,
+	"modifiedTime":1760297394092,
 	"name":"telemetry_createTwoMetrics_117602944870470",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2373,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_PX49m-1",
-			"id":"_PX49m",
-			"index":0,
+			"id":"n_t3Hjp",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"output_String"
+					],
+					"properties":{
+						"output_String":{
+							"type":"string",
+							"title":"output_String"
+						}
+					}
+				},
+				"setup":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"input_String"
+					],
+					"properties":{
+						"input_String":{
+							"type":"string",
+							"title":"input_String"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2376,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_PX49m-1",
-			"id":"_OMTg5",
-			"index":0,
+			"id":"n_OoWhl",
+			"index":2,
+			"inputs":{
+				"result":{
+					"output_String":"{{ n_t3Hjp.outputs.input_String }}"
+				}
+			},
 			"skip":false,
-			"title":"Select an app and action",
-			"type":"ACTION"
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +109,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
