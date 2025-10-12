@@ -1,52 +1,125 @@
 {
 	"appsUsed":[
-		
+		"slack"
 	],
 	"createdTime":1760294905029,
 	"deleted":false,
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_WMlzN",
+			"fromNodeId":"n_jAdXk",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_mf8b3",
+			"toNodeId":"n_9eREY",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_9eREY",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"_cxT4H",
 			"type":"next"
 		}
 	],
 	"id":"68ebf7f97cbff43ccfca8de0",
 	"lastModifiedBy":1,
 	"lcName":"copynodeswithapicalls_117602944870470",
-	"modifiedTime":1760294905029,
+	"modifiedTime":1760294916351,
 	"name":"copyNodesWithAPICalls_117602944870470",
 	"nodes":[
 		{
+			"context":{
+				"appName":"webhooks",
+				"resourceVersion":140,
+				"resourceName":"webhooks_default"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_WMlzN-1",
-			"id":"_WMlzN",
-			"index":0,
+			"id":"n_jAdXk",
+			"index":1,
+			"inputs":{
+				"request":{
+					"contentType":"application/json",
+					"body":{
+						"type":"object",
+						"properties":{
+							"input":{
+								"type":"string",
+								"title":"input"
+							}
+						},
+						"additionalProperties":false,
+						"required":[
+							"input"
+						]
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Webhook",
+			"title":"New event",
 			"trigger":{
-				"type":"EVENT"
+				"type":"WEBHOOK"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"slack",
+				"resourceVersion":8229,
+				"connectionId":"662f8ddb91d8ba4394d0cce6",
+				"resourceName":"slack_post_message_in_channel",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_WMlzN-1",
-			"id":"_mf8b3",
-			"index":0,
+			"id":"n_9eREY",
+			"index":2,
+			"inputs":{
+				"link_names":true,
+				"messageType":"text",
+				"text":"UnifyApps",
+				"mrkdwn":true
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Slack",
+			"title":"Post message",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"slack",
+				"resourceVersion":8229,
+				"connectionId":"662f8ddb91d8ba4394d0cce6",
+				"resourceName":"slack_post_message_in_channel",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_WMlzN-1",
+			"id":"_cxT4H",
+			"index":3,
+			"inputs":{
+				"link_names":true,
+				"messageType":"text",
+				"text":"UnifyApps",
+				"mrkdwn":true
+			},
+			"skip":false,
+			"subTitle":"Slack",
+			"title":"Post message",
 			"type":"ACTION"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +133,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
