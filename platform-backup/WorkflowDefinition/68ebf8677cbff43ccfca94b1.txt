@@ -7,46 +7,181 @@
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_uQhyV",
+			"fromNodeId":"n_5cDb5",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_IZmZe",
+			"toNodeId":"n_OfSot",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_OfSot",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_dfqyc",
 			"type":"next"
 		}
 	],
 	"id":"68ebf8677cbff43ccfca94b1",
 	"lastModifiedBy":1,
 	"lcName":"http_arrayschemaworkflow_117602944860110",
-	"modifiedTime":1760295015016,
+	"modifiedTime":1760295032503,
 	"name":"http_arraySchemaWorkflow_117602944860110",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2365,
+				"resourceName":"callables_from_api"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_uQhyV-1",
-			"id":"_uQhyV",
-			"index":0,
+			"id":"n_5cDb5",
+			"index":1,
+			"inputs":{
+				"request":{
+					"contentType":"application/json",
+					"body":{
+						"type":"object",
+						"properties":{
+							"input":{
+								"type":"string",
+								"title":"input"
+							}
+						},
+						"additionalProperties":false,
+						"required":[
+							"input"
+						]
+					}
+				},
+				"endpointType":"REST",
+				"response":[
+					{
+						"name":"success",
+						"status":200,
+						"contentType":"application/json",
+						"textBody":{
+							"type":"string"
+						},
+						"body":{
+							"type":"object",
+							"properties":{
+								"output":{
+									"type":"string",
+									"title":"output"
+								}
+							},
+							"additionalProperties":false,
+							"required":[
+								"output"
+							]
+						}
+					}
+				],
+				"streamingResponse":false
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via API",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"custom_http_endpoint",
+				"resourceVersion":2152,
+				"resourceName":"custom_http_endpoint_execute",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_uQhyV-1",
-			"id":"_IZmZe",
-			"index":0,
+			"id":"n_OfSot",
+			"index":2,
+			"inputs":{
+				"isAsync":false,
+				"enableProxy":false,
+				"requestTimeoutInSecs":-1,
+				"httpMethod":"GET",
+				"connectionType":"DIRECT",
+				"sslVerify":false,
+				"path":"/akmymnm/amre6fc",
+				"baseUrl":"https://qa-automation.qa2.unifyapps.com/api-endpoint",
+				"password":"UnifyAppslw6fh",
+				"httpVersion":"HTTP_2",
+				"bodySchema":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"input",
+						"output"
+					],
+					"properties":{
+						"input":{
+							"type":"array",
+							"items":{
+								"type":"string"
+							},
+							"title":"input"
+						},
+						"output":{
+							"type":"array",
+							"items":{
+								"type":"string"
+							},
+							"title":"output"
+						}
+					}
+				},
+				"responseContentType":"application/json",
+				"followRedirects":"NORMAL",
+				"authType":"BASIC_AUTH",
+				"requestContentType":"application/json",
+				"ignoreTrailingSlashes":false,
+				"certificateType":"CERT_STRING",
+				"username":"unifyapps"
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Custom HTTP Endpoint",
+			"title":"Execute REST request",
 			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2367,
+				"resourceName":"callables_return_response_to_api",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_uQhyV-1",
+			"id":"n_dfqyc",
+			"index":3,
+			"inputs":{
+				"streamingCompleted":true,
+				"responseName":"200_success",
+				"body":{
+					"output":"{{ n_OfSot.outputs.result }}"
+				},
+				"status":200
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to API request",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +195,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
