@@ -7,46 +7,107 @@
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_glPM8",
+			"fromNodeId":"n_ZO9ib",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_ew1Ug",
+			"toNodeId":"n_x8CF9",
 			"type":"next"
 		}
 	],
 	"id":"68ebf8d57cbff43ccfca9b03",
 	"lastModifiedBy":1,
 	"lcName":"condition box|string input - does not equal 11760294489362",
-	"modifiedTime":1760295125267,
+	"modifiedTime":1760295135201,
 	"name":"Condition Box|String Input - Does not equal 11760294489362",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2363,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_glPM8-1",
-			"id":"_glPM8",
-			"index":0,
+			"id":"n_ZO9ib",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"output_String"
+					],
+					"properties":{
+						"output_String":{
+							"type":"string",
+							"title":"output_String"
+						}
+					}
+				},
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"property":"{{ n_ZO9ib.outputs.input_String }}",
+							"filter":{
+								"operator":"NOT_EQUAL",
+								"value":"cool"
+							}
+						}
+					],
+					"operator":"AND"
+				},
+				"setup":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"input_String"
+					],
+					"properties":{
+						"input_String":{
+							"type":"string",
+							"title":"input_String"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2366,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_glPM8-1",
-			"id":"_ew1Ug",
-			"index":0,
+			"id":"n_x8CF9",
+			"index":2,
+			"inputs":{
+				"result":{
+					"output_String":"{{ n_ZO9ib.outputs.input_String }}"
+				}
+			},
 			"skip":false,
-			"title":"Select an app and action",
-			"type":"ACTION"
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +121,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
