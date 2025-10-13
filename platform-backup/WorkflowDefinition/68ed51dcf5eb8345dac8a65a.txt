@@ -1,52 +1,94 @@
 {
 	"appsUsed":[
-		
+		"storage_by_unifyapps"
 	],
 	"createdTime":1760383452228,
 	"deleted":false,
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_Pazic",
+			"fromNodeId":"n_mptOA",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_mqinS",
+			"toNodeId":"n_4eXZR",
 			"type":"next"
 		}
 	],
 	"id":"68ed51dcf5eb8345dac8a65a",
 	"lastModifiedBy":1,
 	"lcName":"storage_by_delete_record_nested_data117603810030000",
-	"modifiedTime":1760383452228,
+	"modifiedTime":1760383459974,
 	"name":"Storage_by_delete_record_nested_data117603810030000",
 	"nodes":[
 		{
+			"context":{
+				"appName":"webhooks",
+				"resourceVersion":141,
+				"resourceName":"webhooks_default"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_Pazic-1",
-			"id":"_Pazic",
-			"index":0,
+			"id":"n_mptOA",
+			"index":1,
+			"inputs":{
+				"request":{
+					"contentType":"application/json"
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Webhook",
+			"title":"New event",
 			"trigger":{
-				"type":"EVENT"
+				"type":"WEBHOOK"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":8335,
+				"resourceName":"storage_by_unifyapps_delete_records",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_Pazic-1",
-			"id":"_mqinS",
-			"index":0,
+			"id":"n_4eXZR",
+			"index":2,
+			"inputs":{
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"property":"properties_items_item_batters_batter_id",
+							"filter":{
+								"operator":"CONTAINS",
+								"value":"batter"
+							}
+						}
+					],
+					"operator":"AND"
+				},
+				"writeThroughSessionVariables":false,
+				"object_type":"a7fcq967",
+				"numberOfRecordsToDelete":"SINGLE",
+				"page":{
+					"limit":20,
+					"offset":0
+				}
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Storage by UnifyApps",
+			"title":"Delete records",
 			"type":"ACTION"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +102,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
