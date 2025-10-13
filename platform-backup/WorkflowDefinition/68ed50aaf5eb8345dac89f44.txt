@@ -7,46 +7,151 @@
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_Kdbzl",
+			"fromNodeId":"n_3O2TY",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_D8Xfj",
+			"toNodeId":"n_W6Fj6",
 			"type":"next"
 		}
 	],
 	"id":"68ed50aaf5eb8345dac89f44",
 	"lastModifiedBy":1,
 	"lcName":"leftside_search_rest_query_params_117603809996830",
-	"modifiedTime":1760383146235,
+	"modifiedTime":1760383160373,
 	"name":"leftside_search_rest_query_params_117603809996830",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2445,
+				"resourceName":"callables_from_api"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_Kdbzl-1",
-			"id":"_Kdbzl",
-			"index":0,
+			"id":"n_3O2TY",
+			"index":1,
+			"inputs":{
+				"request":{
+					"queryParams":{
+						"type":"object",
+						"additionalProperties":false,
+						"required":[],
+						"properties":{
+							"Query_string117603809996830":{
+								"type":"string",
+								"title":"Query_string117603809996830"
+							},
+							"Query_number117603809996830":{
+								"type":"number",
+								"title":"Query_number117603809996830"
+							},
+							"Query_integer117603809996830":{
+								"type":"integer",
+								"title":"Query_integer117603809996830"
+							},
+							"Query_boolean117603809996830":{
+								"type":"boolean",
+								"title":"Query_boolean117603809996830"
+							},
+							"Query_array_string117603809996830":{
+								"type":"array",
+								"items":{
+									"type":"string"
+								},
+								"title":"Query_array_string117603809996830"
+							},
+							"Query_array_number117603809996830":{
+								"type":"array",
+								"items":{
+									"type":"number"
+								},
+								"title":"Query_array_number117603809996830"
+							},
+							"Query_array_integer117603809996830":{
+								"type":"array",
+								"items":{
+									"type":"integer"
+								},
+								"title":"Query_array_integer117603809996830"
+							},
+							"Query_array_boolean117603809996830":{
+								"type":"array",
+								"items":{
+									"type":"boolean"
+								},
+								"title":"Query_array_boolean117603809996830"
+							}
+						}
+					},
+					"contentType":"application/json"
+				},
+				"endpointType":"REST",
+				"response":[
+					{
+						"name":"response",
+						"status":200,
+						"contentType":"application/json",
+						"textBody":{
+							"type":"string"
+						},
+						"body":{
+							"type":"object",
+							"properties":{
+								"response":{
+									"type":"string",
+									"title":"response"
+								}
+							},
+							"additionalProperties":false,
+							"required":[
+								"response"
+							]
+						}
+					}
+				],
+				"streamingResponse":false
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via API",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2448,
+				"resourceName":"callables_return_response_to_api",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_Kdbzl-1",
-			"id":"_D8Xfj",
-			"index":0,
+			"id":"n_W6Fj6",
+			"index":2,
+			"inputs":{
+				"streamingCompleted":true,
+				"responseName":"200_response",
+				"body":{
+					"response":"cool"
+				},
+				"status":200
+			},
 			"skip":false,
-			"title":"Select an app and action",
-			"type":"ACTION"
+			"subTitle":"Callable",
+			"title":"Respond to API request",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +165,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
