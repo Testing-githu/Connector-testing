@@ -5,48 +5,26 @@
 	"createdTime":1760428806555,
 	"deleted":false,
 	"deploymentState":{
-		"deployedAt":1760435001186,
+		"deployedAt":1760435768861,
 		"deployedBy":1,
-		"deployedDefinitionId":"68ee1b38f5eb8345dad02cae",
+		"deployedDefinitionId":"68ee1e38f5eb8345dad0cd37",
 		"status":"DEPLOYED",
-		"version":3,
-		"workflowVersion":7
+		"version":5,
+		"workflowVersion":11
 	},
 	"edges":[
 		{
 			"fromNodeId":"n_sFHDm",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"n_Y4wTG",
-			"type":"next"
-		},
-		{
-			"fromNodeId":"n_Y4wTG",
-			"priority":0,
-			"skip":false,
-			"toNodeId":"n_YiACL",
-			"type":"loop"
-		},
-		{
-			"fromNodeId":"n_YiACL",
-			"name":"loopback",
-			"priority":0,
-			"skip":false,
-			"toNodeId":"n_Y4wTG",
-			"type":"next"
-		},
-		{
-			"fromNodeId":"n_Y4wTG",
-			"priority":0,
-			"skip":false,
-			"toNodeId":"n_vNDCl",
+			"toNodeId":"n_67BEd",
 			"type":"next"
 		}
 	],
 	"id":"68ee0306f5eb8345daceeced",
 	"lastModifiedBy":1,
 	"lcName":"wef",
-	"modifiedTime":1760435224200,
+	"modifiedTime":1760435962287,
 	"name":"wef",
 	"nodes":[
 		{
@@ -76,67 +54,41 @@
 		},
 		{
 			"context":{
-				"appName":"text_by_unifyapps",
-				"resourceVersion":2138,
-				"resourceName":"text_by_unifyapps_for_each_line_or_lines",
+				"appName":"notification_by_unifyapps",
+				"resourceVersion":2300,
+				"resourceName":"notification_by_unifyapps_send_notification",
 				"type":"APPLICATION"
 			},
 			"debug":false,
 			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_s8l0U-1",
-			"id":"n_Y4wTG",
+			"id":"n_67BEd",
 			"index":2,
 			"inputs":{
-				"file":"https://samplefile.com/samples/document/txt/",
-				"batch":false,
-				"encoding":"UTF-8",
-				"batchSize":100
+				"cta":{
+					"type":"url",
+					"width":{
+						"custom":"400px"
+					}
+				},
+				"module":"object",
+				"eventType":"import_failed",
+				"applicationId":"testautomation",
+				"notificationPreviewTime":5,
+				"content":{
+					"templateId":"failed_export_notification_template"
+				},
+				"tags":[
+					"alerts",
+					"approval",
+					"mentions"
+				]
 			},
 			"skip":false,
-			"subTitle":"Text Reader by UnifyApps",
-			"title":"Consume data from text file",
-			"type":"LOOP"
-		},
-		{
-			"context":{
-				"appName":"files_by_unifyapps",
-				"resourceVersion":2314,
-				"resourceName":"files_by_unifyapps_create_temp_file",
-				"type":"APPLICATION"
-			},
-			"debug":false,
-			"dirty":true,
-			"fallbackMode":"STOP",
-			"groupId":"n_Y4wTG@_s8l0U-1@l",
-			"id":"n_YiACL",
-			"index":3,
-			"inputs":{
-				"isTmp":true,
-				"initialContentType":"plainText",
-				"initialContent":"{{ n_Y4wTG.outputs.isFirst }}",
-				"type":"SINGLE",
-				"fileType":"txt"
-			},
-			"skip":false,
-			"subTitle":"Files by UnifyApps",
-			"title":"Create a file",
+			"subTitle":"Notification by UnifyApps",
+			"title":"Send notification",
 			"type":"ACTION"
-		},
-		{
-			"context":{
-				"appName":"stop"
-			},
-			"debug":false,
-			"dirty":true,
-			"fallbackMode":"STOP",
-			"groupId":"_s8l0U-1",
-			"id":"n_vNDCl",
-			"index":4,
-			"skip":false,
-			"subTitle":"Stop",
-			"title":"Stop",
-			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
@@ -156,5 +108,5 @@
 	"tags":[
 		
 	],
-	"version":9
+	"version":12
 }
