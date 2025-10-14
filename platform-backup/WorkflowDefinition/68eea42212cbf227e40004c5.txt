@@ -1,52 +1,256 @@
 {
 	"appsUsed":[
-		
+		"slack"
 	],
 	"createdTime":1760470050667,
 	"deleted":false,
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_hLVnu",
+			"fromNodeId":"n_QwpqK",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_EsuDD",
+			"toNodeId":"n_JqozX",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_JqozX",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_bLKC7",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_bLKC7",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_mDTrF",
 			"type":"next"
 		}
 	],
 	"id":"68eea42212cbf227e40004c5",
 	"lastModifiedBy":1,
 	"lcName":"validatelogtypesworkflow_11760467479684",
-	"modifiedTime":1760470050667,
+	"modifiedTime":1760470071227,
 	"name":"ValidateLogTypesWorkflow_11760467479684",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2512,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_hLVnu-1",
-			"id":"_hLVnu",
-			"index":0,
+			"id":"n_QwpqK",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"output"
+					],
+					"properties":{
+						"output":{
+							"type":"string",
+							"title":"output"
+						}
+					}
+				},
+				"setup":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"id":{
+							"type":"integer",
+							"title":"id"
+						},
+						"name":{
+							"type":"string",
+							"title":"name"
+						},
+						"age":{
+							"type":"integer",
+							"title":"age"
+						},
+						"gender":{
+							"type":"string",
+							"title":"gender"
+						},
+						"designation":{
+							"type":"string",
+							"title":"designation"
+						},
+						"department":{
+							"type":"string",
+							"title":"department"
+						},
+						"salary":{
+							"type":"integer",
+							"title":"salary"
+						},
+						"city":{
+							"type":"string",
+							"title":"city"
+						},
+						"state":{
+							"type":"string",
+							"title":"state"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"comments_by_unifyapps",
+				"resourceVersion":2332,
+				"resourceName":"comments_by_unifyapps_add_comment",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_hLVnu-1",
-			"id":"_EsuDD",
-			"index":0,
+			"id":"n_JqozX",
+			"index":2,
+			"inputs":{
+				"assetId":"7",
+				"synchronous":false,
+				"assetClass":"Demo",
+				"userId":948,
+				"content":"Text"
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Comments by UnifyApps",
+			"title":"Add Comment",
 			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"slack",
+				"resourceVersion":8404,
+				"connectionId":"662f8ddb91d8ba4394d0cce6",
+				"resourceName":"slack_post_message_in_channel",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_hLVnu-1",
+			"id":"n_bLKC7",
+			"index":3,
+			"inputs":{
+				"link_names":true,
+				"messageType":"text",
+				"channel":"unify-apps",
+				"text":"Test message",
+				"mrkdwn":true
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS"
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":true,
+					"logPolicies":[
+						{
+							"level":"INFO",
+							"maskedFields":[
+								
+							],
+							"message":"checking log types: {{ n_QwpqK.outputs.city }} {{ n_JqozX.inputs.assetId }} {{ n_bLKC7.inputs.messageType }} ",
+							"onlyOnFailure":false
+						}
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"STOP",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
+			},
+			"skip":false,
+			"subTitle":"Slack",
+			"title":"Post message",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2515,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_hLVnu-1",
+			"id":"n_mDTrF",
+			"index":4,
+			"inputs":{
+				"result":{
+					"output":"{{ n_bLKC7.outputs.ok }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +264,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
