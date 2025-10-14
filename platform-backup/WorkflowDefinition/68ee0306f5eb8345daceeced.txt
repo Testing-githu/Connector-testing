@@ -5,26 +5,33 @@
 	"createdTime":1760428806555,
 	"deleted":false,
 	"deploymentState":{
-		"deployedAt":1760435768861,
+		"deployedAt":1760435965057,
 		"deployedBy":1,
-		"deployedDefinitionId":"68ee1e38f5eb8345dad0cd37",
+		"deployedDefinitionId":"68ee1efbf5eb8345dad0d869",
 		"status":"DEPLOYED",
-		"version":5,
-		"workflowVersion":11
+		"version":6,
+		"workflowVersion":12
 	},
 	"edges":[
 		{
 			"fromNodeId":"n_sFHDm",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"n_67BEd",
+			"toNodeId":"n_NGIui",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_NGIui",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_wLR7u",
 			"type":"next"
 		}
 	],
 	"id":"68ee0306f5eb8345daceeced",
 	"lastModifiedBy":1,
 	"lcName":"wef",
-	"modifiedTime":1760435962287,
+	"modifiedTime":1760437080581,
 	"name":"wef",
 	"nodes":[
 		{
@@ -34,7 +41,7 @@
 				"resourceName":"webhooks_default"
 			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_s8l0U-1",
 			"id":"n_sFHDm",
@@ -54,40 +61,51 @@
 		},
 		{
 			"context":{
-				"appName":"notification_by_unifyapps",
-				"resourceVersion":2300,
-				"resourceName":"notification_by_unifyapps_send_notification",
+				"appName":"excel_by_unifyapps",
+				"resourceVersion":2342,
+				"resourceName":"excel_by_unifyapps_create_file",
 				"type":"APPLICATION"
 			},
 			"debug":false,
 			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_s8l0U-1",
-			"id":"n_67BEd",
+			"id":"n_NGIui",
 			"index":2,
 			"inputs":{
-				"cta":{
-					"type":"url",
-					"width":{
-						"custom":"400px"
-					}
-				},
-				"module":"object",
-				"eventType":"import_failed",
-				"applicationId":"testautomation",
-				"notificationPreviewTime":5,
-				"content":{
-					"templateId":"failed_export_notification_template"
-				},
-				"tags":[
-					"alerts",
-					"approval",
-					"mentions"
-				]
+				"fileName":"testauto",
+				"fileType":"xlsx"
 			},
 			"skip":false,
-			"subTitle":"Notification by UnifyApps",
-			"title":"Send notification",
+			"subTitle":"Excel by UnifyApps",
+			"title":"Create an excel file",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"excel_by_unifyapps",
+				"resourceVersion":2341,
+				"resourceName":"excel_by_unifyapps_list_to_excel_file",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_s8l0U-1",
+			"id":"n_wLR7u",
+			"index":3,
+			"inputs":{
+				"fileName":"{{ n_NGIui.outputs.fileDetails.name }}",
+				"sheetName":"sheet12",
+				"staticHeaders":[],
+				"headerType":"STATIC",
+				"dataSource":"https://assets.unifyapps.com/user-uploads/ExcelFilewithTwoSheets.xlsx",
+				"fileType":"xls",
+				"append":true
+			},
+			"skip":false,
+			"subTitle":"Excel by UnifyApps",
+			"title":"Write data to Excel file",
 			"type":"ACTION"
 		}
 	],
@@ -108,5 +126,5 @@
 	"tags":[
 		
 	],
-	"version":12
+	"version":16
 }
