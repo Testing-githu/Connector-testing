@@ -45,7 +45,7 @@
 	"id":"68e3504e884102285c1fc941",
 	"lastModifiedBy":1,
 	"lcName":"filetourl",
-	"modifiedTime":1760432443086,
+	"modifiedTime":1760434295420,
 	"name":"filetourl",
 	"nodes":[
 		{
@@ -60,41 +60,12 @@
 				"resourceName":"callables_from_automation"
 			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_JhLuI-1",
 			"id":"n_JQv9W",
 			"index":1,
-			"inputs":{
-				"setup":{
-					"type":"object",
-					"additionalProperties":false,
-					"properties":{
-						"a":{
-							"type":"array",
-							"items":{
-								"type":"object",
-								"properties":{
-									"name":{
-										"type":"string",
-										"title":"name"
-									},
-									"department":{
-										"type":"string",
-										"title":"department"
-									},
-									"age":{
-										"type":"integer",
-										"title":"age"
-									}
-								},
-								"additionalProperties":false
-							},
-							"title":"a"
-						}
-					}
-				}
-			},
+			"inputs":{},
 			"skip":false,
 			"subTitle":"Callable",
 			"title":"Trigger via automation",
@@ -111,7 +82,7 @@
 				"type":"APPLICATION"
 			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_JhLuI-1",
 			"id":"n_dQzrv",
@@ -335,6 +306,7 @@
 				"createList":{
 					"ua:type":"mappedArray"
 				},
+				"ua:title":"list",
 				"ua:list_type":"STRING"
 			},
 			"outputSchema":{
@@ -344,7 +316,7 @@
 					"properties":{
 						"items":{
 							"type":"array",
-							"title":"List",
+							"title":"list",
 							"disableActions":true,
 							"items":{
 								"type":"string"
@@ -387,7 +359,7 @@
 				"type":"APPLICATION"
 			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"n_GfiJz@_JhLuI-1@l",
 			"id":"n_cA5Zp",
@@ -396,6 +368,57 @@
 				"itemToAdd":"{{ n_GfiJz.outputs.item }}",
 				"insertLocation":"START",
 				"listName":"{{ n_dQzrv.outputs.items[0] }}"
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS"
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"STOP",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				}
 			},
 			"skip":false,
 			"subTitle":"Variable by UnifyApps",
@@ -410,13 +433,13 @@
 				"type":"APPLICATION"
 			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_JhLuI-1",
 			"id":"n_jiMff",
 			"index":5,
 			"inputs":{
-				"result":"{{ n_gwubK.outputs.compressedFileDetails }}"
+				"result":"{{ n_cA5Zp.outputs.success }}"
 			},
 			"skip":false,
 			"subTitle":"Callable",
@@ -441,5 +464,5 @@
 	"tags":[
 		
 	],
-	"version":118
+	"version":127
 }
