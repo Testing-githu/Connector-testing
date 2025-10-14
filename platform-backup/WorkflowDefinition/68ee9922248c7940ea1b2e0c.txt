@@ -6,46 +6,89 @@
 	"deleted":false,
 	"edges":[
 		{
-			"fromNodeId":"_Y7xca",
+			"fromNodeId":"n_CNqeM",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_t25LV",
+			"toNodeId":"n_DFuAI",
 			"type":"next"
 		}
 	],
 	"id":"68ee9922248c7940ea1b2e0c",
 	"lastModifiedBy":1,
 	"lcName":"excelformulasqa2vigwlsvdor",
-	"modifiedTime":1760467234428,
+	"modifiedTime":1760467262473,
 	"name":"ExcelFormulasQA2vIGwLsVdoR",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2504,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_Y7xca-1",
-			"id":"_Y7xca",
-			"index":0,
+			"id":"n_CNqeM",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"r":{
+							"type":"string",
+							"title":"r"
+						}
+					}
+				},
+				"setup":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"a":{
+							"type":"string",
+							"title":"a"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2507,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_Y7xca-1",
-			"id":"_t25LV",
-			"index":0,
+			"id":"n_DFuAI",
+			"index":2,
+			"inputs":{
+				"result":{
+					"r":"=SUBSTITUTE({{ n_CNqeM.outputs.a }},\"morning\",\"evening\")"
+				}
+			},
 			"skip":false,
-			"title":"Select an app and action",
-			"type":"ACTION"
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -59,5 +102,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
