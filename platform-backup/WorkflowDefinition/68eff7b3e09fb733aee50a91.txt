@@ -1,52 +1,92 @@
 {
 	"appsUsed":[
-		
+		"custom_http_application"
 	],
 	"createdTime":1760556979386,
 	"deleted":false,
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_mkSBX",
+			"fromNodeId":"n_LkItS",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_TONdz",
+			"toNodeId":"n_A0ykr",
 			"type":"next"
 		}
 	],
 	"id":"68eff7b3e09fb733aee50a91",
 	"lastModifiedBy":1,
 	"lcName":"customhttpapptestheaders_117605538926820",
-	"modifiedTime":1760556979386,
+	"modifiedTime":1760556988846,
 	"name":"customHTTPAppTestHeaders_117605538926820",
 	"nodes":[
 		{
+			"context":{
+				"appName":"webhooks",
+				"resourceVersion":143,
+				"resourceName":"webhooks_default"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_mkSBX-1",
-			"id":"_mkSBX",
-			"index":0,
+			"id":"n_LkItS",
+			"index":1,
+			"inputs":{
+				"request":{
+					"contentType":"application/json"
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Webhook",
+			"title":"New event",
 			"trigger":{
-				"type":"EVENT"
+				"type":"WEBHOOK"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"custom_http_application",
+				"resourceVersion":6516,
+				"connectionId":"6878d77aae286a785bd91456",
+				"resourceName":"custom_http_application_execute",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_mkSBX-1",
-			"id":"_TONdz",
-			"index":0,
+			"id":"n_A0ykr",
+			"index":2,
+			"inputs":{
+				"path":"/",
+				"baseUrl":"https://qa-automation.qa2.unifyapps.com",
+				"httpVersion":"HTTP_2",
+				"responseContentType":"application/json",
+				"isAsync":false,
+				"headersList":[
+					{
+						"key":"input_key",
+						"value":"input_value"
+					}
+				],
+				"requestTimeoutInSecs":-1,
+				"authType":"CUSTOM",
+				"httpMethod":"POST",
+				"requestContentType":"application/json",
+				"sslVerify":true
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Custom HTTP Application",
+			"title":"Execute REST Request",
 			"type":"ACTION"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +100,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
