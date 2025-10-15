@@ -7,46 +7,102 @@
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_t85CC",
+			"fromNodeId":"n_0Ya6K",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_KUxDT",
+			"toNodeId":"n_MczLF",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_MczLF",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_Aiq9C",
 			"type":"next"
 		}
 	],
 	"id":"68eff3e863c8cc1d7af2931f",
 	"lastModifiedBy":1,
 	"lcName":"generatepublicfileurl_117605538952470",
-	"modifiedTime":1760556008487,
+	"modifiedTime":1760556024819,
 	"name":"generatepublicFileURL_117605538952470",
 	"nodes":[
 		{
+			"context":{
+				"appName":"webhooks",
+				"resourceVersion":143,
+				"resourceName":"webhooks_default"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_t85CC-1",
-			"id":"_t85CC",
-			"index":0,
+			"id":"n_0Ya6K",
+			"index":1,
+			"inputs":{
+				"request":{
+					"contentType":"application/json"
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Webhook",
+			"title":"New event",
 			"trigger":{
-				"type":"EVENT"
+				"type":"WEBHOOK"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"files_by_unifyapps",
+				"resourceVersion":2383,
+				"resourceName":"files_by_unifyapps_upload_file",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_t85CC-1",
-			"id":"_KUxDT",
-			"index":0,
+			"id":"n_MczLF",
+			"index":2,
+			"inputs":{
+				"fileName":"key",
+				"mimeType":"pdf",
+				"url":"https://arxiv.org/pdf/2407.02987",
+				"option":"url"
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Files by UnifyApps",
+			"title":"Upload file",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"utility_by_unifyapps",
+				"resourceVersion":3541,
+				"resourceName":"utility_by_unifyapps_generate_public_url",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_t85CC-1",
+			"id":"n_Aiq9C",
+			"index":3,
+			"inputs":{
+				"file":"{{ n_MczLF.outputs.fileDetails }}",
+				"expiryTime":1
+			},
+			"skip":false,
+			"subTitle":"Utility by UnifyApps",
+			"title":"Generate public file URL",
 			"type":"ACTION"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +116,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
