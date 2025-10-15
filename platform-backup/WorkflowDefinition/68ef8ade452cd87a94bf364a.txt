@@ -16,48 +16,26 @@
 			"fromNodeId":"n_3E2Pz",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"n_G4gdY",
+			"toNodeId":"n_gtq26",
 			"type":"loop"
 		},
 		{
-			"fromNodeId":"n_G4gdY",
+			"fromNodeId":"n_gtq26",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"n_2hjO6",
+			"toNodeId":"n_YNhC7",
 			"type":"loop"
 		},
 		{
-			"fromNodeId":"n_2hjO6",
-			"priority":0,
-			"skip":false,
-			"toNodeId":"n_pCYRS",
-			"type":"next"
-		},
-		{
-			"fromNodeId":"n_pCYRS",
-			"priority":0,
-			"skip":false,
-			"toNodeId":"n_lGQGo",
-			"type":"loop"
-		},
-		{
-			"fromNodeId":"n_lGQGo",
+			"fromNodeId":"n_YNhC7",
 			"name":"loopback",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"n_pCYRS",
+			"toNodeId":"n_gtq26",
 			"type":"next"
 		},
 		{
-			"fromNodeId":"n_pCYRS",
-			"name":"loopback",
-			"priority":0,
-			"skip":false,
-			"toNodeId":"n_G4gdY",
-			"type":"next"
-		},
-		{
-			"fromNodeId":"n_G4gdY",
+			"fromNodeId":"n_gtq26",
 			"name":"loopback",
 			"priority":0,
 			"skip":false,
@@ -75,7 +53,7 @@
 	"id":"68ef8ade452cd87a94bf364a",
 	"lastModifiedBy":1,
 	"lcName":"testj",
-	"modifiedTime":1760529199933,
+	"modifiedTime":1760529517814,
 	"name":"testj",
 	"nodes":[
 		{
@@ -85,7 +63,7 @@
 				"resourceName":"webhooks_default"
 			},
 			"debug":false,
-			"dirty":true,
+			"dirty":false,
 			"fallbackMode":"STOP",
 			"groupId":"_tlJn1-1",
 			"id":"n_m0svE",
@@ -138,7 +116,7 @@
 				"type":"APPLICATION"
 			},
 			"debug":false,
-			"dirty":true,
+			"dirty":false,
 			"fallbackMode":"STOP",
 			"groupId":"_tlJn1-1",
 			"id":"n_3E2Pz",
@@ -156,7 +134,7 @@
 		{
 			"context":{
 				"appName":"loop",
-				"resourceVersion":36,
+				"resourceVersion":102,
 				"resourceName":"loop_for",
 				"type":"APPLICATION"
 			},
@@ -164,11 +142,11 @@
 			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"n_3E2Pz@_tlJn1-1@l",
-			"id":"n_G4gdY",
+			"id":"n_gtq26",
 			"index":3,
 			"inputs":{
 				"start":0,
-				"limit":"=LEN({{ n_m0svE.outputs.body.ara }})",
+				"limit":4,
 				"step":1,
 				"captureIterations":true
 			},
@@ -180,15 +158,15 @@
 		{
 			"context":{
 				"appName":"variable_by_unifyapps",
-				"resourceVersion":1057,
+				"resourceVersion":2429,
 				"resourceName":"variable_by_unifyapps_create_variables",
 				"type":"APPLICATION"
 			},
 			"debug":false,
 			"dirty":true,
 			"fallbackMode":"STOP",
-			"groupId":"n_G4gdY@n_3E2Pz@_tlJn1-1@l@l",
-			"id":"n_2hjO6",
+			"groupId":"n_gtq26@n_3E2Pz@_tlJn1-1@l@l",
+			"id":"n_YNhC7",
 			"index":4,
 			"inputSchema":{
 				"type":"SCHEMA_AND_LAYOUT",
@@ -209,7 +187,7 @@
 				}
 			},
 			"inputs":{
-				"name":"{{ n_3E2Pz.outputs.index }}{{ n_G4gdY.outputs.index }}"
+				"name":"{{ n_3E2Pz.outputs.index }}{{ n_gtq26.outputs.index }}"
 			},
 			"outputSchema":{
 				"dynamic":false,
@@ -234,61 +212,14 @@
 		},
 		{
 			"context":{
-				"appName":"loop",
-				"resourceVersion":877,
-				"resourceName":"loop_while",
-				"type":"APPLICATION"
-			},
-			"debug":false,
-			"dirty":true,
-			"fallbackMode":"STOP",
-			"groupId":"n_G4gdY@n_3E2Pz@_tlJn1-1@l@l",
-			"id":"n_pCYRS",
-			"index":5,
-			"inputs":{
-				"captureIterations":true
-			},
-			"skip":false,
-			"subTitle":"Loop",
-			"title":"While loop",
-			"type":"LOOP"
-		},
-		{
-			"context":{
-				"appName":"variable_by_unifyapps",
-				"resourceVersion":976,
-				"resourceName":"variable_by_unifyapps_update_variables",
-				"type":"APPLICATION"
-			},
-			"debug":false,
-			"dirty":true,
-			"fallbackMode":"STOP",
-			"groupId":"n_pCYRS@n_G4gdY@n_3E2Pz@_tlJn1-1@l@l@l",
-			"id":"n_lGQGo",
-			"index":6,
-			"inputs":{
-				"variables":[
-					{
-						"source":"{{ n_2hjO6.outputs.name }}",
-						"value":"=SUM({{ n_a4e4w.outputs.pathParams.var }},1)"
-					}
-				]
-			},
-			"skip":false,
-			"subTitle":"Variable by UnifyApps",
-			"title":"Update variables",
-			"type":"ACTION"
-		},
-		{
-			"context":{
 				"appName":"stop"
 			},
 			"debug":false,
-			"dirty":true,
+			"dirty":false,
 			"fallbackMode":"STOP",
 			"groupId":"_tlJn1-1",
 			"id":"n_FZYwL",
-			"index":7,
+			"index":5,
 			"skip":false,
 			"subTitle":"Stop",
 			"title":"Stop",
@@ -312,5 +243,5 @@
 	"tags":[
 		
 	],
-	"version":1
+	"version":4
 }
