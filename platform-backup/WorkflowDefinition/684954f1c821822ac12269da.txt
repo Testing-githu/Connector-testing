@@ -5,12 +5,12 @@
 	"createdTime":1755674313839,
 	"deleted":false,
 	"deploymentState":{
-		"deployedAt":1760098642523,
-		"deployedBy":-1,
-		"deployedDefinitionId":"68e8f952aa15f745769d3388",
+		"deployedAt":1760468049665,
+		"deployedBy":1,
+		"deployedDefinitionId":"68ee9c51248c7940ea1b61b7",
 		"status":"DEPLOYED",
-		"version":83,
-		"workflowVersion":118
+		"version":89,
+		"workflowVersion":127
 	},
 	"edges":[
 		{
@@ -45,6 +45,20 @@
 			"fromNodeId":"_l0HR8",
 			"priority":0,
 			"skip":false,
+			"toNodeId":"n_I2G8B",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_I2G8B",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"q5Ajz",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"q5Ajz",
+			"priority":0,
+			"skip":false,
 			"toNodeId":"n_PfAI4",
 			"type":"next"
 		},
@@ -74,9 +88,9 @@
 		]
 	},
 	"id":"684954f1c821822ac12269da",
-	"lastModifiedBy":1,
+	"lastModifiedBy":0,
 	"lcName":"workflow agent | search knowledge",
-	"modifiedTime":1760102349616,
+	"modifiedTime":1760550542506,
 	"name":"Workflow Agent | Search Knowledge",
 	"nodes":[
 		{
@@ -93,6 +107,7 @@
 			"index":1,
 			"inputs":{
 				"result":{
+					"required":[],
 					"ua:modal":{
 						"field_type":"STRING",
 						"is_optional":true
@@ -101,27 +116,34 @@
 						"success":{
 							"type":"boolean",
 							"title":"Success"
+						},
+						"response":{
+							"type":"string",
+							"title":"Response"
 						}
-					},
-					"required":[]
+					}
 				},
 				"callableInterfaceId":"__ua__knowledge_search_interface",
 				"setup":{
+					"required":[],
 					"ua:modal":{
 						"field_type":"STRING",
 						"is_optional":true
 					},
 					"properties":{
 						"AISearchInstructions":{
-							"type":"string",
-							"title":"AI Search Instructions"
+							"type":"string"
 						},
-						"numberOfResultsToRetrieve":{
-							"type":"integer",
-							"title":"Number Of Results To Retrieve"
+						"knowledges":{
+							"type":"array",
+							"items":{
+								"type":"object",
+								"properties":{},
+								"additionalProperties":false
+							},
+							"title":"Knowledges"
 						}
-					},
-					"required":[]
+					}
 				}
 			},
 			"skip":false,
@@ -188,6 +210,8 @@
 			"inputs":{
 				"output":{
 					"type":"object",
+					"additionalProperties":false,
+					"required":[],
 					"properties":{
 						"rawLLMResponse":{
 							"type":"string",
@@ -205,23 +229,22 @@
 							"title":"Tool Inputs",
 							"required":[]
 						}
-					},
-					"additionalProperties":false,
-					"required":[]
+					}
 				},
 				"input":{
 					"type":"object",
+					"additionalProperties":false,
+					"required":[],
 					"properties":{
 						"query":{
 							"type":"string",
 							"title":"Query"
 						}
-					},
-					"additionalProperties":false,
-					"required":[]
+					}
 				},
-				"compile_static":false,
 				"code":"def query = binding.hasVariable('query') ? query : \"\"\n\nreturn [\n  \"rawLLMResponse\": \"Thought:Fetch Relevant Content From Knolwedge\", \n  \"toolInputs\": [\n   \"query\": query\n  ]\n]\n",
+				"compile_static":false,
+				"captureStdOutput":false,
 				"parameters":{
 					"query":"{{ n_RZaIU.outputs.AISearchInstructions }}"
 				}
@@ -291,6 +314,310 @@
 			"type":"CALL_WORKFLOW"
 		},
 		{
+			"additional":{
+				"xsdSchemaConfig":{
+					"root":{}
+				}
+			},
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":442,
+				"resourceName":"code_by_unifyapps_groovy",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Mac8v-1",
+			"id":"n_I2G8B",
+			"index":6,
+			"inputs":{
+				"output":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[],
+					"properties":{
+						"knowledgeSetIds":{
+							"type":"array",
+							"items":{
+								"type":"string"
+							},
+							"title":"knowledgeSetIds"
+						},
+						"knowledgeIds":{
+							"type":"array",
+							"items":{
+								"type":"string"
+							},
+							"title":"knowledgeIds"
+						}
+					}
+				},
+				"input":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"knowledges"
+					],
+					"properties":{
+						"knowledges":{
+							"type":"array",
+							"items":{
+								"type":"object",
+								"properties":{},
+								"additionalProperties":false
+							},
+							"title":"Knowledges"
+						}
+					}
+				},
+				"code":"def hasKnowledges = binding.hasVariable('knowledges') && knowledges\n\n// Process knowledges\ndef knowledgeSetIds = []\ndef knowledgeIds = []\n\nif (hasKnowledges) {\n    knowledges.each { knowledge ->\n        if (knowledge.type == 'knowledge_set' || knowledge.type == 'GLOBAL') {\n            knowledgeSetIds << knowledge.id\n            if (knowledge.type == 'GLOBAL') {\n                knowledgeSetIds << 'GLOBAL'\n            }\n        } else if (knowledge.type == 'knowledge') {\n            knowledgeIds << knowledge.id\n        }\n    }\n}\n\nreturn [\n    knowledgeSetIds: knowledgeSetIds,\n    knowledgeIds: knowledgeIds\n]",
+				"compile_static":false,
+				"captureStdOutput":false,
+				"parameters":{
+					"knowledges":{
+						"source":"{{ n_RZaIU.outputs.knowledges }}",
+						"ua:type":"mappedArray",
+						"items":"{{ n_RZaIU.outputs.knowledges[0] }}"
+					}
+				}
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS"
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"STOP",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Groovy code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":50,
+				"resourceName":"variable_by_unifyapps_set_session_variable",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_Mac8v-1",
+			"id":"q5Ajz",
+			"index":7,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{},
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"ai_agent_ua_knowledgeIds":{
+							"type":"array",
+							"items":{
+								"type":"object",
+								"properties":{},
+								"additionalProperties":false
+							},
+							"title":"Ai Agent Ua Knowledge Ids"
+						},
+						"ai_agent_ua_toolIds":{
+							"type":"array",
+							"items":{
+								"type":"object",
+								"properties":{},
+								"additionalProperties":false
+							},
+							"title":"Ai Agent Ua Tool Ids"
+						},
+						"ai_agent_ua_instructions":{
+							"type":"string",
+							"title":"Ai Agent Ua Instructions"
+						},
+						"ai_agent_ua_goal":{
+							"type":"string",
+							"title":"Ai Agent Ua Goal"
+						},
+						"ai_agent_ua_role":{
+							"type":"string",
+							"title":"Ai Agent Ua Role"
+						},
+						"ai_agent_ua_knowledgeSetIds":{
+							"type":"array",
+							"items":{
+								"type":"object",
+								"properties":{},
+								"additionalProperties":false
+							},
+							"title":"Ai Agent Ua Knowledge Set Ids"
+						},
+						"ai_agent_default_tools":{
+							"type":"object",
+							"properties":{
+								"webSearch":{
+									"type":"boolean",
+									"title":"Web Search"
+								},
+								"deepResearch":{
+									"type":"boolean",
+									"title":"Deep Research"
+								}
+							},
+							"additionalProperties":false,
+							"title":"Ai Agent Default Tools",
+							"required":[]
+						},
+						"ua_taskExecutionModel":{
+							"type":"string",
+							"title":"Ua Task Execution Model"
+						},
+						"ai_agent_runtime_knowledge_tools":{
+							"type":"boolean",
+							"title":"Ai Agent Runtime Knowledge Tools"
+						}
+					},
+					"required":[]
+				}
+			},
+			"inputs":{
+				"ai_agent_ua_knowledgeSetIds":{
+					"source":"{{ n_I2G8B.outputs.result.knowledgeSetIds }}",
+					"ua:type":"mappedArray",
+					"items":"{{ n_I2G8B.outputs.result.knowledgeSetIds[0] }}"
+				},
+				"ai_agent_runtime_knowledge_tools":true,
+				"ai_agent_ua_knowledgeIds":{
+					"ua:type":"mappedArray",
+					"source":"{{ n_I2G8B.outputs.result.knowledgeIds }}",
+					"items":"{{ n_I2G8B.outputs.result.knowledgeIds[0] }}"
+				}
+			},
+			"outputSchema":{
+				"dynamic":false,
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"ai_agent_ua_knowledgeIds":{
+							"type":"array",
+							"items":{
+								"type":"object",
+								"properties":{},
+								"additionalProperties":false
+							},
+							"title":"Ai Agent Ua Knowledge Ids"
+						},
+						"ai_agent_ua_toolIds":{
+							"type":"array",
+							"items":{
+								"type":"object",
+								"properties":{},
+								"additionalProperties":false
+							},
+							"title":"Ai Agent Ua Tool Ids"
+						},
+						"ai_agent_ua_instructions":{
+							"type":"string",
+							"title":"Ai Agent Ua Instructions"
+						},
+						"ai_agent_ua_goal":{
+							"type":"string",
+							"title":"Ai Agent Ua Goal"
+						},
+						"ai_agent_ua_role":{
+							"type":"string",
+							"title":"Ai Agent Ua Role"
+						},
+						"ai_agent_ua_knowledgeSetIds":{
+							"type":"array",
+							"items":{
+								"type":"object",
+								"properties":{},
+								"additionalProperties":false
+							},
+							"title":"Ai Agent Ua Knowledge Set Ids"
+						},
+						"ai_agent_default_tools":{
+							"type":"object",
+							"properties":{
+								"webSearch":{
+									"type":"boolean",
+									"title":"Web Search"
+								},
+								"deepResearch":{
+									"type":"boolean",
+									"title":"Deep Research"
+								}
+							},
+							"additionalProperties":false,
+							"title":"Ai Agent Default Tools",
+							"required":[]
+						},
+						"ua_taskExecutionModel":{
+							"type":"string",
+							"title":"Ua Task Execution Model"
+						},
+						"ai_agent_runtime_knowledge_tools":{
+							"type":"boolean",
+							"title":"Ai Agent Runtime Knowledge Tools"
+						}
+					},
+					"required":[]
+				}
+			},
+			"skip":false,
+			"subTitle":"Test mode",
+			"title":"Set Session Variables",
+			"type":"ACTION"
+		},
+		{
 			"context":{
 				"appName":"callables",
 				"resourceVersion":449,
@@ -302,7 +629,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_Mac8v-1",
 			"id":"n_PfAI4",
-			"index":6,
+			"index":8,
 			"inputs":{
 				"callableInterfaceId":"679484ef9c8ab5620dca9609",
 				"runtimeConnections":{},
@@ -312,7 +639,7 @@
 				"parameters":{
 					"toolId":"ReferFromKnowledge",
 					"toolInputs":"{{ _uaRIG.outputs.result.toolInputs }}",
-					"triggeredByAgentId":"enterprise_search_agent",
+					"triggeredByAgentId":"e_simple_llm_agent",
 					"agentResponseMessageId":"{{ _l0HR8.outputs.messageId }}",
 					"caseId":"{{ n_RKWof.outputs.caseId }}",
 					"executeUsingModel":"{{ _70CpW.outputs.modelId }}",
@@ -336,7 +663,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_Mac8v-1",
 			"id":"_JFJWt",
-			"index":7,
+			"index":9,
 			"inputs":{
 				"automationId":"67a31b86addac8605df79166",
 				"runtimeConnections":{},
@@ -344,20 +671,20 @@
 				"version":"-1",
 				"parameters":{
 					"caseId":"{{ n_RKWof.outputs.caseId }}",
-					"createMessageIfAbsent":false,
-					"aiAgentId":"{{ n_RKWof.outputs.aiAgentId }}",
 					"messageId":"{{ _l0HR8.outputs.messageId }}",
-					"toolUseDetails":{
-						"toolName":"ReferFromKnowledge",
-						"toolId":"ReferFromKnowledge_1",
-						"toolOutput":"{{ n_zqCFN.outputs.toolOutput }}",
-						"toolInput":"{{ _uaRIG.outputs.result.toolInputs }}"
-					},
+					"createMessageIfAbsent":false,
+					"executionOutput":"{{ n_PfAI4.outputs.toolOutput }}",
+					"aiAgentId":"{{ n_RKWof.outputs.aiAgentId }}",
 					"internalMessageType":"AGENT_INTERNAL_RESPONSE",
-					"executionOutput":"{{ n_zqCFN.outputs.toolOutput }}"
+					"toolUseDetails":{
+						"toolId":"ReferFromKnowledge_1",
+						"toolName":"ReferFromKnowledge",
+						"toolInput":"{{ _uaRIG.outputs.result.toolInputs }}",
+						"toolOutput":"{{ n_PfAI4.outputs.toolOutput }}"
+					}
 				}
 			},
-			"skip":false,
+			"skip":true,
 			"subTitle":"Ingest Agent Response",
 			"title":"Call automation",
 			"type":"CALL_WORKFLOW"
@@ -374,10 +701,11 @@
 			"fallbackMode":"STOP",
 			"groupId":"_Mac8v-1",
 			"id":"n_c5mla",
-			"index":8,
+			"index":10,
 			"inputs":{
 				"result":{
-					"success":true
+					"success":true,
+					"response":"{{ n_PfAI4.outputs.toolOutput }}"
 				}
 			},
 			"skip":false,
@@ -391,9 +719,9 @@
 		
 	],
 	"settings":{
-		"enableNodeLevelLogging":false,
-		"enableRunLogging":false,
-		"enableVariableLogging":false,
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
 		"route":{
 			"default":false,
 			"tierName":"global"
@@ -403,5 +731,5 @@
 	"tags":[
 		
 	],
-	"version":119
+	"version":128
 }
