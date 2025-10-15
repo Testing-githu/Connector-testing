@@ -4,49 +4,168 @@
 	],
 	"createdTime":1760556933091,
 	"deleted":false,
+	"deploymentState":{
+		"deployedAt":1760556943912,
+		"deployedBy":1,
+		"deployedDefinitionId":"68eff78fe09fb733aee50a06",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":1
+	},
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_dGDys",
+			"fromNodeId":"n_Hfdaj",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_w69i2",
+			"toNodeId":"n_5D3Gg",
 			"type":"next"
 		}
 	],
 	"id":"68eff785e09fb733aee509cf",
 	"lastModifiedBy":1,
 	"lcName":"same_input_fields_117605538952260",
-	"modifiedTime":1760556933091,
+	"modifiedTime":1760556953022,
 	"name":"same_input_fields_117605538952260",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2575,
+				"resourceName":"callables_from_api"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_dGDys-1",
-			"id":"_dGDys",
-			"index":0,
+			"id":"n_Hfdaj",
+			"index":1,
+			"inputs":{
+				"request":{
+					"headers":{
+						"type":"object",
+						"additionalProperties":false,
+						"required":[],
+						"properties":{
+							"Name":{
+								"type":"string",
+								"title":"Name"
+							}
+						}
+					},
+					"cookies":{
+						"type":"object",
+						"additionalProperties":false,
+						"required":[],
+						"properties":{
+							"Name":{
+								"type":"string",
+								"title":"Name"
+							}
+						}
+					},
+					"pathParams":{
+						"type":"object",
+						"additionalProperties":false,
+						"required":[],
+						"properties":{
+							"Name":{
+								"type":"string",
+								"title":"Name"
+							}
+						}
+					},
+					"queryParams":{
+						"type":"object",
+						"additionalProperties":false,
+						"required":[],
+						"properties":{
+							"Name":{
+								"type":"string",
+								"title":"Name"
+							}
+						}
+					},
+					"contentType":"application/json",
+					"body":{
+						"type":"object",
+						"properties":{
+							"Name":{
+								"type":"string",
+								"title":"Name"
+							}
+						},
+						"additionalProperties":false,
+						"required":[
+							"Name"
+						]
+					}
+				},
+				"endpointType":"REST",
+				"response":[
+					{
+						"name":"response",
+						"status":200,
+						"contentType":"application/json",
+						"textBody":{
+							"type":"string"
+						},
+						"body":{
+							"type":"object",
+							"properties":{
+								"response":{
+									"type":"string",
+									"title":"response"
+								}
+							},
+							"additionalProperties":false,
+							"required":[
+								"response"
+							]
+						}
+					}
+				],
+				"streamingResponse":false
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via API",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2577,
+				"resourceName":"callables_return_response_to_api",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_dGDys-1",
-			"id":"_w69i2",
-			"index":0,
+			"id":"n_5D3Gg",
+			"index":2,
+			"inputs":{
+				"streamingCompleted":true,
+				"responseName":"200_response",
+				"body":{
+					"response":"cool"
+				},
+				"status":200
+			},
 			"skip":false,
-			"title":"Select an app and action",
-			"type":"ACTION"
+			"subTitle":"Callable",
+			"title":"Respond to API request",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +179,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":2
 }
