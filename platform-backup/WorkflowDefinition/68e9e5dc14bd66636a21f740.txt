@@ -5,12 +5,12 @@
 	"createdTime":1760214063432,
 	"deleted":false,
 	"deploymentState":{
-		"deployedAt":1760214063504,
+		"deployedAt":1760467926601,
 		"deployedBy":1,
-		"deployedDefinitionId":"68eabc2ffaa162369990fa14",
+		"deployedDefinitionId":"68ee9bd6248c7940ea1b52d1",
 		"status":"DEPLOYED",
-		"version":1,
-		"workflowVersion":33
+		"version":6,
+		"workflowVersion":40
 	},
 	"edges":[
 		{
@@ -58,11 +58,21 @@
 			"type":"next"
 		}
 	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
 	"id":"68e9e5dc14bd66636a21f740",
-	"lastModifiedBy":1,
-	"lcName":"[dt] index knowledge | glean",
-	"modifiedTime":1760303586085,
-	"name":"[DT] Index Knowledge | Glean",
+	"lastModifiedBy":0,
+	"lcName":"[dt] index knowledge",
+	"modifiedTime":1760550414412,
+	"name":"[DT] Index Knowledge",
 	"nodes":[
 		{
 			"additional":{
@@ -240,7 +250,7 @@
 						}
 					}
 				},
-				"code":"if(!binding.hasVariable('datasource')){\n  return[\n    allowed : false,\n    errorMessage : \"datasource must be present\"\n  ]\n}\n\nif(!binding.hasVariable('binaryContent') && !binding.hasVariable('viewURL') && !binding.hasVariable('textContent')){\n  return[\n    allowed : false,\n    errorMessage : \"Either viewURL or binaryContent or textContent must be present\"\n  ]\n}\n\nreturn[\n  allowed : true\n]",
+				"code":"if(!binding.hasVariable('datasource')){\n  return[\n    allowed : false,\n    errorMessage : \"datasource must be present\"\n  ]\n}\n\ndef hasContent = (binding.hasVariable('binaryContent') && binaryContent != \"\") ||\n                 (binding.hasVariable('viewURL') && viewURL != \"\") ||\n                 (binding.hasVariable('textContent') && textContent != \"\")\n\nif (!hasContent) {\n    return [\n        allowed: false,\n        errorMessage: \"Either viewURL or binaryContent or textContent must be present\"\n    ]\n}\n\nreturn [\n    allowed: true\n]\n",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
@@ -379,17 +389,17 @@
 		
 	],
 	"settings":{
-		"enableNodeLevelLogging":false,
-		"enableRunLogging":false,
-		"enableVariableLogging":false,
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
 		"route":{
 			"default":false,
 			"tierName":"global"
 		}
 	},
-	"standard":false,
+	"standard":true,
 	"tags":[
 		"AI Agent"
 	],
-	"version":34
+	"version":41
 }
