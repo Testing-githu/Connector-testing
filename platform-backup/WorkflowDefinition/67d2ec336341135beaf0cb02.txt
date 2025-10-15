@@ -5,12 +5,12 @@
 	"createdTime":1747000721032,
 	"deleted":false,
 	"deploymentState":{
-		"deployedAt":1760035097597,
-		"deployedBy":-1,
-		"deployedDefinitionId":"68e80119e4155b0b0f31c657",
+		"deployedAt":1760468067893,
+		"deployedBy":1,
+		"deployedDefinitionId":"68ee9c63248c7940ea1b62c6",
 		"status":"DEPLOYED",
-		"version":104,
-		"workflowVersion":151
+		"version":115,
+		"workflowVersion":167
 	},
 	"edges":[
 		{
@@ -200,7 +200,7 @@
 	"id":"67d2ec336341135beaf0cb02",
 	"lastModifiedBy":0,
 	"lcName":"get schema for action",
-	"modifiedTime":1760039033122,
+	"modifiedTime":1760550595619,
 	"name":"Get Schema For Action",
 	"nodes":[
 		{
@@ -725,6 +725,62 @@
 				"input":"{{ FlNb6.outputs.input }}",
 				"context":"{{ FlNb6.outputs.context }}"
 			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"cacheKey":"{{ FlNb6.outputs.context }}_{{ FlNb6.outputs.input }}",
+					"enabled":true,
+					"timeToLive":"3600",
+					"usagePolicy":"ALWAYS"
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"STOP",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
+			},
 			"skip":false,
 			"subTitle":"Custom Application",
 			"title":"Fetch Input Schema",
@@ -904,6 +960,62 @@
 				"input":"{{ FlNb6.outputs.input }}",
 				"context":"{{ FlNb6.outputs.context }}"
 			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"cacheKey":"{{ FlNb6.outputs.context }}_{{ FlNb6.outputs.input }}",
+					"enabled":true,
+					"timeToLive":"3600",
+					"usagePolicy":"ALWAYS"
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"STOP",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
+			},
 			"skip":false,
 			"subTitle":"Custom Application",
 			"title":"Fetch Input Schema",
@@ -925,6 +1037,8 @@
 			"inputs":{
 				"output":{
 					"type":"object",
+					"additionalProperties":false,
+					"required":[],
 					"properties":{
 						"schema":{
 							"type":"object",
@@ -936,12 +1050,12 @@
 							"type":"string",
 							"title":"Instructions To Add"
 						}
-					},
-					"additionalProperties":false,
-					"required":[]
+					}
 				},
 				"input":{
 					"type":"object",
+					"additionalProperties":false,
+					"required":[],
 					"properties":{
 						"nodeSchema":{
 							"type":"object",
@@ -959,12 +1073,11 @@
 							"type":"string",
 							"title":"Resource Name"
 						}
-					},
-					"additionalProperties":false,
-					"required":[]
+					}
 				},
-				"compile_static":false,
 				"code":"Map inputSchema = null;\nString instructionsToAdd = null\n\nif(binding.hasVariable('nodeSchema')){\n    inputSchema = com.unifyapps.infra.utils.JsonUtils.fromJson(com.unifyapps.infra.utils.JsonUtils.toJson(nodeSchema), Map.class)\n}\n\nMap schema = inputSchema.get(\"schema\")\nschema.remove(\"definitions\")\nschema.remove(\"allOf\")\nMap schemaProps = schema.get(\"properties\")\nschemaProps.remove(\"bodySchema\")\nschemaProps.remove(\"responseSchema\")\nschemaProps.remove(\"errorResponseSchemas\")\nschema.put(\"properties\", schemaProps)\n\n\nschema.put(\"properties\", schemaProps)\nschema << [ \"dependentSchemas\": [ \"authType\": [ \"if\": [ \"properties\": [ \"authType\": [ \"const\": \"BASIC_AUTH\" ] ] ], \"then\": [ \"properties\": [ \"username\": [ \"type\": \"string\" ], \"password\": [ \"type\": \"string\" ] ], \"required\": [ \"username\", \"password\" ] ] ] ] ]\ninputSchema.put(\"schema\", schema)\n\n\nif (resourceName?.equals(\"custom_http_application_execute\")){\n    // temporary fix for required fields, will remove them after next build\n    inputSchema.schema.properties.pathParamsList.items[\"required\"] = [\"key\", \"value\"]\n    inputSchema.schema.properties.queryParamsList.items[\"required\"] = [\"key\", \"value\"]\n\n    instructionsToAdd = \" Do not resolve the path field by yourself, keep it as per the user input.\"\n}\n\n\nreturn [\"schema\": inputSchema, \"instructionsToAdd\": instructionsToAdd]",
+				"compile_static":false,
+				"captureStdOutput":false,
 				"parameters":{
 					"nodeSchema":"{{ fgWtq.outputs.inputSchema }}",
 					"nodeInput":"{{ FlNb6.outputs.input }}",
@@ -1111,14 +1224,17 @@
 			"options":{
 				"bulkheadConfig":{
 					"enabled":false,
-					"global":false
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
 				},
 				"businessHoursConfig":{
 					"enabled":false,
 					"waitForNextWindow":false
 				},
 				"cacheConfig":{
-					"enabled":false,
+					"cacheKey":"{{ FlNb6.outputs.context }}_{{ FlNb6.outputs.input }}",
+					"enabled":true,
+					"timeToLive":"3600",
 					"usagePolicy":"ALWAYS"
 				},
 				"circuitBreakerConfig":{
@@ -1225,7 +1341,8 @@
 			"options":{
 				"bulkheadConfig":{
 					"enabled":false,
-					"global":false
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
 				},
 				"businessHoursConfig":{
 					"enabled":false,
@@ -1362,5 +1479,5 @@
 	"tags":[
 		
 	],
-	"version":152
+	"version":168
 }
