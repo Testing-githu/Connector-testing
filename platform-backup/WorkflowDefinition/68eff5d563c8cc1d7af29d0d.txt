@@ -1,52 +1,98 @@
 {
 	"appsUsed":[
-		
+		"storage_by_unifyapps"
 	],
 	"createdTime":1760556501294,
 	"deleted":false,
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_pwioE",
+			"fromNodeId":"n_hTd6K",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_4lOT5",
+			"toNodeId":"n_LbQoS",
 			"type":"next"
 		}
 	],
 	"id":"68eff5d563c8cc1d7af29d0d",
 	"lastModifiedBy":1,
 	"lcName":"storage_by_fetch_multiple_record_117605538924750",
-	"modifiedTime":1760556501294,
+	"modifiedTime":1760556508542,
 	"name":"Storage_by_Fetch_multiple_record_117605538924750",
 	"nodes":[
 		{
+			"context":{
+				"appName":"webhooks",
+				"resourceVersion":143,
+				"resourceName":"webhooks_default"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_pwioE-1",
-			"id":"_pwioE",
-			"index":0,
+			"id":"n_hTd6K",
+			"index":1,
+			"inputs":{
+				"request":{
+					"contentType":"application/json"
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Webhook",
+			"title":"New event",
 			"trigger":{
-				"type":"EVENT"
+				"type":"WEBHOOK"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":8497,
+				"resourceName":"storage_by_unifyapps_fetch_records",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_pwioE-1",
-			"id":"_4lOT5",
-			"index":0,
+			"id":"n_LbQoS",
+			"index":2,
+			"inputs":{
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"property":"properties_string_field",
+							"filter":{
+								"operator":"CONTAINS",
+								"value":"field"
+							}
+						}
+					],
+					"operator":"AND"
+				},
+				"object_type":"a7bzp9x",
+				"includeRoleMappings":false,
+				"includeCurrentUserPermissions":false,
+				"translationsOption":"DEFAULT",
+				"page":{
+					"paginateBy":"OFFSET",
+					"limit":20
+				},
+				"numberOfRecordsToFetch":"MULTIPLE",
+				"readThroughSessionVariables":false,
+				"includeTotalCount":false
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Storage by UnifyApps",
+			"title":"Fetch records",
 			"type":"ACTION"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +106,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
