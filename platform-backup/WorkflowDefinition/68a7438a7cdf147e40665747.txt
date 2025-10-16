@@ -5,12 +5,12 @@
 	"createdTime":1757312079947,
 	"deleted":false,
 	"deploymentState":{
-		"deployedAt":1760468089848,
+		"deployedAt":1760551302307,
 		"deployedBy":1,
-		"deployedDefinitionId":"68ee9c79248c7940ea1b6431",
+		"deployedDefinitionId":"68efe185e09fb733aee43625",
 		"status":"DEPLOYED",
-		"version":58,
-		"workflowVersion":103
+		"version":60,
+		"workflowVersion":106
 	},
 	"edges":[
 		{
@@ -505,6 +505,7 @@
 		"configs":[
 			{
 				"permissions":[
+					"VIEW_RUNS",
 					"V"
 				],
 				"principalType":"GLOBAL"
@@ -512,9 +513,9 @@
 		]
 	},
 	"id":"68a7438a7cdf147e40665747",
-	"lastModifiedBy":0,
+	"lastModifiedBy":1,
 	"lcName":"trigger ai agent (streaming)",
-	"modifiedTime":1760550448214,
+	"modifiedTime":1760599701129,
 	"name":"Trigger AI Agent (Streaming)",
 	"nodes":[
 		{
@@ -651,6 +652,13 @@
 								"required":[]
 							},
 							"title":"Attachments"
+						},
+						"knowledgeIds":{
+							"type":"array",
+							"items":{
+								"type":"string"
+							},
+							"title":"Knowledge Ids"
 						}
 					}
 				}
@@ -1415,6 +1423,9 @@
 				"triggerWorkflowWithRuntimeType":"IN_MEMORY",
 				"version":"-1",
 				"parameters":{
+					"aiAgentId":"{{ DugAy.outputs.aiAgentId }}",
+					"userQuery":"{{ DugAy.outputs.userQuery }}",
+					"userEmailAddress":"{{ DugAy.outputs.userEmailAddress }}",
 					"caseId":"{{ EI4Z9.outputs.caseId }}",
 					"messageId":"{{ EI4Z9.outputs.messageId }}",
 					"externalKnowledgeSets":{
@@ -1422,9 +1433,11 @@
 						"source":"{{ DugAy.outputs.knowledgeSetIds }}",
 						"items":"{{ DugAy.outputs.knowledgeSetIds[0] }}"
 					},
-					"aiAgentId":"{{ DugAy.outputs.aiAgentId }}",
-					"userQuery":"{{ DugAy.outputs.userQuery }}",
-					"userEmailAddress":"{{ DugAy.outputs.userEmailAddress }}"
+					"externalKnowledges":{
+						"source":"{{ DugAy.outputs.knowledgeIds }}",
+						"ua:type":"mappedArray",
+						"items":"{{ DugAy.outputs.knowledgeIds[0] }}"
+					}
 				}
 			},
 			"skip":false,
@@ -3029,6 +3042,6 @@
 			"tierName":"global"
 		}
 	},
-	"standard":true,
-	"version":104
+	"standard":false,
+	"version":107
 }
