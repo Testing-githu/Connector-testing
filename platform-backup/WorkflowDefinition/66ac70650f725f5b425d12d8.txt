@@ -5,12 +5,12 @@
 	"createdTime":1747000715279,
 	"deleted":false,
 	"deploymentState":{
-		"deployedAt":1760117516410,
-		"deployedBy":-1,
-		"deployedDefinitionId":"68e9430c64af142a5db2ffcb",
+		"deployedAt":1760550758419,
+		"deployedBy":1,
+		"deployedDefinitionId":"68efdf66e09fb733aee42345",
 		"status":"DEPLOYED",
-		"version":109,
-		"workflowVersion":782
+		"version":116,
+		"workflowVersion":791
 	},
 	"description":"All LLM calls related to ai agent goes through this automation",
 	"edges":[
@@ -421,9 +421,9 @@
 		]
 	},
 	"id":"66ac70650f725f5b425d12d8",
-	"lastModifiedBy":1,
+	"lastModifiedBy":0,
 	"lcName":"call llm (ai agent)",
-	"modifiedTime":1760303590427,
+	"modifiedTime":1760636870720,
 	"name":"Call LLM (AI Agent)",
 	"nodes":[
 		{
@@ -1922,6 +1922,7 @@
 					"thoughtMethod":"{{ EE8de.outputs.thoughtMethod }}",
 					"isToolCallEnabled":"{{ EE8de.outputs.isToolCallEnabled }}",
 					"isMultipleToolCallEnabled":"{{ EE8de.outputs.isMultipleToolCallEnabled }}",
+					"promptCaching":"{{ n_rQhLl.outputs.properties.settings.promptCaching }}",
 					"messages":{
 						"source":"{{ EE8de.outputs.message }}",
 						"ua:type":"mappedArray",
@@ -2256,8 +2257,8 @@
 			"inputs":{
 				"callableInterfaceId":"__ua__call_llm_model_interface",
 				"runtimeConnections":{
-					"anthropic":"{{ _dOGIN.outputs.properties.connectionId }}",
-					"amazon_bedrock":"{{ n_rQhLl.outputs.properties.connectionId }}"
+					"amazon_bedrock":"{{ n_rQhLl.outputs.properties.connectionId }}",
+					"anthropic":"{{ _dOGIN.outputs.properties.connectionId }}"
 				},
 				"synchronous":true,
 				"triggerWorkflowWithRuntimeType":"DEFAULT",
@@ -2281,6 +2282,7 @@
 					"thoughtMethod":"{{ EE8de.outputs.thoughtMethod }}",
 					"isToolCallEnabled":"{{ EE8de.outputs.isToolCallEnabled }}",
 					"isMultipleToolCallEnabled":"{{ EE8de.outputs.isMultipleToolCallEnabled }}",
+					"promptCaching":"{{ n_rQhLl.outputs.properties.settings.promptCaching }}",
 					"messages":{
 						"ua:type":"mappedArray",
 						"items":{
@@ -2519,16 +2521,28 @@
 			"inputs":{
 				"callableInterfaceId":"__ua__call_llm_model_interface",
 				"runtimeConnections":{
-					"anthropic":"{{ _dOGIN.outputs.properties.connectionId }}",
-					"amazon_bedrock":"{{ n_rQhLl.outputs.properties.connectionId }}"
+					"amazon_bedrock":"{{ n_rQhLl.outputs.properties.connectionId }}",
+					"anthropic":"{{ _dOGIN.outputs.properties.connectionId }}"
 				},
 				"synchronous":true,
 				"triggerWorkflowWithRuntimeType":"DEFAULT",
 				"fallbackWorkflowId":"6731e3bc4176134b6eb34953",
 				"parameters":{
+					"top_p":"{{ _AdLmL.outputs.result.topP }}",
 					"response_format":{
 						"type":"{{ EE8de.outputs.responseFormat.type }}"
 					},
+					"frequency_penalty":"{{ _AdLmL.outputs.result.frequencyPenalty }}",
+					"max_tokens":"{{ _AdLmL.outputs.result.maxOutputTokens }}",
+					"presence_penalty":"{{ _AdLmL.outputs.result.presencePenalty }}",
+					"temperature":"{{ _AdLmL.outputs.result.temperature }}",
+					"model":"{{ n_rQhLl.outputs.properties.model }}",
+					"logprobs":"{{ EE8de.outputs.logProbs }}",
+					"top_k":"{{ _AdLmL.outputs.result.topK }}",
+					"systemPrompt":"{{ EE8de.outputs.systemPrompt }}",
+					"sessionId":"{{ EE8de.outputs.caseId }}",
+					"aiAgentId":"{{ EE8de.outputs.aiAgentId }}",
+					"promptCaching":"{{ n_rQhLl.outputs.properties.settings.promptCaching }}",
 					"messages":{
 						"ua:type":"mappedArray",
 						"items":{
@@ -2549,7 +2563,6 @@
 						},
 						"source":"{{ cJQ5u.outputs.result.updatedMessage }}"
 					},
-					"logprobs":"{{ EE8de.outputs.logProbs }}",
 					"tools":{
 						"ua:type":"mappedArray",
 						"items":{
@@ -2561,17 +2574,7 @@
 							}
 						},
 						"source":"{{ tFPm9.outputs.result.tools }}"
-					},
-					"top_p":"{{ _AdLmL.outputs.result.topP }}",
-					"frequency_penalty":"{{ _AdLmL.outputs.result.frequencyPenalty }}",
-					"max_tokens":"{{ _AdLmL.outputs.result.maxOutputTokens }}",
-					"presence_penalty":"{{ _AdLmL.outputs.result.presencePenalty }}",
-					"temperature":"{{ _AdLmL.outputs.result.temperature }}",
-					"top_k":"{{ _AdLmL.outputs.result.topK }}",
-					"systemPrompt":"{{ EE8de.outputs.systemPrompt }}",
-					"sessionId":"{{ EE8de.outputs.caseId }}",
-					"model":"{{ n_rQhLl.outputs.properties.model }}",
-					"aiAgentId":"{{ EE8de.outputs.aiAgentId }}"
+					}
 				}
 			},
 			"skip":false,
@@ -3006,7 +3009,7 @@
 						}
 					},
 					{
-						"workflowId":"6731e2674176134b6eb346f2",
+						"workflowId":"68ad99c691f3b008452101e8",
 						"filter":{
 							"filters":[
 								{
@@ -4252,9 +4255,9 @@
 		
 	],
 	"settings":{
-		"enableNodeLevelLogging":false,
-		"enableRunLogging":false,
-		"enableVariableLogging":false,
+		"enableNodeLevelLogging":true,
+		"enableRunLogging":true,
+		"enableVariableLogging":true,
 		"route":{
 			"default":false,
 			"tierName":"global"
@@ -4265,5 +4268,5 @@
 		"AI Agent",
 		"Internal"
 	],
-	"version":783
+	"version":793
 }
