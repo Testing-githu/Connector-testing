@@ -5,12 +5,12 @@
 	"createdTime":1747000713626,
 	"deleted":false,
 	"deploymentState":{
-		"deployedAt":1760505701319,
+		"deployedAt":1760551301043,
 		"deployedBy":1,
-		"deployedDefinitionId":"68ef2f65248c7940ea1f749e",
+		"deployedDefinitionId":"68efe184e09fb733aee43618",
 		"status":"DEPLOYED",
-		"version":98,
-		"workflowVersion":603
+		"version":100,
+		"workflowVersion":606
 	},
 	"description":"",
 	"edges":[
@@ -660,6 +660,28 @@
 		"configs":[
 			{
 				"permissions":[
+					"A",
+					"EXPORT_AS_TEMPLATE",
+					"C",
+					"D",
+					"E",
+					"VAR",
+					"DEP",
+					"S",
+					"VI",
+					"VIEW_RUNS",
+					"TEST",
+					"V",
+					"VS"
+				],
+				"principalIds":[
+					"1"
+				],
+				"principalType":"USER"
+			},
+			{
+				"permissions":[
+					"VIEW_RUNS",
 					"V"
 				],
 				"principalType":"GLOBAL"
@@ -667,9 +689,9 @@
 		]
 	},
 	"id":"66966960e8797a59f4a46292",
-	"lastModifiedBy":0,
+	"lastModifiedBy":1,
 	"lcName":"trigger ai agent",
-	"modifiedTime":1760550352807,
+	"modifiedTime":1760599702341,
 	"name":"Trigger AI Agent",
 	"nodes":[
 		{
@@ -687,6 +709,9 @@
 			"inputs":{
 				"result":{
 					"type":"object",
+					"additionalProperties":false,
+					"required":[],
+					"dynamic":true,
 					"properties":{
 						"success":{
 							"type":"string",
@@ -710,13 +735,12 @@
 							"title":"Skip Response",
 							"default":false
 						}
-					},
-					"additionalProperties":false,
-					"required":[],
-					"dynamic":true
+					}
 				},
 				"setup":{
 					"type":"object",
+					"additionalProperties":false,
+					"required":[],
 					"properties":{
 						"aiAgentId":{
 							"type":"string",
@@ -752,10 +776,15 @@
 						"hasAttachments":{
 							"type":"boolean",
 							"title":"Has Attachments"
+						},
+						"externalKnowledges":{
+							"type":"array",
+							"items":{
+								"type":"string"
+							},
+							"title":"External Knowledges"
 						}
-					},
-					"additionalProperties":false,
-					"required":[]
+					}
 				}
 			},
 			"skip":false,
@@ -1154,12 +1183,26 @@
 						"userEmailAddress":{
 							"type":"string",
 							"title":"User Email Address"
+						},
+						"externalKnowledges":{
+							"type":"array",
+							"items":{
+								"type":"object",
+								"properties":{},
+								"additionalProperties":false
+							},
+							"title":"External Knowledges"
 						}
 					},
 					"required":[]
 				}
 			},
 			"inputs":{
+				"externalKnowledges":{
+					"source":"{{ vBzOH.outputs.externalKnowledges }}",
+					"ua:type":"mappedArray",
+					"items":"{{ vBzOH.outputs.externalKnowledges[0] }}"
+				},
 				"externalKnowledgeSets":{
 					"source":"{{ vBzOH.outputs.externalKnowledgeSets }}",
 					"ua:type":"mappedArray",
@@ -1198,6 +1241,15 @@
 						"userEmailAddress":{
 							"type":"string",
 							"title":"User Email Address"
+						},
+						"externalKnowledges":{
+							"type":"array",
+							"items":{
+								"type":"object",
+								"properties":{},
+								"additionalProperties":false
+							},
+							"title":"External Knowledges"
 						}
 					},
 					"required":[]
@@ -3980,9 +4032,9 @@
 			"tierName":"global"
 		}
 	},
-	"standard":true,
+	"standard":false,
 	"tags":[
 		"AI Agent"
 	],
-	"version":604
+	"version":608
 }
