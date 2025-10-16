@@ -1,52 +1,124 @@
 {
 	"appsUsed":[
-		
+		"storage_by_unifyapps"
 	],
 	"createdTime":1760642613488,
 	"deleted":false,
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_XfkAh",
+			"fromNodeId":"n_RZO2o",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_q19W0",
+			"toNodeId":"n_4Yjcl",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_4Yjcl",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_cj8YA",
 			"type":"next"
 		}
 	],
 	"id":"68f1463553d6ed43d4b3b521",
 	"lastModifiedBy":1,
 	"lcName":"sharerecordaction_117606402877710",
-	"modifiedTime":1760642613488,
+	"modifiedTime":1760642626058,
 	"name":"shareRecordAction_117606402877710",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2644,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_XfkAh-1",
-			"id":"_XfkAh",
-			"index":0,
+			"id":"n_RZO2o",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"Output_String"
+					],
+					"properties":{
+						"Output_String":{
+							"type":"string",
+							"title":"Output_String"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":8582,
+				"resourceName":"storage_by_unifyapps_share_records",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_XfkAh-1",
-			"id":"_q19W0",
-			"index":0,
+			"id":"n_4Yjcl",
+			"index":2,
+			"inputs":{
+				"principal":"USER",
+				"object_type":"ajntyg",
+				"roles":[
+					"68f1460fcc627e3588ebd44b"
+				],
+				"operationType":"ADD",
+				"shareWithUsers":[
+					"282481"
+				]
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Storage by UnifyApps",
+			"title":"Share records",
 			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2648,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_XfkAh-1",
+			"id":"n_cj8YA",
+			"index":3,
+			"inputs":{
+				"result":{
+					"Output_String":"{{ n_4Yjcl.outputs }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +132,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
