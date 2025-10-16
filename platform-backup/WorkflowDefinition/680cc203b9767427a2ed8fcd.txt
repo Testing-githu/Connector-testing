@@ -5,12 +5,12 @@
 	"createdTime":1747000713252,
 	"deleted":false,
 	"deploymentState":{
-		"deployedAt":1760102066110,
+		"deployedAt":1760550875335,
 		"deployedBy":1,
-		"deployedDefinitionId":"68e906b1aa15f745769dfd09",
+		"deployedDefinitionId":"68efdfdbe09fb733aee42768",
 		"status":"DEPLOYED",
-		"version":107,
-		"workflowVersion":122
+		"version":114,
+		"workflowVersion":132
 	},
 	"edges":[
 		{
@@ -378,9 +378,9 @@
 		]
 	},
 	"id":"680cc203b9767427a2ed8fcd",
-	"lastModifiedBy":-1,
+	"lastModifiedBy":0,
 	"lcName":"observability | get traces",
-	"modifiedTime":1760117514957,
+	"modifiedTime":1760636866535,
 	"name":"Observability | Get Traces",
 	"nodes":[
 		{
@@ -906,7 +906,7 @@
 						}
 					}
 				},
-				"query":"SELECT \n    eTraces._pr_messageId AS traceId\nFROM ENTITY_e_traces AS eTraces\nWHERE eTraces._pr_fromAutomationId IN (\n      '6851442f9e30586f552a6d73',\n      '67df12719fa26d792211be4f',\n      '66ac70650f725f5b425d12d8',\n      '67933cc866e1f1098aa02c39',\n      '66b32227db0c6546b93d3acc',\n      '66a1e74accc70b77f9bf0308',\n      '66b356891a78c401cb586890',\n      '67e6651efd3591529146b261',\n      '67e4346d4718117333c7ee9a',\n      '66b3353e1a78c401cb583431',\n      '679c6521a6583456a7198e97',\n      '68206abcccc45f469e288de0',\n      '6853d10e492bca4185ba983d',\n      '6704f23182227947dd32e79c',\n      '679b7fdad2256d4d7f3277fe',\n      '6784ec5e2bf24b00b3976630',\n      '6784e8da2bf24b00b3975b17',\n      '66b0c2ccd84fac07ea3f3e84',\n      '66ae2f6e381d8834cd6742de',\n      '6784b9216fb83f0972c5625d'\n)\n  AND eTraces._pr_aiAgentId = '{{ 4aY8o.outputs.agentId }}'\n   AND eTraces.timestamp \n   {{ n_rNS2l.outputs.result.filter }}\n      BETWEEN '{{ 4aY8o.outputs.startTime }}' AND '{{ 4aY8o.outputs.endTime }}'\nGROUP BY eTraces._pr_messageId\nLIMIT {{ 4aY8o.outputs.offset }}, {{ 4aY8o.outputs.limit }};\n",
+				"query":"SELECT \n    eTraces._pr_messageId AS traceId\nFROM ENTITY_e_traces AS eTraces\nWHERE eTraces._pr_fromAutomationId IN (\n      '6851442f9e30586f552a6d73',\n      '67df12719fa26d792211be4f',\n      '66ac70650f725f5b425d12d8',\n      '67933cc866e1f1098aa02c39',\n      '66b32227db0c6546b93d3acc',\n      '66a1e74accc70b77f9bf0308',\n      '66b356891a78c401cb586890',\n      '67e6651efd3591529146b261',\n      '67e4346d4718117333c7ee9a',\n      '66b3353e1a78c401cb583431',\n      '679c6521a6583456a7198e97',\n      '68206abcccc45f469e288de0',\n      '6853d10e492bca4185ba983d',\n      '6704f23182227947dd32e79c',\n      '679b7fdad2256d4d7f3277fe',\n      '6784ec5e2bf24b00b3976630',\n      '6784e8da2bf24b00b3975b17',\n      '66b0c2ccd84fac07ea3f3e84',\n      '66ae2f6e381d8834cd6742de',\n      '6784b9216fb83f0972c5625d'\n)\n  AND eTraces._pr_aiAgentId = '{{ 4aY8o.outputs.agentId }}'\n   AND eTraces.timestamp \n   {{ n_rNS2l.outputs.result.filter }}\n      BETWEEN '{{ n_zcqmw.outputs.result.startTime }}' AND '{{ n_zcqmw.outputs.result.endTime }}'\nGROUP BY eTraces._pr_messageId\nLIMIT {{ 4aY8o.outputs.offset }}, {{ 4aY8o.outputs.limit }};\n",
 				"group":"ENTITY_REPORTING"
 			},
 			"skip":false,
@@ -2757,7 +2757,7 @@
 						}
 					}
 				},
-				"code":"if(!binding.hasVariable('fanMessages')) {\n    fanMessages = []\n}\n\nif(!binding.hasVariable('brandMessages')) {\n    brandMessages = []\n}\n\nif(!binding.hasVariable('messageIdSpanCount')) {\n    messageIdSpanCount = []\n}\n\ndef brandMessagesList = []\nif(binding.hasVariable('brandMessages')) {\n    brandMessagesList = brandMessages\n}\ndef fanMessageVsBrandMessage = brandMessagesList.collectEntries { brandMessage ->\n    [(brandMessage.additional.parentMessageId): brandMessage]\n}\n\ndef messageIdVsTraceCount = messageIdSpanCount.collectEntries { entry ->\n    [(entry.messageId): entry.traceCount]\n}\n\ndef totalSpanCount = 0\ndef totalLatency = 0\ndef traceCount = 0\n\ndef traces = fanMessages.collect { fanMessage ->\n    def brandMessage = fanMessageVsBrandMessage[fanMessage.id]\n    if (!brandMessage) {\n        return null\n    }\n    def spans = messageIdVsTraceCount[fanMessage.id] ?: 0\n    def latency = (brandMessage.createdTime ?: 0) - (fanMessage.createdTime ?: 0)\n\n    totalSpanCount += spans\n    totalLatency += latency\n    traceCount++  // increment only once\n\n    [\n        traceId  : fanMessage.id,\n        input    : fanMessage.content?.text,\n        output   : brandMessage.content?.text,\n        latency  : latency,\n        startTime: fanMessage.createdTime,\n        spans    : spans\n    ]\n}.findAll { it != null }\n\ndef avgSpanCount = traceCount > 0 ? (totalSpanCount / traceCount).round() : 0\ndef avgLatency = traceCount > 0 ? (totalLatency / traceCount).round(2) : 0\ntraces = traces.sort { -it.startTime }\nreturn [traces: traces, avgSpanCount: avgSpanCount, avgLatency: avgLatency]\n",
+				"code":"if (!binding.hasVariable('fanMessages')) {\n    fanMessages = []\n}\n\nif (!binding.hasVariable('brandMessages')) {\n    brandMessages = []\n}\n\nif (!binding.hasVariable('messageIdSpanCount')) {\n    messageIdSpanCount = []\n}\n\n// Map fanMessage.id -> list of brand messages\ndef fanMessageVsBrandMessages = brandMessages.groupBy { it.additional.parentMessageId }\n\ndef messageIdVsTraceCount = messageIdSpanCount.collectEntries { entry ->\n    [(entry.messageId): entry.traceCount]\n}\n\ndef totalSpanCount = 0\ndef totalLatency = 0\ndef traceCount = 0\n\ndef traces = fanMessages.collect { fanMessage ->\n    def brandMessagesForFan = fanMessageVsBrandMessages[fanMessage.id]\n    if (!brandMessagesForFan) {\n        return null\n    }\n\n    // Combine contents of multiple brand messages\n    def combinedOutput = brandMessagesForFan.collect { it.content?.text }.findAll { it }.join(\"\\n\")\n\n    // Take latency as difference between earliest brandMessage and fanMessage\n    def earliestBrandTime = brandMessagesForFan*.createdTime.findAll { it != null }.min() ?: 0\n    def latency = earliestBrandTime - (fanMessage.createdTime ?: 0)\n\n    // Sum spans for this fanMessage\n    def spans = messageIdVsTraceCount[fanMessage.id] ?: 0\n\n    totalSpanCount += spans\n    totalLatency += latency\n    traceCount++\n\n    [\n        traceId  : fanMessage.id,\n        input    : fanMessage.content?.text,\n        output   : combinedOutput,\n        latency  : latency,\n        startTime: fanMessage.createdTime,\n        spans    : spans\n    ]\n}.findAll { it != null }\n\ndef avgSpanCount = traceCount > 0 ? (totalSpanCount / traceCount).round() : 0\ndef avgLatency = traceCount > 0 ? (totalLatency / traceCount).round(2) : 0\n\ntraces = traces.sort { -it.startTime }\n\nreturn [traces: traces, avgSpanCount: avgSpanCount, avgLatency: avgLatency]",
 				"compile_static":false,
 				"isAsync":false,
 				"captureStdOutput":false,
@@ -2861,5 +2861,5 @@
 		}
 	},
 	"standard":true,
-	"version":124
+	"version":134
 }
