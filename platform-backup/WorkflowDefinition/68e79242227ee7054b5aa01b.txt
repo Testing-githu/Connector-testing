@@ -4,6 +4,14 @@
 	],
 	"createdTime":1760213352330,
 	"deleted":false,
+	"deploymentState":{
+		"deployedAt":1760550740028,
+		"deployedBy":1,
+		"deployedDefinitionId":"68efdf53e09fb733aee42281",
+		"status":"DEPLOYED",
+		"version":8,
+		"workflowVersion":59
+	},
 	"edges":[
 		{
 			"fromNodeId":"DugAy",
@@ -145,11 +153,22 @@
 			"type":"next"
 		}
 	],
+	"grants":{
+		"configs":[
+			{
+				"permissions":[
+					"VIEW_RUNS",
+					"V"
+				],
+				"principalType":"GLOBAL"
+			}
+		]
+	},
 	"id":"68e79242227ee7054b5aa01b",
 	"lastModifiedBy":1,
-	"lcName":"api to trigger ai agent (streaming) | dt",
-	"modifiedTime":1760213352330,
-	"name":"API To Trigger AI Agent (Streaming) | DT",
+	"lcName":"[dt] api to trigger ai agent (streaming)",
+	"modifiedTime":1760599701904,
+	"name":"[DT] API To Trigger AI Agent (Streaming)",
 	"nodes":[
 		{
 			"additional":{
@@ -192,6 +211,36 @@
 							"stream":{
 								"type":"boolean",
 								"title":"Stream"
+							},
+							"inclusions":{
+								"type":"object",
+								"properties":{
+									"documentSpecs":{
+										"type":"array",
+										"items":{
+											"type":"object",
+											"properties":{
+												"id":{
+													"type":"string",
+													"title":"Id"
+												}
+											},
+											"additionalProperties":false,
+											"required":[]
+										},
+										"title":"Document Specs"
+									},
+									"datasourceInstances":{
+										"type":"array",
+										"items":{
+											"type":"string"
+										},
+										"title":"Datasource Instances"
+									}
+								},
+								"additionalProperties":false,
+								"title":"Inclusions",
+								"required":[]
 							}
 						},
 						"additionalProperties":false,
@@ -281,7 +330,9 @@
 		{
 			"additional":{
 				"visibleOptionalFields":[
-					"root.parameters.messages.items"
+					"root.parameters.messages.items",
+					"root.parameters.inclusions.documentSpecs.items.id",
+					"root.parameters.inclusions.datasourceInstances.items"
 				]
 			},
 			"context":{
@@ -327,6 +378,13 @@
 								"type":"string"
 							},
 							"title":"Attachment Ids"
+						},
+						"knowledgeIds":{
+							"type":"array",
+							"items":{
+								"type":"string"
+							},
+							"title":"Knowledge Ids"
 						}
 					}
 				},
@@ -351,10 +409,40 @@
 						"agentId":{
 							"type":"string",
 							"title":"Agent Id"
+						},
+						"inclusions":{
+							"type":"object",
+							"properties":{
+								"documentSpecs":{
+									"type":"array",
+									"items":{
+										"type":"object",
+										"properties":{
+											"id":{
+												"type":"string",
+												"title":"Id"
+											}
+										},
+										"additionalProperties":false,
+										"required":[]
+									},
+									"title":"Document Specs"
+								},
+								"datasourceInstances":{
+									"type":"array",
+									"items":{
+										"type":"string"
+									},
+									"title":"Datasource Instances"
+								}
+							},
+							"additionalProperties":false,
+							"title":"Inclusions",
+							"required":[]
 						}
 					}
 				},
-				"code":"def messages = binding.hasVariable(\"messages\") ? messages : []\n\nreturn [\n  \"sessionId\" : binding.hasVariable(\"chatId\") ? chatId : null,\n  \"userQuery\" : messages[0]?.fragments?[0].text,\n  \"aiAgentId\" : binding.hasVariable(\"agentId\") ? agentId : null,\n  \"attachmentIds\" : messages[0]?.uploadedFileIds\n]",
+				"code":"def messages = binding.hasVariable(\"messages\") ? messages : []\ndef knowledgeIds = []\ndef knowledgeSetIds = []\n\nknowledgeIds = (binding.hasVariable('inclusions') && inclusions?.documentSpecs) ? inclusions.documentSpecs.collect { it?.id } : []\nknowledgeSetIds = (binding.hasVariable('inclusions') && inclusions?.datasourceInstances) ? inclusions.datasourceInstances : []\n\nreturn [\n  \"sessionId\" : binding.hasVariable(\"chatId\") ? chatId : null,\n  \"userQuery\" : messages[0]?.fragments?[0].text,\n  \"aiAgentId\" : binding.hasVariable(\"agentId\") ? agentId : null,\n  \"attachmentIds\" : messages[0]?.uploadedFileIds,\n  \"knowledgeIds\" : !knowledgeIds.isEmpty() ? knowledgeIds : null,\n  \"knowledgeSetIds\" : !knowledgeSetIds.isEmpty() ? knowledgeSetIds : null\n]",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
@@ -364,6 +452,20 @@
 						"source":"{{ DugAy.outputs.body.messages }}",
 						"ua:type":"mappedArray",
 						"items":"{{ DugAy.outputs.body.messages[0] }}"
+					},
+					"inclusions":{
+						"documentSpecs":{
+							"source":"{{ DugAy.outputs.body.inclusions.documentSpecs }}",
+							"ua:type":"mappedArray",
+							"items":{
+								"id":"{{ DugAy.outputs.body.inclusions.documentSpecs[0].id }}"
+							}
+						},
+						"datasourceInstances":{
+							"source":"{{ DugAy.outputs.body.inclusions.datasourceInstances }}",
+							"ua:type":"mappedArray",
+							"items":"{{ DugAy.outputs.body.inclusions.datasourceInstances[0] }}"
+						}
 					}
 				}
 			},
@@ -500,6 +602,11 @@
 							"sourceType":"{{ n_HtG74.outputs.objects[0].properties.fileDetails.sourceType }}",
 							"source":"{{ n_HtG74.outputs.objects[0].properties.fileDetails.source }}"
 						}
+					},
+					"knowledgeIds":{
+						"source":"{{ n_Xekkh.outputs.result.knowledgeIds }}",
+						"ua:type":"mappedArray",
+						"items":"{{ n_Xekkh.outputs.result.knowledgeIds[0] }}"
 					}
 				}
 			},
@@ -644,10 +751,14 @@
 						"messageId":{
 							"type":"string",
 							"title":"Message Id"
+						},
+						"platformUrl":{
+							"type":"string",
+							"title":"Platform Url"
 						}
 					}
 				},
-				"code":"def message = [:]\ndef fragments = []\ndef citations = []\n\nmessage[\"author\"] = \"bot\"\nmessage[\"messageId\"] = binding.hasVariable(\"messageId\") ? messageId : null\n\nif (messageType == \"SEARCHING\") {\n  fragments.add([\"text\": \"**Searching:** \"])\n  fragments.add([\n      \"text\": delta,\n      \"querySuggestion\": [\n        \"query\": delta\n      ]\n    ])\n  message[\"messageType\"] = \"UPDATE\"\n\n} else if (messageType == \"THOUGHT\") {\n  fragments.add([\"text\" : delta])\n  message[\"messageType\"] = \"UPDATE\"\n} else if (messageType == \"SOURCES\") {\n    fragments.add([\"text\": \"**Reading:** \"])\n    fragments.addAll(constructCitations(coPilotBlocks).collect{ it -> [\"structuredResults\" : [[\"document\" : it.sourceDocument]]]})\n    message[\"messageType\"] = \"UPDATE\"\n} else if (messageType == \"CITATION\") {\n  citations.addAll(constructCitations(coPilotBlocks))  \n  message[\"messageType\"] = \"CONTENT\"\n} else if (messageType == \"ANSWER\") {\n  if (binding.hasVariable(\"delta\")) {\n      fragments.add([\"text\" : delta])\n  }\n  message[\"messageType\"] = \"CONTENT\"\n}\n\nif (!fragments.isEmpty()) {\n  message[\"fragments\"] = fragments\n}\nif (!citations.isEmpty()) {\n  message[\"citations\"] = citations\n}\n\nreturn [\n  \"response\" : [\"chatId\" : sessionId, \"messages\" : [message]]\n]\n\n\ndef constructCitations(def coPilotBlocks) {\n\n  def citations = coPilotBlocks[0]?.data?.citations\n\n  return citations.collect {  citation -> [\n      sourceDocument : [\n        \"id\": citation.uniqueEntityId,\n        \"title\": citation.name,\n        \"url\" : citation.referenceUrl,\n        \"metadata\": [\n          \"objectType\": getObjectType(citation.knowledgeSourceType),  \n          \"documentId\": citation.uniqueEntityId\n\n        // \"datasource\": \"yamunited\",  // knowledgeSetId TBD\n        // \"datasourceInstance\": \"custom_yamunited\",\n        // \"mimeType\": \"wiki\",                            // mimetype\n        // \"createTime\": \"1970-01-01T00:00:00Z\",\n        // \"updateTime\": \"1970-01-01T00:00:00Z\",\n        // \"visibility\": \"PUBLIC_VISIBLE\",\n        // \"datasourceId\": \"d75c5892c5d4f9fa0c6f35081ccf3d57a23455ab\",\n        // \"verification\": [\n        //   \"state\": \"UNVERIFIED\"\n        // ],\n        // \"documentCategory\": \"KNOWLEDGE_HUB\"\n        ]\n      ],\n      referenceRanges : [\n        [\"snippets\" :  citation?.chunkDetails?.collect{ it -> [ \"mimeType\": \"text/plain\",\"text\": it.chunkContent ] }]\n      ]\n    ]}\n}\n\n\ndef getObjectType(String knowledgeSourceType) {\n  switch(knowledgeSourceType) {\n    case \"WEBSITE\":\n      return \"wiki\"\n    case \"DOCUMENT\":\n      return \"Document\"\n    default:\n      return null\n  }\n}\n",
+				"code":"def message = [:]\ndef fragments = []\ndef citations = []\ndef delta = binding.hasVariable(\"delta\") ? delta : null\ndef coPilotBlocks = binding.hasVariable(\"coPilotBlocks\") ? coPilotBlocks : null\n\nmessage[\"author\"] = \"bot\"\nmessage[\"messageId\"] = binding.hasVariable(\"messageId\") ? messageId : null\n\nif (messageType == \"SEARCHING\") {\n  fragments.add([\"text\": \"**Searching:** \"])\n  if (delta != null) {\n    fragments.add([\n        \"text\": delta,\n        \"querySuggestion\": [\n          \"query\": delta\n        ]\n      ])\n  }\n  message[\"messageType\"] = \"UPDATE\"\n\n} else if (messageType == \"THOUGHT\") {\n  if (delta != null) {\n    fragments.add([\"text\" : delta])\n  }\n  message[\"messageType\"] = \"UPDATE\"\n} else if (messageType == \"SOURCES\") {\n    fragments.add([\"text\": \"**Reading:** \"])\n    fragments.addAll(constructCitations(coPilotBlocks).collect{ it -> [\"structuredResults\" : [[\"document\" : it.sourceDocument, \"referenceRanges\" : it.referenceRanges]]]})\n    message[\"messageType\"] = \"UPDATE\"\n} else if (messageType == \"CITATION\") {\n  citations.addAll(constructCitations(coPilotBlocks))  \n  message[\"messageType\"] = \"CONTENT\"\n} else if (messageType == \"ANSWER\") {\n  if (delta != null) {\n      fragments.add([\"text\" : delta])\n  }\n  citations.addAll(constructCitations(coPilotBlocks))  \n  message[\"messageType\"] = \"CONTENT\"\n}\n\nif (!fragments.isEmpty()) {\n  message[\"fragments\"] = fragments\n}\nif (!citations.isEmpty()) {\n  message[\"citations\"] = citations\n}\n\nreturn [\n  \"response\" : [\"chatId\" : sessionId, \"messages\" : [message]]\n]\n\n\ndef constructCitations(def coPilotBlocks) {\n  if (coPilotBlocks == null) {\n    return []\n  }\n\n  def citations = coPilotBlocks[0]?.data?.citations\n\n  return citations.collect {  citation -> [\n      sourceDocument : [\n        \"id\": citation.uniqueEntityId,\n        \"title\": citation.name,\n        \"url\" : citation.referenceUrl,\n        \"metadata\": [\n          \"objectType\": getObjectType(citation.knowledgeSourceType),  \n          \"documentId\": citation.uniqueEntityId\n\n        // \"datasource\": \"yamunited\",  // knowledgeSetId TBD\n        // \"datasourceInstance\": \"custom_yamunited\",\n        // \"mimeType\": \"wiki\",                            // mimetype\n        // \"createTime\": \"1970-01-01T00:00:00Z\",\n        // \"updateTime\": \"1970-01-01T00:00:00Z\",\n        // \"visibility\": \"PUBLIC_VISIBLE\",\n        // \"datasourceId\": \"d75c5892c5d4f9fa0c6f35081ccf3d57a23455ab\",\n        // \"verification\": [\n        //   \"state\": \"UNVERIFIED\"\n        // ],\n        // \"documentCategory\": \"KNOWLEDGE_HUB\"\n        ]\n      ],\n      referenceRanges : [\n        [\"snippets\" :  citation?.chunkDetails?.collect{ it -> [ \"mimeType\": \"text/plain\",\"text\": it.chunkContent, \"chunkNumber\": it.chunkNumber ] }]\n      ]\n    ]}\n}\n\n\ndef getObjectType(String knowledgeSourceType) {\n  switch(knowledgeSourceType) {\n    case \"WEBSITE\":\n      return \"wiki\"\n    case \"DOCUMENT\":\n      return \"Document\"\n    default:\n      return null\n  }\n}\n",
 				"compile_static":false,
 				"captureStdOutput":false,
 				"parameters":{
@@ -655,6 +766,7 @@
 					"messageType":"{{ n_bFHR3.outputs.item.result.messageType }}",
 					"delta":"{{ n_bFHR3.outputs.item.result.delta }}",
 					"messageId":"{{ n_bFHR3.outputs.item.result.messageId }}",
+					"platformUrl":"{{ __RUN__.outputs.origin }}",
 					"coPilotBlocks":{
 						"ua:type":"mappedArray",
 						"source":"{{ n_bFHR3.outputs.item.result.copilotBlocks }}",
@@ -922,5 +1034,5 @@
 	"tags":[
 		
 	],
-	"version":50
+	"version":61
 }
