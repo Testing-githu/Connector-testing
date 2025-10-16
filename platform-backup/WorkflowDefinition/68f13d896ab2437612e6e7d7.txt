@@ -7,46 +7,219 @@
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_m6fdq",
+			"fromNodeId":"n_VIMdz",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_gHz4J",
+			"toNodeId":"n_G4y7y",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_G4y7y",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_T12U9",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_T12U9",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_fW8oW",
+			"type":"loop"
+		},
+		{
+			"fromNodeId":"n_fW8oW",
+			"name":"loopback",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_T12U9",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_T12U9",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_WMsy0",
 			"type":"next"
 		}
 	],
 	"id":"68f13d896ab2437612e6e7d7",
 	"lastModifiedBy":1,
 	"lcName":"whileloopcheckorconditiongroup11760640279461",
-	"modifiedTime":1760640393544,
+	"modifiedTime":1760640475031,
 	"name":"whileLoopCheckOrConditionGroup11760640279461",
 	"nodes":[
 		{
+			"context":{
+				"appName":"webhooks",
+				"resourceVersion":144,
+				"resourceName":"webhooks_default"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_m6fdq-1",
-			"id":"_m6fdq",
-			"index":0,
+			"id":"n_VIMdz",
+			"index":1,
+			"inputs":{
+				"request":{
+					"contentType":"application/json"
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Webhook",
+			"title":"New event",
 			"trigger":{
-				"type":"EVENT"
+				"type":"WEBHOOK"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":2509,
+				"resourceName":"variable_by_unifyapps_create_variables",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_m6fdq-1",
-			"id":"_gHz4J",
-			"index":0,
+			"id":"n_G4y7y",
+			"index":2,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{},
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"i":{
+							"type":"number",
+							"title":"i"
+						}
+					},
+					"required":[
+						"i"
+					]
+				}
+			},
+			"inputs":{
+				"i":10
+			},
+			"outputSchema":{
+				"dynamic":false,
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"i":{
+							"type":"number",
+							"title":"i"
+						}
+					},
+					"required":[
+						"i"
+					]
+				}
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Variable by UnifyApps",
+			"title":"Create variables",
 			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"loop",
+				"resourceVersion":148,
+				"resourceName":"loop_while",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_m6fdq-1",
+			"id":"n_T12U9",
+			"index":3,
+			"inputs":{
+				"condition":{
+					"filters":[
+						{
+							"property":"{{ n_G4y7y.outputs.i }}",
+							"filter":{
+								"operator":"LT",
+								"value":"10"
+							}
+						},
+						{
+							"filters":[
+								{
+									"property":"{{ n_G4y7y.outputs.i }}",
+									"filter":{
+										"operator":"LT",
+										"value":"20"
+									}
+								}
+							],
+							"operator":"AND"
+						}
+					],
+					"operator":"OR"
+				},
+				"captureIterations":true
+			},
+			"skip":false,
+			"subTitle":"Loop",
+			"title":"While loop",
+			"type":"LOOP"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":2506,
+				"resourceName":"variable_by_unifyapps_update_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"n_T12U9@_m6fdq-1@l",
+			"id":"n_fW8oW",
+			"index":4,
+			"inputs":{
+				"variables":[
+					{
+						"source":"{{ n_G4y7y.outputs.i }}",
+						"value":"=sum({{ n_G4y7y.outputs.i }},1)"
+					}
+				]
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Update variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"stop"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_m6fdq-1",
+			"id":"n_WMsy0",
+			"index":5,
+			"skip":false,
+			"subTitle":"Stop",
+			"title":"Stop",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +233,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
