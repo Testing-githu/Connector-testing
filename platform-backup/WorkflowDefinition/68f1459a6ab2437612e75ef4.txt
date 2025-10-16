@@ -7,46 +7,104 @@
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_jTXj4",
+			"fromNodeId":"n_1b9n0",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_g1csG",
+			"toNodeId":"n_SjKzZ",
 			"type":"next"
 		}
 	],
 	"id":"68f1459a6ab2437612e75ef4",
 	"lastModifiedBy":1,
 	"lcName":"runvariables-execution id_117606402981850",
-	"modifiedTime":1760642458255,
+	"modifiedTime":1760642466668,
 	"name":"runVariables-Execution Id_117606402981850",
 	"nodes":[
 		{
+			"context":{
+				"appName":"webhooks",
+				"resourceVersion":144,
+				"resourceName":"webhooks_default"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_jTXj4-1",
-			"id":"_jTXj4",
-			"index":0,
+			"id":"n_1b9n0",
+			"index":1,
+			"inputs":{
+				"request":{
+					"contentType":"application/json"
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Webhook",
+			"title":"New event",
 			"trigger":{
-				"type":"EVENT"
+				"type":"WEBHOOK"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":2513,
+				"resourceName":"variable_by_unifyapps_create_variables",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_jTXj4-1",
-			"id":"_g1csG",
-			"index":0,
+			"id":"n_SjKzZ",
+			"index":2,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{},
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"variableName":{
+							"type":"string",
+							"title":"variableName"
+						}
+					},
+					"required":[
+						"variableName"
+					]
+				}
+			},
+			"inputs":{
+				"variableName":"{{ __RUN__.outputs.executionId }}"
+			},
+			"outputSchema":{
+				"dynamic":false,
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"variableName":{
+							"type":"string",
+							"title":"variableName"
+						}
+					},
+					"required":[
+						"variableName"
+					]
+				}
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Variable by UnifyApps",
+			"title":"Create variables",
 			"type":"ACTION"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +118,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
