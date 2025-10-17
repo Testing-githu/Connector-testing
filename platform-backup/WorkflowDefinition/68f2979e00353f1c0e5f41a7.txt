@@ -1,58 +1,228 @@
 {
 	"appsUsed":[
-		
+		"slack"
 	],
 	"createdTime":1760728990540,
 	"deleted":false,
+	"deploymentState":{
+		"deployedAt":1760729012929,
+		"deployedBy":1,
+		"deployedDefinitionId":"68f297b46ab2437612eddb5d",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":2
+	},
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_7dsEq",
+			"fromNodeId":"n_uu2Qe",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_CanAf",
+			"toNodeId":"n_tMQcZ",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_tMQcZ",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_cVYE4",
 			"type":"next"
 		}
 	],
 	"id":"68f2979e00353f1c0e5f41a7",
 	"lastModifiedBy":1,
 	"lcName":"logging_loglevel_check_11760726569902",
-	"modifiedTime":1760728990540,
+	"modifiedTime":1760729062076,
 	"name":"logging_logLevel_check_11760726569902",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2698,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
 			"dirty":false,
 			"fallbackMode":"STOP",
 			"groupId":"_7dsEq-1",
-			"id":"_7dsEq",
-			"index":0,
+			"id":"n_uu2Qe",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"output"
+					],
+					"properties":{
+						"output":{
+							"type":"string",
+							"title":"output"
+						}
+					}
+				},
+				"setup":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"Input1":{
+							"type":"integer",
+							"title":"Input1"
+						},
+						"Input2":{
+							"type":"integer",
+							"title":"Input2"
+						},
+						"Input3":{
+							"type":"integer",
+							"title":"Input3"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"slack",
+				"resourceVersion":8616,
+				"connectionId":"662f8ddb91d8ba4394d0cce6",
+				"resourceName":"slack_post_message_in_channel",
+				"type":"APPLICATION"
+			},
 			"debug":false,
 			"dirty":false,
 			"fallbackMode":"STOP",
 			"groupId":"_7dsEq-1",
-			"id":"_CanAf",
-			"index":0,
+			"id":"n_tMQcZ",
+			"index":2,
+			"inputs":{
+				"link_names":true,
+				"messageType":"text",
+				"channel":"unify-apps",
+				"text":"Test message",
+				"mrkdwn":true
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS"
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":true,
+					"logPolicies":[
+						{
+							"filter":{
+								"filters":[
+									{
+										"filter":{
+											"operator":"EQUAL",
+											"value":"10"
+										},
+										"property":"=VALUE({{ n_uu2Qe.outputs.Input2 }})"
+									}
+								],
+								"operator":"AND"
+							},
+							"level":"DEBUG",
+							"maskedFields":[
+								"n_uu2Qe.outputs.Input1"
+							],
+							"message":"Two Numbers are {{ n_uu2Qe.outputs.Input1 }} {{ n_uu2Qe.outputs.Input2 }} {{ n_tMQcZ.outputs.ok }} ",
+							"onlyOnFailure":false
+						}
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"STOP",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Slack",
+			"title":"Post message",
 			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2701,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"_7dsEq-1",
+			"id":"n_cVYE4",
+			"index":3,
+			"inputs":{
+				"result":{
+					"output":"{{ n_tMQcZ.outputs.ok }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
 		"enableVariableLogging":true,
+		"nodeLogLevel":"TRACE",
 		"route":{
 			"default":false,
+			"headerValueTierMap":{},
 			"tierName":"global"
 		}
 	},
@@ -60,5 +230,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":3
 }
