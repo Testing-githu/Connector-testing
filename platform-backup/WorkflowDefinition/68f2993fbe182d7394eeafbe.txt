@@ -1,52 +1,80 @@
 {
 	"appsUsed":[
-		
+		"slack",
+		"storage_by_unifyapps"
 	],
 	"createdTime":1760729407636,
 	"deleted":false,
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_IpxHt",
+			"fromNodeId":"n_N6P6y",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_SpG5l",
+			"toNodeId":"n_aEJ4C",
 			"type":"next"
 		}
 	],
 	"id":"68f2993fbe182d7394eeafbe",
 	"lastModifiedBy":1,
 	"lcName":"triggerworkflow_117607265846220",
-	"modifiedTime":1760729407636,
+	"modifiedTime":1760729417895,
 	"name":"triggerWorkflow_117607265846220",
 	"nodes":[
 		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":8642,
+				"resourceName":"storage_by_unifyapps_on_update_record"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_IpxHt-1",
-			"id":"_IpxHt",
-			"index":0,
+			"id":"n_N6P6y",
+			"index":1,
+			"inputs":{
+				"object_type":"anrdkxi"
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Storage by UnifyApps",
+			"title":"Updated record",
 			"trigger":{
 				"type":"EVENT"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"slack",
+				"resourceVersion":8617,
+				"connectionId":"662f8ddb91d8ba4394d0cce6",
+				"resourceName":"slack_post_message_in_channel",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_IpxHt-1",
-			"id":"_SpG5l",
-			"index":0,
+			"id":"n_aEJ4C",
+			"index":2,
+			"inputs":{
+				"link_names":true,
+				"messageType":"text",
+				"channel":"C07AKEPN1U3",
+				"text":"{{ n_N6P6y.outputs.id }}{{ n_N6P6y.outputs.properties }}",
+				"mrkdwn":true
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Slack",
+			"title":"Post message",
 			"type":"ACTION"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +88,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
