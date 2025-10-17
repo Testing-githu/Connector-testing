@@ -4,49 +4,144 @@
 	],
 	"createdTime":1760729715015,
 	"deleted":false,
+	"deploymentState":{
+		"deployedAt":1760729726376,
+		"deployedBy":1,
+		"deployedDefinitionId":"68f29a7ebe182d7394eeb60f",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":1
+	},
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_L1gTu",
+			"fromNodeId":"n_Gtvo1",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_60BvA",
+			"toNodeId":"n_Vu5Hr",
 			"type":"next"
 		}
 	],
 	"id":"68f29a736ab2437612edf57b",
 	"lastModifiedBy":1,
 	"lcName":"replace_xml_code_snippet_117607265846640",
-	"modifiedTime":1760729715015,
+	"modifiedTime":1760729736734,
 	"name":"replace_xml_code_snippet_117607265846640",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2699,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_L1gTu-1",
-			"id":"_L1gTu",
-			"index":0,
+			"id":"n_Gtvo1",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"output"
+					],
+					"properties":{
+						"output":{
+							"type":"string",
+							"title":"output"
+						}
+					}
+				},
+				"setup":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"user":{
+							"type":"object",
+							"properties":{
+								"name":{
+									"type":"string",
+									"title":"name"
+								},
+								"email":{
+									"type":"string",
+									"title":"email"
+								},
+								"address":{
+									"type":"object",
+									"properties":{
+										"street":{
+											"type":"string",
+											"title":"street"
+										},
+										"city":{
+											"type":"string",
+											"title":"city"
+										},
+										"zip":{
+											"type":"integer",
+											"title":"zip"
+										}
+									},
+									"title":"address",
+									"additionalProperties":false
+								},
+								"isActive":{
+									"type":"boolean",
+									"title":"isActive"
+								},
+								"roles":{
+									"type":"array",
+									"items":{
+										"type":"string"
+									},
+									"title":"roles"
+								}
+							},
+							"title":"user",
+							"additionalProperties":false
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2702,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_L1gTu-1",
-			"id":"_60BvA",
-			"index":0,
+			"id":"n_Vu5Hr",
+			"index":2,
+			"inputs":{
+				"result":{
+					"output":"cool"
+				}
+			},
 			"skip":false,
-			"title":"Select an app and action",
-			"type":"ACTION"
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		"entity|e_code_snippet|e_68f29a87bdd1b554caf2210b"
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +155,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":2
 }
