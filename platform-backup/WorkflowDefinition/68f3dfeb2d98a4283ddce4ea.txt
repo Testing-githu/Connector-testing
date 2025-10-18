@@ -4,49 +4,189 @@
 	],
 	"createdTime":1760813035047,
 	"deleted":false,
+	"deploymentState":{
+		"deployedAt":1760813046103,
+		"deployedBy":1,
+		"deployedDefinitionId":"68f3dff62d98a4283ddce5a9",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":1
+	},
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_Z5ZLJ",
+			"fromNodeId":"n_ErjBy",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_wpMfI",
+			"toNodeId":"n_yrzx8",
 			"type":"next"
 		}
 	],
 	"id":"68f3dfeb2d98a4283ddce4ea",
 	"lastModifiedBy":1,
 	"lcName":"change_code_snippet_117608129162100",
-	"modifiedTime":1760813035047,
+	"modifiedTime":1760813058820,
 	"name":"change_code_snippet_117608129162100",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2732,
+				"resourceName":"callables_from_api"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_Z5ZLJ-1",
-			"id":"_Z5ZLJ",
-			"index":0,
+			"id":"n_ErjBy",
+			"index":1,
+			"inputs":{
+				"request":{
+					"body":{
+						"type":"object",
+						"additionalProperties":false,
+						"properties":{
+							"name":{
+								"type":"string",
+								"title":"name"
+							},
+							"skills":{
+								"type":"array",
+								"items":{
+									"type":"string"
+								},
+								"title":"skills"
+							},
+							"address":{
+								"type":"object",
+								"properties":{
+									"city":{
+										"type":"string",
+										"title":"city"
+									},
+									"zip":{
+										"type":"integer",
+										"title":"zip"
+									},
+									"country":{
+										"type":"string",
+										"title":"country"
+									}
+								},
+								"title":"address",
+								"additionalProperties":false
+							},
+							"education":{
+								"type":"object",
+								"properties":{
+									"degree":{
+										"type":"string",
+										"title":"degree"
+									},
+									"university":{
+										"type":"string",
+										"title":"university"
+									},
+									"graduationYear":{
+										"type":"integer",
+										"title":"graduationYear"
+									}
+								},
+								"title":"education",
+								"additionalProperties":false
+							},
+							"job":{
+								"type":"object",
+								"properties":{
+									"title":{
+										"type":"string",
+										"title":"title"
+									},
+									"company":{
+										"type":"string",
+										"title":"company"
+									},
+									"experience":{
+										"type":"integer",
+										"title":"experience"
+									},
+									"technologies":{
+										"type":"array",
+										"items":{
+											"type":"string"
+										},
+										"title":"technologies"
+									}
+								},
+								"title":"job",
+								"additionalProperties":false
+							}
+						}
+					},
+					"contentType":"application/json"
+				},
+				"endpointType":"SOAP",
+				"response":[
+					{
+						"name":"success",
+						"status":200,
+						"body":{
+							"type":"object",
+							"additionalProperties":false,
+							"required":[
+								"output"
+							],
+							"properties":{
+								"output":{
+									"type":"string",
+									"title":"output"
+								}
+							}
+						}
+					}
+				],
+				"soapVersion":"v1.2",
+				"streamingResponse":false
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via API",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2734,
+				"resourceName":"callables_return_response_to_api",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_Z5ZLJ-1",
-			"id":"_wpMfI",
-			"index":0,
+			"id":"n_yrzx8",
+			"index":2,
+			"inputs":{
+				"streamingCompleted":true,
+				"responseName":"200_success",
+				"body":{
+					"output":"Success"
+				},
+				"status":200
+			},
 			"skip":false,
-			"title":"Select an app and action",
-			"type":"ACTION"
+			"subTitle":"Callable",
+			"title":"Respond to API request",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		"entity|e_code_snippet|e_68f3e0014db7d82aa4a536e2"
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +200,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":2
 }
