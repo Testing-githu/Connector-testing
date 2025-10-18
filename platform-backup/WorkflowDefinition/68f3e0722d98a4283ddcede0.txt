@@ -4,49 +4,182 @@
 	],
 	"createdTime":1760813170445,
 	"deleted":false,
+	"deploymentState":{
+		"deployedAt":1760813181614,
+		"deployedBy":1,
+		"deployedDefinitionId":"68f3e07d2d98a4283ddcee5e",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":1
+	},
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_gCQio",
+			"fromNodeId":"n_V4Qd0",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_imJ8f",
+			"toNodeId":"n_MDY4r",
 			"type":"next"
 		}
 	],
 	"id":"68f3e0722d98a4283ddcede0",
 	"lastModifiedBy":1,
 	"lcName":"input_schema_all_webhook_params_117608129162100",
-	"modifiedTime":1760813170445,
+	"modifiedTime":1760813193242,
 	"name":"input_schema_all_webhook_params_117608129162100",
 	"nodes":[
 		{
+			"context":{
+				"appName":"webhooks",
+				"resourceVersion":145,
+				"resourceName":"webhooks_default"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_gCQio-1",
-			"id":"_gCQio",
-			"index":0,
+			"id":"n_V4Qd0",
+			"index":1,
+			"inputs":{
+				"request":{
+					"contentType":"application/json",
+					"queryParams":{
+						"type":"object",
+						"additionalProperties":false,
+						"required":[],
+						"properties":{
+							"NumberQuery":{
+								"type":"number",
+								"title":"NumberQuery"
+							},
+							"IntegerQuery":{
+								"type":"integer",
+								"title":"IntegerQuery"
+							}
+						}
+					},
+					"pathParams":{
+						"type":"object",
+						"additionalProperties":false,
+						"required":[],
+						"properties":{
+							"StringPath":{
+								"type":"string",
+								"title":"StringPath"
+							},
+							"NumberPath":{
+								"type":"number",
+								"title":"NumberPath"
+							}
+						}
+					},
+					"headers":{
+						"type":"object",
+						"additionalProperties":false,
+						"required":[],
+						"properties":{
+							"StringHeader":{
+								"type":"string",
+								"title":"StringHeader"
+							},
+							"ArrayStringHeader":{
+								"type":"array",
+								"items":{
+									"type":"string"
+								},
+								"title":"ArrayStringHeader"
+							}
+						}
+					},
+					"body":{
+						"type":"object",
+						"properties":{
+							"IntegerBody":{
+								"type":"integer",
+								"title":"IntegerBody"
+							},
+							"ArrayIntegerBody":{
+								"type":"array",
+								"items":{
+									"type":"integer"
+								},
+								"title":"ArrayIntegerBody"
+							}
+						},
+						"additionalProperties":false,
+						"required":[
+							"IntegerBody",
+							"ArrayIntegerBody"
+						]
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Webhook",
+			"title":"New event",
 			"trigger":{
-				"type":"EVENT"
+				"type":"WEBHOOK"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":2594,
+				"resourceName":"variable_by_unifyapps_create_variables",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_gCQio-1",
-			"id":"_imJ8f",
-			"index":0,
+			"id":"n_MDY4r",
+			"index":2,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{},
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"inputField":{
+							"type":"string",
+							"title":"inputField"
+						}
+					},
+					"required":[
+						"inputField"
+					]
+				}
+			},
+			"inputs":{},
+			"outputSchema":{
+				"dynamic":false,
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"inputField":{
+							"type":"string",
+							"title":"inputField"
+						}
+					},
+					"required":[
+						"inputField"
+					]
+				}
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Variable by UnifyApps",
+			"title":"Create variables",
 			"type":"ACTION"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +193,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":2
 }
