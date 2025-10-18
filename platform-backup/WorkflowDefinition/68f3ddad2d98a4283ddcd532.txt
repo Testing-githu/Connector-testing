@@ -6,46 +6,93 @@
 	"deleted":false,
 	"edges":[
 		{
-			"fromNodeId":"_0tptM",
+			"fromNodeId":"n_tHSqp",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_1iDbB",
+			"toNodeId":"n_Ksj31",
 			"type":"next"
 		}
 	],
 	"id":"68f3ddad2d98a4283ddcd532",
 	"lastModifiedBy":1,
 	"lcName":"excelformulasqa2xmikvkhsnl",
-	"modifiedTime":1760812461017,
+	"modifiedTime":1760812490279,
 	"name":"ExcelFormulasQA2xMIkvkhsNL",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2730,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_0tptM-1",
-			"id":"_0tptM",
-			"index":0,
+			"id":"n_tHSqp",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"r":{
+							"type":"string",
+							"title":"r"
+						}
+					}
+				},
+				"setup":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"a":{
+							"type":"integer",
+							"title":"a"
+						},
+						"b":{
+							"type":"integer",
+							"title":"b"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2733,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_0tptM-1",
-			"id":"_1iDbB",
-			"index":0,
+			"id":"n_Ksj31",
+			"index":2,
+			"inputs":{
+				"result":{
+					"r":"=MOD({{ n_tHSqp.outputs.a }},{{ n_tHSqp.outputs.b }})"
+				}
+			},
 			"skip":false,
-			"title":"Select an app and action",
-			"type":"ACTION"
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -59,5 +106,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
