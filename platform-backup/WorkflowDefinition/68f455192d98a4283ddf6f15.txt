@@ -1,52 +1,228 @@
 {
 	"appsUsed":[
-		
+		"storage_by_unifyapps"
 	],
 	"createdTime":1760843033809,
 	"deleted":false,
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_UavTa",
+			"fromNodeId":"n_Nj6aj",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_oN8NM",
+			"toNodeId":"n_HYTZ3",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_HYTZ3",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_uasjI",
 			"type":"next"
 		}
 	],
 	"id":"68f455192d98a4283ddf6f15",
 	"lastModifiedBy":1,
 	"lcName":"dropcall-mul-modal-117608416684660",
-	"modifiedTime":1760843033809,
+	"modifiedTime":1760843072920,
 	"name":"dropcall-mul-modal-117608416684660",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2780,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_UavTa-1",
-			"id":"_UavTa",
-			"index":0,
+			"id":"n_Nj6aj",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"cursor":{
+							"type":"object",
+							"properties":{
+								"previous":{
+									"type":"string",
+									"title":"previous"
+								}
+							},
+							"title":"cursor",
+							"additionalProperties":false
+						},
+						"objects":{
+							"type":"array",
+							"items":{
+								"type":"object",
+								"properties":{
+									"createdTime":{
+										"type":"integer",
+										"title":"createdTime"
+									},
+									"deleted":{
+										"type":"boolean",
+										"title":"deleted"
+									},
+									"entityType":{
+										"type":"string",
+										"title":"entityType"
+									},
+									"id":{
+										"type":"string",
+										"title":"id"
+									},
+									"lastModifiedBy":{
+										"type":"integer",
+										"title":"lastModifiedBy"
+									},
+									"modifiedTime":{
+										"type":"integer",
+										"title":"modifiedTime"
+									},
+									"ownerUserId":{
+										"type":"integer",
+										"title":"ownerUserId"
+									},
+									"properties":{
+										"type":"object",
+										"properties":{
+											"visible":{
+												"type":"boolean",
+												"title":"visible"
+											},
+											"color":{
+												"type":"string",
+												"title":"color"
+											},
+											"disable":{
+												"type":"boolean",
+												"title":"disable"
+											},
+											"Dropdown_Number":{
+												"type":"integer",
+												"title":"Dropdown_Number"
+											},
+											"icon":{
+												"type":"string",
+												"title":"icon"
+											},
+											"label":{
+												"type":"string",
+												"title":"label"
+											},
+											"value":{
+												"type":"string",
+												"title":"value"
+											}
+										},
+										"title":"properties",
+										"additionalProperties":false
+									},
+									"standard":{
+										"type":"boolean",
+										"title":"standard"
+									},
+									"version":{
+										"type":"integer",
+										"title":"version"
+									}
+								},
+								"additionalProperties":false
+							},
+							"title":"objects"
+						},
+						"hasMore":{
+							"type":"boolean",
+							"title":"hasMore"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":8736,
+				"resourceName":"storage_by_unifyapps_fetch_records",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_UavTa-1",
-			"id":"_oN8NM",
-			"index":0,
+			"id":"n_HYTZ3",
+			"index":2,
+			"inputs":{
+				"object_type":"dnt_analytics_dropdown_table1",
+				"includeRoleMappings":false,
+				"includeCurrentUserPermissions":false,
+				"translationsOption":"DEFAULT",
+				"page":{
+					"paginateBy":"OFFSET",
+					"limit":20
+				},
+				"numberOfRecordsToFetch":"MULTIPLE",
+				"readThroughSessionVariables":false,
+				"includeTotalCount":false
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Storage by UnifyApps",
+			"title":"Fetch records",
 			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2783,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_UavTa-1",
+			"id":"n_uasjI",
+			"index":3,
+			"inputs":{
+				"result":{
+					"objects":{
+						"source":"{{ n_HYTZ3.outputs.objects }}",
+						"ua:type":"mappedArray",
+						"items":{
+							"properties":{
+								"value":"{{ n_HYTZ3.outputs.objects[0].properties.value }}",
+								"visible":"{{ n_HYTZ3.outputs.objects[0].properties.visible }}",
+								"label":"{{ n_HYTZ3.outputs.objects[0].properties.label }}",
+								"icon":"{{ n_HYTZ3.outputs.objects[0].properties.icon }}",
+								"color":"{{ n_HYTZ3.outputs.objects[0].properties.color }}",
+								"disable":"{{ n_HYTZ3.outputs.objects[0].properties.disable }}"
+							}
+						}
+					}
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +236,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":2
 }
