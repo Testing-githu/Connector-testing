@@ -1,51 +1,166 @@
 {
 	"appsUsed":[
-		
+		"gmail"
 	],
 	"createdTime":1760898477569,
 	"deleted":false,
 	"edges":[
 		{
-			"fromNodeId":"_8x1bT",
+			"fromNodeId":"n_2u7oF",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_hfr6S",
+			"toNodeId":"n_HPImW",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_HPImW",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_8E9oj",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_8E9oj",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_NBzDs",
 			"type":"next"
 		}
 	],
 	"id":"68f52dad2d98a4283de2809d",
 	"lastModifiedBy":1,
 	"lcName":"tmqa2lyrodryodc",
-	"modifiedTime":1760898477569,
+	"modifiedTime":1760898524396,
 	"name":"tmQA2LYrodrYODC",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2780,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_8x1bT-1",
-			"id":"_8x1bT",
-			"index":0,
+			"id":"n_2u7oF",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"c":{
+							"type":"string",
+							"title":"c"
+						}
+					}
+				},
+				"setup":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"name_id":{
+							"type":"string",
+							"title":"name_id"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"template_by_unifyapps",
+				"resourceVersion":2374,
+				"resourceName":"template_by_unifyapps_compile_template",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_8x1bT-1",
-			"id":"_hfr6S",
-			"index":0,
+			"id":"n_HPImW",
+			"index":2,
+			"inputs":{
+				"input_schema":{
+					"name_id":"{{ n_2u7oF.outputs.name_id }}"
+				},
+				"template_id":"e_6899d3d7b5fcbddf5f77f55a"
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Template by UnifyApps",
+			"title":"Compile template",
 			"type":"ACTION"
+		},
+		{
+			"additional":{
+				"visibleOptionalFields":[
+					"root.attachments.items.attachment_option",
+					"root.attachments.items.file_name"
+				]
+			},
+			"context":{
+				"appName":"gmail",
+				"resourceVersion":8138,
+				"connectionId":"6876755cca6f1647dd8d2a83",
+				"resourceName":"gmail_send_email",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_8x1bT-1",
+			"id":"n_8E9oj",
+			"index":3,
+			"inputs":{
+				"email_type":"text",
+				"subject":"Good Morning",
+				"to":{
+					"items":"unifyappsdatatransfer@gmail.com",
+					"ua:type":"mappedArray"
+				},
+				"message":"{{ n_HPImW.outputs.output }}"
+			},
+			"skip":false,
+			"subTitle":"Gmail",
+			"title":"Send email",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2783,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_8x1bT-1",
+			"id":"n_NBzDs",
+			"index":4,
+			"inputs":{
+				"result":{
+					"c":"{{ n_8E9oj.outputs.labelIds }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -59,5 +174,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
