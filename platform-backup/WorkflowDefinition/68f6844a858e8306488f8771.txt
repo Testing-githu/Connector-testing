@@ -1,52 +1,164 @@
 {
 	"appsUsed":[
-		
+		"slack"
 	],
 	"createdTime":1760986186698,
 	"deleted":false,
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_Vm0LW",
+			"fromNodeId":"n_RbIwZ",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_ejXRr",
+			"toNodeId":"n_Ijzo8",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_Ijzo8",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_DGDez",
 			"type":"next"
 		}
 	],
 	"id":"68f6844a858e8306488f8771",
 	"lastModifiedBy":1,
 	"lcName":"continue_automation _117609859714700",
-	"modifiedTime":1760986186698,
+	"modifiedTime":1760986196668,
 	"name":"Continue_automation _117609859714700",
 	"nodes":[
 		{
+			"context":{
+				"appName":"webhooks",
+				"resourceVersion":146,
+				"resourceName":"webhooks_default"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_Vm0LW-1",
-			"id":"_Vm0LW",
-			"index":0,
+			"id":"n_RbIwZ",
+			"index":1,
+			"inputs":{
+				"request":{
+					"contentType":"application/json"
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Webhook",
+			"title":"New event",
 			"trigger":{
-				"type":"EVENT"
+				"type":"WEBHOOK"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"slack",
+				"resourceVersion":8795,
+				"connectionId":"662f8ddb91d8ba4394d0cce6",
+				"resourceName":"slack_post_message_in_channel",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
+			"fallbackMode":"CONTINUE",
+			"groupId":"_Vm0LW-1",
+			"id":"n_Ijzo8",
+			"index":2,
+			"inputs":{
+				"link_names":true,
+				"messageType":"text",
+				"channel":"117609859714700",
+				"text":"Test message",
+				"mrkdwn":true
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS"
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"CONTINUE",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
+			},
+			"skip":false,
+			"subTitle":"Slack",
+			"title":"Post message",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"delay",
+				"resourceVersion":149,
+				"resourceName":"delay_for",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_Vm0LW-1",
-			"id":"_ejXRr",
-			"index":0,
+			"id":"n_DGDez",
+			"index":3,
+			"inputs":{
+				"duration":5,
+				"unit":"SECONDS"
+			},
 			"skip":false,
-			"title":"Select an app and action",
-			"type":"ACTION"
+			"subTitle":"Delay",
+			"title":"Set delay duration",
+			"type":"DELAY"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +172,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
