@@ -7,46 +7,190 @@
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_a5hLP",
+			"fromNodeId":"n_G4ZGv",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_qgK0e",
+			"toNodeId":"n_KpN4x",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_KpN4x",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_ZudJm",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_KpN4x",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_ujjRZ",
 			"type":"next"
 		}
 	],
 	"id":"68f68456858e8306488f8874",
 	"lastModifiedBy":1,
 	"lcName":"condition_node_emptyinput_117609859803100",
-	"modifiedTime":1760986198493,
+	"modifiedTime":1760986218807,
 	"name":"condition_node_emptyinput_117609859803100",
 	"nodes":[
 		{
+			"context":{
+				"appName":"webhooks",
+				"resourceVersion":146,
+				"resourceName":"webhooks_default"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_a5hLP-1",
-			"id":"_a5hLP",
-			"index":0,
+			"id":"n_G4ZGv",
+			"index":1,
+			"inputs":{
+				"request":{
+					"contentType":"application/json"
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Webhook",
+			"title":"New event",
 			"trigger":{
-				"type":"EVENT"
+				"type":"WEBHOOK"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":146,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_a5hLP-1",
-			"id":"_qgK0e",
-			"index":0,
+			"id":"n_KpN4x",
+			"index":2,
+			"inputs":{},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":2709,
+				"resourceName":"variable_by_unifyapps_create_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"n_KpN4x@_a5hLP-1@y",
+			"id":"n_ZudJm",
+			"index":3,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{},
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"inputField":{
+							"type":"string",
+							"title":"inputField"
+						}
+					},
+					"required":[
+						"inputField"
+					]
+				}
+			},
+			"inputs":{},
+			"outputSchema":{
+				"dynamic":false,
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"inputField":{
+							"type":"string",
+							"title":"inputField"
+						}
+					},
+					"required":[
+						"inputField"
+					]
+				}
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Create variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":2709,
+				"resourceName":"variable_by_unifyapps_create_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"n_KpN4x@_a5hLP-1@n",
+			"id":"n_ujjRZ",
+			"index":4,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{},
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"outputField":{
+							"type":"string",
+							"title":"outputField"
+						}
+					},
+					"required":[
+						"outputField"
+					]
+				}
+			},
+			"inputs":{},
+			"outputSchema":{
+				"dynamic":false,
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"outputField":{
+							"type":"string",
+							"title":"outputField"
+						}
+					},
+					"required":[
+						"outputField"
+					]
+				}
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Create variables",
 			"type":"ACTION"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +204,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
