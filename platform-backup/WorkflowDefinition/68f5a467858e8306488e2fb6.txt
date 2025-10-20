@@ -1,52 +1,109 @@
 {
 	"appsUsed":[
-		
+		"storage_by_unifyapps"
 	],
 	"createdTime":1760928871927,
 	"deleted":false,
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_msq1V",
+			"fromNodeId":"n_S9lUC",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_D9pl2",
+			"toNodeId":"n_cX2qI",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_cX2qI",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_ucPbw",
 			"type":"next"
 		}
 	],
 	"id":"68f5a467858e8306488e2fb6",
 	"lastModifiedBy":1,
 	"lcName":"batch-label-callable-single-117609280434420",
-	"modifiedTime":1760928871927,
+	"modifiedTime":1760928882317,
 	"name":"batch-label-callable-single-117609280434420",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2834,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_msq1V-1",
-			"id":"_msq1V",
-			"index":0,
+			"id":"n_S9lUC",
+			"index":1,
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":8790,
+				"resourceName":"storage_by_unifyapps_fetch_records",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_msq1V-1",
-			"id":"_D9pl2",
-			"index":0,
+			"id":"n_cX2qI",
+			"index":2,
+			"inputs":{
+				"object_type":"dnt_analytics_dropdown_table1",
+				"includeRoleMappings":false,
+				"includeCurrentUserPermissions":false,
+				"translationsOption":"DEFAULT",
+				"page":{
+					"paginateBy":"OFFSET",
+					"limit":20
+				},
+				"numberOfRecordsToFetch":"MULTIPLE",
+				"readThroughSessionVariables":false,
+				"includeTotalCount":false
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Storage by UnifyApps",
+			"title":"Fetch records",
 			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2837,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_msq1V-1",
+			"id":"n_ucPbw",
+			"index":3,
+			"inputs":{
+				"result":"{{ n_cX2qI.outputs.objects }}"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +117,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
