@@ -1,52 +1,109 @@
 {
 	"appsUsed":[
-		
+		"storage_by_unifyapps"
 	],
 	"createdTime":1761014503604,
 	"deleted":false,
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_uYfcD",
+			"fromNodeId":"n_I4KV9",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_bLtD9",
+			"toNodeId":"n_mcjeP",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_mcjeP",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_H7CAY",
 			"type":"next"
 		}
 	],
 	"id":"68f6f2e7d3494967df1756dc",
 	"lastModifiedBy":1,
 	"lcName":"visible-custom-multi-callable-117610142736920",
-	"modifiedTime":1761014503604,
+	"modifiedTime":1761014516816,
 	"name":"visible-custom-multi-callable-117610142736920",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2928,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_uYfcD-1",
-			"id":"_uYfcD",
-			"index":0,
+			"id":"n_I4KV9",
+			"index":1,
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":8916,
+				"resourceName":"storage_by_unifyapps_fetch_records",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_uYfcD-1",
-			"id":"_bLtD9",
-			"index":0,
+			"id":"n_mcjeP",
+			"index":2,
+			"inputs":{
+				"object_type":"dnt_analytics_dropdown_disable_table1",
+				"includeRoleMappings":false,
+				"includeCurrentUserPermissions":false,
+				"translationsOption":"DEFAULT",
+				"page":{
+					"paginateBy":"OFFSET",
+					"limit":20
+				},
+				"numberOfRecordsToFetch":"MULTIPLE",
+				"readThroughSessionVariables":false,
+				"includeTotalCount":false
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Storage by UnifyApps",
+			"title":"Fetch records",
 			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2931,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_uYfcD-1",
+			"id":"n_H7CAY",
+			"index":3,
+			"inputs":{
+				"result":"{{ n_mcjeP.outputs.objects }}"
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +117,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
