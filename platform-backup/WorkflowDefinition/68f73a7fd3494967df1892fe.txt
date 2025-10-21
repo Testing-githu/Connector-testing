@@ -1,52 +1,121 @@
 {
 	"appsUsed":[
-		
+		"custom_http_application"
 	],
 	"createdTime":1761032831619,
 	"deleted":false,
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_nAGIT",
+			"fromNodeId":"n_Sx9SD",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_0ZFQA",
+			"toNodeId":"n_dG0cb",
 			"type":"next"
 		}
 	],
 	"id":"68f73a7fd3494967df1892fe",
 	"lastModifiedBy":1,
 	"lcName":"customhttpworkflow1_2_117610307400300",
-	"modifiedTime":1761032831619,
+	"modifiedTime":1761032841391,
 	"name":"customHTTPWorkflow1_2_117610307400300",
 	"nodes":[
 		{
+			"context":{
+				"appName":"webhooks",
+				"resourceVersion":147,
+				"resourceName":"webhooks_default"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_nAGIT-1",
-			"id":"_nAGIT",
-			"index":0,
+			"id":"n_Sx9SD",
+			"index":1,
+			"inputs":{
+				"request":{
+					"contentType":"application/json"
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Webhook",
+			"title":"New event",
 			"trigger":{
-				"type":"EVENT"
+				"type":"WEBHOOK"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"custom_http_application",
+				"resourceVersion":6832,
+				"connectionId":"6878d77aae286a785bd91456",
+				"resourceName":"custom_http_application_execute",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_nAGIT-1",
-			"id":"_0ZFQA",
-			"index":0,
+			"id":"n_dG0cb",
+			"index":2,
+			"inputs":{
+				"isAsync":false,
+				"requestTimeoutInSecs":-1,
+				"httpMethod":"POST",
+				"body":{
+					"input":"random"
+				},
+				"sslVerify":true,
+				"path":"/api-endpoint/aqw4gea/a4so0lh",
+				"responseSchema":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"output"
+					],
+					"properties":{
+						"output":{
+							"type":"string",
+							"title":"output"
+						}
+					}
+				},
+				"baseUrl":"https://qa-automation.qa2.unifyapps.com",
+				"httpVersion":"HTTP_2",
+				"bodySchema":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"input"
+					],
+					"properties":{
+						"input":{
+							"type":"string",
+							"title":"input"
+						}
+					}
+				},
+				"responseContentType":"application/json",
+				"headersList":[
+					{
+						"key":"api-token",
+						"value":"1/68f73a79b6610f03f6b46e47"
+					}
+				],
+				"authType":"CUSTOM",
+				"requestContentType":"application/json"
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Custom HTTP Application",
+			"title":"Execute REST Request",
 			"type":"ACTION"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +129,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
