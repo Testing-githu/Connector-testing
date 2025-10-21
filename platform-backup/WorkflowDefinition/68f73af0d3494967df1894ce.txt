@@ -1,52 +1,183 @@
 {
 	"appsUsed":[
-		
+		"custom_http_application"
 	],
 	"createdTime":1761032944308,
 	"deleted":false,
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_l0Cu6",
+			"fromNodeId":"n_fjhxL",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_srkwy",
+			"toNodeId":"n_f4lN4",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_f4lN4",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_dl5jq",
 			"type":"next"
 		}
 	],
 	"id":"68f73af0d3494967df1894ce",
 	"lastModifiedBy":1,
 	"lcName":"httpcustomvalueworkflow1_117610307400300",
-	"modifiedTime":1761032944308,
+	"modifiedTime":1761032960717,
 	"name":"HTTPCustomValueWorkflow1_117610307400300",
 	"nodes":[
 		{
+			"context":{
+				"appName":"webhooks",
+				"resourceVersion":147,
+				"resourceName":"webhooks_default"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_l0Cu6-1",
-			"id":"_l0Cu6",
-			"index":0,
+			"id":"n_fjhxL",
+			"index":1,
+			"inputs":{
+				"request":{
+					"contentType":"application/json"
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Webhook",
+			"title":"New event",
 			"trigger":{
-				"type":"EVENT"
+				"type":"WEBHOOK"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":2782,
+				"resourceName":"variable_by_unifyapps_create_variables",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_l0Cu6-1",
-			"id":"_srkwy",
-			"index":0,
+			"id":"n_f4lN4",
+			"index":2,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{},
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"Method":{
+							"type":"string",
+							"title":"Method"
+						}
+					},
+					"required":[
+						"Method"
+					]
+				}
+			},
+			"inputs":{
+				"Method":"PUT"
+			},
+			"outputSchema":{
+				"dynamic":false,
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"Method":{
+							"type":"string",
+							"title":"Method"
+						}
+					},
+					"required":[
+						"Method"
+					]
+				}
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Variable by UnifyApps",
+			"title":"Create variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"custom_http_application",
+				"resourceVersion":6833,
+				"connectionId":"6878d77aae286a785bd91456",
+				"resourceName":"custom_http_application_execute",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_l0Cu6-1",
+			"id":"n_dl5jq",
+			"index":3,
+			"inputs":{
+				"isAsync":false,
+				"requestTimeoutInSecs":-1,
+				"httpMethod":"{{ n_f4lN4.outputs.Method }}",
+				"body":{
+					"input":"random"
+				},
+				"sslVerify":true,
+				"path":"/api-endpoint/a1ewknv/an2d9mi",
+				"responseSchema":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"output"
+					],
+					"properties":{
+						"output":{
+							"type":"string",
+							"title":"output"
+						}
+					}
+				},
+				"baseUrl":"https://qa-automation.qa2.unifyapps.com",
+				"httpVersion":"HTTP_2",
+				"bodySchema":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"input"
+					],
+					"properties":{
+						"input":{
+							"type":"string",
+							"title":"input"
+						}
+					}
+				},
+				"responseContentType":"application/json",
+				"headersList":[
+					{
+						"key":"api-token",
+						"value":"1/68f73ae8b6610f03f6b46e76"
+					}
+				],
+				"authType":"CUSTOM",
+				"requestContentType":"application/json"
+			},
+			"skip":false,
+			"subTitle":"Custom HTTP Application",
+			"title":"Execute REST Request",
 			"type":"ACTION"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +191,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
