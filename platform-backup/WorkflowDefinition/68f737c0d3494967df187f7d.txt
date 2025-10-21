@@ -1,52 +1,131 @@
 {
 	"appsUsed":[
-		
+		"shopify"
 	],
 	"createdTime":1761032128270,
 	"deleted":false,
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_k2tR1",
+			"fromNodeId":"n_MRrof",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_3mP8G",
+			"toNodeId":"n_tUDLF",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_tUDLF",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_RDtME",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_tUDLF",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_MeCTX",
 			"type":"next"
 		}
 	],
 	"id":"68f737c0d3494967df187f7d",
 	"lastModifiedBy":1,
 	"lcName":"copy condition group 11761030730918",
-	"modifiedTime":1761032128270,
+	"modifiedTime":1761032141176,
 	"name":"copy condition group 11761030730918",
 	"nodes":[
 		{
+			"context":{
+				"appName":"shopify",
+				"resourceVersion":12740,
+				"connectionId":"6798bc9b219ec7180823c4e5",
+				"resourceName":"shopify_on_order_create"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_k2tR1-1",
-			"id":"_k2tR1",
-			"index":0,
+			"id":"n_MRrof",
+			"index":1,
+			"inputs":{},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Shopify",
+			"title":"Order created",
 			"trigger":{
 				"type":"EVENT"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":147,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_k2tR1-1",
-			"id":"_3mP8G",
-			"index":0,
+			"id":"n_tUDLF",
+			"index":2,
+			"inputs":{
+				"filters":[
+					{
+						"property":"{{ n_MRrof.outputs.shipping_address.zip }}{{ n_MRrof.outputs.current_total_discounts_set.shop_money.amount }}{{ n_MRrof.outputs.landing_site }}{{ n_MRrof.outputs.discount_allocations }}",
+						"filter":{
+							"operator":"MISSING"
+						}
+					},
+					{
+						"filters":[
+							{
+								"property":"{{ n_MRrof.outputs.discount_codes[0].amount }}{{ n_MRrof.outputs.tags }}{{ n_MRrof.outputs.deleted_message }}",
+								"filter":{
+									"operator":"ENDS_WITH",
+									"value":"6"
+								}
+							}
+						],
+						"operator":"AND"
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"n_tUDLF@_k2tR1-1@y",
+			"id":"n_RDtME",
+			"index":3,
+			"skip":false,
+			"title":"Select an app and action",
+			"type":"ACTION"
+		},
+		{
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"n_tUDLF@_k2tR1-1@n",
+			"id":"n_MeCTX",
+			"index":4,
 			"skip":false,
 			"title":"Select an app and action",
 			"type":"ACTION"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +139,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":2
 }
