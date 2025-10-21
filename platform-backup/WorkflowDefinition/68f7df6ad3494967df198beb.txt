@@ -1,52 +1,219 @@
 {
 	"appsUsed":[
-		
+		"slack"
 	],
 	"createdTime":1761075050346,
 	"deleted":false,
+	"deploymentState":{
+		"deployedAt":1761075073932,
+		"deployedBy":1,
+		"deployedDefinitionId":"68f7df81d3494967df198ce4",
+		"status":"DEPLOYED",
+		"version":2,
+		"workflowVersion":2
+	},
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_vIaIb",
+			"fromNodeId":"n_lC404",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_htxsS",
+			"toNodeId":"n_FPGRQ",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_FPGRQ",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_k6TEL",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_k6TEL",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_gxDGM",
 			"type":"next"
 		}
 	],
 	"id":"68f7df6ad3494967df198beb",
 	"lastModifiedBy":1,
 	"lcName":"changeversionswhilecomparingtootherversion_117610722997580",
-	"modifiedTime":1761075050346,
+	"modifiedTime":1761075081333,
 	"name":"changeVersionsWhileComparingToOtherVersion_117610722997580",
 	"nodes":[
 		{
+			"context":{
+				"appName":"webhooks",
+				"resourceVersion":147,
+				"resourceName":"webhooks_default"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_vIaIb-1",
-			"id":"_vIaIb",
-			"index":0,
+			"id":"n_lC404",
+			"index":1,
+			"inputs":{
+				"request":{
+					"contentType":"application/json",
+					"body":{
+						"type":"object",
+						"properties":{
+							"input":{
+								"type":"string",
+								"title":"input"
+							}
+						},
+						"additionalProperties":false,
+						"required":[
+							"input"
+						]
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Webhook",
+			"title":"New event",
 			"trigger":{
-				"type":"EVENT"
+				"type":"WEBHOOK"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":2789,
+				"resourceName":"variable_by_unifyapps_create_variables",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_vIaIb-1",
-			"id":"_htxsS",
-			"index":0,
+			"id":"n_FPGRQ",
+			"index":2,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{},
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"inputField":{
+							"type":"string",
+							"title":"inputField"
+						}
+					},
+					"required":[
+						"inputField"
+					]
+				}
+			},
+			"inputs":{},
+			"outputSchema":{
+				"dynamic":false,
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"inputField":{
+							"type":"string",
+							"title":"inputField"
+						}
+					},
+					"required":[
+						"inputField"
+					]
+				}
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Variable by UnifyApps",
+			"title":"Create variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"slack",
+				"resourceVersion":8894,
+				"connectionId":"662f8ddb91d8ba4394d0cce6",
+				"resourceName":"slack_post_message_in_channel",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_vIaIb-1",
+			"id":"n_k6TEL",
+			"index":3,
+			"inputs":{
+				"link_names":true,
+				"mrkdwn":true
+			},
+			"skip":false,
+			"subTitle":"Slack",
+			"title":"Post message",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":2789,
+				"resourceName":"variable_by_unifyapps_create_variables",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_vIaIb-1",
+			"id":"n_gxDGM",
+			"index":4,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{},
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"VariableName":{
+							"type":"string",
+							"title":"VariableName"
+						}
+					},
+					"required":[
+						"VariableName"
+					]
+				}
+			},
+			"inputs":{},
+			"outputSchema":{
+				"dynamic":false,
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"VariableName":{
+							"type":"string",
+							"title":"VariableName"
+						}
+					},
+					"required":[
+						"VariableName"
+					]
+				}
+			},
+			"skip":false,
+			"subTitle":"Variable by UnifyApps",
+			"title":"Create variables",
 			"type":"ACTION"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +227,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":3
 }
