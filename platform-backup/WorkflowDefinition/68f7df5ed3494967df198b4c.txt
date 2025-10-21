@@ -1,52 +1,159 @@
 {
 	"appsUsed":[
-		
+		"slack"
 	],
 	"createdTime":1761075038489,
 	"deleted":false,
+	"deploymentState":{
+		"deployedAt":1761075050154,
+		"deployedBy":1,
+		"deployedDefinitionId":"68f7df69d3494967df198be1",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":1
+	},
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_IrEkh",
+			"fromNodeId":"n_XuNkD",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_4jth3",
+			"toNodeId":"n_ceKC1",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_ceKC1",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_IDQoF",
 			"type":"next"
 		}
 	],
 	"id":"68f7df5ed3494967df198b4c",
 	"lastModifiedBy":1,
 	"lcName":"comparedeployedversions_validateaddednode_117610722997580",
-	"modifiedTime":1761075038489,
+	"modifiedTime":1761075057398,
 	"name":"compareDeployedVersions_validateAddedNode_117610722997580",
 	"nodes":[
 		{
+			"context":{
+				"appName":"webhooks",
+				"resourceVersion":147,
+				"resourceName":"webhooks_default"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_IrEkh-1",
-			"id":"_IrEkh",
-			"index":0,
+			"id":"n_XuNkD",
+			"index":1,
+			"inputs":{
+				"request":{
+					"contentType":"application/json",
+					"body":{
+						"type":"object",
+						"properties":{
+							"input":{
+								"type":"string",
+								"title":"input"
+							}
+						},
+						"additionalProperties":false,
+						"required":[
+							"input"
+						]
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Webhook",
+			"title":"New event",
 			"trigger":{
-				"type":"EVENT"
+				"type":"WEBHOOK"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"variable_by_unifyapps",
+				"resourceVersion":2789,
+				"resourceName":"variable_by_unifyapps_create_variables",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_IrEkh-1",
-			"id":"_4jth3",
-			"index":0,
+			"id":"n_ceKC1",
+			"index":2,
+			"inputSchema":{
+				"type":"SCHEMA_AND_LAYOUT",
+				"dynamic":false,
+				"layout":{},
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"inputField":{
+							"type":"string",
+							"title":"inputField"
+						}
+					},
+					"required":[
+						"inputField"
+					]
+				}
+			},
+			"inputs":{},
+			"outputSchema":{
+				"dynamic":false,
+				"schema":{
+					"additionalProperties":false,
+					"type":"object",
+					"properties":{
+						"inputField":{
+							"type":"string",
+							"title":"inputField"
+						}
+					},
+					"required":[
+						"inputField"
+					]
+				}
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Variable by UnifyApps",
+			"title":"Create variables",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"slack",
+				"resourceVersion":8894,
+				"connectionId":"662f8ddb91d8ba4394d0cce6",
+				"resourceName":"slack_post_message_in_channel",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_IrEkh-1",
+			"id":"n_IDQoF",
+			"index":3,
+			"inputs":{
+				"link_names":true,
+				"mrkdwn":true
+			},
+			"skip":false,
+			"subTitle":"Slack",
+			"title":"Post message",
 			"type":"ACTION"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +167,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":2
 }
