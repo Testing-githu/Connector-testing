@@ -1,52 +1,90 @@
 {
 	"appsUsed":[
-		
+		"storage_by_unifyapps"
 	],
 	"createdTime":1761075135653,
 	"deleted":false,
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_w6J5b",
+			"fromNodeId":"n_glZVZ",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_FwDOz",
+			"toNodeId":"n_AvLBG",
 			"type":"next"
 		}
 	],
 	"id":"68f7dfbfd3494967df198ffd",
 	"lastModifiedBy":1,
 	"lcName":"storage_by_updaterecordsbyquery_mandatory117610723112200",
-	"modifiedTime":1761075135653,
+	"modifiedTime":1761075144020,
 	"name":"Storage_by_UpdateRecordsByQuery_Mandatory117610723112200",
 	"nodes":[
 		{
+			"context":{
+				"appName":"webhooks",
+				"resourceVersion":147,
+				"resourceName":"webhooks_default"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_w6J5b-1",
-			"id":"_w6J5b",
-			"index":0,
+			"id":"n_glZVZ",
+			"index":1,
+			"inputs":{
+				"request":{
+					"contentType":"application/json"
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Webhook",
+			"title":"New event",
 			"trigger":{
-				"type":"EVENT"
+				"type":"WEBHOOK"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"storage_by_unifyapps",
+				"resourceVersion":8925,
+				"resourceName":"storage_by_unifyapps_update_records",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_w6J5b-1",
-			"id":"_FwDOz",
-			"index":0,
+			"id":"n_AvLBG",
+			"index":2,
+			"inputs":{
+				"numberOfRecordsToUpdate":"SINGLE",
+				"object_type":"arly7j",
+				"skipIfBlank":false,
+				"updateFields":[
+					{
+						"fieldName":"properties.number_field",
+						"actionType":"SET",
+						"setValue":"100"
+					}
+				],
+				"page":{
+					"offset":0,
+					"limit":20
+				},
+				"unsetIfNull":false
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Storage by UnifyApps",
+			"title":"Update records by query",
 			"type":"ACTION"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +98,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
