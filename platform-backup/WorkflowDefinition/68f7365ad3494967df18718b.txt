@@ -4,49 +4,184 @@
 	],
 	"createdTime":1761031770197,
 	"deleted":false,
+	"deploymentState":{
+		"deployedAt":1761031780510,
+		"deployedBy":1,
+		"deployedDefinitionId":"68f73664d3494967df1871b8",
+		"status":"DEPLOYED",
+		"version":1,
+		"workflowVersion":1
+	},
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_7ZiiC",
+			"fromNodeId":"n_6ePwq",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_KTYqF",
+			"toNodeId":"n_YvOub",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_YvOub",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_RKZOl",
+			"type":"loop"
+		},
+		{
+			"fromNodeId":"n_RKZOl",
+			"name":"loopback",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_YvOub",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_YvOub",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_gZUpA",
 			"type":"next"
 		}
 	],
 	"id":"68f7365ad3494967df18718b",
 	"lastModifiedBy":1,
 	"lcName":"child automation with while loop 11761030740030",
-	"modifiedTime":1761031770197,
+	"modifiedTime":1761031790497,
 	"name":"Child automation with while loop 11761030740030",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2929,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_7ZiiC-1",
-			"id":"_7ZiiC",
-			"index":0,
+			"id":"n_6ePwq",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"output_String"
+					],
+					"properties":{
+						"output_String":{
+							"type":"string",
+							"title":"output_String"
+						}
+					}
+				},
+				"setup":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"input_String"
+					],
+					"properties":{
+						"input_String":{
+							"type":"string",
+							"title":"input_String"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"loop",
+				"resourceVersion":151,
+				"resourceName":"loop_while",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_7ZiiC-1",
-			"id":"_KTYqF",
-			"index":0,
+			"id":"n_YvOub",
+			"index":2,
+			"inputs":{
+				"condition":{
+					"filters":[
+						{
+							"property":"{{ n_6ePwq.outputs.input_String }}",
+							"filter":{
+								"operator":"EQUAL",
+								"value":"Unifyapps"
+							}
+						}
+					],
+					"operator":"AND"
+				},
+				"captureIterations":false
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Loop",
+			"title":"While loop",
+			"type":"LOOP"
+		},
+		{
+			"context":{
+				"appName":"test_http",
+				"resourceVersion":2790,
+				"connectionId":"66b0ee649c311126267a17b7",
+				"resourceName":"test_http_post_api",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"n_YvOub@_7ZiiC-1@l",
+			"id":"n_RKZOl",
+			"index":3,
+			"inputs":{
+				"field1":"workflow continues",
+				"field2":false
+			},
+			"skip":false,
+			"subTitle":"Test HTTP API",
+			"title":"Test HTTP Post API",
 			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2932,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_7ZiiC-1",
+			"id":"n_gZUpA",
+			"index":4,
+			"inputs":{
+				"result":{
+					"output_String":"{{ n_6ePwq.outputs.input_String }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +195,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":2
 }
