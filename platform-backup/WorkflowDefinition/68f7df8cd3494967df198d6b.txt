@@ -7,46 +7,76 @@
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_sxs0Q",
+			"fromNodeId":"n_4WeJ3",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_chyLR",
+			"toNodeId":"n_EJRbH",
 			"type":"next"
 		}
 	],
 	"id":"68f7df8cd3494967df198d6b",
 	"lastModifiedBy":1,
 	"lcName":"parent callable update schema check workflow 11761072296571",
-	"modifiedTime":1761075084201,
+	"modifiedTime":1761075096110,
 	"name":"parent callable update schema check Workflow 11761072296571",
 	"nodes":[
 		{
+			"context":{
+				"appName":"webhooks",
+				"resourceVersion":147,
+				"resourceName":"webhooks_default"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_sxs0Q-1",
-			"id":"_sxs0Q",
-			"index":0,
+			"id":"n_4WeJ3",
+			"index":1,
+			"inputs":{
+				"request":{
+					"contentType":"application/json"
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Webhook",
+			"title":"New event",
 			"trigger":{
-				"type":"EVENT"
+				"type":"WEBHOOK"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":1154,
+				"resourceName":"callables_call_automation",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_sxs0Q-1",
-			"id":"_chyLR",
-			"index":0,
+			"id":"n_EJRbH",
+			"index":2,
+			"inputs":{
+				"automationId":"68f7df74d3494967df198c58",
+				"runtimeConnections":{},
+				"synchronous":true,
+				"version":"-1",
+				"parameters":{
+					"Input_String":"input entered from parent workflow"
+				}
+			},
 			"skip":false,
-			"title":"Select an app and action",
-			"type":"ACTION"
+			"subTitle":"Callable",
+			"title":"Call automation",
+			"type":"CALL_WORKFLOW"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +90,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
