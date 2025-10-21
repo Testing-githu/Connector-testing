@@ -6,46 +6,93 @@
 	"deleted":false,
 	"edges":[
 		{
-			"fromNodeId":"_A11x9",
+			"fromNodeId":"n_ngmb9",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_R8JN9",
+			"toNodeId":"n_1Oh3e",
 			"type":"next"
 		}
 	],
 	"id":"68f7d271d3494967df18f49c",
 	"lastModifiedBy":1,
 	"lcName":"excelformulasqa2pwtswlsylb",
-	"modifiedTime":1761071729823,
+	"modifiedTime":1761071757448,
 	"name":"ExcelFormulasQA2PWTsWLsylB",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2930,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_A11x9-1",
-			"id":"_A11x9",
-			"index":0,
+			"id":"n_ngmb9",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"r":{
+							"type":"string",
+							"title":"r"
+						}
+					}
+				},
+				"setup":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"a":{
+							"type":"string",
+							"title":"a"
+						},
+						"k":{
+							"type":"number",
+							"title":"k"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2933,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_A11x9-1",
-			"id":"_R8JN9",
-			"index":0,
+			"id":"n_1Oh3e",
+			"index":2,
+			"inputs":{
+				"result":{
+					"r":"=PERCENTILE({1,2,3,4,5},{{ n_ngmb9.outputs.k }})"
+				}
+			},
 			"skip":false,
-			"title":"Select an app and action",
-			"type":"ACTION"
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -59,5 +106,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
