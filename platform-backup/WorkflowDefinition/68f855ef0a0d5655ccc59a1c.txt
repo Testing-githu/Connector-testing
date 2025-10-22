@@ -6,46 +6,119 @@
 	"deleted":false,
 	"edges":[
 		{
-			"fromNodeId":"_IX2zN",
+			"fromNodeId":"n_Mlht5",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_3EmNM",
+			"toNodeId":"n_1ebXK",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_1ebXK",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_VjAeu",
 			"type":"next"
 		}
 	],
 	"id":"68f855ef0a0d5655ccc59a1c",
 	"lastModifiedBy":1,
 	"lcName":"utilitybyunifyappsqa2vmsefatgcl",
-	"modifiedTime":1761105391640,
+	"modifiedTime":1761105431421,
 	"name":"UtilityByUnifyAppsQA2VmSEfAtgcL",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":3007,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_IX2zN-1",
-			"id":"_IX2zN",
-			"index":0,
+			"id":"n_Mlht5",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"r":{
+							"type":"string",
+							"title":"r"
+						}
+					}
+				},
+				"setup":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"a":{
+							"type":"string",
+							"title":"a"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"utility_by_unifyapps",
+				"resourceVersion":4140,
+				"resourceName":"utility_by_unifyapps_change_text_encoding",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_IX2zN-1",
-			"id":"_3EmNM",
-			"index":0,
+			"id":"n_1ebXK",
+			"index":2,
+			"inputs":{
+				"newEncoding":"utf16",
+				"text":"{{ n_Mlht5.outputs.a }}",
+				"currentEncoding":"base64"
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Utility by UnifyApps",
+			"title":"Change text encoding",
 			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":3010,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_IX2zN-1",
+			"id":"n_VjAeu",
+			"index":3,
+			"inputs":{
+				"result":{
+					"r":"{{ n_1ebXK.outputs.result }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -59,5 +132,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
