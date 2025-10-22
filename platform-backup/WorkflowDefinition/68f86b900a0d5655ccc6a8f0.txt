@@ -30,6 +30,22 @@
 			"type":"error"
 		},
 		{
+			"fromNodeId":"n_dFj5F",
+			"name":"success",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_YyjfD",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_dFj5F",
+			"name":"error",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_riUVj",
+			"type":"error"
+		},
+		{
 			"fromNodeId":"n_LYq6Z",
 			"priority":0,
 			"skip":false,
@@ -37,7 +53,14 @@
 			"type":"next"
 		},
 		{
-			"fromNodeId":"n_dFj5F",
+			"fromNodeId":"n_YyjfD",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_IVZ7N",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_riUVj",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_IVZ7N",
@@ -47,7 +70,7 @@
 	"id":"68f86b900a0d5655ccc6a8f0",
 	"lastModifiedBy":1,
 	"lcName":"cacheqa2roliogycqj",
-	"modifiedTime":1761110983411,
+	"modifiedTime":1761111017507,
 	"name":"cacheQA2ROLiOgycqj",
 	"nodes":[
 		{
@@ -57,7 +80,7 @@
 				"resourceName":"callables_from_automation"
 			},
 			"debug":false,
-			"dirty":true,
+			"dirty":false,
 			"fallbackMode":"STOP",
 			"groupId":"_hV4k7-1",
 			"id":"n_hdI4K",
@@ -121,7 +144,7 @@
 				"type":"APPLICATION"
 			},
 			"debug":false,
-			"dirty":true,
+			"dirty":false,
 			"fallbackMode":"MANUAL",
 			"groupId":"_hV4k7-1",
 			"id":"n_GopeD",
@@ -197,7 +220,7 @@
 				"type":"APPLICATION"
 			},
 			"debug":false,
-			"dirty":true,
+			"dirty":false,
 			"fallbackMode":"STOP",
 			"groupId":"n_GopeD@_hV4k7-1@success",
 			"id":"n_LYq6Z",
@@ -221,16 +244,114 @@
 			},
 			"debug":false,
 			"dirty":true,
-			"fallbackMode":"STOP",
+			"fallbackMode":"MANUAL",
 			"groupId":"n_GopeD@_hV4k7-1@error",
 			"id":"n_dFj5F",
 			"index":4,
 			"inputs":{
 				"contactId":"{{ n_hdI4K.outputs.contactId }}"
 			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS"
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"MANUAL",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
+			},
 			"skip":false,
 			"subTitle":"Freshdesk",
 			"title":"Get contact",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"freshdesk",
+				"resourceVersion":11167,
+				"connectionId":"673ff5643994b6126ba5c516",
+				"resourceName":"freshdesk_get_contact",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"n_dFj5F@n_GopeD@_hV4k7-1@error@success",
+			"id":"n_YyjfD",
+			"index":5,
+			"inputs":{
+				"contactId":"{{ n_hdI4K.outputs.contactIdTwo }}"
+			},
+			"skip":false,
+			"subTitle":"Freshdesk",
+			"title":"Get contact",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"freshdesk",
+				"resourceVersion":11167,
+				"connectionId":"673ff5643994b6126ba5c516",
+				"resourceName":"freshdesk_get_company",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"n_dFj5F@n_GopeD@_hV4k7-1@error@error",
+			"id":"n_riUVj",
+			"index":6,
+			"inputs":{
+				"companyId":"{{ n_hdI4K.outputs.companyIdTwo }}"
+			},
+			"skip":false,
+			"subTitle":"Freshdesk",
+			"title":"Get company",
 			"type":"ACTION"
 		},
 		{
@@ -241,11 +362,11 @@
 				"type":"APPLICATION"
 			},
 			"debug":false,
-			"dirty":true,
+			"dirty":false,
 			"fallbackMode":"STOP",
 			"groupId":"_hV4k7-1",
 			"id":"n_IVZ7N",
-			"index":5,
+			"index":7,
 			"inputs":{
 				"result":{
 					"result":"{{ n_dFj5F.outputs.name }}"
@@ -274,5 +395,5 @@
 	"tags":[
 		
 	],
-	"version":1
+	"version":2
 }
