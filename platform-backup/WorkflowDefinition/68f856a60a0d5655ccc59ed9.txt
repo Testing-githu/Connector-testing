@@ -6,46 +6,122 @@
 	"deleted":false,
 	"edges":[
 		{
-			"fromNodeId":"_5CgM4",
+			"fromNodeId":"n_67PNI",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_y5yeM",
+			"toNodeId":"n_TZjyc",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_TZjyc",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_RlndE",
 			"type":"next"
 		}
 	],
 	"id":"68f856a60a0d5655ccc59ed9",
 	"lastModifiedBy":1,
 	"lcName":"utilitybyunifyappsqa2bximpyovzj",
-	"modifiedTime":1761105574704,
+	"modifiedTime":1761105611833,
 	"name":"UtilityByUnifyAppsQA2bXIMPyoVzJ",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":3007,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_5CgM4-1",
-			"id":"_5CgM4",
-			"index":0,
+			"id":"n_67PNI",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"r":{
+							"type":"string",
+							"title":"r"
+						}
+					}
+				},
+				"setup":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"a":{
+							"type":"array",
+							"items":{
+								"type":"number"
+							},
+							"title":"a"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"utility_by_unifyapps",
+				"resourceVersion":4105,
+				"resourceName":"utility_by_unifyapps_get_value_at_index_from_list",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_5CgM4-1",
-			"id":"_y5yeM",
-			"index":0,
+			"id":"n_TZjyc",
+			"index":2,
+			"inputs":{
+				"positionFrom":"START",
+				"listSource":"{{ n_67PNI.outputs.a }}",
+				"elementPosition":3
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Utility by UnifyApps",
+			"title":"Get value at index from list",
 			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":3010,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_5CgM4-1",
+			"id":"n_RlndE",
+			"index":3,
+			"inputs":{
+				"result":{
+					"r":"{{ n_TZjyc.outputs.item }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -59,5 +135,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
