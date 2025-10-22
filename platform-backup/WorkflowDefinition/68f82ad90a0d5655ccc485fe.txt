@@ -7,46 +7,107 @@
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_llrXo",
+			"fromNodeId":"n_sqZh3",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_DsmVm",
+			"toNodeId":"n_sugWA",
 			"type":"next"
 		}
 	],
 	"id":"68f82ad90a0d5655ccc485fe",
 	"lastModifiedBy":1,
 	"lcName":"callablecondition_31_11761093370270",
-	"modifiedTime":1761094361743,
+	"modifiedTime":1761094386707,
 	"name":"CallableCondition_31_11761093370270",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2993,
+				"resourceName":"callables_from_automation_streaming"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_llrXo-1",
-			"id":"_llrXo",
-			"index":0,
+			"id":"n_sqZh3",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"output_Number"
+					],
+					"properties":{
+						"output_Number":{
+							"type":"number",
+							"title":"output_Number"
+						}
+					}
+				},
+				"triggerInputCondition":{
+					"filters":[
+						{
+							"property":"{{ n_sqZh3.outputs.input_Number }}",
+							"filter":{
+								"operator":"MISSING"
+							}
+						}
+					],
+					"operator":"AND"
+				},
+				"setup":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"input_Number"
+					],
+					"properties":{
+						"input_Number":{
+							"type":"number",
+							"title":"input_Number"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation (Streaming responses)",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2993,
+				"resourceName":"callables_return_to_automation_streaming",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_llrXo-1",
-			"id":"_DsmVm",
-			"index":0,
+			"id":"n_sugWA",
+			"index":2,
+			"inputs":{
+				"result":{
+					"output_Number":"{{ n_sqZh3.outputs.input_Number }}"
+				},
+				"completed":false
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Callable",
+			"title":"Add response to automation stream",
 			"type":"ACTION"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +121,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
