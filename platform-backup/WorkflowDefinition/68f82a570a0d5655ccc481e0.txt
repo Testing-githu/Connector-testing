@@ -7,46 +7,140 @@
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_1Pr3K",
+			"fromNodeId":"n_Ss9C5",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_L6zfy",
+			"toNodeId":"n_WBkty",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_WBkty",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_l5crm",
 			"type":"next"
 		}
 	],
 	"id":"68f82a570a0d5655ccc481e0",
 	"lastModifiedBy":1,
 	"lcName":"streambyunifyapps_publish event to stream at_117610933702700",
-	"modifiedTime":1761094231911,
+	"modifiedTime":1761094266304,
 	"name":"StreamByUnifyApps_Publish event to stream at_117610933702700",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2991,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_1Pr3K-1",
-			"id":"_1Pr3K",
-			"index":0,
+			"id":"n_Ss9C5",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"Output"
+					],
+					"properties":{
+						"Output":{
+							"type":"string",
+							"title":"Output"
+						}
+					}
+				},
+				"setup":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"Name":{
+							"type":"string",
+							"title":"Name"
+						},
+						"Age":{
+							"type":"integer",
+							"title":"Age"
+						},
+						"Profession":{
+							"type":"string",
+							"title":"Profession"
+						},
+						"Datetime":{
+							"type":"string",
+							"title":"Datetime"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"streams_by_unifyapps",
+				"resourceVersion":2988,
+				"resourceName":"streams_by_unifyapps_publish_event_at",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_1Pr3K-1",
-			"id":"_L6zfy",
-			"index":0,
+			"id":"n_WBkty",
+			"index":2,
+			"inputs":{
+				"publishTime":"{{ n_Ss9C5.outputs.Datetime }}",
+				"streamId":"e_68f82a137714cd6e0d4bbe5b",
+				"skipInputValidation":false,
+				"event":{
+					"Name":"{{ n_Ss9C5.outputs.Name }}",
+					"Age":"{{ n_Ss9C5.outputs.Age }}",
+					"Profession":"{{ n_Ss9C5.outputs.Profession }}",
+					"Datetime":"{{ n_Ss9C5.outputs.Datetime }}"
+				}
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Streams by UnifyApps",
+			"title":"Publish event to stream at",
 			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2994,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_1Pr3K-1",
+			"id":"n_l5crm",
+			"index":3,
+			"inputs":{
+				"result":{
+					"Output":"{{ n_WBkty.outputs.success }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +154,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
