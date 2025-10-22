@@ -6,46 +6,119 @@
 	"deleted":false,
 	"edges":[
 		{
-			"fromNodeId":"_g7WKr",
+			"fromNodeId":"n_JY2Sj",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_o41Lk",
+			"toNodeId":"n_X9wNZ",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_X9wNZ",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_8xHTw",
 			"type":"next"
 		}
 	],
 	"id":"68f855450a0d5655ccc59550",
 	"lastModifiedBy":1,
 	"lcName":"utilitybyunifyappsqa2xpslywlpoj",
-	"modifiedTime":1761105221413,
+	"modifiedTime":1761105260516,
 	"name":"UtilityByUnifyAppsQA2XPSLywLPOJ",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":3007,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_g7WKr-1",
-			"id":"_g7WKr",
-			"index":0,
+			"id":"n_JY2Sj",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"r":{
+							"type":"string",
+							"title":"r"
+						}
+					}
+				},
+				"setup":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"a":{
+							"type":"string",
+							"title":"a"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"utility_by_unifyapps",
+				"resourceVersion":4140,
+				"resourceName":"utility_by_unifyapps_perform_hashing",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_g7WKr-1",
-			"id":"_o41Lk",
-			"index":0,
+			"id":"n_X9wNZ",
+			"index":2,
+			"inputs":{
+				"data":"{{ n_JY2Sj.outputs.a }}",
+				"dataType":"STRING",
+				"algorithm":"MD5"
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Utility by UnifyApps",
+			"title":"Perform hashing",
 			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":3010,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_g7WKr-1",
+			"id":"n_8xHTw",
+			"index":3,
+			"inputs":{
+				"result":{
+					"r":"{{ n_X9wNZ.outputs.hashedData }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -59,5 +132,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
