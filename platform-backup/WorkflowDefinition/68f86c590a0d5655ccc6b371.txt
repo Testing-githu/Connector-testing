@@ -23,7 +23,7 @@
 	"id":"68f86c590a0d5655ccc6b371",
 	"lastModifiedBy":1,
 	"lcName":"fetch_calendar_events",
-	"modifiedTime":1761112308141,
+	"modifiedTime":1761112475612,
 	"name":"fetch_calendar_events",
 	"nodes":[
 		{
@@ -236,16 +236,17 @@
 								"allDay":"{{ n_aCCQ4.outputs.events[0].properties.allDay }}",
 								"end":{
 									"date":"{{ n_aCCQ4.outputs.events[0].properties.end.date }}",
-									"dateTime":"{{ n_aCCQ4.outputs.events[0].properties.end.dateTime }}"
+									"dateTime":"=IF(ISBLANK({{ n_aCCQ4.outputs.events[0].properties.end.dateTime }}),{{ n_aCCQ4.outputs.events[0].properties.end.date }},{{ n_aCCQ4.outputs.events[0].properties.end.dateTime }})"
 								},
 								"start":{
 									"date":"{{ n_aCCQ4.outputs.events[0].properties.start.date }}",
-									"dateTime":"{{ n_aCCQ4.outputs.events[0].properties.start.dateTime }}"
+									"dateTime":"=IF(ISBLANK({{ n_aCCQ4.outputs.events[0].properties.start.dateTime }}),{{ n_aCCQ4.outputs.events[0].properties.start.date }},{{ n_aCCQ4.outputs.events[0].properties.start.dateTime }})"
 								},
 								"summary":"{{ n_aCCQ4.outputs.events[0].properties.summary }}",
 								"userIDs":{
 									"source":"{{ n_aCCQ4.outputs.events[0].properties.userIds }}",
-									"ua:type":"mappedArray"
+									"ua:type":"mappedArray",
+									"items":"{{ n_aCCQ4.outputs.events[0].properties.userIds[0] }}"
 								},
 								"description":"{{ n_aCCQ4.outputs.events[0].properties.description }}",
 								"location":"{{ n_aCCQ4.outputs.events[0].properties.location }}",
@@ -281,5 +282,5 @@
 	"tags":[
 		
 	],
-	"version":4
+	"version":5
 }
