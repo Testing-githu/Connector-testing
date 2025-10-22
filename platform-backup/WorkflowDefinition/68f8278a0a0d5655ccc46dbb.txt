@@ -7,46 +7,112 @@
 	"description":"description",
 	"edges":[
 		{
-			"fromNodeId":"_9mYkG",
+			"fromNodeId":"n_Bibg7",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_LXuuS",
+			"toNodeId":"n_eRx1U",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_eRx1U",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_fH90M",
 			"type":"next"
 		}
 	],
 	"id":"68f8278a0a0d5655ccc46dbb",
 	"lastModifiedBy":1,
 	"lcName":"childnode-retryerror-117610933702700",
-	"modifiedTime":1761093514305,
+	"modifiedTime":1761093531911,
 	"name":"childnode-retryerror-117610933702700",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2991,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_9mYkG-1",
-			"id":"_9mYkG",
-			"index":0,
+			"id":"n_Bibg7",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[
+						"input_String"
+					],
+					"properties":{
+						"input_String":{
+							"type":"string",
+							"title":"input_String"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"test_http",
+				"resourceVersion":2853,
+				"connectionId":"66b0ee649c311126267a17b7",
+				"resourceName":"test_http_post_api",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_9mYkG-1",
-			"id":"_LXuuS",
-			"index":0,
+			"id":"n_eRx1U",
+			"index":2,
+			"inputs":{
+				"field1":"success",
+				"field2":true
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Test HTTP API",
+			"title":"Test HTTP Post API",
 			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":2994,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_9mYkG-1",
+			"id":"n_fH90M",
+			"index":3,
+			"inputs":{
+				"result":{
+					"input_String":"2"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -60,5 +126,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
