@@ -1,51 +1,202 @@
 {
 	"appsUsed":[
-		
+		"slack"
 	],
 	"createdTime":1761105319411,
 	"deleted":false,
 	"edges":[
 		{
-			"fromNodeId":"_4OIHx",
+			"fromNodeId":"n_r6xuV",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_DFuZZ",
+			"toNodeId":"n_CwJIB",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_CwJIB",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_zigUK",
 			"type":"next"
 		}
 	],
 	"id":"68f855a70a0d5655ccc5981e",
 	"lastModifiedBy":1,
 	"lcName":"cacheqa2ewyhdqiqgu",
-	"modifiedTime":1761105319411,
+	"modifiedTime":1761105360710,
 	"name":"cacheQA2EwYHdqIQgU",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":3007,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_4OIHx-1",
-			"id":"_4OIHx",
-			"index":0,
+			"id":"n_r6xuV",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"message":{
+							"type":"string",
+							"title":"message"
+						},
+						"inputmessage":{
+							"type":"string",
+							"title":"inputmessage"
+						}
+					}
+				},
+				"setup":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"channel":{
+							"type":"string",
+							"title":"channel"
+						},
+						"purpose":{
+							"type":"string",
+							"title":"purpose"
+						},
+						"message":{
+							"type":"string",
+							"title":"message"
+						},
+						"messagetwo":{
+							"type":"string",
+							"title":"messagetwo"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"slack",
+				"resourceVersion":8977,
+				"connectionId":"682adda0b3d1743888ec45db",
+				"resourceName":"slack_conversation_set_purpose",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_4OIHx-1",
-			"id":"_DFuZZ",
-			"index":0,
+			"id":"n_CwJIB",
+			"index":2,
+			"inputs":{
+				"purpose":"{{ n_r6xuV.outputs.purpose }}",
+				"channel":"{{ n_r6xuV.outputs.channel }}"
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS"
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":true,
+					"logPolicies":[
+						{
+							"level":"ERROR",
+							"maskedFields":[
+								
+							],
+							"message":"{{ n_r6xuV.outputs.message }}",
+							"onlyOnFailure":false
+						}
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"STOP",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Slack",
+			"title":"Set conversation purpose",
 			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":3010,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_4OIHx-1",
+			"id":"n_zigUK",
+			"index":3,
+			"inputs":{
+				"result":{
+					"message":"{{ n_CwJIB.outputs.channel }}",
+					"inputmessage":"{{ n_r6xuV.outputs.message }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -59,5 +210,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
