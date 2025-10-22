@@ -6,46 +6,118 @@
 	"deleted":false,
 	"edges":[
 		{
-			"fromNodeId":"_LJm1W",
+			"fromNodeId":"n_H6BkP",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_iWzeR",
+			"toNodeId":"n_AzFpb",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_AzFpb",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_u2pEF",
 			"type":"next"
 		}
 	],
 	"id":"68f857650a0d5655ccc5a425",
 	"lastModifiedBy":1,
 	"lcName":"utilitybyunifyappsqa2dmmfwinvba",
-	"modifiedTime":1761105765734,
+	"modifiedTime":1761105800003,
 	"name":"UtilityByUnifyAppsQA2dMMFwInvBA",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":3007,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_LJm1W-1",
-			"id":"_LJm1W",
-			"index":0,
+			"id":"n_H6BkP",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"r":{
+							"type":"string",
+							"title":"r"
+						}
+					}
+				},
+				"setup":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"r":{
+							"type":"string",
+							"title":"r"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"utility_by_unifyapps",
+				"resourceVersion":4140,
+				"resourceName":"utility_by_unifyapps_from_html_to_plain_text",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_LJm1W-1",
-			"id":"_iWzeR",
-			"index":0,
+			"id":"n_AzFpb",
+			"index":2,
+			"inputs":{
+				"conversionType":"markdown",
+				"htmlString":"<p>Logo: <img src='logo.png' alt='Company Logo'/></p>"
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Utility by UnifyApps",
+			"title":"Convert HTML to text",
 			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":3010,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_LJm1W-1",
+			"id":"n_u2pEF",
+			"index":3,
+			"inputs":{
+				"result":{
+					"r":"{{ n_AzFpb.outputs.convertedText }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -59,5 +131,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
