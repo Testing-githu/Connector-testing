@@ -6,46 +6,119 @@
 	"deleted":false,
 	"edges":[
 		{
-			"fromNodeId":"_LUqyT",
+			"fromNodeId":"n_j6P7m",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_KwtKa",
+			"toNodeId":"n_cpnK8",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_cpnK8",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_2CMi7",
 			"type":"next"
 		}
 	],
 	"id":"68f856dd0a0d5655ccc5a053",
 	"lastModifiedBy":1,
 	"lcName":"utilitybyunifyappsqa2gnbrsbwtbj",
-	"modifiedTime":1761105629804,
+	"modifiedTime":1761105668129,
 	"name":"UtilityByUnifyAppsQA2GNbrsBwtbj",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":3007,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_LUqyT-1",
-			"id":"_LUqyT",
-			"index":0,
+			"id":"n_j6P7m",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"r":{
+							"type":"string",
+							"title":"r"
+						}
+					}
+				},
+				"setup":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"a":{
+							"type":"string",
+							"title":"a"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"utility_by_unifyapps",
+				"resourceVersion":4136,
+				"resourceName":"utility_by_unifyapps_generate_uuid",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_LUqyT-1",
-			"id":"_KwtKa",
-			"index":0,
+			"id":"n_cpnK8",
+			"index":2,
+			"inputs":{
+				"uuidVersion":"name_based_sha1",
+				"namespace":"unifyapps.com",
+				"noOfUUIDs":5
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Utility by UnifyApps",
+			"title":"Generate UUID of different versions",
 			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":3010,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_LUqyT-1",
+			"id":"n_2CMi7",
+			"index":3,
+			"inputs":{
+				"result":{
+					"r":"{{ n_cpnK8.outputs.uuids }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -59,5 +132,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
