@@ -29,6 +29,22 @@
 			"type":"error"
 		},
 		{
+			"fromNodeId":"n_0TAsN",
+			"name":"success",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_rxYss",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_0TAsN",
+			"name":"error",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_UCxFl",
+			"type":"error"
+		},
+		{
 			"fromNodeId":"n_HDEpV",
 			"priority":0,
 			"skip":false,
@@ -36,7 +52,14 @@
 			"type":"next"
 		},
 		{
-			"fromNodeId":"n_0TAsN",
+			"fromNodeId":"n_rxYss",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_hlJHV",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_UCxFl",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_hlJHV",
@@ -46,7 +69,7 @@
 	"id":"68f86b600a0d5655ccc6a64d",
 	"lastModifiedBy":1,
 	"lcName":"cacheqa2cblixjfwwr",
-	"modifiedTime":1761110952331,
+	"modifiedTime":1761111010427,
 	"name":"cacheQA2cBliXJfwwr",
 	"nodes":[
 		{
@@ -56,7 +79,7 @@
 				"resourceName":"callables_from_automation"
 			},
 			"debug":false,
-			"dirty":true,
+			"dirty":false,
 			"fallbackMode":"STOP",
 			"groupId":"_azc3B-1",
 			"id":"n_0qk4m",
@@ -103,7 +126,7 @@
 				"type":"APPLICATION"
 			},
 			"debug":false,
-			"dirty":true,
+			"dirty":false,
 			"fallbackMode":"MANUAL",
 			"groupId":"_azc3B-1",
 			"id":"n_6c7gT",
@@ -133,7 +156,161 @@
 						}
 					}
 				},
-				"code":"let ans={};\nans['c']=a+b;",
+				"code":"let ans={};\nans['c']=a+bb;",
+				"isAsync":false,
+				"parameters":{
+					"a":"{{ n_0qk4m.outputs.a }}",
+					"b":"{{ n_0qk4m.outputs.b }}"
+				}
+			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS"
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"MANUAL",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Javascript",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":2809,
+				"resourceName":"code_by_unifyapps_java",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":false,
+			"fallbackMode":"STOP",
+			"groupId":"n_6c7gT@_azc3B-1@success",
+			"id":"n_HDEpV",
+			"index":3,
+			"inputs":{
+				"output":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"d":{
+							"type":"integer",
+							"title":"d"
+						}
+					}
+				},
+				"input":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"a":{
+							"type":"integer",
+							"title":"a"
+						},
+						"b":{
+							"type":"integer",
+							"title":"b"
+						}
+					}
+				},
+				"code":"d=a*b;",
+				"captureStdOutput":false,
+				"parameters":{
+					"a":"{{ n_0qk4m.outputs.a }}",
+					"b":"{{ n_0qk4m.outputs.b }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Java code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":2807,
+				"resourceName":"code_by_unifyapps_javascript",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"MANUAL",
+			"groupId":"n_6c7gT@_azc3B-1@error",
+			"id":"n_0TAsN",
+			"index":4,
+			"inputs":{
+				"output":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"e":{
+							"type":"integer",
+							"title":"e"
+						}
+					}
+				},
+				"input":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"a":{
+							"type":"integer",
+							"title":"a"
+						},
+						"b":{
+							"type":"integer",
+							"title":"b"
+						}
+					}
+				},
+				"code":"e=a-b;",
 				"isAsync":false,
 				"parameters":{
 					"a":"{{ n_0qk4m.outputs.a }}",
@@ -209,9 +386,9 @@
 			"debug":false,
 			"dirty":true,
 			"fallbackMode":"STOP",
-			"groupId":"n_6c7gT@_azc3B-1@success",
-			"id":"n_HDEpV",
-			"index":3,
+			"groupId":"n_0TAsN@n_6c7gT@_azc3B-1@error@success",
+			"id":"n_rxYss",
+			"index":5,
 			"inputs":{
 				"output":{
 					"type":"object",
@@ -237,7 +414,7 @@
 						}
 					}
 				},
-				"code":"d=a*b;",
+				"code":"d=a*a;",
 				"captureStdOutput":false,
 				"parameters":{
 					"a":"{{ n_0qk4m.outputs.a }}",
@@ -252,16 +429,16 @@
 		{
 			"context":{
 				"appName":"code_by_unifyapps",
-				"resourceVersion":2807,
-				"resourceName":"code_by_unifyapps_javascript",
+				"resourceVersion":2809,
+				"resourceName":"code_by_unifyapps_java",
 				"type":"APPLICATION"
 			},
 			"debug":false,
 			"dirty":true,
 			"fallbackMode":"STOP",
-			"groupId":"n_6c7gT@_azc3B-1@error",
-			"id":"n_0TAsN",
-			"index":4,
+			"groupId":"n_0TAsN@n_6c7gT@_azc3B-1@error@error",
+			"id":"n_UCxFl",
+			"index":6,
 			"inputs":{
 				"output":{
 					"type":"object",
@@ -287,8 +464,8 @@
 						}
 					}
 				},
-				"code":"e=a-b;",
-				"isAsync":false,
+				"code":"e=b*b;",
+				"captureStdOutput":false,
 				"parameters":{
 					"a":"{{ n_0qk4m.outputs.a }}",
 					"b":"{{ n_0qk4m.outputs.b }}"
@@ -296,7 +473,7 @@
 			},
 			"skip":false,
 			"subTitle":"Code by UnifyApps",
-			"title":"Execute Javascript",
+			"title":"Execute Java code",
 			"type":"ACTION"
 		},
 		{
@@ -307,11 +484,11 @@
 				"type":"APPLICATION"
 			},
 			"debug":false,
-			"dirty":true,
+			"dirty":false,
 			"fallbackMode":"STOP",
 			"groupId":"_azc3B-1",
 			"id":"n_hlJHV",
-			"index":5,
+			"index":7,
 			"inputs":{
 				"result":{
 					"c":"{{ n_HDEpV.outputs.result }}"
@@ -340,5 +517,5 @@
 	"tags":[
 		
 	],
-	"version":1
+	"version":3
 }
