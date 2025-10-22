@@ -21,6 +21,22 @@
 			"type":"next"
 		},
 		{
+			"fromNodeId":"n_4OljF",
+			"name":"success",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_sgSc0",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_4OljF",
+			"name":"error",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_t2Ya1",
+			"type":"error"
+		},
+		{
 			"fromNodeId":"n_hJtA9",
 			"name":"error",
 			"priority":0,
@@ -29,7 +45,14 @@
 			"type":"error"
 		},
 		{
-			"fromNodeId":"n_4OljF",
+			"fromNodeId":"n_sgSc0",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_JdXe5",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_t2Ya1",
 			"priority":0,
 			"skip":false,
 			"toNodeId":"n_JdXe5",
@@ -46,7 +69,7 @@
 	"id":"68f86b4d0a0d5655ccc6a570",
 	"lastModifiedBy":1,
 	"lcName":"cacheqa2zaqthuijze",
-	"modifiedTime":1761110941215,
+	"modifiedTime":1761110990806,
 	"name":"cacheQA2zAQThuIjzE",
 	"nodes":[
 		{
@@ -103,7 +126,7 @@
 				"type":"APPLICATION"
 			},
 			"debug":false,
-			"dirty":true,
+			"dirty":false,
 			"fallbackMode":"MANUAL",
 			"groupId":"_G3dvq-1",
 			"id":"n_hJtA9",
@@ -207,8 +230,8 @@
 				"type":"APPLICATION"
 			},
 			"debug":false,
-			"dirty":false,
-			"fallbackMode":"STOP",
+			"dirty":true,
+			"fallbackMode":"MANUAL",
 			"groupId":"n_hJtA9@_G3dvq-1@success",
 			"id":"n_4OljF",
 			"index":3,
@@ -244,9 +267,163 @@
 					"b":"{{ n_YKuOo.outputs.b }}"
 				}
 			},
+			"options":{
+				"bulkheadConfig":{
+					"enabled":false,
+					"maxLeaseTimeUnit":"SECONDS",
+					"maxWaitDurationUnit":"SECONDS"
+				},
+				"businessHoursConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"cacheConfig":{
+					"enabled":false,
+					"usagePolicy":"ALWAYS"
+				},
+				"circuitBreakerConfig":{
+					"enabled":false
+				},
+				"disableLogging":false,
+				"enabledForReExecution":false,
+				"hookConfig":{
+					"enabled":false,
+					"postHooks":[
+						
+					],
+					"preHooks":[
+						
+					]
+				},
+				"logConfig":{
+					"enabled":false,
+					"logPolicies":[
+						
+					]
+				},
+				"rateLimitConfig":{
+					"enabled":false,
+					"waitForNextWindow":false
+				},
+				"retryConfig":{
+					"backOffFactor":null,
+					"captureRetries":false,
+					"enabled":false
+				},
+				"stepError":"MANUAL",
+				"telemetryConfig":{
+					"enableTelemetry":false,
+					"metricConfigs":[
+						
+					]
+				},
+				"timeoutConfig":{
+					"enabled":false
+				}
+			},
 			"skip":false,
 			"subTitle":"Code by UnifyApps",
 			"title":"Execute Javascript",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":2809,
+				"resourceName":"code_by_unifyapps_java",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"n_4OljF@n_hJtA9@_G3dvq-1@success@success",
+			"id":"n_sgSc0",
+			"index":4,
+			"inputs":{
+				"output":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"d":{
+							"type":"integer",
+							"title":"d"
+						}
+					}
+				},
+				"input":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"a":{
+							"type":"integer",
+							"title":"a"
+						},
+						"b":{
+							"type":"integer",
+							"title":"b"
+						}
+					}
+				},
+				"code":"d=a*a;",
+				"captureStdOutput":false,
+				"parameters":{
+					"a":"{{ n_YKuOo.outputs.a }}",
+					"b":"{{ n_YKuOo.outputs.b }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Java code",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"code_by_unifyapps",
+				"resourceVersion":2809,
+				"resourceName":"code_by_unifyapps_java",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"n_4OljF@n_hJtA9@_G3dvq-1@success@error",
+			"id":"n_t2Ya1",
+			"index":5,
+			"inputs":{
+				"output":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"e":{
+							"type":"integer",
+							"title":"e"
+						}
+					}
+				},
+				"input":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"a":{
+							"type":"integer",
+							"title":"a"
+						},
+						"b":{
+							"type":"integer",
+							"title":"b"
+						}
+					}
+				},
+				"code":"e=b*b;",
+				"captureStdOutput":false,
+				"parameters":{
+					"a":"{{ n_YKuOo.outputs.a }}",
+					"b":"{{ n_YKuOo.outputs.b }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Code by UnifyApps",
+			"title":"Execute Java code",
 			"type":"ACTION"
 		},
 		{
@@ -261,7 +438,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"n_hJtA9@_G3dvq-1@error",
 			"id":"n_YAP0R",
-			"index":4,
+			"index":6,
 			"inputs":{
 				"output":{
 					"type":"object",
@@ -311,7 +488,7 @@
 			"fallbackMode":"STOP",
 			"groupId":"_G3dvq-1",
 			"id":"n_JdXe5",
-			"index":5,
+			"index":7,
 			"inputs":{
 				"result":{
 					"c":"{{ n_YAP0R.outputs.result }}"
@@ -340,5 +517,5 @@
 	"tags":[
 		
 	],
-	"version":2
+	"version":3
 }
