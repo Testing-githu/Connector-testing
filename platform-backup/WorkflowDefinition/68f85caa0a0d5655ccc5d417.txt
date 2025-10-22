@@ -6,46 +6,126 @@
 	"deleted":false,
 	"edges":[
 		{
-			"fromNodeId":"_7afAX",
+			"fromNodeId":"n_DvgS2",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_VFB15",
+			"toNodeId":"n_x3qlR",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_x3qlR",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_NkZsT",
 			"type":"next"
 		}
 	],
 	"id":"68f85caa0a0d5655ccc5d417",
 	"lastModifiedBy":1,
 	"lcName":"tmqa2rvcwlqfkkd",
-	"modifiedTime":1761107114536,
+	"modifiedTime":1761107147703,
 	"name":"tmQA2rvcwLQFKkD",
 	"nodes":[
 		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":3007,
+				"resourceName":"callables_from_automation"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_7afAX-1",
-			"id":"_7afAX",
-			"index":0,
+			"id":"n_DvgS2",
+			"index":1,
+			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"c":{
+							"type":"string",
+							"title":"c"
+						}
+					}
+				},
+				"setup":{
+					"type":"object",
+					"additionalProperties":false,
+					"properties":{
+						"name":{
+							"type":"string",
+							"title":"name"
+						},
+						"age":{
+							"type":"integer",
+							"title":"age"
+						}
+					}
+				}
+			},
 			"skip":false,
-			"title":"Select a trigger event",
+			"subTitle":"Callable",
+			"title":"Trigger via automation",
 			"trigger":{
-				"type":"EVENT"
+				"type":"CALLABLE"
 			},
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"template_by_unifyapps",
+				"resourceVersion":2559,
+				"resourceName":"template_by_unifyapps_compile_template",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_7afAX-1",
-			"id":"_VFB15",
-			"index":0,
+			"id":"n_x3qlR",
+			"index":2,
+			"inputs":{
+				"input_schema":{
+					"name":"{{ n_DvgS2.outputs.name }}",
+					"age":"{{ n_DvgS2.outputs.age }}"
+				},
+				"template_content":"Hi xyz, your request has been successfully received and is currently being processed — we will notify you as soon as it's complete or if any further action is needed.",
+				"template_id":"e_68f85ca07714cd6e0d4c7c2b"
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Template by UnifyApps",
+			"title":"Compile template",
 			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":3010,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_7afAX-1",
+			"id":"n_NkZsT",
+			"index":3,
+			"inputs":{
+				"result":{
+					"c":"{{ n_x3qlR.outputs.output }}"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
+	"schemaReferences":[
+		
+	],
 	"settings":{
 		"enableNodeLevelLogging":true,
 		"enableRunLogging":true,
@@ -59,5 +139,5 @@
 	"tags":[
 		
 	],
-	"version":0
+	"version":1
 }
