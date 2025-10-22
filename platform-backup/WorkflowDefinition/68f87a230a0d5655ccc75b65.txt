@@ -9,14 +9,67 @@
 			"fromNodeId":"n_5rQG9",
 			"priority":0,
 			"skip":false,
-			"toNodeId":"_kw0IY",
+			"toNodeId":"n_cTVgt",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_cTVgt",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_frwG8",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_frwG8",
+			"name":"yes",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_KC9v6",
+			"type":"if"
+		},
+		{
+			"fromNodeId":"n_frwG8",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_pCqdM",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_cTVgt",
+			"name":"no",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_S61C7",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_KC9v6",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_wxRJ7",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_pCqdM",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_wxRJ7",
+			"type":"next"
+		},
+		{
+			"fromNodeId":"n_S61C7",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_wxRJ7",
 			"type":"next"
 		}
 	],
 	"id":"68f87a230a0d5655ccc75b65",
 	"lastModifiedBy":1,
 	"lcName":"dnt-delete-calendar-events",
-	"modifiedTime":1761114944001,
+	"modifiedTime":1761115167837,
 	"name":"dnt-delete-calendar-events",
 	"nodes":[
 		{
@@ -32,6 +85,17 @@
 			"id":"n_5rQG9",
 			"index":1,
 			"inputs":{
+				"result":{
+					"type":"object",
+					"additionalProperties":false,
+					"required":[],
+					"properties":{
+						"result":{
+							"type":"string",
+							"title":"Result"
+						}
+					}
+				},
 				"setup":{
 					"type":"object",
 					"additionalProperties":false,
@@ -124,15 +188,165 @@
 			"type":"START"
 		},
 		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":148,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
 			"debug":false,
-			"dirty":false,
+			"dirty":true,
 			"fallbackMode":"STOP",
 			"groupId":"_jXbCj-1",
-			"id":"_kw0IY",
+			"id":"n_cTVgt",
 			"index":2,
+			"inputs":{
+				"filters":[
+					{
+						"property":"{{ n_5rQG9.outputs.updateType }}",
+						"filter":{
+							"operator":"EQUAL",
+							"value":"following"
+						}
+					},
+					{
+						"property":"{{ n_5rQG9.outputs.updateType }}",
+						"filter":{
+							"operator":"EQUAL",
+							"value":"following"
+						}
+					}
+				],
+				"operator":"OR"
+			},
 			"skip":false,
-			"title":"Select an app and action",
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"if_else",
+				"resourceVersion":148,
+				"resourceName":"if_else_condition",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"n_cTVgt@_jXbCj-1@y",
+			"id":"n_frwG8",
+			"index":3,
+			"inputs":{
+				"filters":[
+					{
+						"property":"{{ n_5rQG9.outputs.updateType }}",
+						"filter":{
+							"operator":"EQUAL",
+							"value":"current"
+						}
+					}
+				],
+				"operator":"AND"
+			},
+			"skip":false,
+			"subTitle":"Condition",
+			"title":"Condition",
+			"type":"IF_ELSE"
+		},
+		{
+			"context":{
+				"appName":"calendar_by_unifyapps",
+				"resourceVersion":2654,
+				"resourceName":"calendar_by_unifyapps_delete_event",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"n_frwG8@n_cTVgt@_jXbCj-1@y@y",
+			"id":"n_KC9v6",
+			"index":4,
+			"inputs":{
+				"deleteType":"current",
+				"id":"{{ n_5rQG9.outputs.properties.eventId }}",
+				"parentEventId":"{{ n_5rQG9.outputs.properties.parentEventId }}",
+				"eventStarTime":"{{ n_5rQG9.outputs.properties.originalStartTime }}"
+			},
+			"skip":false,
+			"subTitle":"Calendar by UnifyApps",
+			"title":"Delete event",
 			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"calendar_by_unifyapps",
+				"resourceVersion":2654,
+				"resourceName":"calendar_by_unifyapps_delete_event",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"n_frwG8@n_cTVgt@_jXbCj-1@y@n",
+			"id":"n_pCqdM",
+			"index":5,
+			"inputs":{
+				"deleteType":"following",
+				"id":"{{ n_5rQG9.outputs.properties.eventId }}",
+				"parentEventId":"{{ n_5rQG9.outputs.properties.parentEventId }}",
+				"eventStarTime":"{{ n_5rQG9.outputs.properties.originalStartTime }}"
+			},
+			"skip":false,
+			"subTitle":"Calendar by UnifyApps",
+			"title":"Delete event",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"calendar_by_unifyapps",
+				"resourceVersion":2654,
+				"resourceName":"calendar_by_unifyapps_delete_event",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"n_cTVgt@_jXbCj-1@n",
+			"id":"n_S61C7",
+			"index":6,
+			"inputs":{
+				"deleteType":"{{ n_5rQG9.outputs.updateType }}",
+				"id":"{{ n_5rQG9.outputs.properties.eventId }}",
+				"parentEventId":"{{ n_5rQG9.outputs.properties.parentEventId }}"
+			},
+			"skip":false,
+			"subTitle":"Calendar by UnifyApps",
+			"title":"Delete event",
+			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":3010,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_jXbCj-1",
+			"id":"n_wxRJ7",
+			"index":7,
+			"inputs":{
+				"result":{
+					"result":"success"
+				}
+			},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
@@ -152,5 +366,5 @@
 	"tags":[
 		
 	],
-	"version":1
+	"version":2
 }
