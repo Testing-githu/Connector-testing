@@ -11,12 +11,19 @@
 			"skip":false,
 			"toNodeId":"n_aCCQ4",
 			"type":"next"
+		},
+		{
+			"fromNodeId":"n_aCCQ4",
+			"priority":0,
+			"skip":false,
+			"toNodeId":"n_MDRqy",
+			"type":"next"
 		}
 	],
 	"id":"68f86c590a0d5655ccc6b371",
 	"lastModifiedBy":1,
 	"lcName":"fetch_calendar_events",
-	"modifiedTime":1761111809617,
+	"modifiedTime":1761111832228,
 	"name":"fetch_calendar_events",
 	"nodes":[
 		{
@@ -190,11 +197,35 @@
 			"groupId":"_LyHJX-1",
 			"id":"n_aCCQ4",
 			"index":2,
-			"inputs":{},
+			"inputs":{
+				"timeFilter":{
+					"since":"{{ n_M9fzg.outputs.dayStart }}",
+					"until":"{{ n_M9fzg.outputs.dayEnd }}"
+				}
+			},
 			"skip":false,
 			"subTitle":"Calendar by UnifyApps",
 			"title":"Fetch event",
 			"type":"ACTION"
+		},
+		{
+			"context":{
+				"appName":"callables",
+				"resourceVersion":3010,
+				"resourceName":"callables_return_to_automation",
+				"type":"APPLICATION"
+			},
+			"debug":false,
+			"dirty":true,
+			"fallbackMode":"STOP",
+			"groupId":"_LyHJX-1",
+			"id":"n_MDRqy",
+			"index":3,
+			"inputs":{},
+			"skip":false,
+			"subTitle":"Callable",
+			"title":"Respond to automation",
+			"type":"STOP"
 		}
 	],
 	"ownerUserId":1,
@@ -214,5 +245,5 @@
 	"tags":[
 		
 	],
-	"version":1
+	"version":2
 }
