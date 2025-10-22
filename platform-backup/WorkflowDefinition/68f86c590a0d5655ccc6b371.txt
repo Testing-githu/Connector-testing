@@ -23,7 +23,7 @@
 	"id":"68f86c590a0d5655ccc6b371",
 	"lastModifiedBy":1,
 	"lcName":"fetch_calendar_events",
-	"modifiedTime":1761111832228,
+	"modifiedTime":1761112103816,
 	"name":"fetch_calendar_events",
 	"nodes":[
 		{
@@ -198,6 +198,9 @@
 			"id":"n_aCCQ4",
 			"index":2,
 			"inputs":{
+				"page":{
+					"limit":20000
+				},
 				"timeFilter":{
 					"since":"{{ n_M9fzg.outputs.dayStart }}",
 					"until":"{{ n_M9fzg.outputs.dayEnd }}"
@@ -221,7 +224,40 @@
 			"groupId":"_LyHJX-1",
 			"id":"n_MDRqy",
 			"index":3,
-			"inputs":{},
+			"inputs":{
+				"result":{
+					"hasMore":"{{ n_aCCQ4.outputs.hasMore }}",
+					"events":{
+						"source":"{{ n_aCCQ4.outputs.events }}",
+						"ua:type":"mappedArray",
+						"items":{
+							"id":"{{ n_aCCQ4.outputs.events[0].id }}",
+							"properties":{
+								"allDay":"{{ n_aCCQ4.outputs.events[0].properties.allDay }}",
+								"end":{
+									"date":"{{ n_aCCQ4.outputs.events[0].properties.end.date }}",
+									"dateTime":"{{ n_aCCQ4.outputs.events[0].properties.end.dateTime }}"
+								},
+								"start":{
+									"date":"{{ n_aCCQ4.outputs.events[0].properties.start.date }}",
+									"dateTime":"{{ n_aCCQ4.outputs.events[0].properties.start.dateTime }}"
+								},
+								"summary":"{{ n_aCCQ4.outputs.events[0].properties.summary }}",
+								"userIDs":{
+									"source":"{{ n_aCCQ4.outputs.events[0].properties.userIds }}",
+									"ua:type":"mappedArray"
+								},
+								"description":"{{ n_aCCQ4.outputs.events[0].properties.description }}",
+								"location":"{{ n_aCCQ4.outputs.events[0].properties.location }}",
+								"parentEventId":"{{ n_aCCQ4.outputs.events[0].properties.parentEventId }}",
+								"recurringConfig":{
+									"recurrence":"{{ n_aCCQ4.outputs.events[0].properties.recurringConfig.recurrence }}"
+								}
+							}
+						}
+					}
+				}
+			},
 			"skip":false,
 			"subTitle":"Callable",
 			"title":"Respond to automation",
@@ -245,5 +281,5 @@
 	"tags":[
 		
 	],
-	"version":2
+	"version":3
 }
